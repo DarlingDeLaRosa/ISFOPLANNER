@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.routerComponent {
+    display: grid;
+    grid-template-rows: 8vh auto;
+    padding: 16px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    height: 6vh;
+    background-color: #004b8d1a;
+    border-left: #004b8d 4px solid;
+    padding-left: 16px;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 17px;
+    color: #004b8d;
+}
+
+.fuctionContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fuctionContent h3{
+    margin: 0;
+}
+
+.orangeButton{
+    color: white;
+    background-color: #EC801E;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    padding: 1px 12px;
+}

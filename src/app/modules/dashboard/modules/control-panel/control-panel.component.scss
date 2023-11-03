@@ -1,0 +1,63 @@
+
+
+.mandoIntegral {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    margin-top: 10px;
+    min-height: 600px;
+    box-sizing: border-box;
+}
+
+.detailsMandoIntegral {
+    border-left: none;
+    box-sizing: border-box;
+}
+
+.optionsMandoIntegral {
+    display: grid;
+    grid-template-rows: 40px 120px 120px 120px 120px 1fr;
+    border-left: none;
+    box-sizing: border-box;
+}
+
+
+.btnOptionMandoIntegral {
+    width: 100%;
+    border: none;
+    height: 118px;
+    background-color: none;
+}
+
+.optionsMandoIntegral :nth-child(2) {
+    border: rgba(255, 0, 0, 0.103) 2px solid ;
+    border-right: none;
+}
+
+.optionsMandoIntegral :nth-child(3) {
+    border: rgba(0, 0, 255, 0.301) 2px solid ;
+    border-right: none;
+}
+
+.optionsMandoIntegral :nth-child(4) {
+    border: rgba(128, 0, 128, 0.411) 2px solid;
+    border-right: none;
+}
+
+.optionsMandoIntegral :nth-child(5) {
+    border: rgba(255, 166, 0, 0.336) 2px solid ;
+    border-right: none;
+}
+
+.firstSon {
+    height: 40px;
+    width: 100%;
+    // border-right: solid 2px #49aa12;
+    box-sizing: border-box;
+}
+
+.lastSon {
+    width: 100%;
+    height: 100%;
+    // border-right: solid 2px #49aa12;
+    box-sizing: border-box;
+}

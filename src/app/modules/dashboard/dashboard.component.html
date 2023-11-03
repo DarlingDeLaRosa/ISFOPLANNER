@@ -1,0 +1,84 @@
+<div class="appWrapper">
+
+  <mat-sidenav-container>
+    <mat-sidenav mode="side" [(opened)]="sidenavOpened">
+      <div class="logoPlannerContainer">
+        <img routerLink="/almacen/inicio" class="logoPlanner" src="../../../assets/Logo-isfo-planner-1-blanco.png"
+          alt="Planificación Institucional">
+      </div>
+
+      <div class="plannerOptions">
+
+        <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active">
+          <mat-icon>dashboard</mat-icon>
+          Panel de Control
+        </a>
+        <a class="item-menu" [routerLink]="['formulacion']" routerLinkActive="active">
+          <mat-icon>calendar_month</mat-icon>Formulación POA
+        </a>
+        <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active">
+          <mat-icon>traffic</mat-icon>Monitoreo y Evaluación
+        </a>
+        <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active">
+          <mat-icon>chat</mat-icon>Planes Transversales
+        </a>
+        <a class="item-menu" [routerLink]="['rendicionDeCuentas']" routerLinkActive="active">
+          <mat-icon>account_balance</mat-icon>Rendicion de Cuentas
+        </a>
+        <a class="item-menu" [routerLink]="['materialDeApoyo']" routerLinkActive="active">
+          <mat-icon>library_books</mat-icon>Material de Apoyo
+        </a>
+        <a class="item-menu" [routerLink]="['ayuda']" routerLinkActive="active">
+          <mat-icon>question_mark</mat-icon>Ayuda
+        </a>
+        <a class="item-menu" [routerLink]="['mantenimiento']" routerLinkActive="active">
+          <mat-icon>settings</mat-icon>Mantenimiento
+        </a>
+
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="componentsContent">
+        <mat-toolbar class="navbar">
+
+          <div class="btnMenuContainer">
+            <button class="btnMenu" (click)="sidenavOpened = !sidenavOpened"><mat-icon>menu</mat-icon></button>&nbsp;
+            <h2 class="departamento">Departamento de Planes, Programas y proyectos</h2>
+          </div>
+
+          <div class="logout">
+            <span class="userName">
+              <h3 class="nombre">Darling De la Rosa</h3> 
+              <h3 class="cargo">Admin. Base de datos</h3>
+            </span>
+            <button class="closeAccount" [matMenuTriggerFor]="menu">
+              <mat-icon>person</mat-icon>
+            </button>
+            <mat-menu class="menuPanel" #menu="matMenu"> <!---->
+              <!-- <div mat-menu-item class="profile">
+                  <mat-icon>person</mat-icon>
+                  <span>asd</span>
+                  <br>
+                  <span class="email">das</span>
+                </div> -->
+
+              <!--(click)="changePassword()"-->
+              <!-- <button mat-menu-item >
+                <mat-icon>lock</mat-icon>
+                <span>Cambiar contraseña</span>
+              </button> -->
+
+              <button mat-menu-item> <!--(click)="logOut()"-->
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Cerrar sesion</span>
+              </button>
+            </mat-menu>
+          </div>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
