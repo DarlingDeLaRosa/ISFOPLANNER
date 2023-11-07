@@ -6,29 +6,43 @@
 
     <div class="fuctionContent">
         <h3>Mi organización</h3>
-        <button class="orangeButton" >Mi área de trabajo</button>
+        <button class="orangeButton">Mi área de trabajo</button>
     </div>
 
     <div class="mandoIntegral">
         <div class="optionsMandoIntegral">
             <div class="firstSon"></div>
             <button class="btnOptionMandoIntegral" (click)="changeColor('rgba(255, 0, 0, 0.103)')">
-                rojo
+       
             </button>
             <button class="btnOptionMandoIntegral" (click)="changeColor('rgba(0, 0, 255, 0.301)')">
-                verde
+                
             </button>
             <button class="btnOptionMandoIntegral" (click)="changeColor('rgba(128, 0, 128, 0.411)')">
-                Gris
+                
             </button>
             <button class="btnOptionMandoIntegral" (click)="changeColor('rgba(255, 166, 0, 0.336)')">
-                amarillo
+                
             </button>
 
             <div class="lastSon"></div>
 
         </div>
         <div [style.background-color]="color" [style.border]="'2px solid ' + color" class="detailsMandoIntegral">
+            <h3>Plan Estrategico Institucional (PEI)</h3>
+            <h5>Indicadores Estrategicos</h5>
+            <div class="indicadoresContainer">
+
+                <div class="indicadoresCard">
+                    <p class="indicadorDescription"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas imperdiet cursus lectus. Maecenas consequat risus sed volutpat finibus.</p>
+                    <span>
+                        <h5>Meta:</h5>
+                        <h5>Logro:</h5>
+                    </span>
+
+                    <div class="indicadorEstado"></div>
+                </div>
+            </div>
 
         </div>
     </div>

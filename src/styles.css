@@ -49,3 +49,41 @@ body {
     height: 40px;
     padding: 1px 12px;
 }
+
+.downLoadButton{
+    color: #004b8d !important;
+    border: #004b8d 1px solid !important;
+}
+
+.EjeFiltrosProductoContainer{
+    display: grid;
+    margin-top: 10px;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 1fr;
+    height: 70vh;
+}
+
+.ejeProductoContainer{
+    padding-left: 15px;
+    display: grid;
+    grid-template-rows: 170px 1fr;
+}
+
+.filtrosContainer{
+    background-color: #004b8d;
+    max-height: 75vh;
+}
+
+.EjeContainer{
+    background-color: #c7d1ea;
+}
+
+.ProductoContainer{
+    margin-top: 15px;
+}
+
+.producto{
+    height: 250px;
+    background-color: #97aad7;
+    margin-bottom: 15px;
+}

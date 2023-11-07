@@ -20,8 +20,7 @@ import { MaterialModule } from './material/material.module';
     ReactiveFormsModule,
     FormsModule,
     DashboardModule,
-    MaterialModule
-
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

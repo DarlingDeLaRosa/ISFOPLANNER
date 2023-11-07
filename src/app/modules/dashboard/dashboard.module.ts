@@ -4,17 +4,20 @@ import { dashboardComponent } from './dashboard.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
+import { FormulacionModule } from './modules/formulacion/formulacion.module';
 
 @NgModule({
   declarations: [
-    dashboardComponent
+    dashboardComponent,
+    
   ],
   imports: [
+    FormulacionModule,
     RouterModule,
     FormsModule,
     CommonModule,
     MaterialModule,
-    CommonModule, 
+    CommonModule,
   ]
 })
 export class DashboardModule { }
