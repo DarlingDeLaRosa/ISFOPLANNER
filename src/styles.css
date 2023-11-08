@@ -13,7 +13,7 @@ body {
 .routerComponent {
     display: grid;
     grid-template-rows: 8vh auto;
-    padding: 16px;
+    padding: 15px;
 }
 
 .title {
@@ -22,7 +22,7 @@ body {
     height: 6vh;
     background-color: #004b8d1a;
     border-left: #004b8d 4px solid;
-    padding-left: 16px;
+    padding-left: 15px;
 }
 
 .title h1 {
@@ -37,11 +37,11 @@ body {
     align-items: center;
 }
 
-.fuctionContent h3{
+.fuctionContent h3 {
     margin: 0;
 }
 
-.orangeButton{
+.orangeButton {
     color: white;
     background-color: #EC801E;
     border: none;
@@ -50,12 +50,12 @@ body {
     padding: 1px 12px;
 }
 
-.downLoadButton{
+.downLoadButton {
     color: #004b8d !important;
     border: #004b8d 1px solid !important;
 }
 
-.EjeFiltrosProductoContainer{
+.EjeFiltrosProductoContainer {
     display: grid;
     margin-top: 10px;
     grid-template-columns: 15% 85%;
@@ -63,27 +63,177 @@ body {
     height: 70vh;
 }
 
-.ejeProductoContainer{
+.ejeProductoContainer {
     padding-left: 15px;
     display: grid;
     grid-template-rows: 170px 1fr;
 }
 
-.filtrosContainer{
-    background-color: #004b8d;
+.filtrosContainer {
+    display: grid;
+    border-radius: 5px;
+    grid-template-rows: 5vh auto auto auto;
     max-height: 75vh;
 }
 
-.EjeContainer{
-    background-color: #c7d1ea;
+.filtrosTitleContainer {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    color: #004b8d;
+    background-color: #ddd;
 }
 
-.ProductoContainer{
+.filtrosTitleContainer h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.EjeContainer {
+    display: grid;
+    grid-template-rows: 45% 40% 15%;
+}
+
+.ejeSection {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    border: solid 1px #ccc;
+    background-color: #eee;
+    box-sizing: border-box;
+    border-bottom: none;
+}
+
+.estrategiaResultado {
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+
+.ejeSection div h3 {
+    font-weight: 500;
+    margin: 0;
+}
+
+.ejeSection div {
+    padding: 5px;
+    border: #ccc 1px solid;
+    border-bottom: none;
+}
+
+.ejeSectionTotal {
+    border: solid 1px #ccc;
+    background-color: #C7D1EA;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ejeSectionTotal h4 {
+    margin: 0;
+}
+
+.EjeObjetivoEstrategico {
+    display: grid;
+}
+
+.EjeContainer:last-child {
+    border-bottom: solid 1px #ccc;
+}
+
+.ProductoContainer {
     margin-top: 15px;
 }
 
-.producto{
-    height: 250px;
-    background-color: #97aad7;
+.ProductoContainer h1 {
+    color: #004b8d;
+}
+
+.producto {
+    display: grid;
+    grid-template-rows: 55px auto;
+    border: #ccc 1px solid;
     margin-bottom: 15px;
+}
+
+.titleProducto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ddd;
+    padding-left: 15px;
+}
+
+.titleProducto h3,
+.titleProducto h4 {
+    margin: 0;
+}
+
+.editIcon {
+    font-size: 25px;
+    color: #004b8d;
+    margin: 0px 20px;
+}
+
+.titleProducto h3 {
+    font-weight: 500;
+}
+
+.filtrosSection {
+    padding: 15px 10px 10px 15px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.filtrosSection h4 {
+    margin: 0;
+    font-weight: 500;
+}
+
+.filtrosSection:last-child {
+    border-bottom: 1px solid #ccc;
+}
+
+.headerTable {
+    height: 6vh;
+}
+
+.headerRow {
+    background-color: #eee;
+}
+
+.headerCell {
+    text-align: start;
+    font-weight: 500;
+    padding-left: 15px;
+}
+
+.dataCell {
+    border-top: 1px solid #ccc;
+    padding-left: 15px;
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dataRow {
+    height: 6vh;
+}
+
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+/*////////////////////////////////////////////////////////
+    responsive
+////////////////////////////////////////////////////////*/
+
+@media (max-width: 1800px) {
+    .EjeFiltrosProductoContainer {
+        grid-template-columns: 25% 75%;
+    }
 }

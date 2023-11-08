@@ -6,29 +6,105 @@
     <div class="fuctionContent">
         <span></span>
         <span>
-            <button class="downLoadButton" mat-stroked-button class="downLoadButton"><mat-icon>arrow_downward</mat-icon>Mi área de trabajo</button> &nbsp;
-            <button class="downLoadButton" mat-stroked-button class="downLoadButton"><mat-icon>arrow_downward</mat-icon>Mi área de trabajo</button> &nbsp;
-            <button class="downLoadButton" mat-stroked-button class="downLoadButton"><mat-icon>arrow_downward</mat-icon>Mi área de trabajo</button>
+            <button class="downLoadButton" mat-stroked-button
+                class="downLoadButton"><mat-icon>arrow_downward</mat-icon>Planificación POA</button> &nbsp;
+            <button class="downLoadButton" mat-stroked-button
+                class="downLoadButton"><mat-icon>arrow_downward</mat-icon>Compras PACC</button> &nbsp;
+            <button class="downLoadButton" mat-stroked-button
+                class="downLoadButton"><mat-icon>arrow_downward</mat-icon>Prosupuesto</button>
         </span>
     </div>
 
     <div class="EjeFiltrosProductoContainer">
         <div class="filtrosContainer">
-
+            <div class="filtrosTitleContainer">
+                <h3>Filtros</h3>
+            </div>
+            <div class="filtrosSection">
+                <h4>Ejes estratégico</h4>
+                <mat-radio-group> <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
+                    <mat-radio-button color="primary">Calidad académica.</mat-radio-button><br>
+                    <mat-radio-button color="primary">Impacto sectorial de programas y proyectos
+                        educativos.</mat-radio-button><br>
+                    <mat-radio-button color="primary">Fortalecimiento institucional</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="filtrosSection">
+                <h4>Estrategias</h4>
+                <mat-radio-group> <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
+                    <mat-checkbox>Investigación, Trasferencia e Innovación.</mat-checkbox><br>
+                    <mat-checkbox>Egresados como compromiso institucional.</mat-checkbox><br>
+                    <mat-checkbox>Planes de proyectos institucionales</mat-checkbox>
+                </mat-radio-group>
+            </div>
+            <div class="filtrosSection">
+                <h4>Resultado efecto</h4>
+                <section>
+                    <mat-checkbox>Mal drenado</mat-checkbox>
+                    <mat-checkbox>Exposición a la luz</mat-checkbox>
+                </section>
+            </div>
         </div>
         <div class="ejeProductoContainer">
             <div class="EjeContainer">
-                
+                <div class="ejeSection">
+                    <div>
+                        <h3>Eje:</h3>
+                        <p>Impacto sectorial de programas y proyectos educativos</p>
+                    </div>
+                    <div>
+                        <h3>Objetivo Estratégico:</h3>
+                        <p>Impacto sectorial de programas y proyectos educativos</p>
+                    </div>
+
+                </div>
+                <div class="ejeSection estrategiaResultado">
+                    <div>
+                        <h3>Estrategia:</h3>
+                        <p>Impacto sectorial de programas y proyectos educativos</p>
+                    </div>
+                    <div>
+                        <h3>Resultado efecto:</h3>
+                        <p>Impacto sectorial de programas y proyectos educativos</p>
+                    </div>
+                </div>
+                <div class="ejeSectionTotal">
+                    <span></span>
+                    <h4><b>Presupuesto total estimado:</b> RD$150,000.00</h4>
+                </div>
             </div>
             <div class="ProductoContainer">
                 <h1>Productos</h1>
-
                 <div class="producto">
+                    <div class="titleProducto">
+                        <span>
+                            <h3>Producto</h3>
+                            <h4>Implementar modelo pedagógico para la formación de docentes</h4>
+                        </span>
+                        <span style="display: flex;">
+                            <h4><b>Presupuesto total estimado:</b> RD$150,000.00</h4>
+                            <mat-icon class="editIcon">edit</mat-icon>
+                        </span>
+                    </div>
+                    <div>
+                        <table>
+                            <thead class="headerTable">
+                                <tr class="headerRow">
+                                    <th class="headerCell">Indicador</th>
+                                    <th class="headerCell">Línea Base</th>
+                                    <th class="headerCell">Meta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="dataRow">
+                                    <td class="dataCell">Muchas cosas</td>
+                                    <td class="dataCell">12%</td>
+                                    <td class="dataCell">14%</td>
+                                </tr>
+                            </tbody>
 
-                </div>
-                
-                <div class="producto">
-                    
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -8,9 +8,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatCardModule} from '@angular/material/card';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const materialComponents: any = [
   MatButtonModule,
@@ -24,7 +26,9 @@ const materialComponents: any = [
   MatDialogModule,
   MatDatepickerModule,
   MatCardModule,
-  MatMenuModule
+  MatMenuModule,
+  MatRadioModule,
+  MatCheckboxModule
 ]
 
 @NgModule({
