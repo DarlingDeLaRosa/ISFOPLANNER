@@ -28,7 +28,7 @@ const materialComponents: any = [
   MatCardModule,
   MatMenuModule,
   MatRadioModule,
-  MatCheckboxModule
+  MatCheckboxModule,
 ]
 
 @NgModule({

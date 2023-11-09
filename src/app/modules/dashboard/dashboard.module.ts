@@ -9,7 +9,6 @@ import { FormulacionModule } from './modules/formulacion/formulacion.module';
 @NgModule({
   declarations: [
     dashboardComponent,
-    
   ],
   imports: [
     FormulacionModule,

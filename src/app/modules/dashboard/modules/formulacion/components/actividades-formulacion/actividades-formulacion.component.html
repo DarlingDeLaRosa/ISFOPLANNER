@@ -1,0 +1,75 @@
+<div class="routerComponent">
+
+    <div class="title">
+        <h1>Formulación POA</h1>
+    </div>
+
+    <div style="margin-bottom: 5px;">
+        <button class="backButton" mat-stroked-button
+            [routerLink]="['../producto']"><mat-icon>arrow_back</mat-icon>Producto</button>
+    </div>
+
+    <div class="actividadContainer">
+        <span class="titleActividad">
+            <h1>Actividades</h1>
+        </span>
+
+        <div class="formularioActividades">
+            <h2>Nueva Actividad</h2>
+
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 45%;">
+                <mat-label>Codigo de producto</mat-label>
+                <input matInput required>
+            </mat-form-field>&nbsp;
+
+            <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-label>Codigo de producto</mat-label>
+                <input matInput required>
+            </mat-form-field>&nbsp;
+
+            <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-label>Codigo de producto</mat-label>
+                <input matInput required>
+            </mat-form-field>&nbsp;
+
+            <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-label>Codigo de producto</mat-label>
+                <input matInput required>
+            </mat-form-field>&nbsp;
+
+            
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <table style="border: 1px solid #ccc;">
+                <thead class="headerTable">
+                    <tr class="headerRow" style="background-color: #95ade93f;">
+                        <th class="headerCell">No.</th>
+                        <th class="headerCell">Actividad</th>
+                        <th class="headerCell">Responsable</th>
+                        <th class="headerCell">Estructura Programática</th>
+                        <th class="headerCell">Prosupuesto Estimado</th>
+                        <th class="headerCell"></th>
+                        <th class="headerCell"></th>
+                        <th class="headerCell"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow">
+                        <td class="dataCell" style="width: 4%;">1</td>
+                        <td class="dataCell">Implementar modelo pedagógico para la formación de docentes</td>
+                        <td class="dataCell">Vicerrectoría Académica</td>
+                        <td class="dataCell">18.03.0003 Servicios de Formación de Docentes de excelencia</td>
+                        <td class="dataCell">RD$20,000.00</td>
+                        <td class="dataCell" style="width: 4%;"><button class="statusButton"></button></td>
+                        <td class="dataCell" style="width: 4%;"><mat-icon class="editIcon">edit</mat-icon></td>
+                        <td class="dataCell" style="width: 4%;"><mat-icon class="removeIcon">delete</mat-icon></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button class="greenButton">Crear actividad</button>
+    </div>
+
+</div>
