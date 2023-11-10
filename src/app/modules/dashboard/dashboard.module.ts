@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
 import { FormulacionModule } from './modules/formulacion/formulacion.module';
+import { MonitoreoModule } from './modules/monitoreo/monitoreo.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { FormulacionModule } from './modules/formulacion/formulacion.module';
   ],
   imports: [
     FormulacionModule,
+    MonitoreoModule,
     RouterModule,
     FormsModule,
     CommonModule,

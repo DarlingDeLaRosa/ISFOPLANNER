@@ -7,20 +7,21 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { IndicadorEditarComponent } from './modals/indicador-editar/indicador-editar.component';
 import { ActividadesFormulacionComponent } from './components/actividades-formulacion/actividades-formulacion.component';
+import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.component';
 
 @NgModule({
   declarations: [
     FormulacionComponent,
     ProductoFormulacionComponent,
     IndicadorEditarComponent,
-    ActividadesFormulacionComponent
+    ActividadesFormulacionComponent,
+    NuevoInsumoComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
     FormsModule,
-
   ]
 })
 export class FormulacionModule { }

@@ -17,28 +17,48 @@
         <div class="formularioActividades">
             <h2>Nueva Actividad</h2>
 
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 45%;">
-                <mat-label>Codigo de producto</mat-label>
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+                <mat-label>Nombre de la actividad</mat-label>
                 <input matInput required>
             </mat-form-field>&nbsp;
 
-            <mat-form-field hideRequiredMarker appearance="fill">
-                <mat-label>Codigo de producto</mat-label>
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 15%;">
+                <mat-label>Región</mat-label>
                 <input matInput required>
             </mat-form-field>&nbsp;
 
-            <mat-form-field hideRequiredMarker appearance="fill">
-                <mat-label>Codigo de producto</mat-label>
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 15%;">
+                <mat-label>Provincia</mat-label>
                 <input matInput required>
             </mat-form-field>&nbsp;
 
-            <mat-form-field hideRequiredMarker appearance="fill">
-                <mat-label>Codigo de producto</mat-label>
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 15%;">
+                <mat-label>Municipio</mat-label>
+                <input matInput required>
+            </mat-form-field>&nbsp;
+
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+                <mat-label>Responsable</mat-label>
+                <input matInput required>
+            </mat-form-field>&nbsp;
+
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 15%;">
+                <mat-label>Frecuencia</mat-label>
+                <input matInput required>
+            </mat-form-field>&nbsp;
+
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 15%;">
+                <mat-label>Estado</mat-label>
                 <input matInput required>
             </mat-form-field>&nbsp;
 
             
         </div>
+
+        <span class="titleInsumos">
+            <h1>Insumos</h1>
+            <button mat-stroked-button class="borderOrangeButton" (click)="openModal()"><mat-icon>add</mat-icon> Añadir insumo</button>
+        </span>
 
         <div style="margin-bottom: 15px;">
             <table style="border: 1px solid #ccc;">

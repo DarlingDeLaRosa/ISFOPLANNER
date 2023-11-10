@@ -31,7 +31,12 @@ body {
     color: #004b8d;
 }
 
-.fuctionContent {
+.fuctionContent,
+.titleActividad,
+.ejeSectionTotal,
+.titleProducto,
+.titleInsumos,
+.titleSeguimiento {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,9 +46,9 @@ body {
     margin: 0;
 }
 
-.backButton{
-    border: none !important; 
-    padding-left: 2px !important;   
+.backButton {
+    border: none !important;
+    padding-left: 2px !important;
 }
 
 .orangeButton {
@@ -64,7 +69,7 @@ body {
     padding: 1px 25px;
 }
 
-.borderOrangeButton{
+.borderOrangeButton {
     color: #EC801E !important;
     border-color: #EC801E !important;
 }
@@ -103,7 +108,7 @@ body {
     background-color: #ddd;
 }
 
-mat-checkbox{
+mat-checkbox {
     margin-top: 10px;
 }
 
@@ -120,7 +125,7 @@ mat-checkbox{
 .ejeSection {
     display: grid;
     grid-template-columns: 45% 55%;
-    border: solid 1px #ccc;
+    border-left: solid 1px #ccc;
     background-color: #eee;
     box-sizing: border-box;
     border-bottom: none;
@@ -139,15 +144,14 @@ mat-checkbox{
 .ejeSection div {
     padding: 5px;
     border: #ccc 1px solid;
+    border-left: none;
     border-bottom: none;
 }
 
 .ejeSectionTotal {
     border: solid 1px #ccc;
-    background-color: #C7D1EA;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: #95ade93f;
+    ;
 }
 
 .ejeSectionTotal h4 {
@@ -172,16 +176,10 @@ mat-checkbox{
     color: #004b8d;
 }
 
-.actividadContainer h1{
+.actividadContainer h1 {
     padding-left: 2px;
     color: #004b8d;
     font-size: 17px;
-}
-
-.titleActividad{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .producto {
@@ -192,9 +190,6 @@ mat-checkbox{
 }
 
 .titleProducto {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: #ddd;
     padding-left: 15px;
 }
@@ -245,13 +240,24 @@ mat-checkbox{
     padding-left: 15px;
 }
 
-.dataCell {
+.dataCell,
+.dataIndiCell {
     border-top: 1px solid #ccc;
     padding-left: 15px;
     max-width: 130px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.footerCell {
+    height: 6vh;
+    font-weight: 500;
+    padding-left: 15px;
+}
+
+.dataIndiCell {
+    border: none;
 }
 
 .dataRow {
@@ -264,7 +270,7 @@ table {
     border-collapse: collapse;
 }
 
-.statusButton{
+.statusButton {
     border: none;
     border-radius: 100px;
     background-color: rgb(0, 192, 0);
@@ -272,18 +278,34 @@ table {
     height: 25px;
 }
 
-.removeIcon{
+.removeIcon {
     color: red;
     font-size: 25px;
     margin: 0px 20px;
 }
 
-.formularioActividades{
+.formularioActividades {
     min-height: 100px;
     padding: 15px;
     border: 1px solid #ccc;
     margin-bottom: 15px;
 }
+
+.seguimientoContainer {
+    display: grid;
+    box-sizing: border-box;
+    padding: 0 5px;
+    min-height: 71vh;
+    grid-template-columns: 1fr 1fr;
+}
+
+.seguimientoSection {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0px 10px;
+}
+
+
 
 /*////////////////////////////////////////////////////////
     responsive
