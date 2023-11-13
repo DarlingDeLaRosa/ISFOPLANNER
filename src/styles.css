@@ -22,7 +22,7 @@ body {
     height: 6vh;
     background-color: #004b8d1a;
     border-left: #004b8d 4px solid;
-    padding-left: 15px;
+    padding: 0 15px;
 }
 
 .title h1 {
@@ -31,6 +31,7 @@ body {
     color: #004b8d;
 }
 
+.title,
 .fuctionContent,
 .titleActividad,
 .ejeSectionTotal,
@@ -52,6 +53,7 @@ body {
 }
 
 .orangeButton {
+    cursor: pointer;
     color: white;
     background-color: #EC801E;
     border: none;
@@ -151,7 +153,7 @@ mat-checkbox {
 .ejeSectionTotal {
     border: solid 1px #ccc;
     background-color: #95ade93f;
-    ;
+    padding: 0 5px ;
 }
 
 .ejeSectionTotal h4 {
@@ -303,9 +305,38 @@ table {
     width: 100%;
     box-sizing: border-box;
     padding: 0px 10px;
+    margin-bottom: 15px;
 }
 
+.help{
+    font-weight: 900;
+    color: green;
+}
 
+.detallePlanTransversal{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    margin-top: 10px;
+}
+
+.detalleActividad{
+    padding: 5px 10px;
+}
+
+.detalleActividadSection{
+    margin-top: 10px;
+    border-bottom: 1px solid #cccccc69;
+}
+
+.detalleActividadSection h3{
+    font-weight: 500;
+    margin: 0;
+}
+
+.formCosteo{
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+}
 
 /*////////////////////////////////////////////////////////
     responsive

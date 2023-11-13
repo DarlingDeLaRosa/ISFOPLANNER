@@ -1,0 +1,99 @@
+<div class="routerComponent">
+
+    <div class="title">
+        <h1>Monitoreo y evaluación</h1>
+        <mat-icon class="help">question_mark</mat-icon>
+    </div>
+
+    <div class="titleSeguimiento">
+        <h2>Matriz de Monitoreo</h2>
+        
+        <mat-form-field appearance="fill" style="margin: 0px 10px;">
+            <mat-label>Trimestre</mat-label>
+            <mat-select disableRipple>
+                <ng-container>
+                    <mat-option></mat-option>
+                </ng-container>
+                <ng-template #noEdificio>
+                    <mat-option>No hay campos disponibles</mat-option>
+                </ng-template>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
+    <div class="producto">
+        <div class="titleProducto">
+            <span style="display: flex; margin: 10px 0;">
+                <h3>Producto:</h3> &nbsp;
+                <h3 style="font-weight: 400;">Formación de estudiantes de grado</h3>
+            </span>
+        </div>
+        <div>
+            <table>
+                <thead class="headerTable">
+                    <tr class="headerRow">
+                        <th class="headerCell">Indicador</th>
+                        <th class="headerCell">Tipo de indicador</th>
+                        <th class="headerCell">Responsable</th>
+                        <th class="headerCell">Meta</th>
+                        <th class="headerCell">Logro</th>
+                        <th class="headerCell"></th>
+                        <th class="headerCell"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow">
+                        <td class="dataCell" style="width: 45%;">Cantidad de trabajos presentados en la Semana de innovación Docente (Antes Buenas Practicas)</td>
+                        <td class="dataCell">Indicador de gestión</td>
+                        <td class="dataCell">Dirección de gestión</td>
+                        <td class="dataCell">12%</td>
+                        <td class="dataCell">14%</td>
+                        <td class="dataCell" style="width: 4%;"><button class="statusButton"></button></td>
+                        <td class="dataCell" style="width: 4%;"><mat-icon class="editIcon">edit</mat-icon></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="actividadContainer">
+        <span class="titleActividad">
+            <h1>Actividades</h1>
+            <button mat-stroked-button class="borderOrangeButton" [routerLink]="['../actividad']"><mat-icon>add</mat-icon> Añadir actividad</button>
+        </span>
+
+        <div style="margin-bottom: 15px;">
+            <table style="border: 1px solid #ccc;">
+                <thead class="headerTable" >
+                    <tr class="headerRow" style="background-color: #95ade93f;">
+                        <th class="headerCell">No.</th>
+                        <th class="headerCell">Actividad</th>
+                        <th class="headerCell">Responsable</th>
+                        <th class="headerCell">Estructura Programática</th>
+                        <th class="headerCell">Prosupuesto Estimado</th>
+                        <th class="headerCell"></th>
+                        <th class="headerCell"></th>
+                        <th class="headerCell"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow">
+                        <td class="dataCell" style="width: 4%;">1</td>
+                        <td class="dataCell">Implementar modelo pedagógico para la formación de docentes</td>
+                        <td class="dataCell">Vicerrectoría Académica</td>
+                        <td class="dataCell">18.03.0003 Servicios de Formación de Docentes de excelencia</td>
+                        <td class="dataCell">RD$20,000.00</td>
+                        <td class="dataCell" style="width: 4%;"><button class="statusButton"></button></td>
+                        <td class="dataCell" style="width: 4%;"><mat-icon class="editIcon">edit</mat-icon></td>
+                        <td class="dataCell" style="width: 4%;"><mat-icon class="removeIcon">delete</mat-icon></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <button class="greenButton">Crear POA</button>
+    </div>
+    
+</div>

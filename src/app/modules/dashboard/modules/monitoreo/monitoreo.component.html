@@ -8,8 +8,13 @@
         <h2>Seguimiento POA Recintos</h2>
         <span>
             <div style="display: flex; align-items: center;">
+
+                <button class="downLoadButton" mat-stroked-button>
+                    <mat-icon>arrow_downward</mat-icon>Exportar Reporte Detallado
+                </button>
+
                 <mat-form-field appearance="fill" style="margin: 0px 10px;">
-                    <mat-label>Seleccione Recinto</mat-label>
+                    <mat-label>Recinto</mat-label>
                     <mat-select disableRipple>
                         <ng-container>
                             <mat-option></mat-option>
@@ -21,7 +26,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" style="margin: 0px 10px;">
-                    <mat-label>Seleccione el año</mat-label>
+                    <mat-label>Año</mat-label>
                     <mat-select disableRipple>
                         <ng-container>
                             <mat-option></mat-option>
@@ -32,8 +37,8 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" style="margin: 0px 10px; width: 240px;">
-                    <mat-label>Seleccione el trimestre</mat-label>
+                <mat-form-field appearance="fill" style="margin: 0px 10px; ">
+                    <mat-label>Trimestre</mat-label>
                     <mat-select disableRipple>
                         <ng-container *ngIf="true ; else noEdificio"> <!--edificioFilteredList.length >  0-->
                             <mat-option></mat-option>
@@ -44,7 +49,7 @@
                     </mat-select>
                 </mat-form-field>
 
-                <button class="orangeButton" style="padding: 1px 25px; margin-left: 20px;">Mi Matriz</button>
+                <button class="orangeButton" style="padding: 1px 25px; margin-left: 20px;" [routerLink]="['miMatriz']" >Mi Matriz</button>
             </div>
         </span>
     </div>
@@ -54,7 +59,7 @@
             <div style="border:1px solid  #ccc">
                 <div class="titleProducto" style="background-color: #95ade93f;;">
                     <span style="display: flex; margin: 5px 0;">
-                        <h3>indicadores:</h3> &nbsp;
+                        <h3>Indicadores</h3> &nbsp;
                     </span>
                 </div>
                 <div>
@@ -64,7 +69,7 @@
                                 <th class="headerCell">Unidad consolidadora</th>
                                 <th class="headerCell">Completado</th>
                                 <th class="headerCell">Total</th>
-                                <th class="headerCell">% Copletado</th>
+                                <th class="headerCell">% Completado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,19 +102,196 @@
                             <td class="footerCell">Total</td>
                             <td class="footerCell">33</td>
                             <td class="footerCell">56</td>
-                            <td class="footerCell">332</td>                  
+                            <td class="footerCell">332</td>
                         </tfoot>
                     </table>
-                </div>
-                <div class="resultadoTable">
-
                 </div>
             </div>
         </div>
 
 
-        <div>
+        <div class="seguimientoSection">
+            <div style="border:1px solid  #ccc">
+                <div class="titleProducto" style="background-color: #95ade93f;;">
+                    <span style="display: flex; margin: 5px 0;">
+                        <h3>Resumen Ejecutivo</h3> &nbsp;
+                    </span>
+                </div>
+                <div>
+                    <table>
+                        <thead class="headerTable">
+                            <tr class="headerRow">
+                                <th class="headerCell">Unidad consolidadora</th>
+                                <th class="headerCell" style="width: 25%;">Completado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Emilio Prud Home</td>
+                                <td class="dataIndiCell">14</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Juan Vicente Moscoso</td>
+                                <td class="dataIndiCell">8</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Eugenio María de Hostos</td>
+                                <td class="dataIndiCell">3</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Felix Evaristo Mejía</td>
+                                <td class="dataIndiCell">8</td>
+                            </tr>
+                        </tbody>
 
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="seguimientoSection">
+            <div style="border:1px solid  #ccc">
+                <div class="titleProducto" style="background-color: #95ade93f;;">
+                    <span style="display: flex; margin: 5px 0;">
+                        <h3>Actividades previstas</h3> &nbsp;
+                    </span>
+                </div>
+                <div>
+                    <table>
+                        <thead class="headerTable">
+                            <tr class="headerRow">
+                                <th class="headerCell">Unidad consolidadora</th>
+                                <th class="headerCell">Completado</th>
+                                <th class="headerCell">Total</th>
+                                <th class="headerCell">% Completado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Emilio Prud Home</td>
+                                <td class="dataIndiCell">10</td>
+                                <td class="dataIndiCell">11</td>
+                                <td class="dataIndiCell">Barra%</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Juan Vicente Moscoso</td>
+                                <td class="dataIndiCell">5</td>
+                                <td class="dataIndiCell">13</td>
+                                <td class="dataIndiCell">Barra%</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Eugenio María de Hostos</td>
+                                <td class="dataIndiCell">8</td>
+                                <td class="dataIndiCell">31</td>
+                                <td class="dataIndiCell">Barra%</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Felix Evaristo Mejía</td>
+                                <td class="dataIndiCell">10</td>
+                                <td class="dataIndiCell">1</td>
+                                <td class="dataIndiCell">Barra%</td>
+                            </tr>
+                        </tbody>
+                        <tfoot style="border-top: 1px solid #ccc;">
+                            <td class="footerCell">Total</td>
+                            <td class="footerCell">33</td>
+                            <td class="footerCell">56</td>
+                            <td class="footerCell">332</td>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="seguimientoSection">
+            <div style="border:1px solid  #ccc">
+                <div class="titleProducto" style="background-color: #95ade93f;;">
+                    <span style="display: flex; margin: 5px 0;">
+                        <h3>Actividades no previstas</h3> &nbsp;
+                    </span>
+                </div>
+                <div>
+                    <table>
+                        <thead class="headerTable">
+                            <tr class="headerRow">
+                                <th class="headerCell">Unidad consolidadora</th>
+                                <th class="headerCell" style="width: 25%;">Actividades no previstas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Emilio Prud Home</td>
+                                <td class="dataIndiCell">14</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Juan Vicente Moscoso</td>
+                                <td class="dataIndiCell">8</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Eugenio María de Hostos</td>
+                                <td class="dataIndiCell">3</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Felix Evaristo Mejía</td>
+                                <td class="dataIndiCell">8</td>
+                            </tr>
+                        </tbody>
+                        <tfoot style="border-top: 1px solid #ccc;">
+                            <td class="footerCell">Total</td>
+                            <td class="footerCell">33</td>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="seguimientoSection">
+            <div style="border:1px solid  #ccc">
+                <div class="titleProducto" style="background-color: #95ade93f;;">
+                    <span style="display: flex; margin: 5px 0;">
+                        <h3>Pendiente para justificar desvio</h3> &nbsp;
+                    </span>
+                </div>
+                <div>
+                    <table>
+                        <thead class="headerTable">
+                            <tr class="headerRow">
+                                <th class="headerCell">Unidad consolidadora</th>
+                                <th class="headerCell" style="width: 30%;">Análisis del rendimiento real</th>
+                                <th class="headerCell" style="width: 30%;">Acciones y/o medidad a realizar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Emilio Prud Home</td>
+                                <td class="dataIndiCell">10</td>
+                                <td class="dataIndiCell">11</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Juan Vicente Moscoso</td>
+                                <td class="dataIndiCell">5</td>
+                                <td class="dataIndiCell">13</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Eugenio María de Hostos</td>
+                                <td class="dataIndiCell">8</td>
+                                <td class="dataIndiCell">31</td>
+                            </tr>
+                            <tr class="dataRow">
+                                <td class="dataIndiCell">Recinto Felix Evaristo Mejía</td>
+                                <td class="dataIndiCell">10</td>
+                                <td class="dataIndiCell">1</td>
+                            </tr>
+                        </tbody>
+                        <tfoot style="border-top: 1px solid #ccc;">
+                            <td class="footerCell">Total</td>
+                            <td class="footerCell">33</td>
+                            <td class="footerCell">56</td>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
 
     </div>

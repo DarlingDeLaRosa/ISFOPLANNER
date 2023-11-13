@@ -1,0 +1,130 @@
+<div class="routerComponent">
+
+    <div class="title">
+        <h1>Monitoreo y evaluación</h1>
+    </div>
+
+    <div style="margin-bottom: 5px;">
+        <button class="backButton" mat-stroked-button
+            [routerLink]="['../producto']"><mat-icon>arrow_back</mat-icon>Listado de recursos solicitados</button>
+    </div>
+
+    <div class="detallePlanTransversal">
+        <div class="detalleActividad">
+            <div class="detalleActividadSection">
+                <h3>Tarea</h3>
+                <h4>Ejecutar el proceso de revisión</h4>
+            </div>
+
+            <div class="detalleActividadSection">
+                <h3>Actividad</h3>
+                <h4>Revisar planes de estudio de grado y elavoracion de planes de mejora</h4>
+            </div>
+
+            <div class="detalleActividadSection">
+                <h3>Poducto intermediario</h3>
+                <h4>Formación de estudiantes de grado</h4>
+            </div>
+
+            <div class="detalleActividadSection">
+                <h3>Eje</h3>
+                <h4>Garantizar la formación de los estudiantes mediante la aplicación de un modelo pedagógico innovador
+                    y un eficiente sistema de carrera académica.</h4>
+            </div>
+        </div>
+
+        <div class="formCosteo">
+            <h1>Completar costeo</h1>
+            <form>
+                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                    <mat-label>Categoria de Insumo</mat-label>
+                    <mat-select disableRipple>
+                        <ng-container>
+                            <mat-option></mat-option>
+                        </ng-container>
+                        <ng-template #noEdificio>
+                            <mat-option>No hay campos disponibles</mat-option>
+                        </ng-template>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field hideRequiredMarker appearance="fill">
+                    <mat-label>Insumo</mat-label>
+                    <input matInput>
+                </mat-form-field>&nbsp;
+
+                <mat-form-field hideRequiredMarker appearance="fill">
+                    <mat-label>Descripción del insumo</mat-label>
+                    <input matInput>
+                </mat-form-field>&nbsp;
+
+                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                    <mat-label>Unidad de medida</mat-label>
+                    <mat-select disableRipple>
+                        <ng-container>
+                            <mat-option></mat-option>
+                        </ng-container>
+                        <ng-template #noEdificio>
+                            <mat-option>No hay campos disponibles</mat-option>
+                        </ng-template>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field hideRequiredMarker appearance="fill">
+                    <mat-label>Costo unitario</mat-label>
+                    <input matInput>
+                </mat-form-field>&nbsp;
+
+                <mat-form-field hideRequiredMarker appearance="fill">
+                    <mat-label>Cantidad total</mat-label>
+                    <input matInput>
+                </mat-form-field>&nbsp;
+
+                <mat-form-field hideRequiredMarker appearance="fill">
+                    <mat-label>Monto total estimado</mat-label>
+                    <input matInput>
+                </mat-form-field>&nbsp;
+
+                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                    <mat-label>Fecha de recepción</mat-label>
+                    <mat-select disableRipple>
+                        <ng-container>
+                            <mat-option></mat-option>
+                        </ng-container>
+                        <ng-template #noEdificio>
+                            <mat-option>No hay campos disponibles</mat-option>
+                        </ng-template>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field hideRequiredMarker appearance="fill">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput>
+                </mat-form-field>&nbsp;
+
+                <mat-form-field hideRequiredMarker appearance="fill">
+                    <mat-label>Monto estimado</mat-label>
+                    <input matInput>
+                </mat-form-field>&nbsp;
+
+                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                    <mat-label>Estado</mat-label>
+                    <mat-select disableRipple>
+                        <ng-container>
+                            <mat-option></mat-option>
+                        </ng-container>
+                        <ng-template #noEdificio>
+                            <mat-option>No hay campos disponibles</mat-option>
+                        </ng-template>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field hideRequiredMarker appearance="fill">
+                    <mat-label>Observacion</mat-label>
+                    <input matInput>
+                </mat-form-field>&nbsp;
+
+            </form>
+        </div>
+    </div>
+</div>

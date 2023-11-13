@@ -1,17 +1,13 @@
 <div class="routerComponent">
+
     <div class="title">
-        <h1>Formulación POA</h1>
+        <h1>Monitoreo y evaluación</h1>
     </div>
 
-    <div class="fuctionContent">
-        <span></span>
-        <span>
-            <button class="downLoadButton" mat-stroked-button ><mat-icon>arrow_downward</mat-icon>Planificación POA</button> &nbsp;
-            <button class="downLoadButton" mat-stroked-button ><mat-icon>arrow_downward</mat-icon>Compras PACC</button> &nbsp;
-            <button class="downLoadButton" mat-stroked-button ><mat-icon>arrow_downward</mat-icon>Prosupuesto</button>
-        </span>
+    <div class="titleSeguimiento">
+        <h2>Matriz de Monitoreo</h2>
     </div>
-
+    
     <div class="EjeFiltrosProductoContainer">
         <div class="filtrosContainer">
             <div class="filtrosTitleContainer">
@@ -66,8 +62,8 @@
                     </div>
                 </div>
                 <div class="ejeSectionTotal">
-                    <span></span>
                     <h4><b>Presupuesto total estimado:</b> RD$150,000.00</h4>
+                    <h4><b>Presupuesto total ejecutado:</b> RD$150,000.00</h4>
                 </div>
             </div>
             <div class="ProductoContainer">
@@ -75,12 +71,12 @@
                 <div class="producto">
                     <div class="titleProducto">
                         <span>
-                            <h3>Producto</h3>
-                            <h4>Implementar modelo pedagógico para la formación de docentes</h4>
+                            <h3>Implementar modelo pedagógico para la formación de docentes</h3>
+                            <h4 style="color: gray;">presupuesto estimado: 40,000.00</h4>
                         </span>
-                        <span style="display: flex; ">
+                        <span style="display: flex;">
                             <h4><b>Presupuesto total estimado:</b> RD$150,000.00</h4>
-                            <mat-icon class="editIcon" [routerLink]="['producto']">edit</mat-icon>
+                            <mat-icon class="editIcon" [routerLink]="['../productoMonitoreo']">edit</mat-icon>
                         </span>
                     </div>
                     <div>
@@ -88,8 +84,12 @@
                             <thead class="headerTable">
                                 <tr class="headerRow">
                                     <th class="headerCell">Indicador</th>
-                                    <th class="headerCell" style="width: 15%;">Línea Base</th>
-                                    <th class="headerCell" style="width: 15%;">Meta</th>
+                                    <th class="headerCell" style="width: 10%;">Meta</th>
+                                    <th class="headerCell" style="width: 10%;">Logro</th>
+                                    <th class="headerCell" style="width: 10%;"></th>
+                                    <th class="headerCell" style="width: 10%;"></th>
+                                    <th class="headerCell" style="width: 10%;"></th>
+                                    <th class="headerCell" style="width: 10%;"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,6 +97,10 @@
                                     <td class="dataCell">Cantidad de trabajos presentados en la Semana de innovación Docente (Antes Buenas Practicas)</td>
                                     <td class="dataCell" >12%</td>
                                     <td class="dataCell" >14%</td>
+                                    <td class="dataCell" ><div style="width: 20px; height: 20px; background-color: green;"></div></td>
+                                    <td class="dataCell" ><div style="width: 20px; height: 20px; background-color: green;"></div></td>
+                                    <td class="dataCell" ><div style="width: 20px; height: 20px; background-color: green;"></div></td>
+                                    <td class="dataCell" ><div style="width: 20px; height: 20px; background-color: green;"></div></td>
                                 </tr>
                             </tbody>
                         </table>
