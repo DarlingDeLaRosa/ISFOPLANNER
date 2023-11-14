@@ -320,7 +320,7 @@ table {
 }
 
 .detalleActividad{
-    padding: 5px 10px;
+    padding: 25px 10px;
 }
 
 .detalleActividadSection{
@@ -334,9 +334,10 @@ table {
 }
 
 .formCosteo{
-    padding: 10px 15px;
+    padding: 20px 15px;
     border: 1px solid #ccc;
 }
+
 
 /*////////////////////////////////////////////////////////
     responsive

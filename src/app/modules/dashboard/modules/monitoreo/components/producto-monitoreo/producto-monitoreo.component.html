@@ -7,7 +7,7 @@
 
     <div class="titleSeguimiento">
         <h2>Matriz de Monitoreo</h2>
-        
+            
         <mat-form-field appearance="fill" style="margin: 0px 10px;">
             <mat-label>Trimestre</mat-label>
             <mat-select disableRipple>
@@ -20,6 +20,11 @@
             </mat-select>
         </mat-form-field>
 
+    </div>
+    
+    <div style="margin-bottom: 5px;">
+        <button class="backButton" mat-stroked-button
+            [routerLink]="['../miMatriz']"><mat-icon>arrow_back</mat-icon>Mi matriz</button>
     </div>
 
     <div class="producto">
@@ -61,7 +66,7 @@
     <div class="actividadContainer">
         <span class="titleActividad">
             <h1>Actividades</h1>
-            <button mat-stroked-button class="borderOrangeButton" [routerLink]="['../actividad']"><mat-icon>add</mat-icon> Añadir actividad</button>
+            <button mat-stroked-button class="borderOrangeButton" [routerLink]="['../actividad']"><mat-icon>add</mat-icon> Añadir actividad no prevista</button>
         </span>
 
         <div style="margin-bottom: 15px;">
@@ -93,7 +98,7 @@
             </table>
         </div>
         
-        <button class="greenButton">Crear POA</button>
+        <button class="greenButton">Guardar cambios</button>
     </div>
     
 </div>

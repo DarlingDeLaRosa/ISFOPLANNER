@@ -1,3 +1,47 @@
-<h1>
-    Mantenimiento working
-</h1>
+<div class="routerComponent">
+
+    <div class="title">
+        <h1>Mantenimiento</h1>
+    </div>
+
+    <div class="mantenimientoContainer">
+
+        <div class="mantenimientoOptions">
+            <div class="plannerOptions">
+
+                <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Ejes
+                </a>
+                <a class="item-menu" [routerLink]="['formulacion']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Estrategias
+                </a>
+                <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Resultado efecto
+                </a>
+                <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Indicadores
+                </a>
+                <a class="item-menu" [routerLink]="['rendicionDeCuentas']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Productos
+                </a>
+                <a class="item-menu" [routerLink]="['materialDeApoyo']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Estructura programática
+                </a>
+                <a class="item-menu" [routerLink]="['ayuda']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Actividades
+                </a>
+                <a class="item-menu" [routerLink]="['mantenimiento']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Usuarios
+                </a>
+                <a class="item-menu" [routerLink]="['mantenimiento']" routerLinkActive="active">
+                    <mat-icon>settings</mat-icon>Material de apoyo
+                </a>
+
+            </div>
+        </div>
+
+        <div class="mantenimientoForms">
+            <router-outlet name="mantenimiento"></router-outlet>
+        </div>
+    </div>
+</div>

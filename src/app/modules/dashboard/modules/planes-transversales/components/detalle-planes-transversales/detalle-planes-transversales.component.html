@@ -6,7 +6,7 @@
 
     <div style="margin-bottom: 5px;">
         <button class="backButton" mat-stroked-button
-            [routerLink]="['../producto']"><mat-icon>arrow_back</mat-icon>Listado de recursos solicitados</button>
+            [routerLink]="['../']"><mat-icon>arrow_back</mat-icon>Listado de recursos solicitados</button>
     </div>
 
     <div class="detallePlanTransversal">
@@ -34,9 +34,9 @@
         </div>
 
         <div class="formCosteo">
-            <h1>Completar costeo</h1>
+            <h1 style="color: #004b8d;">Completar costeo</h1>
             <form>
-                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                <mat-form-field appearance="fill" style="width: 35%;">
                     <mat-label>Categoria de Insumo</mat-label>
                     <mat-select disableRipple>
                         <ng-container>
@@ -46,19 +46,22 @@
                             <mat-option>No hay campos disponibles</mat-option>
                         </ng-template>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field>&nbsp;
 
-                <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
                     <mat-label>Insumo</mat-label>
                     <input matInput>
                 </mat-form-field>&nbsp;
 
-                <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-form-field hideRequiredMarker appearance="fill" style="width: 43%;">
                     <mat-label>Descripción del insumo</mat-label>
                     <input matInput>
                 </mat-form-field>&nbsp;
 
-                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                <br>
+                <br>
+                
+                <mat-form-field appearance="fill" style="width: 31%;">
                     <mat-label>Unidad de medida</mat-label>
                     <mat-select disableRipple>
                         <ng-container>
@@ -68,24 +71,25 @@
                             <mat-option>No hay campos disponibles</mat-option>
                         </ng-template>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field>&nbsp;
 
-                <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-form-field hideRequiredMarker appearance="fill" style="width: 19.5%;">
                     <mat-label>Costo unitario</mat-label>
                     <input matInput>
                 </mat-form-field>&nbsp;
 
-                <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-form-field hideRequiredMarker appearance="fill" style="width: 23%;">
                     <mat-label>Cantidad total</mat-label>
                     <input matInput>
                 </mat-form-field>&nbsp;
 
-                <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-form-field hideRequiredMarker appearance="fill" style="width: 23%;">
                     <mat-label>Monto total estimado</mat-label>
                     <input matInput>
-                </mat-form-field>&nbsp;
+                </mat-form-field>
 
-                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                <!--Los siguientes 3 campos se repiteran dependiendo de la fechas y cantidad necesaria -->
+                <mat-form-field appearance="fill" style="width: 31%;">
                     <mat-label>Fecha de recepción</mat-label>
                     <mat-select disableRipple>
                         <ng-container>
@@ -95,19 +99,19 @@
                             <mat-option>No hay campos disponibles</mat-option>
                         </ng-template>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field>&nbsp;
 
-                <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-form-field hideRequiredMarker appearance="fill" style="width: 33%;">
                     <mat-label>Cantidad</mat-label>
                     <input matInput>
                 </mat-form-field>&nbsp;
 
-                <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-form-field hideRequiredMarker appearance="fill" style="width: 33%;">
                     <mat-label>Monto estimado</mat-label>
                     <input matInput>
                 </mat-form-field>&nbsp;
-
-                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                <!---->
+                <mat-form-field appearance="fill" style="width: 31%;">
                     <mat-label>Estado</mat-label>
                     <mat-select disableRipple>
                         <ng-container>
@@ -117,12 +121,14 @@
                             <mat-option>No hay campos disponibles</mat-option>
                         </ng-template>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field>&nbsp;
 
-                <mat-form-field hideRequiredMarker appearance="fill">
+                <mat-form-field hideRequiredMarker appearance="fill" style="width: 67%;">
                     <mat-label>Observacion</mat-label>
                     <input matInput>
                 </mat-form-field>&nbsp;
+                
+                <button class="greenButton">Guardar cambios</button>
 
             </form>
         </div>
