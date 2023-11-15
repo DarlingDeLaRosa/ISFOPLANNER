@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ControlPanelComponent } from './control-panel.component';
 import { MiAreaTrabajoComponent } from './components/mi-area-trabajo/mi-area-trabajo.component';
+import { LogroProductoUnidadComponent } from './components/logro-producto-unidad/logro-producto-unidad.component';
+import { ActividadPrevistasComponent } from './components/actividad-previstas/actividad-previstas.component';
+import { ActividadNoPrevistasComponent } from './components/actividad-no-previstas/actividad-no-previstas.component';
+import { EjecucionPresupuestariaComponent } from './components/ejecucion-presupuestaria/ejecucion-presupuestaria.component';
 
 const routes: Routes = [
     {
@@ -10,7 +14,28 @@ const routes: Routes = [
     },
     {
         path: 'miAreaDeTrabajo',
-        component: MiAreaTrabajoComponent
+        component: MiAreaTrabajoComponent,
+        children: [
+            {
+                path: '',
+                component: LogroProductoUnidadComponent,
+                outlet: 'Logros'
+            },
+            {
+                path: 'actPrevistas',
+                component: ActividadPrevistasComponent,
+                outlet: 'Logros'
+            },
+            {
+                path: 'actNoPrevistas',
+                component: ActividadNoPrevistasComponent,
+                outlet: 'Logros'
+            },{
+                path: 'ejecucionPresupuestaria',
+                component: EjecucionPresupuestariaComponent,
+                outlet: 'Logros'
+            }
+        ]
     }
 ]
 

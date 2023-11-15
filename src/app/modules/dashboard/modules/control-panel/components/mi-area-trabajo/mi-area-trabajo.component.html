@@ -9,7 +9,7 @@
         <span>
             <button class="downLoadButton" mat-stroked-button ><mat-icon>arrow_downward</mat-icon>Monto ejecutado por cuenta presupuestaria</button>
             &nbsp;
-            <button class="orangeButton" [routerLink]="['miAreaDeTrabajo']">Mi organización</button>
+            <button class="orangeButton" [routerLink]="['../']">Mi organización</button>
         </span>
     </div>
 
@@ -18,31 +18,10 @@
             <button mat-stroked-button style="border-radius: 0;">Logro Institucional</button>
             <button mat-stroked-button style="border-radius: 0;">Ejecución Presupuestaria</button>
         </span>
-        <span>
-            <mat-form-field appearance="fill" style="margin: 0px 10px;">
-                <mat-label>Recinto</mat-label>
-                <mat-select disableRipple>
-                    <ng-container>
-                        <mat-option></mat-option>
-                    </ng-container>
-                    <ng-template #noEdificio>
-                        <mat-option>No hay campos disponibles</mat-option>
-                    </ng-template>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" style="margin: 0px 10px;">
-                <mat-label>Recinto</mat-label>
-                <mat-select disableRipple>
-                    <ng-container>
-                        <mat-option></mat-option>
-                    </ng-container>
-                    <ng-template #noEdificio>
-                        <mat-option>No hay campos disponibles</mat-option>
-                    </ng-template>
-                </mat-select>
-            </mat-form-field>
-        </span>
+        <span> </span>
     </div>
 
+    <div class="routerLogro">
+        <router-outlet name="Logros"></router-outlet>   
+    </div>
 </div>

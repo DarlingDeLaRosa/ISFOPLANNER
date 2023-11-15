@@ -1,0 +1,122 @@
+
+<div class="fuctionContent ">
+    <span>
+        <h2>Logro de indicadores de productos</h2>
+    </span>
+    <span>
+        <mat-form-field appearance="fill" style="margin: 0px 10px;">
+            <mat-label>Recinto</mat-label>
+            <mat-select disableRipple>
+                <ng-container>
+                    <mat-option></mat-option>
+                </ng-container>
+                <ng-template #noEdificio>
+                    <mat-option>No hay campos disponibles</mat-option>
+                </ng-template>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="margin: 0px 10px;">
+            <mat-label>Recinto</mat-label>
+            <mat-select disableRipple>
+                <ng-container>
+                    <mat-option></mat-option>
+                </ng-container>
+                <ng-template #noEdificio>
+                    <mat-option>No hay campos disponibles</mat-option>
+                </ng-template>
+            </mat-select>
+        </mat-form-field>
+    </span>
+</div>
+<div class="logroProductoUnidad">
+    <div>
+        <h2 class="subTitle">Actividades (Mejorar titulo)</h2>
+        <div class="indicadorProducto">
+            <div>Grafico</div>
+            <div class="previstaNoPrevistas">
+                <div class="totalActividades" [routerLink]="['actPrevistas']">
+                    <span>
+                        <h1>844</h1>
+                        <h4>Actividades Previstas</h4>
+                    </span>
+                </div>
+                <div class="totalActividades" [routerLink]="['actNoPrevistas']">
+                    <span>
+                        <h1>122</h1>
+                        <h4>Actividades No Previstas</h4>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <span>
+            <h2 class="subTitle">Estado de actividades previstas en el POA</h2>
+
+            <div class="estadoActividadContainer">
+                <div class="estadoActividad">
+                    <h3>940</h3>
+                    <h5>En ejecución</h5>
+                </div>
+
+                <div class="estadoActividad" style="border-bottom: 10px solid gray;">
+                    <h3>40</h3>
+                    <h5>No iniciado</h5>
+                </div>
+
+                <div class="estadoActividad" style="border-bottom: 10px solid rgb(0, 192, 0);">
+                    <h3>9</h3>
+                    <h5>Finalizado</h5>
+                </div>
+
+                <div class="estadoActividad" style="border-bottom: 10px solid red;">
+                    <h3>80</h3>
+                    <h5>Desestimada</h5>
+                </div>
+
+                <div class="estadoActividad" style="border-bottom: 10px solid rgb(0, 0, 119)">
+                    <h3>24</h3>
+                    <h5>Reprogramada T2</h5>
+                </div>
+
+                <div class="estadoActividad" style="border-bottom: 10px solid rgb(0, 0, 119)">
+                    <h3>12</h3>
+                    <h5>Reprogamada T3</h5>
+                </div>
+
+                <div class="estadoActividad" style="border-bottom: 10px solid rgb(0, 0, 119)">
+                    <h3>43</h3>
+                    <h5>Reprogamada T4</h5>
+                </div>
+            </div>
+            
+        </span>
+        <span>
+            <h2 class="subTitle" >Estado de actividades previstas en el POA</h2>
+            
+            <div class="estadoActividadContainer">
+
+                <div class="estadoActividad">
+                    <h3>10</h3>
+                    <h5>En ejecución</h5>
+                </div>
+
+                <div class="estadoActividad" style="border-bottom: 10px solid gray;">
+                    <h3>4</h3>
+                    <h5>No iniciado</h5>
+                </div>
+
+                <div class="estadoActividad" style="border-bottom: 10px solid rgb(0, 192, 0);">
+                    <h3>17</h3>
+                    <h5>Finalizado</h5>
+                </div>
+            </div>
+        </span>
+
+    </div>
+    <div class="LogroUnidad">
+        <h2>Logro de indicadores por unidad de Rectoría</h2>
+
+    </div>
+</div>

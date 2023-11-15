@@ -338,6 +338,87 @@ table {
     border: 1px solid #ccc;
 }
 
+.routerLogro{
+    min-height: 65vh;
+}
+
+.logroProductoUnidad{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 7%;
+}
+
+.indicadorProducto{
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 40%;
+}
+
+.previstaNoPrevistas{
+    display: grid;
+    justify-items: center;
+}
+
+.totalActividades{
+    display: grid;
+    place-items: center;
+    background-color: rgba(231, 231, 0, 0.13);
+    width: 85%;
+    height: 80%;
+    margin-bottom: 10px;
+}
+
+.totalActividades span{
+    text-align: center;
+}
+
+.totalActividades h1{
+    margin-bottom: 10px;
+    font-size: 35px;
+}
+
+.totalActividades h4{
+    margin: 0;
+    color: gray;
+}
+
+.estadoActividadContainer{
+    grid-gap: 10px;
+    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+.estadoActividad{
+    height: auto;
+    background-color: #ddd;
+    padding: 15px 15px 15px 15px ;
+    border-bottom: 10px solid yellow;
+}
+
+.estadoActividad h3{
+    margin: 0;
+    font-size: 29px;
+}
+
+.estadoActividad h5{
+    margin: 0;
+    font-size: 15px;
+}
+
+.subTitle{
+    color: gray;
+    font-weight: 100;
+}
+
+.LogroUnidad{
+    grid-column: 1/3;
+
+}
+
+
+
 
 /*////////////////////////////////////////////////////////
     responsive

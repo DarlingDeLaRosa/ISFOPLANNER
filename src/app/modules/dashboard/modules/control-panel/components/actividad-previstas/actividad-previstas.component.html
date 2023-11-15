@@ -1,0 +1,76 @@
+
+<div>
+    <div style="margin: 5px 0;">
+        <button class="backButton" mat-stroked-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon>Listado de productos</button>
+    </div>
+
+    <div class="fuctionContent">
+        <h2 style="margin: 0;">Actividades Previstas</h2>        
+        <div class="fuctionContent" style="margin-top: 15px;">
+            <span></span>
+            <span>
+                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                    <mat-label>Recinto</mat-label>
+                    <mat-select disableRipple>
+                        <ng-container>
+                            <mat-option></mat-option>
+                        </ng-container>
+                        <ng-template #noEdificio>
+                            <mat-option>No hay campos disponibles</mat-option>
+                        </ng-template>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field appearance="fill" style="margin: 0px 10px;">
+                    <mat-label>Recinto</mat-label>
+                    <mat-select disableRipple>
+                        <ng-container>
+                            <mat-option></mat-option>
+                        </ng-container>
+                        <ng-template #noEdificio>
+                            <mat-option>No hay campos disponibles</mat-option>
+                        </ng-template>
+                    </mat-select>
+                </mat-form-field>
+            </span>
+        </div>
+    </div>
+
+    <div style="border:1px solid  #ccc">
+        <div class="titleProducto" style="background-color: #95ade93f;;">
+            <span style="display: flex; margin: 5px 0;">
+                <h3>Departamento de tecnología</h3> &nbsp;
+            </span>
+        </div>
+        <div>
+            <table>
+                <thead class="headerTable">
+                    <tr class="headerRow">
+                        <th class="headerCell"  style="width: 4%;">No.</th>
+                        <th class="headerCell">Actividad</th>
+                        <th class="headerCell">Responsable</th>
+                        <th class="headerCell">Resultado esperado</th>
+                        <th class="headerCell">% de avance</th>
+                        <th class="headerCell">Resultado obtenido</th>
+                        <th class="headerCell">Comentario</th>
+                        <th class="headerCell">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow">
+                        <td class="dataCell">1</td>
+                        <td class="dataCell">Soporte técnico de los ususarios(SLA)</td>
+                        <td class="dataCell">Soporte Técnico TIC</td>
+                        <td class="dataCell">Garantizar el soporte técnico al 100% de los incidentes y requerimientos presentados</td>
+                        <td class="dataCell">100%</td>
+                        <td class="dataCell">Igual a lo esperado</td>
+                        <td class="dataCell"></td>
+                        <td class="dataCell"><div style="background-color: rgba(132, 218, 3, 0.836); width: 90px; height: 25px; text-align: center;"> Completado</div></td>
+                    </tr>
+                    
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
