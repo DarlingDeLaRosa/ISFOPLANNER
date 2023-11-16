@@ -17,23 +17,34 @@ const routes: Routes = [
         component: MiAreaTrabajoComponent,
         children: [
             {
-                path: '',
-                component: LogroProductoUnidadComponent,
-                outlet: 'Logros'
-            },
-            {
-                path: 'actPrevistas',
-                component: ActividadPrevistasComponent,
-                outlet: 'Logros'
-            },
-            {
-                path: 'actNoPrevistas',
-                component: ActividadNoPrevistasComponent,
-                outlet: 'Logros'
-            },{
+                path: 'logroInstitucional',
+                children: [
+                    {
+                        path: '',
+                        component: LogroProductoUnidadComponent,
+                        outlet: 'Logros'
+                    },
+                    {
+                        path: 'actPrevistas',
+                        component: ActividadPrevistasComponent,
+                        outlet: 'Logros'
+                    },
+                    {
+                        path: 'actNoPrevistas',
+                        component: ActividadNoPrevistasComponent,
+                        outlet: 'Logros'
+                    }
+                ]
+            }
+            , {
                 path: 'ejecucionPresupuestaria',
-                component: EjecucionPresupuestariaComponent,
-                outlet: 'Logros'
+                children: [
+                    {
+                        path: '',
+                        component: EjecucionPresupuestariaComponent,
+                        outlet: 'Logros'
+                    }
+                ]
             }
         ]
     }

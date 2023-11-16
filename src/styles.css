@@ -417,8 +417,25 @@ table {
 
 }
 
+.ejecucionPresupuestaria{
+    display: grid;
+    grid-template-columns: 20% 10% 10% 10% 10% ;
+    border: 1px solid #ccc;
+    margin: 15px 0;
+    padding: 15px;
+}
 
+.ejecucionPresupuestaria h4, .ejecucionPresupuestaria p {
+    margin: 0;
+}
 
+.ejecucionPresupuestaria h5, .ejecucionPresupuestaria h1{
+    margin: 5px;
+}
+ 
+/* .presupuestoTotal{
+    
+} */
 
 /*////////////////////////////////////////////////////////
     responsive
