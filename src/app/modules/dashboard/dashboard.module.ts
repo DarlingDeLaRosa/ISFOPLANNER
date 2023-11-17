@@ -10,6 +10,7 @@ import { PlanesTransversalesModule } from './modules/planes-transversales/planes
 import { MantenimientoModule } from './modules/mantenimiento/mantenimiento.module';
 import { ControlPanelModule } from './modules/control-panel/control-panel.module';
 import { MaterialApoyoModule } from './modules/material-apoyo/material-apoyo.module';
+import { AyudaModule } from './modules/ayuda/ayuda.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { MaterialApoyoModule } from './modules/material-apoyo/material-apoyo.mod
     MantenimientoModule,
     ControlPanelModule,
     MaterialApoyoModule,
-
+    AyudaModule,
     
     RouterModule,
     FormsModule,

@@ -10,6 +10,27 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+
+.enEjecucion {
+    background-color: rgba(214, 214, 0, 0.986);
+}
+
+.noIniciado {
+    background-color: gray;
+}
+
+.reprogramado {
+    background-color: rgb(0, 0, 119);
+}
+
+.finalizado {
+    background-color: rgb(0, 192, 0);
+}
+
+.Desestimado {
+    background-color: red;
+}
+
 .routerComponent {
     display: grid;
     grid-template-rows: 8vh auto;
@@ -41,6 +62,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.titlePregunta {
+    display: flex;
+    justify-content: space-between;
 }
 
 .fuctionContent h3 {
@@ -153,7 +179,7 @@ mat-checkbox {
 .ejeSectionTotal {
     border: solid 1px #ccc;
     background-color: #95ade93f;
-    padding: 0 5px ;
+    padding: 0 5px;
 }
 
 .ejeSectionTotal h4 {
@@ -308,58 +334,58 @@ table {
     margin-bottom: 15px;
 }
 
-.help{
+.help {
     font-weight: 900;
     color: green;
 }
 
-.detallePlanTransversal{
+.detallePlanTransversal {
     display: grid;
     grid-template-columns: 40% 60%;
     margin-top: 10px;
 }
 
-.detalleActividad{
+.detalleActividad {
     padding: 25px 10px;
 }
 
-.detalleActividadSection{
+.detalleActividadSection {
     margin-top: 10px;
     border-bottom: 1px solid #cccccc69;
 }
 
-.detalleActividadSection h3{
+.detalleActividadSection h3 {
     font-weight: 500;
     margin: 0;
 }
 
-.formCosteo{
+.formCosteo {
     padding: 20px 15px;
     border: 1px solid #ccc;
 }
 
-.routerLogro{
+.routerLogro {
     min-height: 65vh;
 }
 
-.logroProductoUnidad{
+.logroProductoUnidad {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 7%;
 }
 
-.indicadorProducto{
+.indicadorProducto {
     display: grid;
     height: 100%;
     grid-template-columns: 1fr 40%;
 }
 
-.previstaNoPrevistas{
+.previstaNoPrevistas {
     display: grid;
     justify-items: center;
 }
 
-.totalActividades{
+.totalActividades {
     display: grid;
     place-items: center;
     background-color: rgba(231, 231, 0, 0.13);
@@ -368,74 +394,172 @@ table {
     margin-bottom: 10px;
 }
 
-.totalActividades span{
+.totalActividades span {
     text-align: center;
 }
 
-.totalActividades h1{
+.totalActividades h1 {
     margin-bottom: 10px;
     font-size: 35px;
 }
 
-.totalActividades h4{
+.totalActividades h4 {
     margin: 0;
     color: gray;
 }
 
-.estadoActividadContainer{
+.estadoActividadContainer {
     grid-gap: 10px;
     margin-bottom: 15px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-
-.estadoActividad{
+.estadoActividad {
     height: auto;
     background-color: #ddd;
-    padding: 15px 15px 15px 15px ;
+    padding: 15px 15px 15px 15px;
     border-bottom: 10px solid yellow;
 }
 
-.estadoActividad h3{
+.estadoActividad h3 {
     margin: 0;
     font-size: 29px;
 }
 
-.estadoActividad h5{
+.estadoActividad h5 {
     margin: 0;
     font-size: 15px;
 }
 
-.subTitle{
+.subTitle {
     color: gray;
     font-weight: 100;
 }
 
-.LogroUnidad{
+.LogroUnidad {
     grid-column: 1/3;
 
 }
 
-.ejecucionPresupuestaria{
+.ejecucionPresupuestaria {
     display: grid;
-    grid-template-columns: 20% 10% 10% 10% 10% ;
+    grid-template-columns: 20% auto auto auto auto;
     border: 1px solid #ccc;
     margin: 15px 0;
     padding: 15px;
 }
 
-.ejecucionPresupuestaria h4, .ejecucionPresupuestaria p {
+.ejecucionPresupuestaria h4,
+.ejecucionPresupuestaria p {
     margin: 0;
 }
 
-.ejecucionPresupuestaria h5, .ejecucionPresupuestaria h1{
-    margin: 5px;
+.ejecucionPresupuestaria h5 {
+    margin-bottom: 5px;
 }
- 
-/* .presupuestoTotal{
-    
-} */
+
+.ejecucionPresupuestaria h1 {
+    margin-bottom: 10px;
+}
+
+.borderColorLeft {
+    padding-left: 10px;
+    border-left: 10px solid yellow;
+}
+
+.borderColorLeft h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.borderColorLeft h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.presupuestoTotal h1 {
+    font-size: 31px;
+    font-weight: 500;
+}
+
+.montoEjecutadoEstructuraProgramatica {
+    display: grid;
+    grid-template-columns: 35% 40% 25%;
+}
+
+.estructuraProgramaticaContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    padding: 10px 10px 10px 0;
+}
+
+.estructuraProgramatica {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #004b8d;
+    color: white;
+}
+
+.groupOfLeyendas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
+
+.preguntaFrecuentesContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.iconoPreguntaContainer {
+    display: grid;
+    grid-template-columns: 60px auto;
+}
+
+.iconoContainer {
+    align-self: center;
+    width: 140%;
+    height: 100%;
+    background-color: #004b8d;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 50px;
+    color: white;
+    border: 3px solid #49aa42;
+    box-sizing: border-box;
+}
+
+.preguntaFrecuente {
+    background-color: #004b8d1a;
+    border-radius: 15px 5px 5px 15px;
+    padding: 15px 15px 15px 35px;
+}
+
+.preguntaFrecuente h2 {
+    font-weight: 400;
+    margin: 0 0 3px 0;
+}
+
+.preguntaFrecuente h3 {
+    font-weight: 400;
+    margin: 0;
+}
+
+.preguntaFrecuente h4 {
+    margin: 0;
+}
+
+.rectanguloActividad {
+    width: 85%;
+    text-align: center;
+    color: white;
+}
 
 /*////////////////////////////////////////////////////////
     responsive

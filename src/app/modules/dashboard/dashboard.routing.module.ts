@@ -27,11 +27,11 @@ const routes: Routes = [
         loadChildren: ()=>
         import('./modules/planes-transversales/planes-transversales.routing.module').then((m)=>m.PlanesTransversalesRoutingModule)
       },
-      {
-        path: 'rendicionDeCuentas',
-        loadChildren: ()=>
-        import('./modules/rendicion-de-cuentas/rendicion-de-cuentas.routing.module').then((m)=>m.RendicionDeCuentasRoutingModule)
-      },
+      // {
+      //   path: 'rendicionDeCuentas',
+      //   loadChildren: ()=>
+      //   import('./modules/rendicion-de-cuentas/rendicion-de-cuentas.routing.module').then((m)=>m.RendicionDeCuentasRoutingModule)
+      // },
       {
         path: 'materialDeApoyo',
         loadChildren: ()=>
