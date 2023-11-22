@@ -20,11 +20,11 @@ import { AyudaModule } from './modules/ayuda/ayuda.module';
     FormulacionModule,
     MonitoreoModule,
     PlanesTransversalesModule,
-    MantenimientoModule,
     ControlPanelModule,
     MaterialApoyoModule,
     AyudaModule,
-    
+    MantenimientoModule,
+
     RouterModule,
     FormsModule,
     CommonModule,

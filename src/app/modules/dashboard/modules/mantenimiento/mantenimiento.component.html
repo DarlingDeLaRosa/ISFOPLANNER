@@ -1,50 +1,56 @@
 <div class="routerComponent">
 
-    <div class="title">
-        <h1>Mantenimiento</h1>
+  <div class="title">
+    <h1>Mantenimiento</h1>
+  </div>
+
+  <div class="fuctionContent" style="padding: 0 5px 0 15px;">
+    <h2>POA</h2>
+    <button class="orangeButton" style="padding: 0 25px;" [routerLink]="['../mantenimientoPei']">PEI</button>
+  </div>
+
+  <div class="mantenimientoContainer">
+
+    <div class="mantenimientoOptions">
+
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['ejes'] } }]" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Ejes
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estrategias'] } }]" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Estrategias
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['resultadoEfecto'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Resultado efecto
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['indicadoresGestion'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Indicadores de gestion
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['productos'] } }]" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Productos
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estructuraProgramatica'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Estructura programática
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['usuarios'] } }]" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Usuarios
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['material-apoyo'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Material de apoyo
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['preguntas-frecuentes'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Preguntas frecuentes
+      </a>
+
     </div>
 
-    <div class="mantenimientoContainer">
-
-        <div class="mantenimientoOptions">
-            <div class="plannerOptions">
-
-                <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Ejes
-                </a>
-                <a class="item-menu" [routerLink]="['formulacion']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Estrategias
-                </a>
-                <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Resultado efecto
-                </a>
-                <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Indicadores
-                </a>
-                <a class="item-menu" [routerLink]="['rendicionDeCuentas']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Productos
-                </a>
-                <a class="item-menu" [routerLink]="['materialDeApoyo']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Estructura programática
-                </a>
-                <a class="item-menu" [routerLink]="['ayuda']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Actividades
-                </a>
-                <a class="item-menu" [routerLink]="['mantenimiento']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Usuarios
-                </a>
-                <a class="item-menu" [routerLink]="['mantenimiento']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Material de apoyo
-                </a>
-                <a class="item-menu" [routerLink]="['mantenimiento']" routerLinkActive="active">
-                    <mat-icon>settings</mat-icon>Preguntas frecuentes
-                </a>
-
-            </div>
-        </div>
-
-        <div class="mantenimientoForms">
-            <router-outlet name="mantenimiento"></router-outlet>
-        </div>
+    <div class="mantenimientoForms">
+      <router-outlet name="mantenimiento"></router-outlet>
     </div>
+
+  </div>
 </div>

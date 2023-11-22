@@ -1,0 +1,85 @@
+<div style="padding: 15px;">
+  <h2 class="mantenimientoTitle" >Estructura Programatica</h2>
+  <div>
+    <form action="">
+      <mat-form-field appearance="fill" style="width: 49%;">
+        <mat-label>Resultado Efecto</mat-label>
+        <mat-select disableRipple>
+          <ng-container>
+            <mat-option></mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 50%;">
+        <mat-label>Cronograma</mat-label>
+        <mat-select disableRipple>
+          <ng-container>
+            <mat-option></mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
+        <mat-label>Indicador estrategico</mat-label>
+        <input matInput>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
+        <mat-label>Linea Base</mat-label>
+        <input matInput>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
+        <mat-label>Meta</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      <button class="greenButton">Guardar cambios</button>
+
+    </form>
+
+    <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de Estructura Programatica</h2>
+
+    <div style="border:1px solid  #ccc ;">
+
+      <div>
+        <table>
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+                <th class="headerCell">Resultado efecto</th>
+                <th class="headerCell">Estrategia</th>
+                <th class="headerCell">Eje</th>
+                <th class="headerCell" style="width: 10%;"></th>
+                <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+        </thead>
+          <tbody>
+            <tr class="dataRow">
+              <td class="dataIndiCell">Incrementando los niveles de competencia de los estudiantes de grado y postgrado</td>
+              <td class="dataIndiCell">Mejoramiento continuo de los aprendizajes</td>
+              <td class="dataIndiCell">Calidad academica</td>
+              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            </tr>
+            <tr class="dataRow">
+              <td class="dataIndiCell">Incrementando los niveles de competencia de los estudiantes de grado y postgrado</td>
+              <td class="dataIndiCell">Mejoramiento continuo de los aprendizajes</td>
+              <td class="dataIndiCell">Calidad academica</td>
+              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
