@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MantenimientoComponent } from './mantenimiento.component';
-import { EjesComponent } from './components/ejes/ejes.component';
-import { EstrategiasComponent } from './components/estrategias/estrategias.component';
-import { ResultadoEfectoComponent } from './components/resultado-efecto/resultado-efecto.component';
-import { IndicadoresEstrategicosComponent } from './components/indicadores-estrategicos/indicadores-estrategicos.component';
 import { IndicadoresGestionComponent } from './components/indicadores-gestion/indicadores-gestion.component';
 import { EstructuraProgramaticaComponent } from './components/estructura-programatica/estructura-programatica.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
@@ -12,6 +8,12 @@ import { MaterialDeApoyoComponent } from './components/material-apoyo/material-a
 import { PreguntaFrecuentesComponent } from './components/pregunta-frecuentes/pregunta-frecuentes.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { MantenimientoPeiComponent } from './components/mantenimiento-pei/mantenimiento-pei.component';
+import { EstrategiasComponent } from './components/mantenimiento-pei/estrategias/estrategias.component';
+import { IndicadoresEstrategicosComponent } from './components/mantenimiento-pei/indicadores-estrategicos/indicadores-estrategicos.component';
+import { EjesComponent } from './components/mantenimiento-pei/ejes/ejes.component';
+import { ResultadoEfectoComponent } from './components/mantenimiento-pei/resultado-efecto/resultado-efecto.component';
+import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
+import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuestos-riesgos/supuestos-riesgos.component';
 
 const routes: Routes = [
   {
@@ -80,9 +82,33 @@ const routes: Routes = [
         component: IndicadoresEstrategicosComponent,
         outlet: 'mantenimiento'
       },
+      {
+        path: 'ejes',
+        component: EjesComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'estrategias',
+        component: EstrategiasComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'resultadoEfecto',
+        component: ResultadoEfectoComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'requerimientos',
+        component: RequerimientosComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'supuestosriesgos',
+        component: SupuestosRiegosComponent,
+        outlet: 'mantenimiento'
+      },
     ]
   }
-
 ]
 
 @NgModule({

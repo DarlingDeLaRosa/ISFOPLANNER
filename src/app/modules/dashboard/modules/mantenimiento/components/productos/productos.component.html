@@ -1,47 +1,14 @@
 <div style="padding: 15px;">
   <h2 class="mantenimientoTitle" >Productos</h2>
   <div>
-    <form action="">
-      <mat-form-field appearance="fill" style="width: 49%;">
-        <mat-label>Resultado Efecto</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option></mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+    <form [formGroup]="productosForm" (ngSubmit)="saveChangesButton()">
 
-      <mat-form-field appearance="fill" style="width: 50%;">
-        <mat-label>Cronograma</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option></mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+        <mat-label>Nombre del Producto</mat-label>
+        <input matInput formControlName="nombre">
       </mat-form-field>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
-        <mat-label>Indicador estrategico</mat-label>
-        <input matInput>
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
-        <mat-label>Linea Base</mat-label>
-        <input matInput>
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
-        <mat-label>Meta</mat-label>
-        <input matInput>
-      </mat-form-field>
-
-      <button class="greenButton">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button>
 
     </form>
 
@@ -53,29 +20,17 @@
         <table>
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
-                <th class="headerCell">Resultado efecto</th>
-                <th class="headerCell">Estrategia</th>
-                <th class="headerCell">Eje</th>
+                <th class="headerCell">Producto</th>
                 <th class="headerCell" style="width: 10%;"></th>
                 <th class="headerCell" style="width: 10%;"></th>
             </tr>
         </thead>
           <tbody>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Incrementando los niveles de competencia de los estudiantes de grado y postgrado</td>
-              <td class="dataIndiCell">Mejoramiento continuo de los aprendizajes</td>
-              <td class="dataIndiCell">Calidad academica</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            <tr class="dataRow" *ngFor="let producto of productos">
+              <td class="dataIndiCell">{{producto.nombre}}</td>
+              <td class="dataIndiCell"><mat-icon (click)="setValueEditProducto(producto)" class="editIcon">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="deleteProducto(producto.id)" class="removeIcon">delete</mat-icon></td>
             </tr>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Incrementando los niveles de competencia de los estudiantes de grado y postgrado</td>
-              <td class="dataIndiCell">Mejoramiento continuo de los aprendizajes</td>
-              <td class="dataIndiCell">Calidad academica</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
-            </tr>
-
           </tbody>
         </table>
       </div>

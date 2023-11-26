@@ -2,7 +2,7 @@
   <h2 class="mantenimientoTitle" >Ejes Estrategicos</h2>
   <div>
     <form action="">
-      <mat-form-field appearance="fill" style="width: 20%;">
+      <!-- <mat-form-field appearance="fill" style="width: 20%;">
         <mat-label>Año del PEI</mat-label>
         <mat-select disableRipple>
           <ng-container>
@@ -12,19 +12,24 @@
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
         </mat-select>
+      </mat-form-field>&nbsp; -->
+    <form  [formGroup]="ejeForm">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 48%;">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 79%;">
-        <mat-label>Nombre</mat-label>
-        <input matInput>
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+        <mat-label>Número</mat-label>
+        <input matInput type="number" formControlName="numeroEje">
       </mat-form-field>&nbsp;
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
         <mat-label>Objetivo</mat-label>
-        <input matInput>
+        <input matInput formControlName="objetivo">
       </mat-form-field>
-
-      <button class="greenButton">Guardar cambios</button>
+    </form>
+      <button class="greenButton" (click)=" Guardar()">Guardar cambios</button>
 
     </form>
 
@@ -37,25 +42,17 @@
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
                 <th class="headerCell">Eje</th>
+                <th class="headerCell">Numero</th>
                 <th class="headerCell" style="width: 10%;"></th>
                 <th class="headerCell" style="width: 10%;"></th>
             </tr>
         </thead>
           <tbody>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Calidad academica</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
-            </tr>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Impacto sectorial de programas y proyectos educativos</td>
-              <td class="dataIndiCell" ><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
-            </tr>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Fortalecimiento institucional</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            <tr class="dataRow" *ngFor="let item of ejes">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+              <td class="dataIndiCell">{{item.numeroEje}}</td>
+              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueEje(item)">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteEjes(item)">delete</mat-icon></td>
             </tr>
           </tbody>
         </table>

@@ -1,47 +1,46 @@
 <div style="padding: 15px;">
-  <h2 class="mantenimientoTitle" >Material de Apoyo</h2>
+  <h2 class="mantenimientoTitle">Material de Apoyo</h2>
   <div>
-    <form action="">
-      <mat-form-field appearance="fill" style="width: 49%;">
-        <mat-label>Resultado Efecto</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option></mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width: 50%;">
-        <mat-label>Cronograma</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option></mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>
+    <form [formGroup]="materialApoyoForm" (ngSubmit)="saveChangesButton()">
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
-        <mat-label>Indicador estrategico</mat-label>
-        <input matInput>
+        <mat-label>Titulo del documento</mat-label>
+        <input matInput formControlName="titulo">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
-        <mat-label>Linea Base</mat-label>
-        <input matInput>
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
-        <mat-label>Meta</mat-label>
-        <input matInput>
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
+        <mat-label>Enlace relacionado</mat-label>
+        <input matInput formControlName="enlace">
       </mat-form-field>
 
-      <button class="greenButton">Guardar cambios</button>
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descripcion"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 24%;">
+        <mat-label>Unidad organizativa</mat-label>
+        <mat-select formControlName="idUnidadOrganizativa" disableRipple>
+          <ng-container *ngIf="unidadesOrg.length > 0; else noUnidadOrg">
+
+            <mat-option [value]="unidadOrg.id" *ngFor="let unidadOrg of unidadesOrg" >
+              {{unidadOrg.nombre}}
+            </mat-option>
+
+          </ng-container>
+          <ng-template #noUnidadOrg>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 15%;">
+        <mat-label>Versión</mat-label>
+        <input matInput formControlName="versionDocumento">
+      </mat-form-field><br>
+
+      <button type="submit" class="greenButton">Guardar cambios</button>
 
     </form>
 
@@ -53,29 +52,23 @@
         <table>
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
-                <th class="headerCell">Nombre</th>
-                <th class="headerCell">Version</th>
-                <th class="headerCell">Link</th>
-                <th class="headerCell" style="width: 10%;"></th>
-                <th class="headerCell" style="width: 10%;"></th>
+              <th class="headerCell">Titulo</th>
+              <th class="headerCell">Unidad organizativa</th>
+              <th class="headerCell">Version</th>
+              <th class="headerCell">Enlace</th>
+              <th class="headerCell" style="width: 10%;"></th>
+              <th class="headerCell" style="width: 10%;"></th>
             </tr>
-        </thead>
+          </thead>
           <tbody>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Documentacion POA</td>
-              <td class="dataIndiCell">10.02</td>
-              <td class="dataIndiCell">http:ejemplo/ejemplo.com</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            <tr class="dataRow" *ngFor="let material of materialesApoyo">
+              <td class="dataIndiCell">{{material.titulo}}</td>
+              <td class="dataIndiCell">{{material.unidadOrganizativa.nombre}}</td>
+              <td class="dataIndiCell">{{material.versionDocumento}}</td>
+              <td class="dataIndiCell">{{material.enlace}}</td>
+              <td class="dataIndiCell"><mat-icon (click)="setValueEditMaterial(material)" class="editIcon">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="deleteMaterial(material.id)"class="removeIcon">delete</mat-icon></td>
             </tr>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Documentacion POA</td>
-              <td class="dataIndiCell">10.02</td>
-              <td class="dataIndiCell">http:ejemplo/ejemplo.com</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
-            </tr>
-
           </tbody>
         </table>
       </div>

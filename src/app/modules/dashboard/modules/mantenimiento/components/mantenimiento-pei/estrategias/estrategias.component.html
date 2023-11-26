@@ -1,12 +1,14 @@
 <div style="padding: 15px;">
   <h2 class="mantenimientoTitle" >Estrategias</h2>
   <div>
-    <form action="">
+    <form [formGroup]="estrategiaForm">
       <mat-form-field appearance="fill" style="width: 40%;">
         <mat-label>Eje estrategico</mat-label>
-        <mat-select disableRipple>
+        <mat-select disableRipple formControlName="idEjeEstrategico">
           <ng-container>
-            <mat-option></mat-option>
+            <mat-option [value]="eje.id" *ngFor="let eje of ejes">
+              {{eje.nombre}} - {{eje.numeroEje}}
+            </mat-option>
           </ng-container>
           <ng-template #noEdificio>
             <mat-option>No hay campos disponibles</mat-option>
@@ -16,10 +18,10 @@
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
         <mat-label>Estrategia</mat-label>
-        <input matInput>
+        <input matInput formControlName="nombre">
       </mat-form-field>
 
-      <button class="greenButton">Guardar cambios</button>
+      <button class="greenButton" (click)="guardar()">Guardar cambios</button>
 
     </form>
 
@@ -33,24 +35,19 @@
             <tr class="headerRow" style="background-color: #95ade93f;">
                 <th class="headerCell">Estrategia</th>
                 <th class="headerCell">Eje</th>
+                <th class="headerCell">Numero Eje</th>
                 <th class="headerCell" style="width: 10%;"></th>
                 <th class="headerCell" style="width: 10%;"></th>
             </tr>
         </thead>
           <tbody>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Mejoramiento continuo de los aprendizajes</td>
-              <td class="dataIndiCell">Calidad academica</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            <tr class="dataRow"  *ngFor="let item of estrategia">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+              <td class="dataIndiCell">{{item.ejeEstrategico.nombre}}</td>
+              <td class="dataIndiCell">{{item.ejeEstrategico.numeroEje}}</td>
+              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueEstrategia(item)">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteEstrategia(item)">delete</mat-icon></td>
             </tr>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Mejoramiento continuo de los aprendizajes</td>
-              <td class="dataIndiCell">Calidad academica</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
-            </tr>
-
           </tbody>
         </table>
       </div>

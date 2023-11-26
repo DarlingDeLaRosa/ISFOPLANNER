@@ -13,9 +13,29 @@
 
     <div class="mantenimientoOptions">
 
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['ejes'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Ejes
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estrategias'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Estrategias
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['resultadoEfecto'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Resultado efecto
+      </a>
       <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['indicadoresEstrategicos'] } }]"
         routerLinkActive="active">
         <mat-icon>settings</mat-icon>Indicadores estrategicos
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['requerimientos'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Requerimientos
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['supuestosriesgos'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Supuestos riesgos
       </a>
 
     </div>

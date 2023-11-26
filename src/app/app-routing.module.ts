@@ -10,7 +10,7 @@ const routes: Routes = [
     import('./modules/dashboard/dashboard.routing.module').then((m)=>m.DashboardRoutingModule)
   },
   { path: '',  component: LogInComponent,  }, //canActivate: [authGuardBack],
-  //{ path: '**', redirectTo: '/'},
+  { path: '**', redirectTo: '/'},
 
 ];
 

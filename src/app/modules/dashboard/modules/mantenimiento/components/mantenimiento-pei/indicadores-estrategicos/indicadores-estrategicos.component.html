@@ -1,0 +1,120 @@
+<div style="padding: 15px;">
+  <h2 class="mantenimientoTitle" >Indicadores Estrategicos</h2>
+  <div>
+    <form [formGroup]="IndicadorEstrForm">
+      <mat-form-field appearance="fill" style="width: 49%;">
+        <mat-label>Resultado Efecto</mat-label>
+        <mat-select disableRipple formControlName="idResultadoefecto">
+          <ng-container>
+            <mat-option [value]="resultado.id" *ngFor="let resultado of resultadoefecto">
+              {{resultado.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <!-- <mat-form-field appearance="fill" style="width: 50%;">
+        <mat-label>Cronograma</mat-label>
+        <mat-select disableRipple>
+          <ng-container>
+            <mat-option></mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field> -->
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+        <mat-label>Indicador estrategico</mat-label>
+        <input matInput formControlName="nombre">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
+        <mat-label>Año 1</mat-label>
+        <input matInput type="number" formControlName="anio1">
+      </mat-form-field>&nbsp;
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 10%; ">
+        <mat-label>Meta 1</mat-label>
+        <input matInput  type="number" formControlName="metaAnio1">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
+        <mat-label>Año 2</mat-label>
+        <input matInput  type="number" formControlName="anio2">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 10%;">
+        <mat-label>Meta 2</mat-label>
+        <input matInput  type="number" formControlName="metaAnio2">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
+        <mat-label>Año 3</mat-label>
+        <input matInput  type="number" formControlName="anio3">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 9%;">
+        <mat-label>Meta 3</mat-label>
+        <input matInput  type="number" formControlName="metaAnio3">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
+        <mat-label>Año 4</mat-label>
+        <input matInput  type="number" formControlName="anio4">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 9%;">
+        <mat-label>Meta 4</mat-label>
+        <input matInput  type="number" formControlName="metaAnio4">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
+        <mat-label>Linea Base</mat-label>
+        <input matInput type="number" formControlName="linaBase">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
+        <mat-label>Meta general</mat-label>
+        <input matInput  type="number" formControlName="meta">
+      </mat-form-field><br>
+
+      <button class="greenButton" (click)="guardar()">Guardar cambios</button>
+
+    </form>
+
+    <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de Indicadores Estrategicos</h2>
+
+    <div style="border:1px solid  #ccc ;">
+
+      <div>
+        <table>
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+                <th class="headerCell">Nombre indicador</th>
+                <th class="headerCell">Resultado efecto</th>
+                <th class="headerCell">Linea Base</th>
+                <th class="headerCell">Meta</th>
+                <th class="headerCell" style="width: 10%;"></th>
+                <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+        </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let item of indicadoresEstartegicos">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+              <td class="dataIndiCell">{{item.resultadoefecto.nombre}}</td>
+              <td class="dataIndiCell">{{item.linaBase}}</td>
+              <td class="dataIndiCell">{{item.meta}}</td>
+              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(item)">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(item)">delete</mat-icon></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

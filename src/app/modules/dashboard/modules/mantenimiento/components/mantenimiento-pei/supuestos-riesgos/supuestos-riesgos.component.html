@@ -1,0 +1,81 @@
+<div style="padding: 15px;">
+    <h2 class="mantenimientoTitle">Indicador estratégico</h2>
+
+    <div>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Seleccione un indicador estratégico</mat-label>
+        <mat-select disableRipple>
+          <ng-container>
+            <mat-option></mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+
+      <h3 class="mantenimientoTitle">Supuestos riesgos</h3>
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+        <mat-label> Nombre del riesgo</mat-label>
+        <input matInput>
+      </mat-form-field>&nbsp;
+
+
+     <!-- <button mat-fab class="colorGrreenBoton" (click)="guardar()">
+        <mat-icon>add</mat-icon>
+      </button> -->
+
+        <!--<h3 class="mantenimientoTitle">Supuestos riesgos</h3>
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
+        <mat-label> Nombre del Requerimiento</mat-label>
+        <input matInput>
+      </mat-form-field>&nbsp;
+
+      <button mat-fab class="colorGrreenBoton">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <h3 class="mantenimientoTitle">Medio de verificación</h3>
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
+        <mat-label>Medio de verificación</mat-label>
+        <input matInput>
+      </mat-form-field>&nbsp;
+
+      <button mat-fab class="colorGrreenBoton">
+        <mat-icon>add</mat-icon>
+      </button> -->
+
+      <button type="submit" class="greenButton">Guardar cambios</button>
+
+      <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de requerimientos</h2>
+
+        <div style="border:1px solid  #ccc ;">
+
+      <div>
+            <table>
+              <thead class="headerTable">
+                <tr class="headerRow" style="background-color: #95ade93f;">
+                    <th class="headerCell">Riesgo</th>
+                    <th class="headerCell">Indicador estrategico</th>
+                    <th class="headerCell" style="width: 10%;"></th>
+                    <th class="headerCell" style="width: 10%;"></th>
+                </tr>
+            </thead>
+              <tbody>
+                <tr class="dataRow"  *ngFor="let item of supuestosRiesgos">
+                    <td class="dataIndiCell">{{item.nombre}}</td>
+                  <td class="dataIndiCell">{{item.indicadorEstrategico?.nombre}}</td>
+                  <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
+                  <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+  </div>
+
+  <!-- </div> -->

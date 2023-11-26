@@ -1,47 +1,82 @@
 <div style="padding: 15px;">
   <h2 class="mantenimientoTitle" >Indicadores de Gestion</h2>
   <div>
-    <form action="">
-      <mat-form-field appearance="fill" style="width: 49%;">
-        <mat-label>Resultado Efecto</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option></mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
+    <form [formGroup]="indicadoresGestionForm" (ngSubmit)="saveChangesButton()" >
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 49%;">
+        <mat-label>Indicador de gestión</mat-label>
+        <input matInput>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 50%;">
-        <mat-label>Cronograma</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option></mat-option>
+      <mat-form-field appearance="fill" style="width:50%;">
+        <mat-label>Producto</mat-label>
+        <mat-select formControlName="idProducto" disableRipple>
+          <ng-container *ngIf="productos.length > 0; else noProductos">
+
+            <mat-option [value]="producto.id" *ngFor="let producto of productos">
+              {{producto.nombre}}
+          </mat-option>
+
           </ng-container>
-          <ng-template #noEdificio>
+          <ng-template #noProductos>
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
+      <mat-form-field appearance="fill" style="width: 49%;">
         <mat-label>Indicador estrategico</mat-label>
-        <input matInput>
+        <mat-select formControlName="idIndicadorEstrategico" disableRipple>
+          <ng-container *ngIf="indicadoresEstrategicos.length > 0; else noIndicadoresE">
+
+            <mat-option [value]="indicadorE.id" *ngFor="let indicadorE of indicadoresEstrategicos">
+              {{indicadorE.nombre}}
+            </mat-option>
+          </ng-container>
+          <ng-template #noIndicadoresE>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
       </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 25%;">
+        <mat-label>Alcance</mat-label>
+        <mat-select formControlName="idAlcance" disableRipple>
+          <ng-container *ngIf="alcances.length > 0; else noAlcance">
+
+            <mat-option [value]="alcance.id" *ngFor="let alcance of alcances">
+              {{alcance.nombre}}
+            </mat-option>
+
+          </ng-container>
+          <ng-template #noAlcance>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 24%;">
+        <mat-label>Frencuencia</mat-label>
+        <mat-select formControlName="idFrecuencia" disableRipple>
+          <ng-container *ngIf="frecuencias.length > 0; else noFrecuencia">
+
+            <mat-option [value]="frecuencia.id" *ngFor="let frecuencia of frecuencias">
+              {{frecuencia.nombre}}
+            </mat-option>
+
+          </ng-container>
+          <ng-template #noFrecuencia>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
-        <mat-label>Linea Base</mat-label>
-        <input matInput>
-      </mat-form-field>&nbsp;
+        <mat-label>Meta general</mat-label>
+        <input type="number" matInput>
+      </mat-form-field><br>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
-        <mat-label>Meta</mat-label>
-        <input matInput>
-      </mat-form-field>
-
-      <button class="greenButton">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button>
 
     </form>
 
@@ -53,29 +88,25 @@
         <table>
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
-                <th class="headerCell">Resultado efecto</th>
-                <th class="headerCell">Estrategia</th>
-                <th class="headerCell">Eje</th>
+                <th class="headerCell">Indicador de gestión</th>
+                <th class="headerCell">Producto</th>
+                <th class="headerCell">Alcance</th>
+                <th class="headerCell">Frecuencia</th>
+                <th class="headerCell">Meta</th>
                 <th class="headerCell" style="width: 10%;"></th>
                 <th class="headerCell" style="width: 10%;"></th>
             </tr>
         </thead>
           <tbody>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Incrementando los niveles de competencia de los estudiantes de grado y postgrado</td>
-              <td class="dataIndiCell">Mejoramiento continuo de los aprendizajes</td>
-              <td class="dataIndiCell">Calidad academica</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            <tr class="dataRow" *ngFor="let indicadorG of indicadoresGestion">
+              <td class="dataIndiCell">{{indicadorG.nombre}}</td>
+              <td class="dataIndiCell">{{indicadorG.producto.nombre}}</td>
+              <td class="dataIndiCell">{{indicadorG.alcance.nombre}}</td>
+              <td class="dataIndiCell">Frecuencia</td>
+              <td class="dataIndiCell">Meta</td>
+              <td class="dataIndiCell"><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="deleteIndicadoresGestion(indicadorG.id)" class="removeIcon">delete</mat-icon></td>
             </tr>
-            <tr class="dataRow">
-              <td class="dataIndiCell">Incrementando los niveles de competencia de los estudiantes de grado y postgrado</td>
-              <td class="dataIndiCell">Mejoramiento continuo de los aprendizajes</td>
-              <td class="dataIndiCell">Calidad academica</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
-            </tr>
-
           </tbody>
         </table>
       </div>

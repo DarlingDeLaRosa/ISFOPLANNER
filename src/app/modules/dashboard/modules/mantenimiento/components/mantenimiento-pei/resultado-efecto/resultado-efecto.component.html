@@ -1,0 +1,57 @@
+<div style="padding: 15px;">
+  <h2 class="mantenimientoTitle" >Resultado Efecto</h2>
+  <div>
+    <form [formGroup]="resultadoEfectoForm">
+      <mat-form-field appearance="fill" style="width: 40%;">
+        <mat-label>Estrategia</mat-label>
+        <mat-select disableRipple formControlName="idEstrategia">
+          <ng-container>
+            <mat-option [value]="estrat.id" *ngFor="let estrat of estrategia">
+              {{estrat.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
+        <mat-label>Resultado Efecto</mat-label>
+        <input matInput formControlName="nombre">
+      </mat-form-field>
+
+      <button class="greenButton" (click)="guardar()">Guardar cambios</button>
+
+    </form>
+
+    <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de resultados efectos</h2>
+
+    <div style="border:1px solid  #ccc ;">
+
+      <div>
+        <table>
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Estrategia</th>
+              <th class="headerCell">Resultado efecto</th>
+              <th class="headerCell">Eje</th>
+              <th class="headerCell" style="width: 10%;"></th>
+              <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+        </thead>
+          <tbody>
+            <tr class="dataRow"  *ngFor="let item of resultadoefecto">
+              <td class="dataIndiCell">{{item.estrategia.nombre}}</td>
+              <td class="dataIndiCell">{{item.nombre}}</td>
+              <td class="dataIndiCell">{{item.estrategia.ejeEstrategico.numeroEje}}</td>
+              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueResultadoEfecto(item)">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteResultadoEfecto(item)">delete</mat-icon></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

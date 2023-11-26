@@ -2,8 +2,24 @@
   <h2 class="mantenimientoTitle" >Usuarios</h2>
   <div>
     <form action="">
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 33%;">
+        <mat-label>Nombre</mat-label>
+        <input matInput>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 33%;">
+        <mat-label>Apellidos</mat-label>
+        <input matInput>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 32%;">
+        <mat-label>Usuario</mat-label>
+        <input matInput>
+      </mat-form-field>&nbsp;
+
       <mat-form-field appearance="fill" style="width: 49%;">
-        <mat-label>Resultado Efecto</mat-label>
+        <mat-label>Recinto</mat-label>
         <mat-select disableRipple>
           <ng-container>
             <mat-option></mat-option>
@@ -15,7 +31,7 @@
       </mat-form-field>&nbsp;
 
       <mat-form-field appearance="fill" style="width: 50%;">
-        <mat-label>Cronograma</mat-label>
+        <mat-label>Cargo</mat-label>
         <mat-select disableRipple>
           <ng-container>
             <mat-option></mat-option>
@@ -27,19 +43,14 @@
       </mat-form-field>
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
-        <mat-label>Indicador estrategico</mat-label>
+        <mat-label>Unidad organizativa</mat-label>
         <input matInput>
       </mat-form-field>&nbsp;
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
-        <mat-label>Linea Base</mat-label>
+        <mat-label>Persona</mat-label>
         <input matInput>
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
-        <mat-label>Meta</mat-label>
-        <input matInput>
-      </mat-form-field>
+      </mat-form-field><br>
 
       <button class="greenButton">Guardar cambios</button>
 
