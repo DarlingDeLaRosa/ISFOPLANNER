@@ -45,3 +45,15 @@ export interface IndicadorGestionI {
   }
 }
 
+export interface UsuarioI {
+  id: number | null
+  usuario: string,
+  nombre: string,
+  apellidos: string,
+  idRol: number,
+  idUnidad: number,
+  idCargo: number,
+  idRecinto: number,
+  idSistema: number
+}
+

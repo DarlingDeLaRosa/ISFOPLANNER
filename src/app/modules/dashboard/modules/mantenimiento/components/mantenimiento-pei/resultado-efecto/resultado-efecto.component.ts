@@ -15,7 +15,6 @@ import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
 export class ResultadoEfectoComponent implements OnInit{
   estrategia: Array<EstrategiaI> = [];
   resultadoefecto: Array<ResultadoEfectoI> = [];
-  //ejes: Array<EjesI> = [];
   resultadoEfectoForm: FormGroup;
   constructor(
     private estrategiasService: EstrategiasService,

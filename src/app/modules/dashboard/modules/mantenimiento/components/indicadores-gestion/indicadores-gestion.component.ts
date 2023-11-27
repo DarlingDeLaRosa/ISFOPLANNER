@@ -13,12 +13,12 @@ import { catchError, throwError } from 'rxjs';
 })
 export class IndicadoresGestionComponent implements OnInit {
 
-  indicadoresGestionForm: FormGroup;
+  indicadoresGestionForm: FormGroup;  
   indicadoresGestion: any[] = []
   indicadoresEstrategicos: any[] = []
   frecuencias: any[] = []
   alcances: any[] = []
-  productos: any[]=[]
+  productos: any[] = []
 
   constructor(
     public fb: FormBuilder,
@@ -44,7 +44,7 @@ export class IndicadoresGestionComponent implements OnInit {
     this.getFrecuencia()
     this.getAlcance()
   }
-
+  
   getProductos() {
     this.apiProducto.getProducto()
       .pipe(
@@ -80,7 +80,6 @@ export class IndicadoresGestionComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
         this.frecuencias = res.data
       })
   }
@@ -108,6 +107,8 @@ export class IndicadoresGestionComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
+        console.log(res);
+
         this.indicadoresGestion = res.data
       })
   }

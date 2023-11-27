@@ -14,6 +14,7 @@ import { EjesComponent } from './components/mantenimiento-pei/ejes/ejes.componen
 import { ResultadoEfectoComponent } from './components/mantenimiento-pei/resultado-efecto/resultado-efecto.component';
 import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuestos-riesgos/supuestos-riesgos.component';
+import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio-verificacion/medio-verificacion.component';
 
 const routes: Routes = [
   {
@@ -105,6 +106,11 @@ const routes: Routes = [
       {
         path: 'supuestosriesgos',
         component: SupuestosRiegosComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'medio-verificacion',
+        component: MedioVerificacionComponent,
         outlet: 'mantenimiento'
       },
     ]

@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ResultadoEfectoComponent } from './components/mantenimiento-pei/resultado-efecto/resultado-efecto.component';
 import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuestos-riesgos/supuestos-riesgos.component';
+import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio-verificacion/medio-verificacion.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuest
     MantenimientoPeiComponent,
     RequerimientosComponent,
     SupuestosRiegosComponent,
+    MedioVerificacionComponent,
   ],
   imports: [
     RouterModule,
