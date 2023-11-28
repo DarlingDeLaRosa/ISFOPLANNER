@@ -44,7 +44,7 @@ import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
 })
 export class MantenimientoModule { }

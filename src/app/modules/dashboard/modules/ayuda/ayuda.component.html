@@ -16,7 +16,7 @@
 
     <div class="preguntaFrecuentesContainer">
         
-        <div class="iconoPreguntaContainer">
+        <div *ngFor="let pregunta of getPreguntas" class="iconoPreguntaContainer">
             <div class="iconoContainer">?</div>
             <div class="preguntaFrecuente">
                 <span class="titlePregunta">
@@ -27,9 +27,6 @@
             </div>
         </div>
 
-       
-
-        
     </div>
 
 </div>

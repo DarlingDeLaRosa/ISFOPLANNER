@@ -115,7 +115,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   postUsuarios() {
-    this.apiUsuario.postUsuario(this.usuariosForm.value)
+    console.log(JSON.stringify(this.usuariosForm.value))
+    this.apiUsuario.postUsuario(JSON.stringify(this.usuariosForm.value))
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -185,6 +186,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   saveChangesButton() {
+    console.log(this.usuariosForm.value);
+    
     if (this.usuariosForm.valid) {
       if (this.usuariosForm.value.id > 0) this.putUsuarios()
       else this.postUsuarios()

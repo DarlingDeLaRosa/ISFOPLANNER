@@ -108,7 +108,6 @@ export class IndicadoresGestionComponent implements OnInit {
       )
       .subscribe((res: any) => {
         console.log(res);
-
         this.indicadoresGestion = res.data
       })
   }

@@ -57,6 +57,8 @@ export class MaterialDeApoyoComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
+        console.log(res);
+        
         this.materialesApoyo = res.data
       })
   }

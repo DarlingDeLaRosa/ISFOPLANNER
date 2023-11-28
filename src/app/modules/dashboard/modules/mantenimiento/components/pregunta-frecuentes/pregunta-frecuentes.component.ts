@@ -13,7 +13,7 @@ import { PreguntaI } from '../../interfaces/mantenimientoPOA.interface';
 export class PreguntaFrecuentesComponent implements OnInit {
 
   preguntasFrecuentesForm: FormGroup;
-  getPreguntas: any
+  getPreguntas: any[] = []
 
   constructor(
     public fb: FormBuilder,

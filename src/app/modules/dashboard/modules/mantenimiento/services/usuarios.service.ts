@@ -23,7 +23,7 @@ export class UsuarioService {
     return this.http.get(getUsuario, usuarioHeader)
   }
 
-  public postUsuario(usuarioData: UsuarioI) {
+  public postUsuario(usuarioData: any) {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`, })
     const usuarioHeader = {headers: headers}
 
