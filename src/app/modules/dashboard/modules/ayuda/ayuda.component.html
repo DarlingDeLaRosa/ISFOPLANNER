@@ -14,16 +14,16 @@
         </mat-form-field>
     </div>
 
-    <div class="preguntaFrecuentesContainer">
+    <div class="preguntaFrecuentesContainer"  >
         
-        <div *ngFor="let pregunta of getPreguntas" class="iconoPreguntaContainer">
+        <div (click)="openModal(pregunta)" *ngFor="let pregunta of getPreguntas" class="iconoPreguntaContainer" >
             <div class="iconoContainer">?</div>
             <div class="preguntaFrecuente">
                 <span class="titlePregunta">
-                    <h2>Que hago con la actividad si la tarea ya no existe?</h2>
-                    <h3>10/2/2024</h3>
+                    <h2>{{pregunta.pregunta}}</h2>
+                    <h3>{{pregunta.actualizadoEn | date : 'dd/MM/yyyy'}}</h3>
                 </span>
-                <h4><span style="font-weight: 500;">Contexto:</span> Actividades y Tareas 2023</h4>
+                <h4><span style="font-weight: 500;">Contexto: </span>{{pregunta.contexto}}</h4>
             </div>
         </div>
 

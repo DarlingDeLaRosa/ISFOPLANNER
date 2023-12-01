@@ -45,6 +45,14 @@
         routerLinkActive="active">
         <mat-icon>settings</mat-icon>Preguntas frecuentes
       </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['asignacion-presupuesto'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Asignación de presupuesto
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['configuracion-periodos'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Configuración Periodos
+      </a>
 
     </div>
 

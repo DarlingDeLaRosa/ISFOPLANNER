@@ -57,3 +57,13 @@ export interface UsuarioI {
   idSistema: number
 }
 
+export interface PreguntaI {
+  id: number | null
+  actualizadoEn: Date
+  contexto: string
+  creadoEn: Date
+  enlance: string
+  pregunta: string
+  respuesta: string
+}
+

@@ -115,8 +115,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   postUsuarios() {
-    console.log(JSON.stringify(this.usuariosForm.value))
-    this.apiUsuario.postUsuario(JSON.stringify(this.usuariosForm.value))
+    this.apiUsuario.postUsuario(this.usuariosForm.value)
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -124,7 +123,7 @@ export class UsuariosComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        if (res.statusCode == 201) {
+        if (res.ok) {
 
           alertIsSuccess(true)
           this.getUsuarios()
@@ -143,8 +142,6 @@ export class UsuariosComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.ok) {
 
           alertIsSuccess(true)
@@ -163,7 +160,7 @@ export class UsuariosComponent implements OnInit {
         .pipe(
           catchError((error) => {
             alertServerDown()
-            return error
+            return throwError(error)
           })
         )
         .subscribe((res: any) => {

@@ -4,3 +4,10 @@ export interface ResponseAccionI{
     detail: string,
     data: {}
 }
+export interface ResponseResponsableI{
+    ok: boolean,
+    statusCode: number,
+    detail: string,
+    token: string,
+    data: string
+}

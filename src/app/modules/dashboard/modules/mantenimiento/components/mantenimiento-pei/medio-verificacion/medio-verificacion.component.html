@@ -1,9 +1,10 @@
 <div style="padding: 15px;">
     <h2 class="mantenimientoTitle">Indicador estratégico</h2>
     <div>
+      <form [formGroup]="medioVerificacionForm">
       <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Seleccione un indicador estratégico</mat-label>
-        <mat-select disableRipple>
+        <mat-select disableRipple formControlName="idIndicadorEstrategico">
           <ng-container>
             <mat-option [value]="indicador.id" *ngFor="let indicador of indicadoresEstartegicos">
               {{indicador.nombre}}</mat-option>
@@ -15,11 +16,11 @@
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
         <mat-label> Nombre del medio de verificación</mat-label>
-        <input matInput>
+        <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <button type="submit" class="greenButton">Guardar cambios</button>
-
+      <button type="submit" class="greenButton" (click)=" guardar()">Guardar cambios</button>
+    </form>
       <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado</h2>
         <div style="border:1px solid  #ccc ;">
       <div>
@@ -36,8 +37,8 @@
                 <tr class="dataRow" *ngFor="let item of medioVerificacion">
                     <td class="dataIndiCell">{{item.indicadorEstrategico?.nombre}}</td>
                   <td class="dataIndiCell">{{item.nombre}}</td>
-                  <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-                  <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+                  <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueMedioVerificacion(item)">edit</mat-icon></td>
+                  <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
                 </tr>
               </tbody>
             </table>

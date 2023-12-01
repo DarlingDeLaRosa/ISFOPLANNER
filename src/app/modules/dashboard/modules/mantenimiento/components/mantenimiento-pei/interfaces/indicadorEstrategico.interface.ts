@@ -1,3 +1,4 @@
+import { ResponsableI } from "./responsable.interface";
 import { ResultadoEfectoI } from "./resultadoEfecto";
 
 export interface IndicadoresEstrategicosI {
@@ -8,8 +9,9 @@ export interface IndicadoresEstrategicosI {
         creadoPor?: number,
         idResultadoefecto:number
         resultadoefecto: ResultadoEfectoI,
-        cronograma: CronogramaI
-    }
+        cronograma: CronogramaI,
+        responsables: ResponsableI[]; 
+        }
 
     export interface CronogramaI{
       anio1: number,

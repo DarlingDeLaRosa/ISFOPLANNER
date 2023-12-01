@@ -1,16 +1,14 @@
-<div>
-    <h1>Pregunta</h1>
+<div class="asnwerModal">
+    <h1>{{pregunta_Asnwer.pregunta}}</h1>
     <hr>
     <div>
-        <p>
-            Respuesta
+        <p> <!--que la respuesta se vea bien-->
+            {{pregunta_Asnwer.respuesta}} 
         </p>
     </div>
     <hr>
     <div>
         <h4>Enlaces relacionados</h4>
-        <ul>
-            <li></li>
-        </ul>
+        <a style="text-decoration: none;" [href]="pregunta_Asnwer.enlance">{{pregunta_Asnwer.enlance}}</a>
     </div>
 </div>

@@ -15,6 +15,9 @@ import { ResultadoEfectoComponent } from './components/mantenimiento-pei/resulta
 import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuestos-riesgos/supuestos-riesgos.component';
 import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio-verificacion/medio-verificacion.component';
+import { ResponsablesIndicadoresComponent } from './components/mantenimiento-pei/responsables-indicacdores/responsables-indicadores.component';
+import { AsignacionPresupuestoComponent } from './components/asignacion-presupuesto/asignacion-presupuesto.component';
+import { ConfiguracionPeriodosComponent } from './components/configuracion-periodos/configuracion-periodos.component';
 
 const routes: Routes = [
   {
@@ -70,6 +73,16 @@ const routes: Routes = [
             component: PreguntaFrecuentesComponent,
             outlet: 'mantenimiento'
           },
+          {
+            path: 'asignacion-presupuesto',
+            component: AsignacionPresupuestoComponent,
+            outlet: 'mantenimiento'
+          },
+          {
+            path: 'configuracion-periodos',
+            component: ConfiguracionPeriodosComponent,
+            outlet: 'mantenimiento'
+          },
         ]
       }
     ]
@@ -111,6 +124,11 @@ const routes: Routes = [
       {
         path: 'medio-verificacion',
         component: MedioVerificacionComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'Responsables-indicadores',
+        component: ResponsablesIndicadoresComponent,
         outlet: 'mantenimiento'
       },
     ]

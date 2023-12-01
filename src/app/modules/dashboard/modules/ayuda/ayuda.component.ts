@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { preguntasFrecuentesService } from '../mantenimiento/services/preguntas-frecuentes.service';
 import { alertServerDown } from 'src/app/alerts/alerts';
 import { catchError } from 'rxjs';
+import { AsnwerViewComponent } from './modals/asnwer-view/asnwer-view.component';
+import { PreguntaI } from '../mantenimiento/interfaces/mantenimientoPOA.interface';
 
 @Component({
   selector: 'ayuda-root',
@@ -19,9 +21,9 @@ export class AyudaComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    
+    this.getPregunta()
   }
-
+  
   getPregunta() {
     this.apiPreguntas.getPreguntasFrecuentes()
       .pipe(
@@ -31,8 +33,14 @@ export class AyudaComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
+        console.log(res); 
         this.getPreguntas = res.data
       })
+  }
+
+
+  openModal(pregunta: PreguntaI) {
+    this.dialog.open(AsnwerViewComponent, {data: pregunta})
   }
 
 }

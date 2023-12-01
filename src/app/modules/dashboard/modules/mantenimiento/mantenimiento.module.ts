@@ -19,6 +19,11 @@ import { ResultadoEfectoComponent } from './components/mantenimiento-pei/resulta
 import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuestos-riesgos/supuestos-riesgos.component';
 import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio-verificacion/medio-verificacion.component';
+import { MedioVerificacionService } from './components/mantenimiento-pei/services/medio-verificacion.service';
+import { ResponsablesIndicadoresComponent } from './components/mantenimiento-pei/responsables-indicacdores/responsables-indicadores.component';
+import { ResponsableService } from './components/mantenimiento-pei/services/reponsable.service';
+import { ConfiguracionPeriodosComponent } from './components/configuracion-periodos/configuracion-periodos.component';
+import { AsignacionPresupuestoComponent } from './components/asignacion-presupuesto/asignacion-presupuesto.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,16 @@ import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio
     RequerimientosComponent,
     SupuestosRiegosComponent,
     MedioVerificacionComponent,
+    ResponsablesIndicadoresComponent,
+    ConfiguracionPeriodosComponent,
+    AsignacionPresupuestoComponent
   ],
+
+  providers:[
+    MedioVerificacionService,
+    ResponsableService,
+  ],
+  
   imports: [
     RouterModule,
     FormsModule,

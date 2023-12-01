@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { PreguntaI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-asnwer-view',
@@ -7,6 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AsnwerViewComponent implements OnInit{
   
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public pregunta_Asnwer: PreguntaI,
+  ){
+    console.log(pregunta_Asnwer);
+  }
+
   ngOnInit(): void {
     
   }
