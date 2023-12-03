@@ -571,6 +571,13 @@ table {
   font-weight: 400 !important;
   color: #004b8d;
 }
+.mantenimientoTitle1 {
+    font-weight: 400 !important;
+    color: #004b8d;
+    display: inline-block; /* o display: inline; */
+    margin-right: 20px; /* Ajusta el margen entre los elementos según tus preferencias */
+  }
+
 
 .asnwerModal{
     padding: 15px;

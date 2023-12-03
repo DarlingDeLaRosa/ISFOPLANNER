@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
   <h2 class="mantenimientoTitle">Indicador estratégico</h2>
 
-  <div>
+
     <form [formGroup]="requerimientoForm">
     <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Seleccione un indicador estratégico</mat-label>
@@ -19,12 +19,12 @@
 
     <h3 class="mantenimientoTitle">Requerimientos</h3>
 
-    <mat-form-field hideRequiredMarker appearance="fill" style="width: 60%;">
+    <mat-form-field hideRequiredMarker appearance="fill" style="width: 55%;">
       <mat-label> Nombre del Requerimiento</mat-label>
       <input matInput formControlName="nombre">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="fill" style="width: 39%;">
+    <mat-form-field appearance="fill" style="width: 35%;">
       <mat-label>Financiero</mat-label>
       <mat-select disableRipple formControlName="esFinanciero">
         <ng-container>
@@ -37,7 +37,77 @@
       </mat-select>
     </mat-form-field>&nbsp;
 
+    <button mat-fab class="colorGrreenBoton">
+      <mat-icon>add</mat-icon>
+    </button>
+
   </form>
+
+  <h3 class="mantenimientoTitle">Supuestos riesgos</h3>
+
+  <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
+    <mat-label> Nombre del riesgo</mat-label>
+    <input matInput formControlName="nombre">
+  </mat-form-field>&nbsp;
+
+  <button mat-fab class="colorGrreenBoton">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <h3 class="mantenimientoTitle">Medio de verificación</h3>
+
+  <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
+    <mat-label> Nombre del medio de verificación</mat-label>
+    <input matInput formControlName="nombre">
+  </mat-form-field>&nbsp;
+
+  <button mat-fab class="colorGrreenBoton">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <h3 class="mantenimientoTitle1" style="width: 50%;">Resposables</h3>
+  <h3 class="mantenimientoTitle1" style="width: 50%;">Involucrados</h3>
+
+
+  <mat-form-field appearance="fill" style="width: 40%;">
+    <mat-label>Seleccione el responsable</mat-label>
+    <mat-select disableRipple>
+      <ng-container>
+        <mat-option [value] = "true" >Dirrecion de tecnologia</mat-option>
+        <mat-option [value]= "false">Departemento juridico</mat-option>
+      </ng-container>
+      <ng-template #noEdificio>
+        <mat-option>No hay campos disponibles</mat-option>
+      </ng-template>
+    </mat-select>
+  </mat-form-field>&nbsp;
+
+
+  <button mat-fab class="colorGrreenBoton">
+    <mat-icon>add</mat-icon>
+  </button>&nbsp;&nbsp;
+
+  <mat-form-field appearance="fill" style="width: 42%;">
+    <mat-label>Seleccione el Involucrado</mat-label>
+    <mat-select disableRipple>
+      <ng-container>
+        <mat-option [value] = "true" >Dirrecion de tecnologia</mat-option>
+        <mat-option [value]= "false">Departemento juridico</mat-option>
+      </ng-container>
+      <ng-template #noEdificio>
+        <mat-option>No hay campos disponibles</mat-option>
+      </ng-template>
+    </mat-select>
+  </mat-form-field>&nbsp;
+
+
+  <button mat-fab class="colorGrreenBoton">
+    <mat-icon>add</mat-icon>
+  </button>
+
+
+
+
 
    <!-- <button mat-fab class="colorGrreenBoton" (click)="guardar()">
       <mat-icon>add</mat-icon>
@@ -65,9 +135,9 @@
       <mat-icon>add</mat-icon>
     </button> -->
 
-    <button type="submit" class="greenButton" (click)="guardar()">Guardar cambios</button>
+    <!-- <button type="submit" class="greenButton" (click)="guardar()">Guardar cambios</button> -->
 
-    <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de requerimientos</h2>
+    <!-- <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de requerimientos</h2>
 
       <div style="border:1px solid  #ccc ;">
 
@@ -96,4 +166,4 @@
   </div>
 </div>
 
-<!-- </div> -->
+</div> -->
