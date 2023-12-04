@@ -45,22 +45,4 @@ export class MaterialApoyoService {
     return this.http.delete(removeMaterialApoyo, materialHeader)
   }
 
-  // Get de unidad organizativa
-
-  public getUnidadesOrganizativas() {
-    const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-    const unidadOrgHeader = {headers: headers}
-
-    const getUnidadOrg = `${this.baseURL}/UnidadesOrganizativas`
-    return this.http.get(getUnidadOrg, unidadOrgHeader)
-  }
-
-  public putUnidadesOrganizativas() {
-    const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-    const unidadOrgHeader = {headers: headers}
-
-    const getUnidadOrg = `${this.baseURL}/UnidadesOrganizativas`
-    return this.http.put(getUnidadOrg, unidadOrgHeader)
-  }
-
 }

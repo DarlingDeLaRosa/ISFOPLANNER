@@ -4,6 +4,7 @@ import { MaterialApoyoService } from '../../services/material-apoyo.service';
 import { catchError, throwError } from 'rxjs';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { MaterialApoyoI } from '../../interfaces/mantenimientoPOA.interface';
+import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 
 @Component({
   selector: 'app-material-apoyo',
@@ -18,7 +19,8 @@ export class MaterialDeApoyoComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    private apiMaterial: MaterialApoyoService
+    private apiMaterial: MaterialApoyoService,
+    private apiUnidadOrg: UnidadOrganizativaService
   ) {
     this.materialApoyoForm = this.fb.group({
       id: 0,
@@ -36,7 +38,7 @@ export class MaterialDeApoyoComponent implements OnInit {
   }
 
   getUnidadOrganizativa() {
-    this.apiMaterial.getUnidadesOrganizativas()
+    this.apiUnidadOrg.getUnidadesOrganizativas()
       .pipe(
         catchError((error) => {
           alertServerDown()

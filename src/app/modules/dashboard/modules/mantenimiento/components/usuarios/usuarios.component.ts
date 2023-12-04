@@ -5,6 +5,7 @@ import { catchError, throwError } from 'rxjs';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { MaterialApoyoService } from '../../services/material-apoyo.service';
 import { sistema } from 'src/environments/environments';
+import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -23,7 +24,7 @@ export class UsuariosComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiUsuario: UsuarioService,
-    private apiMaterial: MaterialApoyoService
+    private apiUnidadOrg: UnidadOrganizativaService
 
   ) {
     this.usuariosForm = this.fb.group({
@@ -38,6 +39,7 @@ export class UsuariosComponent implements OnInit {
       idSistema: sistema.idSistema
     })
   }
+  
   ngOnInit(): void {
     this.getAllRecintos()
     this.getAllCargos()
@@ -47,7 +49,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   getUnidadOrganizativa() {
-    this.apiMaterial.getUnidadesOrganizativas()
+    this.apiUnidadOrg.getUnidadesOrganizativas()
       .pipe(
         catchError((error) => {
           alertServerDown()
