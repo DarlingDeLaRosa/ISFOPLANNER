@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { catchError, throwError } from 'rxjs';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
+import { UnidadOrgI } from '../../interfaces/mantenimientoPOA.interface';
 
 @Component({
   selector: 'app-asignacion-presupuesto',
@@ -10,10 +11,10 @@ import { UnidadOrganizativaService } from '../../services/unidad-organizativa.se
   styleUrls: ['./asignacion-presupuesto.component.css']
 })
 export class AsignacionPresupuestoComponent implements OnInit {
-  
+
   asignacionPresupuestoForm: FormGroup;
   unidadesOrg: any[] = []
-  
+
   constructor(
     public fb: FormBuilder,
     private apiUnidadOrg: UnidadOrganizativaService
@@ -29,7 +30,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
     this.getUnidadOrganizativa()
   }
 
-  
+
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
       .pipe(
@@ -44,7 +45,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
   }
 
   putUnidadOrganizativa() {
-    this.apiUnidadOrg.putUnidadesOrganizativas()//this.asignacionPresupuestoForm.value
+    this.apiUnidadOrg.putUnidadesOrganizativas(this.asignacionPresupuestoForm.value)
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -63,14 +64,30 @@ export class AsignacionPresupuestoComponent implements OnInit {
   }
 
 
-  setValueEditUnidadOrg(usuarios: any) {
-    this.asignacionPresupuestoForm.reset(usuarios)
+  setValueEditUnidadOrg(unidadOrg: any) {
+    this.asignacionPresupuestoForm.reset(unidadOrg)
   }
 
-  
+  async deletePresupuestoUnidadOrg(unidadOrg: UnidadOrgI) {
+
+    let removeDecision: boolean = await alertRemoveSure("Estas seguro que deseas remover el presupuesto de la unidad.")
+
+    if (removeDecision) {
+
+      this.asignacionPresupuestoForm.value.id = unidadOrg.id
+      this.asignacionPresupuestoForm.value.nombre = unidadOrg.nombre
+      this.asignacionPresupuestoForm.value.presupuestoEstimado = 0
+
+      this.putUnidadOrganizativa()
+    }
+
+  }
+
+
+
   // saveChangesButton() {
   //   console.log(this.asignacionPresupuestoForm.value);
-    
+
   //   if (this.asignacionPresupuestoForm.valid) {
   //     if (this.asignacionPresupuestoForm.value.id > 0) this.putUsuarios()
   //     else this.postUsuarios()

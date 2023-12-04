@@ -67,3 +67,17 @@ export interface PreguntaI {
   respuesta: string
 }
 
+
+export interface UnidadOrgI {
+  id: number | null
+  nombre: string
+  presupuestoEstimado: string
+}
+
+export interface PeriodoConfigI {
+  id: number,
+  idTipoProceso: number,
+  FechaInicio: Date,
+  FechaFin: Date,
+  Prorroga: Date,
+}

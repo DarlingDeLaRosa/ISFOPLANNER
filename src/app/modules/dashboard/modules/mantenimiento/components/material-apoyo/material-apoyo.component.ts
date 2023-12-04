@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MaterialApoyoService } from '../../services/material-apoyo.service';
 import { catchError, throwError } from 'rxjs';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
-import { MaterialApoyoI } from '../../interfaces/mantenimientoPOA.interface';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 
 @Component({
@@ -66,8 +65,6 @@ export class MaterialDeApoyoComponent implements OnInit {
   }
 
   postMaterial() {
-    console.log(this.materialApoyoForm.value);
-
     this.apiMaterial.postMaterialApoyo(this.materialApoyoForm.value)
       .pipe(
         catchError((error) => {
