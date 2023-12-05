@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment, sistema } from '../../../../../../environments/environments';
+import { PeriodoConfigI } from '../interfaces/mantenimientoPOA.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,12 @@ export class TipoProcesosService {
   idSistema: number = sistema.idSistema
 
   constructor(private http: HttpClient) { }
-
   
   public getTipoProcesos() {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-    const unidadOrgHeader = {headers: headers}
+    const periodoConfigHeader = {headers: headers}
 
-    const getUnidadOrg = `${this.baseURL}/` //TipoProcesos
-    return this.http.get(getUnidadOrg, unidadOrgHeader)
+    const periodoConfig = `${this.baseURL}/Configuraciones/tipos-de-procesos`
+    return this.http.get(periodoConfig, periodoConfigHeader)
   }
 }

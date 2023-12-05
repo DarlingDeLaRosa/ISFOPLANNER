@@ -75,9 +75,10 @@ export interface UnidadOrgI {
 }
 
 export interface PeriodoConfigI {
-  id: number,
+  id: number ,
   idTipoProceso: number,
   FechaInicio: Date,
   FechaFin: Date,
   Prorroga: Date,
 }
+
