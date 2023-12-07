@@ -93,6 +93,12 @@ body {
     background-color : #49aa42 !important;
 }
 
+.colorGrreenBoton1{
+  color: white;
+  background-color : #49aa42 !important;
+
+}
+
 .greenButton {
     color: white;
     background-color: #49aa42;
@@ -315,6 +321,7 @@ table {
     color: red;
     font-size: 25px;
     margin: 0px 20px;
+    cursor: pointer;
 }
 
 .formularioActividades {

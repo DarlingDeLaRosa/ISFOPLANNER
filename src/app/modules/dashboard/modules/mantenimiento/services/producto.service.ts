@@ -17,7 +17,7 @@ export class ProductoService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const productoHeader = {headers: headers}
 
-    const getProducto = `${this.baseURL}/Producto`
+    const getProducto = `${this.baseURL}/Productos`
     return this.http.get(getProducto, productoHeader)
   }
 
@@ -25,7 +25,7 @@ export class ProductoService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`, })
     const productoHeader = {headers: headers}
 
-    const postProducto = `${this.baseURL}/Producto`
+    const postProducto = `${this.baseURL}/Productos`
     return this.http.post(postProducto , productoData, productoHeader)
   }
 
@@ -33,7 +33,7 @@ export class ProductoService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const productoHeader = {headers: headers}
 
-    const putProducto = `${this.baseURL}/Producto?id=${productoData.id}`
+    const putProducto = `${this.baseURL}/Productos?id=${productoData.id}`
     return this.http.put(putProducto, productoData, productoHeader)
   }
 
@@ -41,7 +41,7 @@ export class ProductoService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const  productoHeader = {headers: headers}
 
-    const removeProducto = `${this.baseURL}/Producto/${id}`
+    const removeProducto = `${this.baseURL}/Productos/${id}`
     return this.http.delete(removeProducto,  productoHeader)
   }
 

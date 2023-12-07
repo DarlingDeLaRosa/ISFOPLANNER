@@ -13,33 +13,39 @@
     </div>
 
     <div class="EjeFiltrosProductoContainer">
-        <div class="filtrosContainer">
+        <div class="filtrosContainer" [formGroup]="filterForm">
             <div class="filtrosTitleContainer">
                 <h3>Filtros</h3>
             </div>
             <div class="filtrosSection">
                 <h4>Ejes estratégico</h4>
-                <mat-radio-group> <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
-                    <mat-radio-button color="primary">Calidad académica.</mat-radio-button><br>
-                    <mat-radio-button color="primary">Impacto sectorial de programas y proyectos
+                <mat-radio-group formControlName="ejesEstrategico"> <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
+                    <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id" color="primary">
+                        {{ejeEstrategico.nombre}}
+                    </mat-radio-button><br>
+                    <!-- <mat-radio-button color="primary">Impacto sectorial de programas y proyectos
                         educativos.</mat-radio-button><br>
-                    <mat-radio-button color="primary">Fortalecimiento institucional</mat-radio-button>
+                    <mat-radio-button color="primary">Fortalecimiento institucional</mat-radio-button> -->
                 </mat-radio-group>
             </div>
             <div class="filtrosSection">
                 <h4>Estrategias</h4>
                 <mat-radio-group> <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
-                    <mat-checkbox>Investigación, Trasferencia e Innovación.</mat-checkbox><br>
-                    <mat-checkbox>Egresados como compromiso institucional.</mat-checkbox><br>
-                    <mat-checkbox>Planes de proyectos institucionales</mat-checkbox>
+                    <mat-radio-button  *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
+                        {{estrategia.nombre}}
+                    </mat-radio-button><br>
+                    <!-- <mat-checkbox>Egresados como compromiso institucional.</mat-checkbox><br>
+                    <mat-checkbox>Planes de proyectos institucionales</mat-checkbox> -->
                 </mat-radio-group>
             </div>
             <div class="filtrosSection">
                 <h4>Resultado efecto</h4>
-                <section>
-                    <mat-checkbox>Trasnferido conocimientos y aplicaciones nuevas para mejorar la calidad educativa.</mat-checkbox>
-                    <mat-checkbox>Fortalecida la capacidad investigativa de docentes investigadores, estudiantes y egresados</mat-checkbox>
-                </section>
+                <mat-radio-group>
+                    <mat-radio-button *ngFor="let resultadoEfecto of resultadosEfecto" [value]="resultadoEfecto.id" color="primary">
+                        {{resultadoEfecto.nombre}}
+                    </mat-radio-button><br>
+                    <!-- <mat-checkbox>Fortalecida la capacidad investigativa de docentes investigadores, estudiantes y egresados</mat-checkbox> -->
+                </mat-radio-group>
             </div>
         </div>
         <div class="ejeProductoContainer">

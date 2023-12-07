@@ -1,119 +1,124 @@
 <div style="padding: 15px;">
   <h2 class="mantenimientoTitle">Indicador estratégico</h2>
+  <div>
+    <form [formGroup]="indicadorForm">
 
-
-    <form [formGroup]="requerimientoForm">
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Seleccione un indicador estratégico</mat-label>
-      <mat-select disableRipple formControlName="idIndicadorEstrategico">
-        <ng-container>
-          <mat-option [value]="indicador.id" *ngFor="let indicador of indicadoresEstartegicos">
-            {{indicador.nombre}}</mat-option>
-        </ng-container>
-        <ng-template #noEdificio>
-          <mat-option>No hay campos disponibles</mat-option>
-        </ng-template>
-      </mat-select>
-    </mat-form-field>&nbsp;
-
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Seleccione un indicador estratégico</mat-label>
+        <mat-select disableRipple required formControlName="id" (selectionChange)="onSelectedIndicador()">
+          <ng-container *ngIf="indicadoresEstartegicos && indicadoresEstartegicos.length > 0; else noIndicador">
+            <mat-option [value]="indicador.id" *ngFor="let indicador of indicadoresEstartegicos">
+              {{indicador.nombre}} </mat-option>
+          </ng-container>
+          <ng-template #noIndicador>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+    </form>
 
     <h3 class="mantenimientoTitle">Requerimientos</h3>
+    <form [formGroup]="requerimientoForm">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 55%;">
+        <mat-label> Nombre del Requerimiento</mat-label>
+        <input matInput formControlName="nombre">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field hideRequiredMarker appearance="fill" style="width: 55%;">
-      <mat-label> Nombre del Requerimiento</mat-label>
-      <input matInput formControlName="nombre">
+      <mat-form-field appearance="fill" style="width: 35%;">
+        <mat-label>Financiero</mat-label>
+        <mat-select disableRipple>
+          <ng-container>
+            <mat-option [value]="true">Si </mat-option>
+            <mat-option [value]="false">No</mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <button mat-fab class="colorGrreenBoton" (click)="guardarRequerimiento()">
+        <mat-icon>add</mat-icon>
+      </button>
+
+    </form>
+
+    <h3 class="mantenimientoTitle">Supuestos riesgos</h3>
+    <form [formGroup]="supuestosRiesgosForm">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
+        <mat-label> Nombre del riesgo</mat-label>
+        <input matInput formControlName="nombre">
+      </mat-form-field>&nbsp;
+
+      <button mat-fab class="colorGrreenBoton" (click)="guardarRiesgos()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </form>
+
+    <form [formGroup]="MedioVerificacionForm">
+      <h3 class="mantenimientoTitle">Medio de verificación</h3>
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
+        <mat-label> Nombre del medio de verificación</mat-label>
+        <input matInput formControlName="nombre">
+      </mat-form-field>&nbsp;
+
+      <button mat-fab class="colorGrreenBoton" (click)="guardarMedioVerificacion()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </form>
+    <h3 class="mantenimientoTitle1" style="width: 50%;">Resposables</h3>
+    <h3 class="mantenimientoTitle1" style="width: 50%;">Involucrados</h3>
+
+    <mat-form-field appearance="fill" style="width: 41%;">
+      <form [formGroup]="ResponsableForm">
+        <mat-label>Seleccione el responsable</mat-label>
+        <mat-select disableRipple formControlName="idUnidadOrganizativa">
+          <ng-container>
+            <mat-option [value]="respon.id" *ngFor="let respon of responsable">
+              {{respon.nombre}} </mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </form>
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="fill" style="width: 35%;">
-      <mat-label>Financiero</mat-label>
-      <mat-select disableRipple formControlName="esFinanciero">
-        <ng-container>
-          <mat-option [value] = "true" >Si </mat-option>
-          <mat-option [value]= "false">No</mat-option>
-        </ng-container>
-        <ng-template #noEdificio>
-          <mat-option>No hay campos disponibles</mat-option>
-        </ng-template>
-      </mat-select>
+
+    <button mat-fab class="colorGrreenBoton1" (click)="guardarResponsable()">
+      <mat-icon>add</mat-icon>
+    </button>&nbsp;&nbsp;
+
+    <mat-form-field appearance="fill" style="width: 44%;">
+      <form [formGroup]="InvolucradoForm">
+        <mat-label>Seleccione el Involucrado</mat-label>
+        <mat-select disableRipple formControlName="idInvolucrado">
+          <ng-container>
+            <mat-option [value]="involucrados.id" *ngFor="let involucrados of involucrado">
+              {{involucrados.nombre}} </mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </form>
     </mat-form-field>&nbsp;
 
-    <button mat-fab class="colorGrreenBoton">
+
+    <button mat-fab class="colorGrreenBoton" (click)="guardarInvolucrado()">
       <mat-icon>add</mat-icon>
     </button>
 
-  </form>
-
-  <h3 class="mantenimientoTitle">Supuestos riesgos</h3>
-
-  <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
-    <mat-label> Nombre del riesgo</mat-label>
-    <input matInput formControlName="nombre">
-  </mat-form-field>&nbsp;
-
-  <button mat-fab class="colorGrreenBoton">
-    <mat-icon>add</mat-icon>
-  </button>
-
-  <h3 class="mantenimientoTitle">Medio de verificación</h3>
-
-  <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
-    <mat-label> Nombre del medio de verificación</mat-label>
-    <input matInput formControlName="nombre">
-  </mat-form-field>&nbsp;
-
-  <button mat-fab class="colorGrreenBoton">
-    <mat-icon>add</mat-icon>
-  </button>
-
-  <h3 class="mantenimientoTitle1" style="width: 50%;">Resposables</h3>
-  <h3 class="mantenimientoTitle1" style="width: 50%;">Involucrados</h3>
-
-
-  <mat-form-field appearance="fill" style="width: 40%;">
-    <mat-label>Seleccione el responsable</mat-label>
-    <mat-select disableRipple>
-      <ng-container>
-        <mat-option [value] = "true" >Dirrecion de tecnologia</mat-option>
-        <mat-option [value]= "false">Departemento juridico</mat-option>
-      </ng-container>
-      <ng-template #noEdificio>
-        <mat-option>No hay campos disponibles</mat-option>
-      </ng-template>
-    </mat-select>
-  </mat-form-field>&nbsp;
-
-
-  <button mat-fab class="colorGrreenBoton">
-    <mat-icon>add</mat-icon>
-  </button>&nbsp;&nbsp;
-
-  <mat-form-field appearance="fill" style="width: 42%;">
-    <mat-label>Seleccione el Involucrado</mat-label>
-    <mat-select disableRipple>
-      <ng-container>
-        <mat-option [value] = "true" >Dirrecion de tecnologia</mat-option>
-        <mat-option [value]= "false">Departemento juridico</mat-option>
-      </ng-container>
-      <ng-template #noEdificio>
-        <mat-option>No hay campos disponibles</mat-option>
-      </ng-template>
-    </mat-select>
-  </mat-form-field>&nbsp;
-
-
-  <button mat-fab class="colorGrreenBoton">
-    <mat-icon>add</mat-icon>
-  </button>
 
 
 
 
-
-   <!-- <button mat-fab class="colorGrreenBoton" (click)="guardar()">
+    <!-- <button mat-fab class="colorGrreenBoton" (click)="guardar()">
       <mat-icon>add</mat-icon>
     </button> -->
 
-      <!--<h3 class="mantenimientoTitle">Supuestos riesgos</h3>
+    <!--<h3 class="mantenimientoTitle">Supuestos riesgos</h3>
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
       <mat-label> Nombre del Requerimiento</mat-label>
@@ -136,34 +141,50 @@
     </button> -->
 
     <!-- <button type="submit" class="greenButton" (click)="guardar()">Guardar cambios</button> -->
+    <div style="border:1px solid  #ccc ;">
+      <div>
+        <table>
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Requerimiento</th>
+              <!-- <th class="headerCell"  style="width:2%;"></th> -->
+              <th class="headerCell">Supuestos Riesgos</th>
+              <!-- <th class="headerCell"  style="width:5%;"></th> -->
+              <th class="headerCell">Medio verificación</th>
+              <!-- <th class="headerCell"  style="width:5%;"></th> -->
+              <th class="headerCell">Responsables</th>
+              <!-- <th class="headerCell"  style="width:5%;"></th> -->
+              <th class="headerCell">Involucrados</th>
+              <!-- <th class="headerCell"  style="width:5%;"></th> -->
 
-    <!-- <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de requerimientos</h2>
-
-      <div style="border:1px solid  #ccc ;">
-
-    <div>
-          <table>
-            <thead class="headerTable">
-              <tr class="headerRow" style="background-color: #95ade93f;">
-                  <th class="headerCell">Requerimiento</th>
-                  <th class="headerCell">Financiero</th>
-                  <th class="headerCell">Indicador estrategico</th>
-                  <th class="headerCell" style="width: 10%;"></th>
-                  <th class="headerCell" style="width: 10%;"></th>
-              </tr>
+            </tr>
           </thead>
-            <tbody>
-              <tr class="dataRow" *ngFor="let item of requerimientos">
-                <td class="dataIndiCell">{{item.nombre}}</td>
-                <td class="dataIndiCell">{{item.esFinanciero}}</td>
-                <td class="dataIndiCell">{{item.indicadorEstrategico?.nombre}}</td>
-                <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueRequerimiento(item)">edit</mat-icon></td>
-                <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteRequerimientos(item)">delete</mat-icon></td>
+          <tbody>
+            <tr class="dataRow">
+              <ng-container *ngFor="let requerimiento of requerimientoSelected">
+            <tr class="dataIndiCell">{{requerimiento.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
+            <!-- <tr class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></tr> -->
+            </ng-container>
+            <td>
+              <ng-container *ngFor="let riesgos of supuestosRiesgosSelected">
+                <tr class="dataIndiCell">{{riesgos.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
+              </ng-container>
+            <td>
+              <ng-container *ngFor="let verificacion of medioVerificacionSelected">
+                <tr class="dataIndiCell">{{verificacion.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
+              </ng-container>
+            <td>
+              <ng-container *ngFor="let responsable of ResponsablesSelected">
+                <tr class="dataIndiCell">{{responsable.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
+              </ng-container>
+            <td>
+              <ng-container *ngFor="let involucrado of involucradoSelected">
+                <tr class="dataIndiCell">{{involucrado.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
+              </ng-container>
               </tr>
-            </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
-
-</div> -->

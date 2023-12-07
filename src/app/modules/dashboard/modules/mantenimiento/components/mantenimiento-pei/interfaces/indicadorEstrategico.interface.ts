@@ -1,3 +1,5 @@
+import { InvolucradoI } from "./involucrado.interface";
+import { RequerimientoI } from "./requerimientos.interface";
 import { ResponsableI } from "./responsable.interface";
 import { ResultadoEfectoI } from "./resultadoEfecto";
 
@@ -9,8 +11,10 @@ export interface IndicadoresEstrategicosI {
         creadoPor?: number,
         idResultadoefecto:number
         resultadoefecto: ResultadoEfectoI,
+        requerimientos: RequerimientoI[],
         cronograma: CronogramaI,
-        responsables: ResponsableI[]; 
+        responsables: ResponsableI[];
+        involucrados: InvolucradoI[];
         }
 
     export interface CronogramaI{

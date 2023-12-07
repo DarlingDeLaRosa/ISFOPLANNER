@@ -98,8 +98,6 @@ export class ConfiguracionPeriodosComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.ok) {
 
           alertIsSuccess(true)

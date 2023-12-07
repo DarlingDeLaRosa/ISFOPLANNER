@@ -40,6 +40,8 @@ export class AsignacionPresupuestoComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
+        console.log(res);
+        
         this.unidadesOrg = res.data
       })
   }

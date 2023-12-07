@@ -2,11 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { IndicadorEstrategicoService } from '../services/indicadoresEstrategicos.service';
 import { IndicadoresEstrategicosI } from '../interfaces/indicadorEstrategico.interface';
 import { catchError } from 'rxjs';
-import { alertIsSuccess, alertRemoveSure, alertServerDown, successMessageAlert } from 'src/app/alerts/alerts';
+import { alertIsSuccess, alertRemoveSure, alertServerDown, errorMessageAlert, successMessageAlert } from 'src/app/alerts/alerts';
 import { RequerimientosService } from '../services/requerimientos.service';
 import { RequerimientoI } from '../interfaces/requerimientos.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
+import { SupuestosRiesgosService } from '../services/supuestos-riesgos.service';
+import { MedioVerificacionI } from '../interfaces/medio-verificacion.interface';
+import { MedioVerificacionService } from '../services/medio-verificacion.service';
+import { ResponsableService } from '../services/reponsable.service';
+import { ResponsableI } from '../interfaces/responsable.interface';
+import { InvolucradoI } from '../interfaces/involucrado.interface';
+import { involucradoService } from '../services/involucrado.service';
 
 
 @Component({
@@ -17,25 +24,109 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class RequerimientosComponent  implements OnInit{
 
   indicadoresEstartegicos: Array<IndicadoresEstrategicosI> = [];
+  responsable: Array<ResponsableI> = [];
+  indicadoresEstartegicosSelected: any;
   requerimientos: Array<RequerimientoI> = [];
+  involucrado: Array<InvolucradoI> = [];
   requerimientoForm: FormGroup;
+  indicadorForm: FormGroup;
+  supuestosRiesgosForm: FormGroup;
+  MedioVerificacionForm: FormGroup;
+  ResponsableForm: FormGroup;
+  InvolucradoForm: FormGroup;
+
+  requerimientoSelected: any[] = []
+  medioVerificacionSelected: any[] = []
+  ResponsablesSelected: any[] = []
+  supuestosRiesgosSelected: any[] = []
+  involucradoSelected: any[] = []
+
 
   constructor(
     private indicadoresEstraService:IndicadorEstrategicoService,
     private requerimientoService:RequerimientosService,
+    private riesgosService: SupuestosRiesgosService,
+    private medioVerificacionService:MedioVerificacionService,
+    private responsableService:ResponsableService,
+    private involucradosService:involucradoService,
     private fb: FormBuilder,
     ){
+      this.indicadorForm = this.fb.group({
+        id: new FormControl<number>(0,Validators.required),
+      })
+
       this.requerimientoForm = this.fb.group({
         id: new FormControl<number>(0),
         nombre:  new FormControl('', Validators.required),
         esFinanciero: new FormControl(true ,Validators.required),
-        idIndicadorEstrategico:  new FormControl<number>(0, Validators.required),
+        idIndicadorEstrategico: this.indicadorForm.get('id')!,
       })
+      this.supuestosRiesgosForm = this.fb.group({
+        id: new FormControl<number>(0),
+        nombre:  new FormControl('', Validators.required),
+        idIndicadorEstrategico: this.indicadorForm.get('id')!,
+      })
+
+      this.MedioVerificacionForm = this.fb.group({
+        id: new FormControl<number>(0),
+        nombre:  new FormControl('', Validators.required),
+        idIndicadorEstrategico: this.indicadorForm.get('id')!,
+      })
+      this.ResponsableForm = this.fb.group({
+        idUnidadOrganizativa: new FormControl<number>(0),
+        idIndicadorEstrategico: this.indicadorForm.get('id')!,
+      })
+      this.InvolucradoForm = this.fb.group({
+        idInvolucrado: new FormControl<number>(0),
+        idIndicadorEstrategico: this.indicadorForm.get('id')!,
+      })
+
+
     }
+
+    requerimientos1: any[][] = [];
 
   ngOnInit(): void {
     this.getAllIndicadoresEstartegicos();
     this.getAllRequerimientos();
+    this.getAllResponsables();
+    this.getAllInvolucrado();
+  }
+
+  onSelectedIndicador(){
+
+    this.requerimientoSelected = []
+    this.supuestosRiesgosSelected = []
+    this.medioVerificacionSelected = []
+    this.ResponsablesSelected = []
+    this.involucradoSelected = []
+
+
+      const idIndicador = this.indicadorForm.get('id')!;
+      const numero = idIndicador.value as number;
+      const ub = this.indicadoresEstartegicos.filter(item => item.id == numero );
+      this.indicadoresEstartegicosSelected = ub[0];
+
+      this.indicadoresEstartegicosSelected.requerimientos.map((item: any)=>{
+        this.requerimientoSelected.push(item)
+      })
+
+      this.indicadoresEstartegicosSelected.supuestosRiesgos.map((item: any)=>{
+        this.supuestosRiesgosSelected.push(item)
+      })
+
+      this.indicadoresEstartegicosSelected.mediosVerificacion.map((item: any)=>{
+        this.medioVerificacionSelected.push(item)
+      })
+
+      this.indicadoresEstartegicosSelected.responsables.map((item: any)=>{
+        this.ResponsablesSelected.push(item)
+      })
+
+      this.indicadoresEstartegicosSelected.involucrados.map((item: any)=>{
+        this.involucradoSelected.push(item)
+      })
+
   }
 
   getAllIndicadoresEstartegicos() {
@@ -45,6 +136,25 @@ export class RequerimientosComponent  implements OnInit{
         return error
       })).subscribe((resp: any) => {
       this.indicadoresEstartegicos = resp.data;
+    })
+  }
+
+  getAllResponsables() {
+    this.responsableService.getResponsable().pipe(
+      catchError((error) => {
+        alertServerDown()
+        return error
+      })).subscribe((resp: any) => {
+      this.responsable = resp.data;
+    })
+  }
+  getAllInvolucrado() {
+    this.involucradosService.getInvolucrado().pipe(
+      catchError((error) => {
+        alertServerDown()
+        return error
+      })).subscribe((resp: any) => {
+      this.involucrado = resp.data;
     })
   }
 
@@ -58,13 +168,29 @@ export class RequerimientosComponent  implements OnInit{
     })
   }
 
-  get currentForm() {
+  get currentRequerimientoForm() {
     const form = this.requerimientoForm.value as RequerimientoI;
+    return form;
+  }
+  get currentRiesgosForm() {
+    const form = this.supuestosRiesgosForm.value as SupuestosRiesgosI;
+    return form;
+  }
+  get currentMedioVerificacionForm() {
+    const form = this.MedioVerificacionForm.value as MedioVerificacionI;
+    return form;
+  }
+  get currentResponsableForm() {
+    const form = this.ResponsableForm.value as ResponsableI;
+    return form;
+  }
+  get currentInvolucradoForm() {
+    const form = this.InvolucradoForm.value as InvolucradoI;
     return form;
   }
 
   postRequerimiento() {
-    this.requerimientoService.postRequerimientos(this.currentForm)
+    this.requerimientoService.postRequerimientos(this.currentRequerimientoForm)
     .pipe(
       catchError((error) => {
         alertServerDown()
@@ -81,28 +207,75 @@ export class RequerimientosComponent  implements OnInit{
     })
   }
 
-  setValueRequerimiento(requerimiento:RequerimientoI){
-    this.requerimientoForm.setValue({
-        id: requerimiento.id,
-        nombre:  requerimiento.nombre,
-        esFinanciero: requerimiento.esFinanciero,
-        idIndicadorEstrategico: requerimiento.indicadorEstrategico!.id
-    });
-}
+  postRiesgos() {
+    this.riesgosService.psotSupuestosRiesgos(this.currentRiesgosForm)
+    .pipe(
+      catchError((error) => {
+        alertServerDown()
+        return error
+      }))
+      .subscribe((resp:any) => {
+      if (resp.ok == true) {
+        // this.getAllRequerimientos();
+        alertIsSuccess(true);
+        this.supuestosRiesgosForm.reset();
+      }else {
+        alertIsSuccess(false);
+      }
+    })
+  }
+  postMedioVerificacion() {
+    this.medioVerificacionService.postMedioVerificacion(this.currentMedioVerificacionForm)
+    .pipe(
+      catchError((error) => {
+        alertServerDown()
+        return error
+      }))
+      .subscribe((resp:any) => {
+      if (resp.ok == true) {
+        // this.getAllRequerimientos();
+        alertIsSuccess(true);
+        this.MedioVerificacionForm.reset();
+      }else {
+        alertIsSuccess(false);
+      }
+    })
+  }
+  postResponsable() {
+    this.responsableService.postResponsable(this.currentResponsableForm)
+    .pipe(
+      catchError((error) => {
+        alertServerDown()
+        return error
+      }))
+      .subscribe((resp:any) => {
+      if (resp.ok == true) {
+        // this.getAllRequerimientos();
+        alertIsSuccess(true);
+        this.ResponsableForm.reset();
+      }else {
+        alertIsSuccess(false);
+      }
+    })
+  }
+  postInvolucrado() {
+    this.involucradosService.postInvolucrado(this.currentInvolucradoForm)
+    // .pipe(
+    //   catchError((error) => {
+    //     alertServerDown()
+    //     return error
+    //   }))
+      .subscribe((resp:any) => {
+      if (resp.ok == true) {
+        // this.getAllRequerimientos();
+        alertIsSuccess(true);
+        this.InvolucradoForm.reset();
+      }else {
+        alertIsSuccess(false);
+      }
+    })
+  }
 
-    updateRequerimientos(){
-      this.requerimientoService.updateRequerimientos(this.currentForm , this.currentForm.id!).pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
-      .subscribe((resp:any)=>{
-        resp.data
-        successMessageAlert("El registro fue editado correctamente");
-        this.getAllRequerimientos();
-        this.requerimientoForm.reset();
-      })
-    }
 
     async deleteRequerimientos(requerimientos: RequerimientoI) {
       let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este requerimiento?")
@@ -120,24 +293,90 @@ export class RequerimientosComponent  implements OnInit{
       }
     }
 
-  guardar(){
-    if (this.requerimientoForm.invalid) return;
+  guardarRequerimiento(){
+    if (this.requerimientoForm.get('idIndicadorEstrategico')!.value == 0){
+      errorMessageAlert('Debes seleccionar un indicador')
+      return;
+    };
 
-    if(!this.currentForm.id){
+    if (this.requerimientoForm.invalid){
+      errorMessageAlert('Debes llenar los campos del requerimientos')
+      return;
+    };
       if(this.requerimientoForm.valid){
         this.postRequerimiento();
-
       }
     }
 
-    if(this.currentForm.id){
-      if(this.requerimientoForm.valid){
-        this.updateRequerimientos();
+  guardarRiesgos(){
+    console.log(this.supuestosRiesgosForm.value);
+
+    if (this.supuestosRiesgosForm.get('idIndicadorEstrategico')!.value == 0){
+      errorMessageAlert('Debes seleccionar un indicador')
+      return;
+    };
+
+    if (this.supuestosRiesgosForm.invalid){
+      errorMessageAlert('Debes llenar el campo de Supuesto riesgo')
+      return;
+    };
+      if(this.supuestosRiesgosForm.valid){
+        this.postRiesgos();
       }
     }
+
+    guardarMedioVerificacion(){
+      console.log(this.MedioVerificacionForm.value);
+
+      if (this.MedioVerificacionForm.get('idIndicadorEstrategico')!.value == 0){
+        errorMessageAlert('Debes seleccionar un indicador')
+        return;
+      };
+
+      if (this.MedioVerificacionForm.invalid){
+        errorMessageAlert('Debes llenar el campo de medio de verificacion')
+        return;
+      };
+        if(this.MedioVerificacionForm.valid){
+          this.postMedioVerificacion();
+        }
+      }
+    guardarResponsable(){
+      console.log(this.ResponsableForm.value);
+
+      if (this.ResponsableForm.get('idIndicadorEstrategico')!.value == 0){
+        errorMessageAlert('Debes seleccionar un indicador')
+        return;
+      };
+
+      if (this.ResponsableForm.invalid){
+        errorMessageAlert('Debes seleccionar un responsable')
+        return;
+      };
+        if(this.ResponsableForm.valid){
+          this.postResponsable();
+        }
+      }
+    guardarInvolucrado(){
+      console.log(this.InvolucradoForm.value);
+
+      if (this.InvolucradoForm.get('idIndicadorEstrategico')!.value == 0){
+        errorMessageAlert('Debes seleccionar un indicador')
+        return;
+      };
+
+      if (this.InvolucradoForm.invalid){
+        errorMessageAlert('Debes seleccionar un involucrado')
+        return;
+      };
+        if(this.InvolucradoForm.valid){
+          this.postInvolucrado();
+        }
+      }
+
   }
 
 
 
 
-}
+

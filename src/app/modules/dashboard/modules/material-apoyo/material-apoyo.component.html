@@ -18,22 +18,20 @@
         <table style="border: 1px solid #ccc;">
             <thead class="headerTable" >
                 <tr class="headerRow" style="background-color: #95ade93f;">
-                    <th class="headerCell">Fecha de creación</th>
-                    <th class="headerCell">Fecha de actualización</th>
-                    <th class="headerCell">Nombre de documento</th>
+                    <th class="headerCell" style="width: 15%;">Fecha de creación</th>
+                    <th class="headerCell" style="width: 15%;">Fecha de actualización</th>
+                    <th class="headerCell" >Nombre de documento</th>
                     <th class="headerCell">Enlace</th>
-                    <th class="headerCell">Versión</th>
-                    <th class="headerCell"></th>
+                    <th class="headerCell" style="width: 10%;">Versión</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="dataRow">
-                    <td class="dataCell">10/12/2220</td>
-                    <td class="dataCell">12/14/2981</td>
-                    <td class="dataCell">Implementar modelo pedagógico para la formación de docentes</td>
-                    <td class="dataCell">http/example/example</td>
-                    <td class="dataCell">3.2</td>
-                    <td class="dataCell" style="width: 8%;"><mat-icon class="editIcon" [routerLink]="['detallePlanTransversal']">edit</mat-icon></td>
+                <tr class="dataRow" *ngFor="let material of materialesApoyo">
+                    <td class="dataCell">{{material.creadoEn | date: 'dd/MM/yyyy'}}</td>
+                    <td class="dataCell">{{material.actualizadoEn | date: 'dd/MM/yyyy'}}</td>
+                    <td class="dataCell">{{material.titulo}}</td>
+                    <td class="dataCell"><a [href]="material.enlace"> {{material.enlace}}</a></td>
+                    <td class="dataCell">{{material.versionDocumento}}</td>
                 </tr>
             </tbody>
         </table>

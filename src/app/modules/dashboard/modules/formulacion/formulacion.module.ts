@@ -4,10 +4,11 @@ import { FormulacionComponent} from './formulacion.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { ProductoFormulacionComponent } from './components/producto-formulacion/producto-formulacion.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IndicadorEditarComponent } from './modals/indicador-editar/indicador-editar.component';
 import { ActividadesFormulacionComponent } from './components/actividades-formulacion/actividades-formulacion.component';
 import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,13 @@ import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.compone
     NuevoInsumoComponent
   ],
   imports: [
-    CommonModule,
-    MaterialModule,
     RouterModule,
     FormsModule,
+    CommonModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+
   ]
 })
 export class FormulacionModule { }
