@@ -267,6 +267,7 @@ mat-checkbox {
 
 .headerTable {
     height: 6vh;
+
 }
 
 .headerRow {
@@ -303,10 +304,10 @@ mat-checkbox {
     height: 6vh;
 }
 
-
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse !important;
+    flex: 1;
 }
 
 .statusButton {

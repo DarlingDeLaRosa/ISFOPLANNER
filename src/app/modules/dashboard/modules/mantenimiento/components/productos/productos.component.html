@@ -6,7 +6,41 @@
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
         <mat-label>Nombre del Producto</mat-label>
         <input matInput formControlName="nombre">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Responsable</mat-label>
+        <mat-select formControlName="idUnidadOrganizativa" disableRipple multiple>
+          <ng-container *ngIf="unidadesOrg.length > 0; else noUnidadOrg">
+
+            <mat-option [value]="unidadOrg.id" *ngFor="let unidadOrg of unidadesOrg">
+              {{unidadOrg.nombre}}
+            </mat-option>
+
+          </ng-container>
+          <ng-template #noUnidadOrg>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field><br>
+
+      <!-- <mat-form-field>
+        <mat-label>Toppings</mat-label>
+        <mat-select multiple>
+          <mat-option *ngFor="let topping of unidadesOrg" [value]="topping">
+            {{ topping }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
+       -->
+      <!-- <mat-form-field>
+        <mat-label>Toppings</mat-label>
+        <mat-select  multiple>
+          @for (topping of toppingList; track topping) {
+            <mat-option [value]="topping">{{topping}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field> -->
 
       <button type="submit" class="greenButton">Guardar cambios</button>
 

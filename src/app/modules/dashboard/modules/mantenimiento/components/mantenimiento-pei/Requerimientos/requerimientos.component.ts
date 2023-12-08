@@ -21,7 +21,7 @@ import { involucradoService } from '../services/involucrado.service';
   templateUrl: './requerimientos.component.html',
   styleUrls: ['./requerimientos.component.css']
 })
-export class RequerimientosComponent  implements OnInit{
+export class RequerimientosComponent implements OnInit {
 
   indicadoresEstartegicos: Array<IndicadoresEstrategicosI> = [];
   responsable: Array<ResponsableI> = [];
@@ -43,48 +43,48 @@ export class RequerimientosComponent  implements OnInit{
 
 
   constructor(
-    private indicadoresEstraService:IndicadorEstrategicoService,
-    private requerimientoService:RequerimientosService,
+    private indicadoresEstraService: IndicadorEstrategicoService,
+    private requerimientoService: RequerimientosService,
     private riesgosService: SupuestosRiesgosService,
-    private medioVerificacionService:MedioVerificacionService,
-    private responsableService:ResponsableService,
-    private involucradosService:involucradoService,
+    private medioVerificacionService: MedioVerificacionService,
+    private responsableService: ResponsableService,
+    private involucradosService: involucradoService,
     private fb: FormBuilder,
-    ){
-      this.indicadorForm = this.fb.group({
-        id: new FormControl<number>(0,Validators.required),
-      })
+  ) {
+    this.indicadorForm = this.fb.group({
+      id: new FormControl<number>(0, Validators.required),
+    })
 
-      this.requerimientoForm = this.fb.group({
-        id: new FormControl<number>(0),
-        nombre:  new FormControl('', Validators.required),
-        esFinanciero: new FormControl(true ,Validators.required),
-        idIndicadorEstrategico: this.indicadorForm.get('id')!,
-      })
-      this.supuestosRiesgosForm = this.fb.group({
-        id: new FormControl<number>(0),
-        nombre:  new FormControl('', Validators.required),
-        idIndicadorEstrategico: this.indicadorForm.get('id')!,
-      })
+    this.requerimientoForm = this.fb.group({
+      id: new FormControl<number>(0),
+      nombre: new FormControl('', Validators.required),
+      esFinanciero: new FormControl(true, Validators.required),
+      idIndicadorEstrategico: this.indicadorForm.get('id')!,
+    })
+    this.supuestosRiesgosForm = this.fb.group({
+      id: new FormControl<number>(0),
+      nombre: new FormControl('', Validators.required),
+      idIndicadorEstrategico: this.indicadorForm.get('id')!,
+    })
 
-      this.MedioVerificacionForm = this.fb.group({
-        id: new FormControl<number>(0),
-        nombre:  new FormControl('', Validators.required),
-        idIndicadorEstrategico: this.indicadorForm.get('id')!,
-      })
-      this.ResponsableForm = this.fb.group({
-        idUnidadOrganizativa: new FormControl<number>(0),
-        idIndicadorEstrategico: this.indicadorForm.get('id')!,
-      })
-      this.InvolucradoForm = this.fb.group({
-        idInvolucrado: new FormControl<number>(0),
-        idIndicadorEstrategico: this.indicadorForm.get('id')!,
-      })
+    this.MedioVerificacionForm = this.fb.group({
+      id: new FormControl<number>(0),
+      nombre: new FormControl('', Validators.required),
+      idIndicadorEstrategico: this.indicadorForm.get('id')!,
+    })
+    this.ResponsableForm = this.fb.group({
+      idUnidadOrganizativa: new FormControl<number>(0),
+      idIndicadorEstrategico: this.indicadorForm.get('id')!,
+    })
+    this.InvolucradoForm = this.fb.group({
+      idInvolucrado: new FormControl<number>(0),
+      idIndicadorEstrategico: this.indicadorForm.get('id')!,
+    })
 
 
-    }
+  }
 
-    requerimientos1: any[][] = [];
+  requerimientos1: any[][] = [];
 
   ngOnInit(): void {
     this.getAllIndicadoresEstartegicos();
@@ -93,8 +93,7 @@ export class RequerimientosComponent  implements OnInit{
     this.getAllInvolucrado();
   }
 
-  onSelectedIndicador(){
-
+  onSelectedIndicador() {
     this.requerimientoSelected = []
     this.supuestosRiesgosSelected = []
     this.medioVerificacionSelected = []
@@ -102,30 +101,30 @@ export class RequerimientosComponent  implements OnInit{
     this.involucradoSelected = []
 
 
-      const idIndicador = this.indicadorForm.get('id')!;
-      const numero = idIndicador.value as number;
-      const ub = this.indicadoresEstartegicos.filter(item => item.id == numero );
-      this.indicadoresEstartegicosSelected = ub[0];
+    let idIndicador = this.indicadorForm.get('id')!;
+    let numero = idIndicador.value as number;
+    let ub = this.indicadoresEstartegicos.filter(item => item.id == numero);
+    this.indicadoresEstartegicosSelected = ub[0];
 
-      this.indicadoresEstartegicosSelected.requerimientos.map((item: any)=>{
-        this.requerimientoSelected.push(item)
-      })
+    this.indicadoresEstartegicosSelected.requerimientos.map((item: any) => {
+      this.requerimientoSelected.push(item)
+    })
 
-      this.indicadoresEstartegicosSelected.supuestosRiesgos.map((item: any)=>{
-        this.supuestosRiesgosSelected.push(item)
-      })
+    this.indicadoresEstartegicosSelected.supuestosRiesgos.map((item: any) => {
+      this.supuestosRiesgosSelected.push(item)
+    })
 
-      this.indicadoresEstartegicosSelected.mediosVerificacion.map((item: any)=>{
-        this.medioVerificacionSelected.push(item)
-      })
+    this.indicadoresEstartegicosSelected.mediosVerificacion.map((item: any) => {
+      this.medioVerificacionSelected.push(item)
+    })
 
-      this.indicadoresEstartegicosSelected.responsables.map((item: any)=>{
-        this.ResponsablesSelected.push(item)
-      })
+    this.indicadoresEstartegicosSelected.responsables.map((item: any) => {
+      this.ResponsablesSelected.push(item)
+    })
 
-      this.indicadoresEstartegicosSelected.involucrados.map((item: any)=>{
-        this.involucradoSelected.push(item)
-      })
+    this.indicadoresEstartegicosSelected.involucrados.map((item: any) => {
+      this.involucradoSelected.push(item)
+    })
 
   }
 
@@ -135,8 +134,10 @@ export class RequerimientosComponent  implements OnInit{
         alertServerDown()
         return error
       })).subscribe((resp: any) => {
-      this.indicadoresEstartegicos = resp.data;
-    })
+        this.indicadoresEstartegicos = resp.data;
+        console.log(this.indicadoresEstartegicos);
+
+      })
   }
 
   getAllResponsables() {
@@ -145,8 +146,8 @@ export class RequerimientosComponent  implements OnInit{
         alertServerDown()
         return error
       })).subscribe((resp: any) => {
-      this.responsable = resp.data;
-    })
+        this.responsable = resp.data;
+      })
   }
   getAllInvolucrado() {
     this.involucradosService.getInvolucrado().pipe(
@@ -154,8 +155,8 @@ export class RequerimientosComponent  implements OnInit{
         alertServerDown()
         return error
       })).subscribe((resp: any) => {
-      this.involucrado = resp.data;
-    })
+        this.involucrado = resp.data;
+      })
   }
 
   getAllRequerimientos() {
@@ -164,8 +165,8 @@ export class RequerimientosComponent  implements OnInit{
         alertServerDown()
         return error
       })).subscribe((resp: any) => {
-      this.requerimientos = resp.data;
-    })
+        this.requerimientos = resp.data;
+      })
   }
 
   get currentRequerimientoForm() {
@@ -191,190 +192,190 @@ export class RequerimientosComponent  implements OnInit{
 
   postRequerimiento() {
     this.requerimientoService.postRequerimientos(this.currentRequerimientoForm)
-    .pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      }))
-      .subscribe((resp:any) => {
-      if (resp.ok == true) {
-        this.getAllRequerimientos();
-        alertIsSuccess(true);
-        this.requerimientoForm.reset();
-      }else {
-        alertIsSuccess(false);
-      }
-    })
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        }))
+      .subscribe((resp: any) => {
+        if (resp.ok == true) {
+          this.getAllRequerimientos();
+          alertIsSuccess(true);
+          this.requerimientoForm.reset();
+        } else {
+          alertIsSuccess(false);
+        }
+      })
   }
 
   postRiesgos() {
     this.riesgosService.psotSupuestosRiesgos(this.currentRiesgosForm)
-    .pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      }))
-      .subscribe((resp:any) => {
-      if (resp.ok == true) {
-        // this.getAllRequerimientos();
-        alertIsSuccess(true);
-        this.supuestosRiesgosForm.reset();
-      }else {
-        alertIsSuccess(false);
-      }
-    })
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        }))
+      .subscribe((resp: any) => {
+        if (resp.ok == true) {
+          // this.getAllRequerimientos();
+          alertIsSuccess(true);
+          this.supuestosRiesgosForm.reset();
+        } else {
+          alertIsSuccess(false);
+        }
+      })
   }
   postMedioVerificacion() {
     this.medioVerificacionService.postMedioVerificacion(this.currentMedioVerificacionForm)
-    .pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      }))
-      .subscribe((resp:any) => {
-      if (resp.ok == true) {
-        // this.getAllRequerimientos();
-        alertIsSuccess(true);
-        this.MedioVerificacionForm.reset();
-      }else {
-        alertIsSuccess(false);
-      }
-    })
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        }))
+      .subscribe((resp: any) => {
+        if (resp.ok == true) {
+          // this.getAllRequerimientos();
+          alertIsSuccess(true);
+          this.MedioVerificacionForm.reset();
+        } else {
+          alertIsSuccess(false);
+        }
+      })
   }
   postResponsable() {
     this.responsableService.postResponsable(this.currentResponsableForm)
-    .pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      }))
-      .subscribe((resp:any) => {
-      if (resp.ok == true) {
-        // this.getAllRequerimientos();
-        alertIsSuccess(true);
-        this.ResponsableForm.reset();
-      }else {
-        alertIsSuccess(false);
-      }
-    })
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        }))
+      .subscribe((resp: any) => {
+        if (resp.ok == true) {
+          // this.getAllRequerimientos();
+          alertIsSuccess(true);
+          this.ResponsableForm.reset();
+        } else {
+          alertIsSuccess(false);
+        }
+      })
   }
   postInvolucrado() {
     this.involucradosService.postInvolucrado(this.currentInvolucradoForm)
-    // .pipe(
-    //   catchError((error) => {
-    //     alertServerDown()
-    //     return error
-    //   }))
-      .subscribe((resp:any) => {
-      if (resp.ok == true) {
-        // this.getAllRequerimientos();
-        alertIsSuccess(true);
-        this.InvolucradoForm.reset();
-      }else {
-        alertIsSuccess(false);
-      }
-    })
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        }))
+      .subscribe((resp: any) => {
+        if (resp.ok == true) {
+          // this.getAllRequerimientos();
+          alertIsSuccess(true);
+          this.InvolucradoForm.reset();
+        } else {
+          alertIsSuccess(false);
+        }
+      })
   }
 
 
-    async deleteRequerimientos(requerimientos: RequerimientoI) {
-      let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este requerimiento?")
-      if (remove) {
-        this.requerimientoService.deleteRequerimientos(requerimientos.id!)
+  async deleteRequerimientos(requerimientos: RequerimientoI) {
+    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este requerimiento?")
+    if (remove) {
+      this.requerimientoService.deleteRequerimientos(requerimientos.id!)
         .pipe(
           catchError((error) => {
             alertServerDown()
             return error
           }))
-          .subscribe((resp: any) => {
-            alertIsSuccess(true);
-            this.getAllRequerimientos();
-          })
-      }
+        .subscribe((resp: any) => {
+          alertIsSuccess(true);
+        })
     }
 
-  guardarRequerimiento(){
-    if (this.requerimientoForm.get('idIndicadorEstrategico')!.value == 0){
+  }
+
+  guardarRequerimiento() {
+    if (this.requerimientoForm.get('idIndicadorEstrategico')!.value == 0) {
       errorMessageAlert('Debes seleccionar un indicador')
       return;
     };
 
-    if (this.requerimientoForm.invalid){
+    if (this.requerimientoForm.invalid) {
       errorMessageAlert('Debes llenar los campos del requerimientos')
       return;
     };
-      if(this.requerimientoForm.valid){
-        this.postRequerimiento();
-      }
+    if (this.requerimientoForm.valid) {
+      this.postRequerimiento();
     }
+  }
 
-  guardarRiesgos(){
+  guardarRiesgos() {
     console.log(this.supuestosRiesgosForm.value);
 
-    if (this.supuestosRiesgosForm.get('idIndicadorEstrategico')!.value == 0){
+    if (this.supuestosRiesgosForm.get('idIndicadorEstrategico')!.value == 0) {
       errorMessageAlert('Debes seleccionar un indicador')
       return;
     };
 
-    if (this.supuestosRiesgosForm.invalid){
+    if (this.supuestosRiesgosForm.invalid) {
       errorMessageAlert('Debes llenar el campo de Supuesto riesgo')
       return;
     };
-      if(this.supuestosRiesgosForm.valid){
-        this.postRiesgos();
-      }
+    if (this.supuestosRiesgosForm.valid) {
+      this.postRiesgos();
     }
-
-    guardarMedioVerificacion(){
-      console.log(this.MedioVerificacionForm.value);
-
-      if (this.MedioVerificacionForm.get('idIndicadorEstrategico')!.value == 0){
-        errorMessageAlert('Debes seleccionar un indicador')
-        return;
-      };
-
-      if (this.MedioVerificacionForm.invalid){
-        errorMessageAlert('Debes llenar el campo de medio de verificacion')
-        return;
-      };
-        if(this.MedioVerificacionForm.valid){
-          this.postMedioVerificacion();
-        }
-      }
-    guardarResponsable(){
-      console.log(this.ResponsableForm.value);
-
-      if (this.ResponsableForm.get('idIndicadorEstrategico')!.value == 0){
-        errorMessageAlert('Debes seleccionar un indicador')
-        return;
-      };
-
-      if (this.ResponsableForm.invalid){
-        errorMessageAlert('Debes seleccionar un responsable')
-        return;
-      };
-        if(this.ResponsableForm.valid){
-          this.postResponsable();
-        }
-      }
-    guardarInvolucrado(){
-      console.log(this.InvolucradoForm.value);
-
-      if (this.InvolucradoForm.get('idIndicadorEstrategico')!.value == 0){
-        errorMessageAlert('Debes seleccionar un indicador')
-        return;
-      };
-
-      if (this.InvolucradoForm.invalid){
-        errorMessageAlert('Debes seleccionar un involucrado')
-        return;
-      };
-        if(this.InvolucradoForm.valid){
-          this.postInvolucrado();
-        }
-      }
-
   }
+
+  guardarMedioVerificacion() {
+    console.log(this.MedioVerificacionForm.value);
+
+    if (this.MedioVerificacionForm.get('idIndicadorEstrategico')!.value == 0) {
+      errorMessageAlert('Debes seleccionar un indicador')
+      return;
+    };
+
+    if (this.MedioVerificacionForm.invalid) {
+      errorMessageAlert('Debes llenar el campo de medio de verificacion')
+      return;
+    };
+    if (this.MedioVerificacionForm.valid) {
+      this.postMedioVerificacion();
+    }
+  }
+  guardarResponsable() {
+    console.log(this.ResponsableForm.value);
+
+    if (this.ResponsableForm.get('idIndicadorEstrategico')!.value == 0) {
+      errorMessageAlert('Debes seleccionar un indicador')
+      return;
+    };
+
+    if (this.ResponsableForm.invalid) {
+      errorMessageAlert('Debes seleccionar un responsable')
+      return;
+    };
+    if (this.ResponsableForm.valid) {
+      this.postResponsable();
+    }
+  }
+  guardarInvolucrado() {
+    console.log(this.InvolucradoForm.value);
+
+    if (this.InvolucradoForm.get('idIndicadorEstrategico')!.value == 0) {
+      errorMessageAlert('Debes seleccionar un indicador')
+      return;
+    };
+
+    if (this.InvolucradoForm.invalid) {
+      errorMessageAlert('Debes seleccionar un involucrado')
+      return;
+    };
+    if (this.InvolucradoForm.valid) {
+      this.postInvolucrado();
+    }
+  }
+
+}
 
 
 

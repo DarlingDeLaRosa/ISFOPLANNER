@@ -141,29 +141,23 @@
     </button> -->
 
     <!-- <button type="submit" class="greenButton" (click)="guardar()">Guardar cambios</button> -->
-    <div style="border:1px solid  #ccc ;">
-      <div>
+
+    <!-- <div>
         <table>
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
               <th class="headerCell">Requerimiento</th>
-              <!-- <th class="headerCell"  style="width:2%;"></th> -->
               <th class="headerCell">Supuestos Riesgos</th>
-              <!-- <th class="headerCell"  style="width:5%;"></th> -->
               <th class="headerCell">Medio verificación</th>
-              <!-- <th class="headerCell"  style="width:5%;"></th> -->
               <th class="headerCell">Responsables</th>
-              <!-- <th class="headerCell"  style="width:5%;"></th> -->
               <th class="headerCell">Involucrados</th>
-              <!-- <th class="headerCell"  style="width:5%;"></th> -->
 
             </tr>
           </thead>
           <tbody>
             <tr class="dataRow">
               <ng-container *ngFor="let requerimiento of requerimientoSelected">
-            <tr class="dataIndiCell">{{requerimiento.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
-            <!-- <tr class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></tr> -->
+            <tr class="dataIndiCell">{{requerimiento.nombre}} <mat-icon class="removeIcon" (click)="deleteRequerimientos(requerimiento)">delete</mat-icon></tr>
             </ng-container>
             <td>
               <ng-container *ngFor="let riesgos of supuestosRiesgosSelected">
@@ -184,7 +178,59 @@
               </tr>
           </tbody>
         </table>
-      </div>
+      </div> -->
+    <div class="contenedor">
+      <table style="width: 20%;">
+        <div style="border:1px solid  #ccc ;">
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Requerimientos</th>
+              <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let item of requerimientoSelected">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+
+              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            </tr>
+          </tbody>
+        </div>
+      </table>&nbsp;
+      <table style="width: 20%;">
+        <div style="border:1px solid  #ccc ;">
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Supuestos riesgos</th>
+              <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let item of supuestosRiesgosSelected">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+
+              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            </tr>
+          </tbody>
+        </div>
+      </table>&nbsp;
+      <table style="width: 20%;">
+        <div style="border:1px solid  #ccc ;">
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Medio Verificacion</th>
+              <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let item of medioVerificacionSelected">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+
+              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            </tr>
+          </tbody>
+        </div>
+      </table>&nbsp;
     </div>
   </div>
 </div>

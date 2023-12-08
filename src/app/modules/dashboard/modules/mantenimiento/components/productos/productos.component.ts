@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ProductoService } from '../../services/producto.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { catchError, throwError } from 'rxjs';
+import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 
 @Component({
   selector: 'app-productos',
@@ -13,19 +14,23 @@ export class ProductosComponent implements OnInit {
 
   productosForm: FormGroup
   productos: any[]= []
+  unidadesOrg: any[] = []
 
   constructor(
     public fb: FormBuilder,
-    private apiProducto: ProductoService
+    private apiProducto: ProductoService,
+    private apiUnidadOrg: UnidadOrganizativaService
   ){
     this.productosForm = this.fb.group({
       id: 0,
       nombre: new FormControl('', Validators.required),
+      idUnidadOrganizativa: new FormControl('', Validators.required),
     })
   }
 
   ngOnInit(): void {
     this.getProducto()
+    this.getUnidadOrganizativa()
   }
 
   getProducto() {
@@ -42,9 +47,9 @@ export class ProductosComponent implements OnInit {
         this.productos = res.data
       })
   }
-
-  postProducto() {
-    this.apiProducto.postProducto(this.productosForm.value)
+  
+  getUnidadOrganizativa() {
+    this.apiUnidadOrg.getUnidadesOrganizativas()
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -53,15 +58,34 @@ export class ProductosComponent implements OnInit {
       )
       .subscribe((res: any) => {
         console.log(res);
-
-        if (res.statusCode == 201) {
-
-          alertIsSuccess(true)
-          this.getProducto()
-          this.productosForm.reset()
-
-        } else alertIsSuccess(false)
+        
+        this.unidadesOrg = res.data
       })
+  }
+
+  postProducto() {
+    console.log(this.productosForm.value);
+    
+    // this.apiProducto.postProducto(this.productosForm.value)
+    //   .pipe(
+    //     catchError((error) => {
+    //       alertServerDown()
+    //       return error
+    //     })
+    //   )
+    //   .subscribe((res: any) => {
+    //     console.log(res);
+         
+    //     if (res.status ==  201) {
+
+    //       alertIsSuccess(true)
+    //       this.getProducto()
+    //       this.productosForm.reset()
+
+    //     } 
+    //     else alertIsSuccess(false)
+
+    //   })
   }
 
   putProducto() {
