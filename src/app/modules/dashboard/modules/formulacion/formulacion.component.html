@@ -78,11 +78,11 @@
             </div>
             <div class="ProductoContainer">
                 <h1>Productos</h1>
-                <div class="producto">
+                <div class="producto" *ngFor="let producto of productos">
                     <div class="titleProducto">
                         <span>
-                            <h3>Producto</h3>
-                            <h4>Implementar modelo pedagógico para la formación de docentes</h4>
+                            <h3>Producto:</h3>
+                            <h4>{{producto.nombre}}</h4>
                         </span>
                         <span style="display: flex; ">
                             <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> RD$150,000.00</h4>
@@ -99,10 +99,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="dataRow">
-                                    <td class="dataCell">Cantidad de trabajos presentados en la Semana de innovación Docente (Antes Buenas Practicas)</td>
-                                    <td class="dataCell" >12%</td>
-                                    <td class="dataCell" >14%</td>
+                                <tr class="dataRow" *ngFor="let indicador of producto.indicadoresGestion">
+                                    <td class="dataCell"> {{indicador.nombre}} </td>
+                                    <td class="dataCell"> {{indicador.indicadorEstrategico.linaBase}} </td>
+                                    <td class="dataCell"> {{indicador.indicadorEstrategico.meta}}% </td>
                                 </tr>
                             </tbody>
                         </table>

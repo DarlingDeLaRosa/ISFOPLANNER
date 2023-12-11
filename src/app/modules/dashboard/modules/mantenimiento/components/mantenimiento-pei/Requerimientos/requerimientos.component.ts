@@ -289,6 +289,73 @@ export class RequerimientosComponent implements OnInit {
           }))
         .subscribe((resp: any) => {
           alertIsSuccess(true);
+          this.onSelectedIndicador()
+        })
+    }
+
+  }
+  async deleteSupuestosRiesgos(riesgo: SupuestosRiesgosI) {
+    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este supuesto riesgo?")
+    if (remove) {
+      this.riesgosService.deleteResultadoEfecto(riesgo.id!)
+        .pipe(
+          catchError((error) => {
+            alertServerDown()
+            return error
+          }))
+        .subscribe((resp: any) => {
+          alertIsSuccess(true);
+        })
+    }
+
+  }
+  async deleteMedioVerificacion(verificacion: MedioVerificacionI) {
+    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este medio de verificacion?")
+    if (remove) {
+      this.medioVerificacionService.DeleteMedioVerificacion(verificacion.id!)
+        .pipe(
+          catchError((error) => {
+            alertServerDown()
+            return error
+          }))
+        .subscribe((resp: any) => {
+          alertIsSuccess(true);
+        })
+    }
+
+  }
+  async deleteResponsable(Responsable: ResponsableI) {
+    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar el responsable?")
+    if (remove) {
+      const idIndicador = this.indicadorForm.get('id')?.value;
+      const idResponsable =  Responsable.id
+
+      this.responsableService.deleteResponsable(idIndicador,idResponsable)
+        .pipe(
+          catchError((error) => {
+            alertServerDown()
+            return error
+          }))
+        .subscribe((resp: any) => {
+          alertIsSuccess(true);
+        })
+    }
+
+  }
+  async deleteInvolucrado(involucrado: InvolucradoI) {
+    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar el involucrado?")
+    if (remove) {
+      const idIndicador = this.indicadorForm.get('id')?.value;
+      const idInvolucrado =  involucrado.id
+
+      this.responsableService.deleteResponsable(idIndicador,idInvolucrado)
+        .pipe(
+          catchError((error) => {
+            alertServerDown()
+            return error
+          }))
+        .subscribe((resp: any) => {
+          alertIsSuccess(true);
         })
     }
 

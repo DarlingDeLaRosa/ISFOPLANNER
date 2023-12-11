@@ -7,3 +7,9 @@ export interface ResponsableI {
     creadoPor? : number
 }
 
+export interface ResponsableDeleteI {
+  idIndicadorEstrategico:number,
+  idUnidadOrganizativa: number
+}
+
+

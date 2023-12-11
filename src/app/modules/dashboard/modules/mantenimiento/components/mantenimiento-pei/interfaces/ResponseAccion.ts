@@ -11,3 +11,8 @@ export interface ResponseResponsableI{
     token: string,
     data: string
 }
+export interface removerResponsableI{
+    ok: boolean,
+    statusCode: number,
+    detail: string,
+}

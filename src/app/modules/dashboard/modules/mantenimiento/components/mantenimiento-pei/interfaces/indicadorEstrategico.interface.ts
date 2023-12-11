@@ -10,7 +10,7 @@ export interface IndicadoresEstrategicosI {
         meta: number,
         creadoPor?: number,
         idResultadoefecto:number
-        resultadoefecto: ResultadoEfectoI,
+        resultadoEfecto: ResultadoEfectoI,
         requerimientos: RequerimientoI[],
         cronograma: CronogramaI,
         responsables: ResponsableI[];

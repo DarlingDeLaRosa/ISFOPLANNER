@@ -57,8 +57,6 @@ export class FormulacionComponent implements OnInit {
           return error
         }))
       .subscribe((resp: any) => {
-        console.log(resp);
-        
         this.resultadosEfecto = resp.data;
       })
   }
@@ -70,8 +68,7 @@ export class FormulacionComponent implements OnInit {
           alertServerDown()
           return error
         }))
-      .subscribe((resp: any) => {
-        console.log(resp);
+      .subscribe((resp: any) => {        
         this.ejesEstrategicos = resp.data;
       })
   }
@@ -84,8 +81,6 @@ export class FormulacionComponent implements OnInit {
           return error
         }))
       .subscribe((resp: any) => {
-        console.log(resp);
-
         this.estrategias = resp.data;
       })
   }
@@ -101,7 +96,6 @@ export class FormulacionComponent implements OnInit {
       )
       .subscribe((res: any) => {
         console.log(res);
-
         this.productos = res.data
       })
   }

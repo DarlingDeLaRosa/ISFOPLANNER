@@ -64,28 +64,23 @@ export class ProductosComponent implements OnInit {
   }
 
   postProducto() {
-    console.log(this.productosForm.value);
-    
-    // this.apiProducto.postProducto(this.productosForm.value)
-    //   .pipe(
-    //     catchError((error) => {
-    //       alertServerDown()
-    //       return error
-    //     })
-    //   )
-    //   .subscribe((res: any) => {
-    //     console.log(res);
-         
-    //     if (res.status ==  201) {
+    this.apiProducto.postProducto(this.productosForm.value)
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        })
+      )
+      .subscribe((res: any) => {
 
-    //       alertIsSuccess(true)
-    //       this.getProducto()
-    //       this.productosForm.reset()
+        if (res.ok) {
+          alertIsSuccess(true)
+          this.getProducto()
+          this.productosForm.reset()
+        } 
+        else alertIsSuccess(false)
 
-    //     } 
-    //     else alertIsSuccess(false)
-
-    //   })
+      })
   }
 
   putProducto() {

@@ -103,7 +103,7 @@ export class IndicadoresGestionComponent implements OnInit {
       .pipe(
         catchError((error) => {
           alertServerDown()
-          return error
+          return  throwError(error)
         })
       )
       .subscribe((res: any) => {

@@ -23,12 +23,13 @@
         routerLinkActive="active">
         <mat-icon>settings</mat-icon>Resultado efecto
       </a> -->
+      
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['productos'] } }]" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Productos
+      </a>
       <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['indicadoresGestion'] } }]"
         routerLinkActive="active">
         <mat-icon>settings</mat-icon>Indicadores de gestion
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['productos'] } }]" routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Productos
       </a>
       <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estructuraProgramatica'] } }]"
         routerLinkActive="active">

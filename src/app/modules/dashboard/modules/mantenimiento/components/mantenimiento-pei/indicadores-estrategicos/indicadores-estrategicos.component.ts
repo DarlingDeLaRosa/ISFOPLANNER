@@ -50,7 +50,7 @@ export class IndicadoresEstrategicosComponent implements OnInit{
       catchError((error) => {
         alertServerDown()
         return error
-      })).subscribe((resp: any) => {
+      })).subscribe((resp: any) => {        
       this.resultadoefecto = resp.data;
     })
   }
@@ -61,6 +61,8 @@ export class IndicadoresEstrategicosComponent implements OnInit{
         alertServerDown()
         return error
       })).subscribe((resp: any) => {
+        console.log(resp);
+
       this.indicadoresEstartegicos = resp.data;
     })
   }
@@ -76,7 +78,7 @@ export class IndicadoresEstrategicosComponent implements OnInit{
       nombre: indicadorEstrategico.nombre,
       linaBase:  indicadorEstrategico.linaBase,
       meta:  indicadorEstrategico.meta,
-      idResultadoefecto:  indicadorEstrategico.resultadoefecto.id,
+      idResultadoefecto:  indicadorEstrategico.resultadoEfecto.id,
       anio1: indicadorEstrategico.cronograma.anio1,
       metaAnio1: indicadorEstrategico.cronograma.metaAnio1,
       anio2: indicadorEstrategico.cronograma.anio2,

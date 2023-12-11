@@ -192,13 +192,13 @@
             <tr class="dataRow" *ngFor="let item of requerimientoSelected">
               <td class="dataIndiCell">{{item.nombre}}</td>
 
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteRequerimientos(item)">delete</mat-icon></td>
             </tr>
           </tbody>
         </div>
       </table>&nbsp;
-      <table style="width: 20%;">
-        <div style="border:1px solid  #ccc ;">
+      <table style="width: 30%;">
+         <div style="border:1px solid  #ccc ;">
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
               <th class="headerCell">Supuestos riesgos</th>
@@ -209,7 +209,7 @@
             <tr class="dataRow" *ngFor="let item of supuestosRiesgosSelected">
               <td class="dataIndiCell">{{item.nombre}}</td>
 
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteSupuestosRiesgos(item)">delete</mat-icon></td>
             </tr>
           </tbody>
         </div>
@@ -226,11 +226,45 @@
             <tr class="dataRow" *ngFor="let item of medioVerificacionSelected">
               <td class="dataIndiCell">{{item.nombre}}</td>
 
-              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
             </tr>
           </tbody>
         </div>
       </table>&nbsp;
+      <div style="border:1px solid  #ccc ;">
+      <table style="width: 20%;">
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Responsables</th>
+              <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let item of ResponsablesSelected">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteResponsable(item)">delete</mat-icon></td>
+            </tr>
+          </tbody>
+        </table>&nbsp;
+      </div>
+      <div style="border:1px solid  #ccc ;">
+      <table>
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Involucrados</th>
+              <th class="headerCell"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let item of involucradoSelected">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+
+              <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
+            </tr>
+          </tbody>
+        </table>&nbsp;
+      </div>
     </div>
   </div>
 </div>

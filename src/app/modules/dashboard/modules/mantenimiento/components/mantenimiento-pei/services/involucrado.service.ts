@@ -24,4 +24,13 @@ export class involucradoService {
       return this.http.post<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/agregar-involucrado`, involucrado, {headers})
     }
 
+    deleteInvolucrado(idIndicadorEstrategico:number,idInvolucrado:number ) {
+      const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
+      const requestBody = {
+        idIndicadorEstrategico,
+        idInvolucrado
+      };
+     return this.http.delete<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/remover-involucrado`, {headers, body:requestBody, })
+    }
+
 }
