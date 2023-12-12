@@ -1,1 +1,29 @@
-<p>indicador-editar works!</p>
+<div style="padding: 15px;">
+  <h2 class="mantenimientoTitle" >Estrategias</h2>
+  <div style="border:1px solid  #ccc ;">
+  </div>&nbsp;
+  <div>
+      <mat-form-field appearance="fill" style="width: 40%;">
+        <mat-label>Eje estrategico</mat-label>
+        <mat-select disableRipple>
+          <ng-container>
+            <mat-option>
+
+            </mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
+        <mat-label>Estrategia</mat-label>
+        <input matInput formControlName="nombre">
+      </mat-form-field>
+
+      <button class="greenButton">Guardar cambios</button>
+  </div>
+
+</div>
+

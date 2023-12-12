@@ -348,12 +348,12 @@ export class RequerimientosComponent implements OnInit {
       const idIndicador = this.indicadorForm.get('id')?.value;
       const idInvolucrado =  involucrado.id
 
-      this.responsableService.deleteResponsable(idIndicador,idInvolucrado)
-        .pipe(
-          catchError((error) => {
-            alertServerDown()
-            return error
-          }))
+      this.involucradosService.deleteInvolucrado(idIndicador,idInvolucrado)
+        // .pipe(
+        //   catchError((error) => {
+        //     alertServerDown()
+        //     return error
+        //   }))
         .subscribe((resp: any) => {
           alertIsSuccess(true);
         })
