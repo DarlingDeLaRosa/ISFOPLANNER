@@ -13,36 +13,36 @@ export class EstructuraProgramaticaService {
   baseURL: string = environment.api2
   constructor(private http: HttpClient) { }
 
-  public getEstructuraProgramatica() {
+  public getEstructurasProgramaticas() {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const estructuraProHeader = {headers: headers}
 
-    const getEstructuraProgramatica = `${this.baseURL}/EstructuraProgramatica`
-    return this.http.get(getEstructuraProgramatica, estructuraProHeader)
+    const getEstructurasProgramaticas = `${this.baseURL}/EstructurasProgramaticas`
+    return this.http.get(getEstructurasProgramaticas, estructuraProHeader)
   }
 
-  public postEstructuraProgramatica(estructuraProData: EstructuraProgramaticaI) {
+  public postEstructurasProgramaticas(estructuraProData: EstructuraProgramaticaI) {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`, })
     const estructuraProHeader = {headers: headers}
 
-    const postEstructuraProgramatica = `${this.baseURL}/EstructuraProgramatica`
-    return this.http.post(postEstructuraProgramatica , estructuraProData, estructuraProHeader)
+    const postEstructurasProgramaticas = `${this.baseURL}/EstructurasProgramaticas`
+    return this.http.post(postEstructurasProgramaticas , estructuraProData, estructuraProHeader)
   }
 
-  public putEstructuraProgramatica(estructuraProData: EstructuraProgramaticaI) {
+  public putEstructurasProgramaticas(estructuraProData: EstructuraProgramaticaI) {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const estructuraProHeader = {headers: headers}
 
-    const putEstructuraProgramatica = `${this.baseURL}/EstructuraProgramatica?id=${estructuraProData.id}`
-    return this.http.put(putEstructuraProgramatica, estructuraProData, estructuraProHeader)
+    const putEstructurasProgramaticas = `${this.baseURL}/EstructurasProgramaticas?id=${estructuraProData.id}`
+    return this.http.put(putEstructurasProgramaticas, estructuraProData, estructuraProHeader)
   }
 
-  public removeEstructuraProgramatica(id: number) {
+  public removeEstructurasProgramaticas(id: number) {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const  estructuraProHeader = {headers: headers}
 
-    const removeEstructuraProgramatica = `${this.baseURL}/EstructuraProgramatica/${id}`
-    return this.http.delete(removeEstructuraProgramatica,  estructuraProHeader)
+    const removeEstructurasProgramaticas = `${this.baseURL}/EstructurasProgramaticas/${id}`
+    return this.http.delete(removeEstructurasProgramaticas,  estructuraProHeader)
   }
 
 }

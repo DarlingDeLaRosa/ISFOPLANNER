@@ -7,7 +7,7 @@
         <mat-select disableRipple formControlName="idEjeEstrategico">
           <ng-container>
             <mat-option [value]="eje.id" *ngFor="let eje of ejes">
-              {{eje.nombre}} - {{eje.numeroEje}}
+              {{eje.numeroEje}} - {{eje.nombre}}
             </mat-option>
           </ng-container>
           <ng-template #noEdificio>
@@ -53,5 +53,4 @@
       </div>
     </div>
   </div>
-
 </div>

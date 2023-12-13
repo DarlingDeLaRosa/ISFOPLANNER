@@ -15,7 +15,6 @@ export class IndicadoresGestionComponent implements OnInit {
 
   indicadoresGestionForm: FormGroup;  
   indicadoresGestion: any[] = []
-  indicadoresEstrategicos: any[] = []
   frecuencias: any[] = []
   alcances: any[] = []
   productos: any[] = []
@@ -23,7 +22,6 @@ export class IndicadoresGestionComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiProducto: ProductoService,
-    private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
     private apiIndicadoresGestion: IndicadorGestionService
   ) {
     this.indicadoresGestionForm = this.fb.group({
@@ -40,7 +38,6 @@ export class IndicadoresGestionComponent implements OnInit {
   ngOnInit(): void {
     this.getIndicadoresGestion()
     this.getProductos()
-    this.getIndicadoresEstrategicos()
     this.getFrecuencia()
     this.getAlcance()
   }
@@ -55,19 +52,6 @@ export class IndicadoresGestionComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.productos = res.data
-      })
-  }
-
-  getIndicadoresEstrategicos() {
-    this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.indicadoresEstrategicos = res.data
       })
   }
 

@@ -220,6 +220,7 @@ export class RequerimientosComponent implements OnInit {
           // this.getAllRequerimientos();
           alertIsSuccess(true);
           this.supuestosRiesgosForm.reset();
+          // this.supuestosRiesgosForm.get('nombre').setValue('');
         } else {
           alertIsSuccess(false);
         }
@@ -243,6 +244,8 @@ export class RequerimientosComponent implements OnInit {
       })
   }
   postResponsable() {
+    console.log(this.ResponsableForm.value);
+
     this.responsableService.postResponsable(this.currentResponsableForm)
       .pipe(
         catchError((error) => {
@@ -260,6 +263,8 @@ export class RequerimientosComponent implements OnInit {
       })
   }
   postInvolucrado() {
+    console.log(this.InvolucradoForm.value);
+
     this.involucradosService.postInvolucrado(this.currentInvolucradoForm)
       .pipe(
         catchError((error) => {

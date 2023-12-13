@@ -52,7 +52,7 @@ export class IndicadorGestionService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const alcanceHeader = {headers: headers}
 
-    const getAlcance = `${this.baseURL}/TipoAlcance`
+    const getAlcance = `${this.baseURL}/TiposAlcances`
     return this.http.get(getAlcance, alcanceHeader)
   }
 
@@ -62,7 +62,7 @@ export class IndicadorGestionService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const frecuenciaHeader = {headers: headers}
 
-    const getFrecuencia = `${this.baseURL}/Frecuencia`
+    const getFrecuencia = `${this.baseURL}/Frecuencias`
     return this.http.get(getFrecuencia, frecuenciaHeader)
   }
 

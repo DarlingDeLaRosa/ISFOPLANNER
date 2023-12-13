@@ -1,0 +1,60 @@
+<div style="padding: 15px;">
+    <h2 class="mantenimientoTitle">Presupuesto Institucional</h2>
+    <div>
+        <form > <!--[formGroup]="asignacionPresupuestoForm" (ngSubmit)="putUnidadOrganizativa()"-->
+
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
+                <mat-label>Presupuesto</mat-label>
+                <input type="number" matInput>
+            </mat-form-field>&nbsp;
+            
+            <mat-form-field appearance="fill" style="width: 59%;">
+                <mat-label>Periodo de tiempo</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Fecha Inicial" formControlName="fechaInicio">
+                    <input matEndDate placeholder="Fecha Final" formControlName="fechaFin">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>&nbsp;
+
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+                <mat-label>Justificación</mat-label>
+                <textarea matInput ></textarea>
+            </mat-form-field>
+
+            <button type="submit" class="greenButton">Guardar cambios</button>
+
+        </form>
+
+        <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de unidades organizativas</h2>
+
+        <div style="border:1px solid  #ccc ;">
+
+            <div>
+                <table>
+                    <thead class="headerTable">
+                        <tr class="headerRow" style="background-color: #95ade93f;">
+                            <th class="headerCell" style="width: 20%;">Presupuesto</th>
+                            <th class="headerCell">Periodo</th>
+                            <th class="headerCell">Justificación de cambios</th>
+                            <th class="headerCell" style="width: 10%;"></th>
+                            <th class="headerCell" style="width: 10%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="dataRow"> <!--*ngFor="let unidadOrg of unidadesOrg"-->
+                            <td class="dataIndiCell"></td><!--{{unidadOrg.nombre}}-->
+                            <td class="dataIndiCell"></td> <!--{{unidadOrg.presupuestoEstimado | currency: 'DOP ': 'symbol':
+                                '1.2-2'}} -->
+                            <td class="dataIndiCell"></td> <!--(click)="setValueEditUnidadOrg(unidadOrg)"-->
+                            <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td> <!--(click)="setValueEditUnidadOrg(unidadOrg)"-->
+                            <td class="dataIndiCell"><mat-icon  class="removeIcon">delete</mat-icon></td> <!--(click)="deletePresupuestoUnidadOrg(unidadOrg)"-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

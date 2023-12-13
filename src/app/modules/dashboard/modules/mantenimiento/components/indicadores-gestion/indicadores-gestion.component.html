@@ -3,12 +3,7 @@
   <div>
     <form [formGroup]="indicadoresGestionForm" (ngSubmit)="saveChangesButton()" >
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 49%;">
-        <mat-label>Indicador de gestión</mat-label>
-        <input matInput>
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:50%;">
+      <mat-form-field appearance="fill" style="width:39%;">
         <mat-label>Producto</mat-label>
         <mat-select formControlName="idProducto" disableRipple>
           <ng-container *ngIf="productos.length > 0; else noProductos">
@@ -22,24 +17,14 @@
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
         </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" style="width: 49%;">
-        <mat-label>Indicador estrategico</mat-label>
-        <mat-select formControlName="idIndicadorEstrategico" disableRipple>
-          <ng-container *ngIf="indicadoresEstrategicos.length > 0; else noIndicadoresE">
-
-            <mat-option [value]="indicadorE.id" *ngFor="let indicadorE of indicadoresEstrategicos">
-              {{indicadorE.nombre}}
-            </mat-option>
-          </ng-container>
-          <ng-template #noIndicadoresE>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 25%;">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 60%;">
+        <mat-label>Indicador de gestión</mat-label>
+        <input matInput>
+      </mat-form-field><br>
+
+      <mat-form-field appearance="fill" style="width: 24%;">
         <mat-label>Alcance</mat-label>
         <mat-select formControlName="idAlcance" disableRipple>
           <ng-container *ngIf="alcances.length > 0; else noAlcance">
@@ -55,7 +40,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 24%;">
+      <mat-form-field appearance="fill" style="width: 25%;">
         <mat-label>Frencuencia</mat-label>
         <mat-select formControlName="idFrecuencia" disableRipple>
           <ng-container *ngIf="frecuencias.length > 0; else noFrecuencia">
@@ -69,9 +54,14 @@
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 25%;">
+        <mat-label>Linea Base</mat-label>
+        <input type="number" matInput>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
         <mat-label>Meta general</mat-label>
         <input type="number" matInput>
       </mat-form-field><br>

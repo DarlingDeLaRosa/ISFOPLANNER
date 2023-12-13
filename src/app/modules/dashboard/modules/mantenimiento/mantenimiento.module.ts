@@ -16,7 +16,6 @@ import { EstrategiasComponent } from './components/mantenimiento-pei/estrategias
 import { IndicadoresEstrategicosComponent } from './components/mantenimiento-pei/indicadores-estrategicos/indicadores-estrategicos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ResultadoEfectoComponent } from './components/mantenimiento-pei/resultado-efecto/resultado-efecto.component';
-import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuestos-riesgos/supuestos-riesgos.component';
 import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio-verificacion/medio-verificacion.component';
 import { MedioVerificacionService } from './components/mantenimiento-pei/services/medio-verificacion.service';
@@ -24,6 +23,8 @@ import { ResponsablesIndicadoresComponent } from './components/mantenimiento-pei
 import { ResponsableService } from './components/mantenimiento-pei/services/reponsable.service';
 import { ConfiguracionPeriodosComponent } from './components/configuracion-periodos/configuracion-periodos.component';
 import { AsignacionPresupuestoComponent } from './components/asignacion-presupuesto/asignacion-presupuesto.component';
+import { PresupuestoInstitucionalComponent } from './components/presupuesto-institucional/presupuesto-institucional.component';
+import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AsignacionPresupuestoComponent } from './components/asignacion-presupue
     MedioVerificacionComponent,
     ResponsablesIndicadoresComponent,
     ConfiguracionPeriodosComponent,
-    AsignacionPresupuestoComponent
+    AsignacionPresupuestoComponent,
+    PresupuestoInstitucionalComponent
   ],
 
   providers:[

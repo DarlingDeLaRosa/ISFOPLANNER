@@ -19,7 +19,7 @@ export class UsuarioService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const usuarioHeader = {headers: headers}
 
-    const getUsuario = `${this.baseURL}/Usuario/getall/1/1/200`
+    const getUsuario = `${this.baseURL}/Usuarios/getall/1/1/200`
     return this.http.get(getUsuario, usuarioHeader)
   }
 
@@ -27,7 +27,7 @@ export class UsuarioService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`, })
     const usuarioHeader = {headers: headers}
 
-    const postUsuario = `${this.baseURL}/Usuario`
+    const postUsuario = `${this.baseURL}/Usuarios`
     return this.http.post(postUsuario , usuarioData, usuarioHeader)
   }
 
@@ -35,7 +35,7 @@ export class UsuarioService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const usuarioHeader = {headers: headers}
 
-    const putUsuario = `${this.baseURL}/Usuario?id=${usuarioData.id}`
+    const putUsuario = `${this.baseURL}/Usuarios?id=${usuarioData.id}`
     return this.http.put(putUsuario, usuarioData, usuarioHeader)
   }
 
@@ -43,7 +43,7 @@ export class UsuarioService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const  usuarioHeader = {headers: headers}
 
-    const removeUsuario = `${this.baseURL}/Usuario/${id}`
+    const removeUsuario = `${this.baseURL}/Usuarios/${id}`
     return this.http.delete(removeUsuario,  usuarioHeader)
   }
 
@@ -53,7 +53,7 @@ export class UsuarioService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const recintosHeader = {headers: headers}
 
-    const getRecintos = `${this.baseURL}/Usuario/getallrecintos`
+    const getRecintos = `${this.baseURL}/Usuarios/getallrecintos`
     return this.http.get(getRecintos, recintosHeader)
   }
 
@@ -63,7 +63,7 @@ export class UsuarioService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const cargosHeader = {headers: headers}
 
-    const getCargos = `${this.baseURL}/Usuario/getallcargos`
+    const getCargos = `${this.baseURL}/Usuarios/getallcargos`
     return this.http.get(getCargos, cargosHeader)
   }
 
@@ -73,7 +73,7 @@ export class UsuarioService {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const rolesHeader = {headers: headers}
 
-    const getRol = `${this.baseURL}/Usuario/getallroles/${this.idSistema}`
+    const getRol = `${this.baseURL}/Usuarios/getallroles/${this.idSistema}`
     return this.http.get(getRol , rolesHeader)
   }
 }

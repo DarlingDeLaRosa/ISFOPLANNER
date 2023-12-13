@@ -4,6 +4,7 @@ import { ProductoService } from '../../services/producto.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { catchError, throwError } from 'rxjs';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
+import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
 
 @Component({
   selector: 'app-productos',
@@ -14,23 +15,41 @@ export class ProductosComponent implements OnInit {
 
   productosForm: FormGroup
   productos: any[]= []
+  indicadoresEstrategicos: any[] = []
   unidadesOrg: any[] = []
 
   constructor(
     public fb: FormBuilder,
     private apiProducto: ProductoService,
+    private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
     private apiUnidadOrg: UnidadOrganizativaService
   ){
     this.productosForm = this.fb.group({
       id: 0,
       nombre: new FormControl('', Validators.required),
       idUnidadOrganizativa: new FormControl('', Validators.required),
+      idIndicadorEstrategico: new FormControl('', Validators.required),
     })
   }
 
   ngOnInit(): void {
     this.getProducto()
+    this.getIndicadoresEstrategicos()
     this.getUnidadOrganizativa()
+  }
+
+  
+  getIndicadoresEstrategicos() {
+    this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos()
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        })
+      )
+      .subscribe((res: any) => {
+        this.indicadoresEstrategicos = res.data
+      })
   }
 
   getProducto() {

@@ -12,12 +12,13 @@ import { EstrategiasComponent } from './components/mantenimiento-pei/estrategias
 import { IndicadoresEstrategicosComponent } from './components/mantenimiento-pei/indicadores-estrategicos/indicadores-estrategicos.component';
 import { EjesComponent } from './components/mantenimiento-pei/ejes/ejes.component';
 import { ResultadoEfectoComponent } from './components/mantenimiento-pei/resultado-efecto/resultado-efecto.component';
-import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuestos-riesgos/supuestos-riesgos.component';
 import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio-verificacion/medio-verificacion.component';
 import { ResponsablesIndicadoresComponent } from './components/mantenimiento-pei/responsables-indicacdores/responsables-indicadores.component';
 import { AsignacionPresupuestoComponent } from './components/asignacion-presupuesto/asignacion-presupuesto.component';
 import { ConfiguracionPeriodosComponent } from './components/configuracion-periodos/configuracion-periodos.component';
+import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
+import { PresupuestoInstitucionalComponent } from './components/presupuesto-institucional/presupuesto-institucional.component';
 
 const routes: Routes = [
   {
@@ -76,6 +77,11 @@ const routes: Routes = [
           {
             path: 'asignacion-presupuesto',
             component: AsignacionPresupuestoComponent,
+            outlet: 'mantenimiento'
+          },
+          {
+            path: 'presupuesto-institucional',
+            component: PresupuestoInstitucionalComponent,
             outlet: 'mantenimiento'
           },
           {

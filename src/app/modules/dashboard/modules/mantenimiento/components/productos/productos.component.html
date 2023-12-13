@@ -2,8 +2,23 @@
   <h2 class="mantenimientoTitle" >Productos</h2>
   <div>
     <form [formGroup]="productosForm" (ngSubmit)="saveChangesButton()">
+      
+      <mat-form-field appearance="fill" style="width: 39%;">
+        <mat-label>Indicador estrategico</mat-label>
+        <mat-select formControlName="idIndicadorEstrategico" disableRipple>
+          <ng-container *ngIf="indicadoresEstrategicos.length > 0; else noIndicadoresE">
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+            <mat-option [value]="indicadorE.id" *ngFor="let indicadorE of indicadoresEstrategicos">
+              {{indicadorE.nombre}}
+            </mat-option>
+          </ng-container>
+          <ng-template #noIndicadoresE>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 60%;">
         <mat-label>Nombre del Producto</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>

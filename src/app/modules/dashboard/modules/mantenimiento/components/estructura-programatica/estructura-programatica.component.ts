@@ -31,7 +31,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
   }
 
   getEstructuraPro() {
-    this.apiEstructuraPro.getEstructuraProgramatica()
+    this.apiEstructuraPro.getEstructurasProgramaticas()
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -44,7 +44,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
   }
 
   postEstructuraPro() {
-    this.apiEstructuraPro.postEstructuraProgramatica(this.estructuraProgramaticaForm.value)
+    this.apiEstructuraPro.postEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -65,7 +65,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
   }
 
   putEstructuraPro() {
-    this.apiEstructuraPro.putEstructuraProgramatica(this.estructuraProgramaticaForm.value)
+    this.apiEstructuraPro.putEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -89,7 +89,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar la estructura programatica.")
 
     if (removeDecision) {
-      this.apiEstructuraPro.removeEstructuraProgramatica(id)
+      this.apiEstructuraPro.removeEstructurasProgramaticas(id)
         .pipe(
           catchError((error) => {
             alertServerDown()

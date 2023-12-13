@@ -54,7 +54,10 @@
         routerLinkActive="active">
         <mat-icon>settings</mat-icon>Configuración Periodos
       </a>
-
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['presupuesto-institucional'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Presuspuesto Institucional
+      </a>
     </div>
 
     <div class="mantenimientoForms">
