@@ -249,14 +249,14 @@ export class RequerimientosComponent implements OnInit {
     this.responsableService.postResponsable(this.currentResponsableForm)
       .pipe(
         catchError((error) => {
-          alertServerDown()
+          errorMessageAlert(error.error.detail)
+          // alertServerDown()
           return error
         }))
       .subscribe((resp: any) => {
         if (resp.ok == true) {
           // this.getAllRequerimientos();
           alertIsSuccess(true);
-          this.ResponsableForm.reset();
         } else {
           alertIsSuccess(false);
         }
@@ -268,7 +268,8 @@ export class RequerimientosComponent implements OnInit {
     this.involucradosService.postInvolucrado(this.currentInvolucradoForm)
       .pipe(
         catchError((error) => {
-          alertServerDown()
+          errorMessageAlert(error.error.detail)
+          // alertServerDown()
           return error
         }))
       .subscribe((resp: any) => {
@@ -302,7 +303,7 @@ export class RequerimientosComponent implements OnInit {
   async deleteSupuestosRiesgos(riesgo: SupuestosRiesgosI) {
     let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este supuesto riesgo?")
     if (remove) {
-      this.riesgosService.deleteResultadoEfecto(riesgo.id!)
+      this.riesgosService.deleteSupuestiRiesgos(riesgo.id!)
         .pipe(
           catchError((error) => {
             alertServerDown()

@@ -4,6 +4,7 @@ import { catchError, throwError } from 'rxjs';
 import { alertIsSuccess, alertRemoveSure, alertServerDown } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { UnidadOrgI } from '../../interfaces/mantenimientoPOA.interface';
+import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 
 @Component({
   selector: 'app-asignacion-presupuesto',
@@ -14,10 +15,12 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   asignacionPresupuestoForm: FormGroup;
   unidadesOrg: any[] = []
+  presupuestosInst: any[] = []
 
   constructor(
     public fb: FormBuilder,
-    private apiUnidadOrg: UnidadOrganizativaService
+    private apiUnidadOrg: UnidadOrganizativaService,
+    private apiPresupuestoInstitucional: PresupuestoInstitucionalService
   ) {
     this.asignacionPresupuestoForm = this.fb.group({
       id: 0,
@@ -28,8 +31,22 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUnidadOrganizativa()
+    this.getPresupuestoInstitucional()
   }
 
+  getPresupuestoInstitucional() {
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional()
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        })
+      )
+      .subscribe((res: any) => {
+        //Cambiar por el get de el prosupuesto especifico
+        this.presupuestosInst.push(res.data[0])
+      })
+  }
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()

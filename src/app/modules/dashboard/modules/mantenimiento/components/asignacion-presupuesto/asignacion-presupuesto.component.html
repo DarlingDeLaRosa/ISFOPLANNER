@@ -1,5 +1,25 @@
 <div style="padding: 15px;">
-    <h2 class="mantenimientoTitle">Presupuesto Unidades Organizativas</h2>
+    <div class="fuctionContent" style="padding: 0 5px 0 15px;">
+        <h2 class="mantenimientoTitle">Presupuesto Unidades Organizativas</h2>
+        <div style="width: 400px">
+            <table>
+                <thead class="headerTable">
+                    <tr class="headerRow" style="background-color: #696a6e3f;">
+                        <th class="headerCell" style="width: 20%;">Presupuesto Total</th>
+                        <th class="headerCell" style="width: 20%;">Presupusto disponible</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow" *ngFor="let presupuestoInst of presupuestosInst">
+                        <td class="dataIndiCell">{{presupuestoInst.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}
+                        </td>
+                        <td class="dataIndiCell">{{presupuestoInst.montoRestante | currency: 'DOP ': 'symbol':'1.2-2'}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div>
         <form [formGroup]="asignacionPresupuestoForm" (ngSubmit)="putUnidadOrganizativa()">
 
@@ -35,29 +55,27 @@
 
         <div style="border:1px solid  #ccc ;">
 
-            <div>
-                <table>
-                    <thead class="headerTable">
-                        <tr class="headerRow" style="background-color: #95ade93f;">
-                            <th class="headerCell">Unidad Organizativa</th>
-                            <th class="headerCell" style="width: 20%;">Presupuesto</th>
-                            <th class="headerCell" style="width: 10%;"></th>
-                            <th class="headerCell" style="width: 10%;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="dataRow" *ngFor="let unidadOrg of unidadesOrg">
-                            <td class="dataIndiCell">{{unidadOrg.nombre}}</td>
-                            <td class="dataIndiCell">{{unidadOrg.presupuestoEstimado | currency: 'DOP ': 'symbol':
-                                '1.2-2'}} </td>
-                            <td class="dataIndiCell"><mat-icon (click)="setValueEditUnidadOrg(unidadOrg)"
-                                    class="editIcon">edit</mat-icon></td>
-                            <td class="dataIndiCell"><mat-icon (click)="deletePresupuestoUnidadOrg(unidadOrg)"
-                                    class="removeIcon">delete</mat-icon></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table>
+                <thead class="headerTable">
+                    <tr class="headerRow" style="background-color: #95ade93f;">
+                        <th class="headerCell">Unidad Organizativa</th>
+                        <th class="headerCell" style="width: 20%;">Presupuesto</th>
+                        <th class="headerCell" style="width: 10%;"></th>
+                        <th class="headerCell" style="width: 10%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow" *ngFor="let unidadOrg of unidadesOrg">
+                        <td class="dataIndiCell">{{unidadOrg.nombre}}</td>
+                        <td class="dataIndiCell">{{unidadOrg.presupuestoEstimado | currency: 'DOP ': 'symbol':
+                            '1.2-2'}} </td>
+                        <td class="dataIndiCell"><mat-icon (click)="setValueEditUnidadOrg(unidadOrg)"
+                                class="editIcon">edit</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon (click)="deletePresupuestoUnidadOrg(unidadOrg)"
+                                class="removeIcon">delete</mat-icon></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

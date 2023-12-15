@@ -75,10 +75,17 @@ export interface UnidadOrgI {
 }
 
 export interface PeriodoConfigI {
-  id: number ,
+  id: number | null,
   idTipoProceso: number,
   FechaInicio: Date,
   FechaFin: Date,
   Prorroga: Date,
 }
 
+export interface  PresupuestoInstitucionalI{
+  id: number | null,
+  montoTotal: number,
+  justicarModificacion: string,
+  fechaInicio: Date
+  fechaFin: Date
+}

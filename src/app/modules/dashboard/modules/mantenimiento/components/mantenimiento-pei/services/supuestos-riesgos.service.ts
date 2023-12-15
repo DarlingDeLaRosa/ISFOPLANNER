@@ -26,13 +26,9 @@ export class SupuestosRiesgosService {
         return this.http.post<ResponseI>(`${this.baseUrl}/SupuestosRiesgos`,supuestosriesgos, {headers})
       }
 
-      deleteResultadoEfecto(id:number): Observable<ResponseI> {
+      deleteSupuestiRiesgos(id:number): Observable<ResponseI> {
         const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.delete<ResponseI>(`${this.baseUrl}/ResultadosEfectos/${id}`, {headers})
+        return this.http.delete<ResponseI>(`${this.baseUrl}/SupuestosRiesgos/${id}`, {headers})
       }
 
-      updateResultadoEfecto(retultadoEfecto:ResultadoEfectoI, id:number): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.put<ResponseI>(`${this.baseUrl}/ResultadosEfectos/${id}`, retultadoEfecto, {headers})
-      }
 }

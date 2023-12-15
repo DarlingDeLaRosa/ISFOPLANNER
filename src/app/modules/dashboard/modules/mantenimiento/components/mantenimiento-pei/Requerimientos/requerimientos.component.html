@@ -36,7 +36,7 @@
     <mat-form-field appearance="fill" style="width: 41%;">
       <form [formGroup]="ResponsableForm">
         <mat-label>Seleccione el responsable</mat-label>
-        <mat-select disableRipple formControlName="idUnidadOrganizativa" >
+        <mat-select disableRipple formControlName="idUnidadOrganizativa" multiple >
           <ng-container>
             <mat-option [value]="respon.id" *ngFor="let respon of responsable">
               {{respon.nombre}} </mat-option>
@@ -56,7 +56,7 @@
     <mat-form-field appearance="fill" style="width: 44%;">
       <form [formGroup]="InvolucradoForm">
         <mat-label>Seleccione el Involucrado</mat-label>
-        <mat-select disableRipple formControlName="idInvolucrado" >
+        <mat-select disableRipple formControlName="idInvolucrado" multiple>
           <ng-container>
             <mat-option [value]="involucrados.id" *ngFor="let involucrados of involucrado">
               {{involucrados.nombre}} </mat-option>

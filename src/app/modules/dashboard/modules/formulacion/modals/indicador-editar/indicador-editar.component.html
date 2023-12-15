@@ -1,10 +1,10 @@
-<div style="padding: 15px;">
-  <h2 class="mantenimientoTitle" >Estrategias</h2>
+<div style="padding: 15px;" class="modal">
+  <h2 class="mantenimientoTitle" >Actualizar indicador</h2>
   <div style="border:1px solid  #ccc ;">
   </div>&nbsp;
   <div>
-      <mat-form-field appearance="fill" style="width: 40%;">
-        <mat-label>Eje estrategico</mat-label>
+      <mat-form-field appearance="fill" style="width: 35%;">
+        <mat-label>Medio verificación</mat-label>
         <mat-select disableRipple>
           <ng-container>
             <mat-option>
@@ -17,13 +17,44 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
-        <mat-label>Estrategia</mat-label>
-        <input matInput formControlName="nombre">
+      <mat-form-field appearance="fill" style="width: 30%;">
+        <mat-label>Frecuencia</mat-label>
+        <mat-select disableRipple>
+          <ng-container>
+            <mat-option>
+
+            </mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
       </mat-form-field>&nbsp;
 
-      <button class="greenButton">Guardar cambios</button>
-  </div>
+
+      <mat-form-field appearance="fill" style="width: 20%;">
+        <mat-label>Alcance</mat-label>
+        <mat-select disableRipple>
+          <ng-container>
+            <mat-option>
+
+            </mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width:10%;">
+        <mat-label>Linea base</mat-label>
+        <input matInput readonly disabled>
+      </mat-form-field>&nbsp;
+
+
+
+    </div>
+    <button class="greenButton">Guardar cambios</button>
 
 </div>
 

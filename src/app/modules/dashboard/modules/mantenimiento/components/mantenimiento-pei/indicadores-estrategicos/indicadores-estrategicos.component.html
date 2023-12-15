@@ -2,7 +2,7 @@
   <h2 class="mantenimientoTitle" >Indicadores Estrategicos</h2>
   <div>
     <form [formGroup]="IndicadorEstrForm">
-      <mat-form-field appearance="fill" style="width: 49%;">
+      <mat-form-field appearance="fill" style="width: 30%;">
         <mat-label>Resultado Efecto</mat-label>
         <mat-select disableRipple formControlName="idResultadoefecto">
           <ng-container>
@@ -27,9 +27,13 @@
         </mat-select>
       </mat-form-field> -->
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 45%;">
         <mat-label>Indicador estrategico</mat-label>
         <input matInput formControlName="nombre">
+      </mat-form-field>&nbsp;
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
+        <mat-label>Linea Base</mat-label>
+        <input matInput type="number" formControlName="linaBase">
       </mat-form-field>&nbsp;
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
@@ -71,10 +75,7 @@
         <input matInput  type="number" formControlName="metaAnio4">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
-        <mat-label>Linea Base</mat-label>
-        <input matInput type="number" formControlName="linaBase">
-      </mat-form-field>&nbsp;
+
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
         <mat-label>Meta general</mat-label>
