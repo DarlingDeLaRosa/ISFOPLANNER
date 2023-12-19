@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { catchError, throwError } from 'rxjs';
 import { alertIsSuccess, alertRemoveSure, alertServerDown } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
-import { UnidadOrgI } from '../../interfaces/mantenimientoPOA.interface';
+import { PresupuestoInstiGetI, UnidadOrgI } from '../../interfaces/mantenimientoPOA.interface';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   asignacionPresupuestoForm: FormGroup;
   unidadesOrg: any[] = []
-  presupuestosInst: any[] = []
+  presupuestosInst!: PresupuestoInstiGetI 
 
   constructor(
     public fb: FormBuilder,
@@ -35,7 +35,9 @@ export class AsignacionPresupuestoComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional()
+    let presupuestoYear = new Date().getFullYear()
+    
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(presupuestoYear)
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -43,8 +45,10 @@ export class AsignacionPresupuestoComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        //Cambiar por el get de el prosupuesto especifico
-        this.presupuestosInst.push(res.data[0])
+        console.log(res);
+        
+        this.presupuestosInst = res.data[0]  
+        //this.presupuestosInst.
       })
   }
 

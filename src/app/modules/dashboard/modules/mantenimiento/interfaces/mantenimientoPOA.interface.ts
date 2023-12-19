@@ -82,10 +82,25 @@ export interface PeriodoConfigI {
   Prorroga: Date,
 }
 
-export interface  PresupuestoInstitucionalI{
+export interface PresupuestoInstitucionalI {
   id: number | null,
   montoTotal: number,
   justicarModificacion: string,
   fechaInicio: Date
   fechaFin: Date
+}
+
+export interface PresupuestoInstiGetI {
+
+  id: number,
+  montoTotal: number,
+  montoRestante: number,
+  montoEjecutado: number,
+  justicarModificacion: string,
+  fechaInicio: Date,
+  fechaFin: Date,
+  creadoEn: Date,
+  creadoPor: string,
+  actualizadoEn: Date,
+  actualizadoPor: string
 }

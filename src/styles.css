@@ -590,6 +590,33 @@ table {
     padding: 15px;
     width: 800px;
 }
+
+.checkPresupuesto{
+    display: grid;
+    grid-template-columns: auto auto;
+    place-items: center;
+    border: 1px solid #aaa;
+    margin: 0 0 20px 10px ;
+}
+
+.checkPresupuesto h3{
+    margin: 0;
+    padding: 5px 10px;
+}
+
+.titlePresupuesto{
+    background-color: #004b8d;
+    color: white;
+}
+
+.amountPresupuesto{
+    height: 100%;
+    background-color: #eee;
+}
+
+.amountPresupuesto h3{
+    font-weight: 500;
+}
 /*////////////////////////////////////////////////////////
     responsive
 ////////////////////////////////////////////////////////*/

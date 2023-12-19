@@ -32,7 +32,7 @@ export class PresupuestoInstitucionalComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional()
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(null)
       .pipe(
         catchError((error) => {
           alertServerDown()

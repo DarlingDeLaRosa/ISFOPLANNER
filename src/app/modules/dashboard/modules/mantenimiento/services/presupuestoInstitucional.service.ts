@@ -13,11 +13,11 @@ export class PresupuestoInstitucionalService {
   baseURL: string = environment.api2
   constructor(private http: HttpClient) { }
 
-  public getPresupuestoInstitucional() {
+  public getPresupuestoInstitucional(presupuestoYear: number | null) {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const PresupuestoInstitucionalHeader = {headers: headers}
 
-    const getPresupuestoInstitucional = `${this.baseURL}/PresupuestoInstitucional`
+    const getPresupuestoInstitucional = `${this.baseURL}/PresupuestoInstitucional?year=${presupuestoYear}`
     return this.http.get(getPresupuestoInstitucional, PresupuestoInstitucionalHeader)
   }
 
