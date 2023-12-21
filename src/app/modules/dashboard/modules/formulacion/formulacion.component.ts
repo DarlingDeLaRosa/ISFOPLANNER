@@ -9,6 +9,7 @@ import { EjesI } from '../mantenimiento/components/mantenimiento-pei/interfaces/
 import { ResultadoEfectoI } from '../mantenimiento/components/mantenimiento-pei/interfaces/resultadoEfecto';
 import { ResultadoEfectoService } from '../mantenimiento/components/mantenimiento-pei/services/resultadoEfecto.service';
 import { ProductoService } from '../mantenimiento/services/producto.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'formulacion-root',
@@ -28,7 +29,8 @@ export class FormulacionComponent implements OnInit {
     private ejesService: EjesService,
     private resultadoEfectoService: ResultadoEfectoService,
     private estrategiasService: EstrategiasService,
-    private apiProducto: ProductoService
+    private apiProducto: ProductoService,
+    private router: Router
   ) {
 
     this.filterForm = this.fb.group({
@@ -43,10 +45,13 @@ export class FormulacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getProducto()
     this.getAllEjes();
     this.getAllResultadoEfecto();
     this.getAllEstrategia();
-    this.getProducto()
+  }
+  enviarProducto(producto:number) {
+  this.router.navigate(['/dashboard/formulacion/producto'], { queryParams: {numero: producto}  });
   }
 
   getAllResultadoEfecto() {
@@ -57,7 +62,6 @@ export class FormulacionComponent implements OnInit {
           return error
         }))
       .subscribe((resp: any) => {
-        console.log(resp);
         this.resultadosEfecto = resp.data;
       })
   }
@@ -70,7 +74,6 @@ export class FormulacionComponent implements OnInit {
           return error
         }))
       .subscribe((resp: any) => {
-        console.log(resp);
 
         this.ejesEstrategicos = resp.data;
       })
@@ -84,13 +87,12 @@ export class FormulacionComponent implements OnInit {
           return error
         }))
       .subscribe((resp: any) => {
-        console.log(resp);
 
         this.estrategias = resp.data;
       })
   }
 
-  
+
   getProducto() {
     this.apiProducto.getProducto()
       .pipe(
@@ -101,6 +103,7 @@ export class FormulacionComponent implements OnInit {
       )
       .subscribe((res: any) => {
         console.log(res);
+
         this.productos = res.data
       })
   }

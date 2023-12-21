@@ -88,14 +88,14 @@ body {
     padding: 1px 12px;
 }
 
-.colorGrreenBoton{
+.colorGrreenBoton {
     color: white;
-    background-color : #49aa42 !important;
+    background-color: #49aa42 !important;
 }
 
-.colorGrreenBoton1{
-  color: white;
-  background-color : #49aa42 !important;
+.colorGrreenBoton1 {
+    color: white;
+    background-color: #49aa42 !important;
 
 }
 
@@ -574,48 +574,62 @@ table {
     color: white;
 }
 
-.mantenimientoTitle{
-  font-weight: 400 !important;
-  color: #004b8d;
+.mantenimientoTitle {
+    font-weight: 400 !important;
+    color: #004b8d;
 }
+
 .mantenimientoTitle1 {
     font-weight: 400 !important;
     color: #004b8d;
-    display: inline-block; /* o display: inline; */
-    margin-right: 20px; /* Ajusta el margen entre los elementos según tus preferencias */
-  }
+    display: inline-block;
+    /* o display: inline; */
+    margin-right: 20px;
+    /* Ajusta el margen entre los elementos según tus preferencias */
+}
 
 
-.asnwerModal{
+.asnwerModal {
     padding: 15px;
     width: 800px;
 }
 
-.checkPresupuesto{
+.checkPresupuesto {
     display: grid;
     grid-template-columns: auto auto;
     place-items: center;
     border: 1px solid #aaa;
-    margin: 0 0 20px 10px ;
+    margin: 0 0 20px 10px;
 }
 
-.checkPresupuesto h3{
+.checkPresupuesto h3 {
     margin: 0;
     padding: 5px 10px;
 }
 
-.titlePresupuesto{
+.titlePresupuesto {
     background-color: #004b8d;
     color: white;
 }
 
-.amountPresupuesto{
+.amountPresupuesto {
     height: 100%;
     background-color: #eee;
 }
 
-.amountPresupuesto h3{
+.amountPresupuesto h3 {
     font-weight: 500;
+}
+
+.tipoIndicador {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 250px auto;
+    width: 600px;
+}
+
+.tipoIndicador h4{
+    margin: 0;
 }
 /*////////////////////////////////////////////////////////
     responsive

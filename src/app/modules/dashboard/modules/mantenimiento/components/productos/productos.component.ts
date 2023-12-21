@@ -14,7 +14,7 @@ import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indic
 export class ProductosComponent implements OnInit {
 
   productosForm: FormGroup
-  productos: any[]= []
+  productos: any[] = []
   indicadoresEstrategicos: any[] = []
   unidadesOrg: any[] = []
 
@@ -38,7 +38,7 @@ export class ProductosComponent implements OnInit {
     this.getUnidadOrganizativa()
   }
 
-  
+
   getIndicadoresEstrategicos() {
     this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos()
       .pipe(
@@ -62,11 +62,10 @@ export class ProductosComponent implements OnInit {
       )
       .subscribe((res: any) => {
         console.log(res);
-
         this.productos = res.data
       })
   }
-  
+
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
       .pipe(
@@ -76,8 +75,6 @@ export class ProductosComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
-        
         this.unidadesOrg = res.data
       })
   }
@@ -96,7 +93,7 @@ export class ProductosComponent implements OnInit {
           alertIsSuccess(true)
           this.getProducto()
           this.productosForm.reset()
-        } 
+        }
         else alertIsSuccess(false)
 
       })

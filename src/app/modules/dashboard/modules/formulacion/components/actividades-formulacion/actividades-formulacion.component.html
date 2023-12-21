@@ -10,11 +10,11 @@
 
     <div class="actividadContainer">
         <span class="titleActividad">
-            <h1>Actividades</h1>
+            <h1 >Actividades</h1>
         </span>
 
         <div class="formularioActividades">
-            <h2>Nueva Actividad</h2>
+            <h2 class="mantenimientoTitle">Nueva Actividad</h2>
 
             <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
                 <mat-label>Nombre de la actividad</mat-label>
@@ -25,20 +25,20 @@
               <mat-label>Región</mat-label>
               <mat-select disableRipple>
                 <ng-container>
-                  <mat-option>
-
+                  <mat-option *ngFor="let item of regionesList" value={{item.id}}>
+                    {{item.nombre}}
                   </mat-option>
                 </ng-container>
               </mat-select>
             </mat-form-field>&nbsp;
 
 
-            <mat-form-field appearance="fill" style="width: 30%;">
+            <mat-form-field appearance="fill" style="width: 31%;">
               <mat-label>Provincia</mat-label>
               <mat-select disableRipple>
                 <ng-container>
-                  <mat-option>
-
+                  <mat-option *ngFor="let item of provinciasList" value={{item.id}}>
+                    {{item.nombre}}
                   </mat-option>
                 </ng-container>
               </mat-select>
@@ -48,8 +48,8 @@
               <mat-label>Municipio</mat-label>
               <mat-select disableRipple>
                 <ng-container>
-                  <mat-option>
-
+                  <mat-option *ngFor="let item of MunicipiosList" value={{item.id}}>
+                    {{item.nombre}}
                   </mat-option>
                 </ng-container>
               </mat-select>
@@ -70,24 +70,61 @@
               <mat-label>Frecuencia</mat-label>
               <mat-select disableRipple>
                 <ng-container>
-                  <mat-option>
-
+                  <mat-option *ngFor="let item of frecuenciaList" value={{item.id}}>
+                    {{item.nombre}}
                   </mat-option>
                 </ng-container>
               </mat-select>
             </mat-form-field>&nbsp;
 
-            <mat-form-field appearance="fill" style="width: 15%;">
+            <mat-form-field appearance="fill" style="width: 16%;">
               <mat-label>Estado</mat-label>
               <mat-select disableRipple>
                 <ng-container>
-                  <mat-option>
-
+                  <mat-option *ngFor="let item of estadosList" value={{item.id}}>
+                    {{item.nombre}}
                   </mat-option>
                 </ng-container>
               </mat-select>
             </mat-form-field>&nbsp;
 
+            <h3 class="mantenimientoTitle">Resultado esperado cualitativo</h3>
+
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+              <mat-label>Trimestre 1</mat-label>
+              <input matInput >
+            </mat-form-field>&nbsp;
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+              <mat-label>Trimestre 2</mat-label>
+              <input matInput >
+            </mat-form-field>&nbsp;
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+              <mat-label>Trimestre 3</mat-label>
+              <input matInput >
+            </mat-form-field>&nbsp;
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+              <mat-label>Trimestre 4</mat-label>
+              <input matInput >
+            </mat-form-field>&nbsp;
+
+            <h3 class="mantenimientoTitle">Resultado esperado Cuantitativo</h3>
+
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+              <mat-label>Trimestre 1</mat-label>
+              <input matInput type="number" >
+            </mat-form-field>&nbsp;
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+              <mat-label>Trimestre 2</mat-label>
+              <input matInput  type="number" >
+            </mat-form-field>&nbsp;
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+              <mat-label>Trimestre 3</mat-label>
+              <input matInput type="number" >
+            </mat-form-field>&nbsp;
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+              <mat-label>Trimestre 4</mat-label>
+              <input matInput type="number" >
+            </mat-form-field>&nbsp;
 
         </div>
 

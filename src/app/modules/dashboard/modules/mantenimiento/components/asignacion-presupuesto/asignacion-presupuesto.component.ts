@@ -15,7 +15,19 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   asignacionPresupuestoForm: FormGroup;
   unidadesOrg: any[] = []
-  presupuestosInst!: PresupuestoInstiGetI 
+  presupuestosInst: PresupuestoInstiGetI = {
+    id: 0,
+    montoTotal: 0,
+    montoRestante: 0,
+    montoEjecutado: 0,
+    justicarModificacion: '',
+    fechaInicio: new Date,
+    fechaFin: new Date,
+    creadoEn: new Date,
+    creadoPor: '',
+    actualizadoEn: new Date,
+    actualizadoPor: ''
+  }
 
   constructor(
     public fb: FormBuilder,
@@ -36,7 +48,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     let presupuestoYear = new Date().getFullYear()
-    
+
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(presupuestoYear)
       .pipe(
         catchError((error) => {
@@ -45,10 +57,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
-        
-        this.presupuestosInst = res.data[0]  
-        //this.presupuestosInst.
+        this.presupuestosInst = res.data[0]
       })
   }
 
@@ -61,14 +70,12 @@ export class AsignacionPresupuestoComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
-        
         this.unidadesOrg = res.data
       })
   }
 
   putUnidadOrganizativa() {
-    this.apiUnidadOrg.putUnidadesOrganizativas(this.asignacionPresupuestoForm.value)
+    this.apiUnidadOrg.putUnidadesOrganizativas(this.asignacionPresupuestoForm.value, this.presupuestosInst.id)
       .pipe(
         catchError((error) => {
           alertServerDown()
@@ -80,6 +87,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
           alertIsSuccess(true)
           this.getUnidadOrganizativa()
+          this.getPresupuestoInstitucional()
           this.asignacionPresupuestoForm.reset()
 
         } else alertIsSuccess(false)

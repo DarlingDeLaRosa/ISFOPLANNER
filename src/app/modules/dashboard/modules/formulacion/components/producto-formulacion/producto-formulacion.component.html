@@ -7,12 +7,12 @@
     <div style="margin-bottom: 5px;">
         <button class="backButton" mat-stroked-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon>Listado de productos</button>
     </div>
-    
+
     <div class="producto">
         <div class="titleProducto">
             <span style="display: flex; margin: 10px 0;">
                 <h3>Producto:</h3> &nbsp;
-                <h3 style="font-weight: 400;">Formación de estudiantes de grado</h3>
+                <h3 style="font-weight: 400;">{{productoConsult.nombre}}</h3>
             </span>
         </div>
         <div>
@@ -28,12 +28,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="dataRow">
-                        <td class="dataCell" style="width: 45%;">Cantidad de trabajos presentados en la Semana de innovación Docente (Antes Buenas Practicas)</td>
+                    <tr class="dataRow" *ngFor="let indicador of productoConsult.indicadoresGestion">
+                        <td class="dataCell" style="width: 45%;">{{indicador.nombre}}</td>
                         <td class="dataCell">Indicador de gestión</td>
-                        <td class="dataCell">Dirección de gestión</td>
-                        <td class="dataCell">12%</td>
-                        <td class="dataCell">14%</td>
+                        <td class="dataCell">{{indicador.responsable.nombre}}</td>
+                        <td class="dataCell">{{indicador.linaBase}}%</td>
+                        <td class="dataCell">{{indicador.meta}}%</td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" (click)="openModal()">edit</mat-icon></td>
                     </tr>
                 </tbody>
@@ -44,7 +44,7 @@
     <div class="actividadContainer">
         <span class="titleActividad">
             <h1>Actividades</h1>
-            <button mat-stroked-button class="borderOrangeButton" [routerLink]="['../actividad']"><mat-icon>add</mat-icon> Añadir actividad</button>
+            <button mat-stroked-button class="borderOrangeButton"  (click)="crearActividad()"><mat-icon>add</mat-icon> Añadir actividad</button>
         </span>
 
         <div style="margin-bottom: 15px;">
@@ -75,7 +75,7 @@
                 </tbody>
             </table>
         </div>
-        
+
         <button class="greenButton">Crear POA</button>
     </div>
 </div>

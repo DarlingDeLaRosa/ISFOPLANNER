@@ -86,7 +86,7 @@
                         </span>
                         <span style="display: flex; ">
                             <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> RD$150,000.00</h4>
-                            <mat-icon class="editIcon" [routerLink]="['producto']">edit</mat-icon>
+                            <mat-icon class="editIcon" [routerLink]="['producto']" (click)="enviarProducto(producto.id)">edit</mat-icon>
                         </span>
                     </div>
                     <div>
@@ -101,8 +101,8 @@
                             <tbody>
                                 <tr class="dataRow" *ngFor="let indicador of producto.indicadoresGestion">
                                     <td class="dataCell"> {{indicador.nombre}} </td>
-                                    <td class="dataCell"> {{indicador.indicadorEstrategico.linaBase}} </td>
-                                    <td class="dataCell"> {{indicador.indicadorEstrategico.meta}}% </td>
+                                    <td class="dataCell"> {{indicador.linaBase}} </td>
+                                    <td class="dataCell"> {{indicador.meta}}% </td>
                                 </tr>
                             </tbody>
                         </table>

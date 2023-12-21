@@ -13,12 +13,19 @@ export class ProductoService {
   baseURL: string = environment.api2
   constructor(private http: HttpClient) { }
 
-  public getProducto() {
+  public getProducto(eje?: number , estrategia?: number ,  resultadoEfecto?: number ) {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const productoHeader = {headers: headers}
 
-    const getProducto = `${this.baseURL}/Productos`
+    const getProducto = `${this.baseURL}/Productos?eje=${eje??''}&estrategia=${estrategia??''}&resultadoEfecto=${resultadoEfecto??''}` //
     return this.http.get(getProducto, productoHeader)
+  }
+
+  public getByIdProducto(id:number){
+    const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
+    const  productoHeader = {headers: headers}
+    const removeProducto = `${this.baseURL}/Productos/${id}`
+    return this.http.get(removeProducto,  productoHeader)
   }
 
   public postProducto(productoData: ProductoI) {

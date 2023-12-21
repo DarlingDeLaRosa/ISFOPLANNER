@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../../services/producto.service';
-import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { IndicadorGestionService } from '../../services/indicadores-gestion.service';
 import { catchError, throwError } from 'rxjs';
+import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
+import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -13,16 +14,21 @@ import { catchError, throwError } from 'rxjs';
 })
 export class IndicadoresGestionComponent implements OnInit {
 
-  indicadoresGestionForm: FormGroup;  
+  indicadoresGestionForm: FormGroup;
   indicadoresGestion: any[] = []
   frecuencias: any[] = []
   alcances: any[] = []
   productos: any[] = []
+  estructurasPro: any[] = []
+  unidadesOrg: any[] = []
+
 
   constructor(
     public fb: FormBuilder,
     private apiProducto: ProductoService,
-    private apiIndicadoresGestion: IndicadorGestionService
+    private apiIndicadoresGestion: IndicadorGestionService,
+    private apiEstruturaPro: EstructuraProgramaticaService,
+    private apiUnidadOrg: UnidadOrganizativaService
   ) {
     this.indicadoresGestionForm = this.fb.group({
       id: 0,
@@ -30,8 +36,11 @@ export class IndicadoresGestionComponent implements OnInit {
       idProducto: new FormControl('', Validators.required),
       idAlcance: new FormControl('', Validators.required),
       idFrecuencia: new FormControl('', Validators.required),
-      idIndicadorEstrategico: new FormControl('', Validators.required),
+      idEstructuraProgramatica: new FormControl('', Validators.required),
+      idUnidadOrganizativa: new FormControl('', Validators.required),
+      idTipoIndicador: new FormControl('', Validators.required), 
       meta: new FormControl('', Validators.required),
+      linaBase: new FormControl('', Validators.required),
     })
   }
 
@@ -40,8 +49,10 @@ export class IndicadoresGestionComponent implements OnInit {
     this.getProductos()
     this.getFrecuencia()
     this.getAlcance()
+    this.getEstructuraPro()
+    this.getUnidadOrganizativa()
   }
-  
+
   getProductos() {
     this.apiProducto.getProducto()
       .pipe(
@@ -54,6 +65,35 @@ export class IndicadoresGestionComponent implements OnInit {
         this.productos = res.data
       })
   }
+
+  getUnidadOrganizativa() {
+    this.apiUnidadOrg.getUnidadesOrganizativas()
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        })
+      )
+      .subscribe((res: any) => {
+        console.log(res);
+
+        this.unidadesOrg = res.data
+      })
+  }
+
+  getEstructuraPro() {
+    this.apiEstruturaPro.getEstructurasProgramaticas()
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        })
+      )
+      .subscribe((res: any) => {
+        this.estructurasPro = res.data
+      })
+  }
+
 
   getFrecuencia() {
     this.apiIndicadoresGestion.getFrecuencia()
@@ -101,7 +141,7 @@ export class IndicadoresGestionComponent implements OnInit {
       .pipe(
         catchError((error) => {
           alertServerDown()
-          return error
+          return throwError(error)
         })
       )
       .subscribe((res: any) => {
@@ -169,6 +209,9 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   saveChangesButton() {
+
+    console.log(this.indicadoresGestionForm.value);
+
     if (this.indicadoresGestionForm.valid) {
       if (this.indicadoresGestionForm.value.id > 0) this.putIndicadoresGestion()
       else this.postIndicadoresGestion()

@@ -25,6 +25,7 @@ export interface EstructuraProgramaticaI {
 export interface ProductoI {
   id: number | null
   nombre: string,
+
 }
 
 

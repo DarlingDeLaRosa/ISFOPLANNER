@@ -25,11 +25,11 @@ export class UnidadOrganizativaService {
   }
 
 
-  public putUnidadesOrganizativas(unidadOrg: UnidadOrgI) {
+  public putUnidadesOrganizativas(unidadOrg: UnidadOrgI, presupuestoInsti: number) {
     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
     const unidadOrgHeader = {headers: headers}
 
-    const getUnidadOrg = `${this.baseURL}/UnidadesOrganizativas/${unidadOrg.id}`
+    const getUnidadOrg = `${this.baseURL}/UnidadesOrganizativas/${unidadOrg.id}/presupuesto/${presupuestoInsti}`
     return this.http.put(getUnidadOrg, unidadOrg, unidadOrgHeader)
   }
 
