@@ -6,6 +6,7 @@ import { Token, environment } from 'src/environments/environments';
 import { InvolucradoI } from '../interfaces/involucrado.interface';
 
 @Injectable({providedIn: 'root'})
+
 export class involucradoService {
   private token = Token.token
   private baseUrl = environment.api2;

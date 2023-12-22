@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: ()=>
     import('./modules/dashboard/dashboard.routing.module').then((m)=>m.DashboardRoutingModule)
   },
-  { path: '',  component: LogInComponent,  }, //canActivate: [authGuardBack],
+  { path: '',  component: LogInComponent }, //canActivate: [authGuardBack],
   { path: '**', redirectTo: '/'},
 
 ];

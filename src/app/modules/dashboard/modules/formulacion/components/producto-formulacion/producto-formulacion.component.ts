@@ -14,7 +14,7 @@ import { alertServerDown } from 'src/app/alerts/alerts';
 export class ProductoFormulacionComponent implements OnInit {
   productoConsult =  {
     nombre:'',
-    indicadoresGestion: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:''} }]
+    indicadoresGestion: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:''}, tipoIndicador: {nombre: ''}, estructuraProgramatica: {nombre: ''}}]
   };
 
   idProducto: number = 0;

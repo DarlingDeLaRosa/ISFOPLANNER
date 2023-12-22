@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Token, environment } from '../../../../../../environments/environments';
+import { Observable } from 'rxjs';
+import { ResponseI } from 'src/app/interfaces/Response.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,12 @@ export class FormulacionService {
     const getFormulacion = `${this.baseURL}/MaterialesDeApoyo`
     return this.http.get(getFormulacion, formulacionHeader)
   }
+
+  getMeses(): Observable<ResponseI> {
+    const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
+    return this.http.get<ResponseI>(`${this.baseURL}/Meses`, {headers})
+  }
+
 
 //   public postFormulacion(materialData: FormulacionI | string) {
 //     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`, })

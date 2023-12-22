@@ -21,6 +21,7 @@
                     <tr class="headerRow">
                         <th class="headerCell">Indicador</th>
                         <th class="headerCell">Tipo de indicador</th>
+                        <th class="headerCell">Estructura Programática</th>
                         <th class="headerCell">Responsable</th>
                         <th class="headerCell">Valor de Línea Base</th>
                         <th class="headerCell">Meta</th>
@@ -30,7 +31,7 @@
                 <tbody>
                     <tr class="dataRow" *ngFor="let indicador of productoConsult.indicadoresGestion">
                         <td class="dataCell" style="width: 45%;">{{indicador.nombre}}</td>
-                        <td class="dataCell">Indicador de gestión</td>
+                        <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
                         <td class="dataCell">{{indicador.responsable.nombre}}</td>
                         <td class="dataCell">{{indicador.linaBase}}%</td>
                         <td class="dataCell">{{indicador.meta}}%</td>
@@ -54,7 +55,6 @@
                         <th class="headerCell">No.</th>
                         <th class="headerCell">Actividad</th>
                         <th class="headerCell">Responsable</th>
-                        <th class="headerCell">Estructura Programática</th>
                         <th class="headerCell">Prosupuesto Estimado</th>
                         <th class="headerCell"></th>
                         <th class="headerCell"></th>
@@ -66,7 +66,6 @@
                         <td class="dataCell" style="width: 4%;">1</td>
                         <td class="dataCell">Implementar modelo pedagógico para la formación de docentes</td>
                         <td class="dataCell">Vicerrectoría Académica</td>
-                        <td class="dataCell">18.03.0003 Servicios de Formación de Docentes de excelencia</td>
                         <td class="dataCell">RD$20,000.00</td>
                         <td class="dataCell" style="width: 4%;"><button class="statusButton"></button></td>
                         <td class="dataCell" style="width: 4%;"><mat-icon class="editIcon">edit</mat-icon></td>

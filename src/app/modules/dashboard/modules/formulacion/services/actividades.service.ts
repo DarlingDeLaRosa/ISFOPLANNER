@@ -38,6 +38,9 @@ export class ActividadesService {
       const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
       return this.http.get<ResponseI>(`${this.baseUrl}/Frecuencias`, {headers})
     }
-
+    getMeses(): Observable<ResponseI> {
+      const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
+      return this.http.get<ResponseI>(`${this.baseUrl}/Meses`, {headers})
+    }
 
 }

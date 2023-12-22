@@ -51,3 +51,8 @@ export interface FrecuenciaI {
   id: number,
   nombre: string,
 }
+export interface MesesI {
+  id: number,
+  nombre: string,
+  trimestre: string
+}

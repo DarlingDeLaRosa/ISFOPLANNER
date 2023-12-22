@@ -44,7 +44,7 @@
               </mat-select>
             </mat-form-field>&nbsp;
 
-            <mat-form-field appearance="fill" style="width: 15%;">
+            <mat-form-field appearance="fill" style="width: 20%;">
               <mat-label>Municipio</mat-label>
               <mat-select disableRipple>
                 <ng-container>
@@ -55,18 +55,29 @@
               </mat-select>
             </mat-form-field>&nbsp;
 
-            <mat-form-field appearance="fill" style="width: 50%;">
+            <mat-form-field appearance="fill" style="width: 40%;">
               <mat-label>Responsable</mat-label>
               <mat-select disableRipple>
                 <ng-container>
-                  <mat-option>
-
+                  <mat-option *ngFor="let item of responsableList" value={{item.id}}>
+                    {{item.nombre}}
                   </mat-option>
                 </ng-container>
               </mat-select>
             </mat-form-field>&nbsp;
 
-            <mat-form-field appearance="fill" style="width: 15%;">
+            <mat-form-field appearance="fill" style="width: 36%;">
+              <mat-label>Involucrados</mat-label>
+              <mat-select disableRipple multiple>
+                <ng-container>
+                  <mat-option *ngFor="let item of involucradoList" value={{item.id}}>
+                    {{item.nombre}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>&nbsp;
+
+            <mat-form-field appearance="fill" style="width: 33%;">
               <mat-label>Frecuencia</mat-label>
               <mat-select disableRipple>
                 <ng-container>
@@ -77,11 +88,23 @@
               </mat-select>
             </mat-form-field>&nbsp;
 
-            <mat-form-field appearance="fill" style="width: 16%;">
+            <mat-form-field appearance="fill" style="width: 33%;">
               <mat-label>Estado</mat-label>
               <mat-select disableRipple>
                 <ng-container>
                   <mat-option *ngFor="let item of estadosList" value={{item.id}}>
+                    {{item.nombre}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>&nbsp;
+
+
+            <mat-form-field appearance="fill" style="width: 30%;">
+              <mat-label>Meses de impacto</mat-label>
+              <mat-select disableRipple multiple>
+                <ng-container>
+                  <mat-option *ngFor="let item of mesesList" value={{item.id}}>
                     {{item.nombre}}
                   </mat-option>
                 </ng-container>

@@ -4,9 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActividadesService } from '../../services/actividades.service';
 import { catchError } from 'rxjs';
 import { alertServerDown } from 'src/app/alerts/alerts';
-import { EstadoI, FrecuenciaI, MunicipioI, ProvinciaI, RegionesI } from '../../interfaces/formulacion.interface';
+import { EstadoI, FrecuenciaI, MunicipioI, ProvinciaI, RegionesI, MesesI } from '../../interfaces/formulacion.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ResponsableService } from '../../../mantenimiento/components/mantenimiento-pei/services/reponsable.service';
+import { ResponsableI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/responsable.interface';
+import { InvolucradoI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/involucrado.interface';
+import { involucradoService } from '../../../mantenimiento/components/mantenimiento-pei/services/involucrado.service';
 
 @Component({
   selector: 'app-actividades-formulacion',
@@ -20,11 +24,16 @@ export class ActividadesFormulacionComponent implements OnInit {
   MunicipiosList: Array<MunicipioI> = [];
   estadosList: Array<EstadoI> = [];
   frecuenciaList: Array<FrecuenciaI> = [];
+  responsableList: Array<ResponsableI> = [];
+  involucradoList: Array<InvolucradoI> = [];
+  mesesList: Array<MesesI> = [];
   idProducto: number = 0;
 
   constructor(
     public dialog: MatDialog,
     private actividadesService:ActividadesService,
+    private responsableService:ResponsableService,
+    private involucradoService:involucradoService,
     private route: ActivatedRoute,
     ){}
 
@@ -32,11 +41,13 @@ export class ActividadesFormulacionComponent implements OnInit {
       id: new FormControl<number>(0),
       nombre: new FormControl<string>('',[Validators.required]),
       idProducto:  new FormControl<number>(0,[Validators.required]),
+      idRegion:  new FormControl<number>(0,[Validators.required]),
+      idPrivincia:  new FormControl<number>(0,[Validators.required]),
+      idMunicipio:  new FormControl<number>(0,[Validators.required]),
       idFrecuencia:  new FormControl<number>(0,[Validators.required]),
       idEstado: new FormControl<number>(0, [Validators.required]),
-      idEstructuraProgramatica: new FormControl<number>(0, [Validators.required]),
-      esPrevista: new FormControl<string>('', [Validators.required]),
-      avance: new FormControl<number>(0, [Validators.required]),
+      idMesesImpacto: new FormControl<number>(0, [Validators.required]),
+      idInvolucrados: new FormControl<number>(0, [Validators.required]),
       resupuestoEstimado: new FormControl<string>('', [Validators.required]),
       resultadoEsperadoCuantitativoT1: new FormControl<number>(0, [Validators.required]),
       resultadoEsperadoCuantitativoT2: new FormControl<number>(0, [Validators.required]),
@@ -61,6 +72,9 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.getMunicipios();
     this.getestados();
     this.getFrecuencia();
+    this.getResponsable();
+    this.getInvolucrado();
+    this.getMeses();
   }
 
   getRegiones() {
@@ -118,6 +132,39 @@ export class ActividadesFormulacionComponent implements OnInit {
         }))
       .subscribe((resp: any) => {
         this.frecuenciaList = resp.data;
+      })
+  }
+  getResponsable() {
+    this.responsableService.getResponsable()
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        }))
+      .subscribe((resp: any) => {
+        this.responsableList = resp.data;
+      })
+  }
+  getInvolucrado() {
+    this.involucradoService.getInvolucrado()
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        }))
+      .subscribe((resp: any) => {
+        this.involucradoList = resp.data;
+      })
+  }
+  getMeses() {
+    this.actividadesService.getMeses()
+      .pipe(
+        catchError((error) => {
+          alertServerDown()
+          return error
+        }))
+      .subscribe((resp: any) => {
+        this.mesesList = resp.data;
       })
   }
 
