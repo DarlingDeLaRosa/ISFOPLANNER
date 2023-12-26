@@ -75,8 +75,6 @@ export class IndicadoresGestionComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
-
         this.unidadesOrg = res.data
       })
   }
@@ -131,7 +129,6 @@ export class IndicadoresGestionComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
         this.indicadoresGestion = res.data
       })
   }
@@ -145,8 +142,6 @@ export class IndicadoresGestionComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.statusCode == 201) {
 
           alertIsSuccess(true)
@@ -166,8 +161,6 @@ export class IndicadoresGestionComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.ok) {
 
           alertIsSuccess(true)
@@ -190,8 +183,6 @@ export class IndicadoresGestionComponent implements OnInit {
           })
         )
         .subscribe((res: any) => {
-          console.log(res);
-
           if (res.ok) {
 
             alertRemoveSuccess()

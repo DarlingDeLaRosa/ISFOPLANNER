@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 export class FormulacionComponent implements OnInit {
 
   estrategias: Array<EstrategiaI> = [];
-  ejesEstrategicos: Array<EjesI> = [];
+  ejesEstrategicos: Array<any> = [];
   resultadosEfecto: Array<ResultadoEfectoI> = [];
   productos: any[] = [];
   filterForm: FormGroup;
@@ -46,10 +46,11 @@ export class FormulacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducto()
-    this.getAllEjes();
+    // this.getAllEjes();
     this.getAllResultadoEfecto();
     this.getAllEstrategia();
   }
+
   enviarProducto(producto:number) {
   this.router.navigate(['/dashboard/formulacion/producto'], { queryParams: {numero: producto}  });
   }
@@ -66,18 +67,18 @@ export class FormulacionComponent implements OnInit {
       })
   }
 
-  getAllEjes() {
-    this.ejesService.getEjes()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
-      .subscribe((resp: any) => {
+  // getAllEjes() {
+  //   this.ejesService.getEjes()
+  //     .pipe(
+  //       catchError((error) => {
+  //         alertServerDown()
+  //         return error
+  //       }))
+  //     .subscribe((resp: any) => {
 
-        this.ejesEstrategicos = resp.data;
-      })
-  }
+  //       this.ejesEstrategicos = resp.data;
+  //     })
+  // }
 
   getAllEstrategia() {
     this.estrategiasService.getEstrategias()
@@ -87,7 +88,6 @@ export class FormulacionComponent implements OnInit {
           return error
         }))
       .subscribe((resp: any) => {
-
         this.estrategias = resp.data;
       })
   }
@@ -103,7 +103,14 @@ export class FormulacionComponent implements OnInit {
       )
       .subscribe((res: any) => {
         console.log(res);
+        
+        res.data.map((indicador:any)=>{
+          if(this.ejesEstrategicos.some((item:any)=> item.id !== indicador.indicadorEstrategico.id) || this.ejesEstrategicos.length < 1 ){
+            this.ejesEstrategicos.push(indicador.indicadorEstrategico)
+          }
+        })
 
+        
         this.productos = res.data
       })
   }

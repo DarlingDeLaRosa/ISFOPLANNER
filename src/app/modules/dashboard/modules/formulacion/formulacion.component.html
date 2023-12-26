@@ -6,9 +6,9 @@
     <div class="fuctionContent">
         <span></span>
         <span>
-            <button class="downLoadButton" mat-stroked-button ><mat-icon>arrow_downward</mat-icon>Planificación POA</button> &nbsp;
-            <button class="downLoadButton" mat-stroked-button ><mat-icon>arrow_downward</mat-icon>Compras PACC</button> &nbsp;
-            <button class="downLoadButton" mat-stroked-button ><mat-icon>arrow_downward</mat-icon>Prosupuesto</button>
+            <button class="downLoadButton" mat-stroked-button><mat-icon>arrow_downward</mat-icon>Planificación POA</button> &nbsp;
+            <button class="downLoadButton" mat-stroked-button><mat-icon>arrow_downward</mat-icon>Compras PACC</button> &nbsp;
+            <button class="downLoadButton" mat-stroked-button><mat-icon>arrow_downward</mat-icon>Prosupuesto</button>
         </span>
     </div>
 
@@ -19,19 +19,16 @@
             </div>
             <div class="filtrosSection">
                 <h4>Ejes estratégico</h4>
-                <mat-radio-group formControlName="ejesEstrategico"> <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
+                <mat-radio-group formControlName="ejesEstrategico"> <!--(change)="itbisOption($event)"-->
                     <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id" color="primary">
                         {{ejeEstrategico.nombre}}
-                    </mat-radio-button><br>
-                    <!-- <mat-radio-button color="primary">Impacto sectorial de programas y proyectos
-                        educativos.</mat-radio-button><br>
-                    <mat-radio-button color="primary">Fortalecimiento institucional</mat-radio-button> -->
+                    </mat-radio-button>
                 </mat-radio-group>
             </div>
             <div class="filtrosSection">
                 <h4>Estrategias</h4>
                 <mat-radio-group> <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
-                    <mat-radio-button  *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
+                    <mat-radio-button *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
                         {{estrategia.nombre}}
                     </mat-radio-button><br>
                     <!-- <mat-checkbox>Egresados como compromiso institucional.</mat-checkbox><br>
@@ -41,7 +38,8 @@
             <div class="filtrosSection">
                 <h4>Resultado efecto</h4>
                 <mat-radio-group>
-                    <mat-radio-button *ngFor="let resultadoEfecto of resultadosEfecto" [value]="resultadoEfecto.id" color="primary">
+                    <mat-radio-button *ngFor="let resultadoEfecto of resultadosEfecto" [value]="resultadoEfecto.id"
+                        color="primary">
                         {{resultadoEfecto.nombre}}
                     </mat-radio-button><br>
                     <!-- <mat-checkbox>Fortalecida la capacidad investigativa de docentes investigadores, estudiantes y egresados</mat-checkbox> -->
@@ -86,7 +84,8 @@
                         </span>
                         <span style="display: flex; ">
                             <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> RD$150,000.00</h4>
-                            <mat-icon class="editIcon" [routerLink]="['producto']" (click)="enviarProducto(producto.id)">edit</mat-icon>
+                            <mat-icon class="editIcon" [routerLink]="['producto']"
+                                (click)="enviarProducto(producto.id)">edit</mat-icon>
                         </span>
                     </div>
                     <div>
