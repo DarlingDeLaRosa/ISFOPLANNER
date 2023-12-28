@@ -54,62 +54,30 @@ export class ProductosComponent implements OnInit {
 
   getProducto() {
     this.apiProducto.getProducto()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res);
-        this.productos = res.data
-      })
+      .subscribe((res: any) => { this.productos = res.data })
   }
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.unidadesOrg = res.data
-      })
+      .subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
   postProducto() {
     this.apiProducto.postProducto(this.productosForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
       .subscribe((res: any) => {
-
         if (res.ok) {
+
           alertIsSuccess(true)
           this.getProducto()
           this.productosForm.reset()
-        }
-        else alertIsSuccess(false)
 
+        } else alertIsSuccess(false)
       })
   }
 
   putProducto() {
     this.apiProducto.putProducto(this.productosForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.ok) {
 
           alertIsSuccess(true)
@@ -125,15 +93,7 @@ export class ProductosComponent implements OnInit {
 
     if (removeDecision) {
       this.apiProducto.removeProducto(id)
-        .pipe(
-          catchError((error) => {
-            alertServerDown()
-            return error
-          })
-        )
         .subscribe((res: any) => {
-          console.log(res);
-
           if (res.ok) {
 
             alertRemoveSuccess()

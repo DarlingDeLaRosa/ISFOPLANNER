@@ -38,15 +38,7 @@ export class MaterialDeApoyoComponent implements OnInit {
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.unidadesOrg = res.data
-      })
+      .subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
   getMaterial() {

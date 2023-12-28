@@ -39,17 +39,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   getProceso() {
     this.apiTipoProceso.getTipoProcesos()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res);
-
-        this.tipoProcesos = res.data
-      })
+      .subscribe((res: any) => { this.tipoProcesos = res.data })
   }
 
 

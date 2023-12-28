@@ -47,12 +47,6 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
   postPregunta() {
     this.apiPreguntas.postPreguntasFrecuentes(this.preguntasFrecuentesForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
       .subscribe((res: any) => {
         if (res.data != null) {
 

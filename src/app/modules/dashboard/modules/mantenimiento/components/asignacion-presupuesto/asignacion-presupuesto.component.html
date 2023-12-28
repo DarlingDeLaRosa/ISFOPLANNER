@@ -1,5 +1,5 @@
 <div style="padding: 15px;">
-    <div class="fuctionContent" >
+    <div class="fuctionContent">
         <h2 class="mantenimientoTitle">Presupuesto Unidades Organizativas</h2>
         <span style="display: flex;">
             <div class="checkPresupuesto">
@@ -23,8 +23,8 @@
     <div>
         <form [formGroup]="asignacionPresupuestoForm" (ngSubmit)="putUnidadOrganizativa()">
 
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
-                <mat-label>Unidad Organizativa</mat-label>
+            <mat-form-field hideRequiredMarker style="width: 59%;">
+                <mat-label style="border-radius: 50px !important;">Unidad Organizativa</mat-label>
                 <input readonly matInput formControlName="nombre">
             </mat-form-field>&nbsp;
 

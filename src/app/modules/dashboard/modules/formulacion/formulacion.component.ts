@@ -40,7 +40,7 @@ export class FormulacionComponent implements OnInit {
     })
 
     this.filterForm.valueChanges.subscribe(() => {
-      this.getAllEstrategia();
+      console.log(this.filterForm.value.ejesEstrategico);
     })
   }
 
@@ -95,22 +95,22 @@ export class FormulacionComponent implements OnInit {
 
   getProducto() {
     this.apiProducto.getProducto()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         console.log(res);
         
         res.data.map((indicador:any)=>{
-          if(this.ejesEstrategicos.some((item:any)=> item.id !== indicador.indicadorEstrategico.id) || this.ejesEstrategicos.length < 1 ){
-            this.ejesEstrategicos.push(indicador.indicadorEstrategico)
+          
+          if(this.ejesEstrategicos.some((item:any)=> item.id !== indicador.indicadorEstrategico.resultadoEfecto.estrategia.ejeEstrategico.id) || this.ejesEstrategicos.length < 1 ){
+            this.ejesEstrategicos.push(indicador.indicadorEstrategico.resultadoEfecto.estrategia.ejeEstrategico)
           }
+
+          // if(this.estrategias.some((item:any)=> item.id !== indicador.indicadorEstrategico.id) || this.ejesEstrategicos.length < 1 ){
+          //   this.ejesEstrategicos.push(indicador.indicadorEstrategico)
+          // }
+          
         })
 
-        
+
         this.productos = res.data
       })
   }

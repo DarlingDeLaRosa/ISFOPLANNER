@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Token, environment } from '../../../../../../environments/environments';
+import { Token, environment, header } from '../../../../../../environments/environments';
 import { PreguntaI } from '../interfaces/mantenimientoPOA.interface';
+import { alertServerDown } from 'src/app/alerts/alerts';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,38 +13,31 @@ export class preguntasFrecuentesService {
 
   token: string = Token.token
   baseURL: string = environment.api2
+
   constructor(private http: HttpClient) { }
 
   public getPreguntasFrecuentes() {
-    const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-    const preguntasHeader = {headers: headers}
-
     const getPreguntasFrecuentes = `${this.baseURL}/PreguntasFrecuentes`
-    return this.http.get(getPreguntasFrecuentes, preguntasHeader)
+    return this.http.get(getPreguntasFrecuentes, header)
+    .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public postPreguntasFrecuentes(preguntaData: PreguntaI) {
-    const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-    const preguntasHeader = {headers: headers}
-
     const postPreguntasFrecuentes = `${this.baseURL}/PreguntasFrecuentes`
-    return this.http.post(postPreguntasFrecuentes ,preguntaData, preguntasHeader)
+    return this.http.post(postPreguntasFrecuentes ,preguntaData, header)
+    .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public putPreguntasFrecuentes(preguntaData: PreguntaI) {
-    const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-    const preguntasHeader = {headers: headers}
-
     const putPreguntasFrecuentes = `${this.baseURL}/PreguntasFrecuentes/${preguntaData.id}`
-    return this.http.put(putPreguntasFrecuentes, preguntaData, preguntasHeader)
+    return this.http.put(putPreguntasFrecuentes, preguntaData, header)
+    .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public removePreguntasFrecuentes(id: number) {
-    const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-    const preguntasHeader = {headers: headers}
-
     const removePreguntasFrecuentes = `${this.baseURL}/PreguntasFrecuentes/${id}`
-    return this.http.delete(removePreguntasFrecuentes, preguntasHeader)
+    return this.http.delete(removePreguntasFrecuentes, header)
+    .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
 }

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuarios.service';
-import { catchError, throwError } from 'rxjs';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
-import { MaterialApoyoService } from '../../services/material-apoyo.service';
 import { sistema } from 'src/environments/environments';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 
@@ -50,80 +48,31 @@ export class UsuariosComponent implements OnInit {
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.unidadesOrg = res.data
-      })
+      .subscribe((res: any) => { this.unidadesOrg = res.data })
   }
-
 
   getAllRecintos() {
     this.apiUsuario.getAllRecintos()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
-      .subscribe((res: any) => {
-        this.recintos = res.data
-      })
+      .subscribe((res: any) => { this.recintos = res.data })
   }
 
   getAllRoles() {
     this.apiUsuario.getAllRoles()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
-      .subscribe((res: any) => {
-        this.roles = res.data
-      })
+      .subscribe((res: any) => { this.roles = res.data })
   }
 
   getAllCargos() {
     this.apiUsuario.getAllCargos()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
-      .subscribe((res: any) => {
-        this.cargos = res.data
-      })
+      .subscribe((res: any) => { this.cargos = res.data })
   }
 
   getUsuarios() {
     this.apiUsuario.getUsuario()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res);
-        
-        this.usuarios = res.data
-      })
+      .subscribe((res: any) => { this.usuarios = res.data })
   }
 
   postUsuarios() {
     this.apiUsuario.postUsuario(this.usuariosForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.ok) {
 
@@ -137,12 +86,6 @@ export class UsuariosComponent implements OnInit {
 
   putUsuarios() {
     this.apiUsuario.putUsuario(this.usuariosForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.ok) {
 
@@ -159,15 +102,7 @@ export class UsuariosComponent implements OnInit {
 
     if (removeDecision) {
       this.apiUsuario.removeUsuario(id)
-        .pipe(
-          catchError((error) => {
-            alertServerDown()
-            return throwError(error)
-          })
-        )
         .subscribe((res: any) => {
-          console.log(res);
-
           if (res.ok) {
 
             alertRemoveSuccess()
@@ -185,8 +120,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   saveChangesButton() {
-    console.log(this.usuariosForm.value);
-    
     if (this.usuariosForm.valid) {
       if (this.usuariosForm.value.id > 0) this.putUsuarios()
       else this.postUsuarios()

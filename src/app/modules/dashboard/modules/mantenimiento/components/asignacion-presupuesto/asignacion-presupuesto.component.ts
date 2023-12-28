@@ -63,25 +63,11 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.unidadesOrg = res.data
-      })
+      .subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
   putUnidadOrganizativa() {
     this.apiUnidadOrg.putUnidadesOrganizativas(this.asignacionPresupuestoForm.value, this.presupuestosInst.id)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.ok) {
 
@@ -113,18 +99,4 @@ export class AsignacionPresupuestoComponent implements OnInit {
     }
 
   }
-
-
-
-  // saveChangesButton() {
-  //   console.log(this.asignacionPresupuestoForm.value);
-
-  //   if (this.asignacionPresupuestoForm.valid) {
-  //     if (this.asignacionPresupuestoForm.value.id > 0) this.putUsuarios()
-  //     else this.postUsuarios()
-  //   } else {
-  //     alertNoValidForm()
-  //   }
-  // }
-
 }

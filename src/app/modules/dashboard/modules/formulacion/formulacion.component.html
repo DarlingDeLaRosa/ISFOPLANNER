@@ -19,9 +19,9 @@
             </div>
             <div class="filtrosSection">
                 <h4>Ejes estratégico</h4>
-                <mat-radio-group formControlName="ejesEstrategico"> <!--(change)="itbisOption($event)"-->
+                <mat-radio-group formControlName="ejesEstrategico" > <!---->
                     <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id" color="primary">
-                        {{ejeEstrategico.nombre}}
+                        {{ejeEstrategico.nombre}}<br><br>
                     </mat-radio-button>
                 </mat-radio-group>
             </div>

@@ -38,7 +38,7 @@ export class IndicadoresGestionComponent implements OnInit {
       idFrecuencia: new FormControl('', Validators.required),
       idEstructuraProgramatica: new FormControl('', Validators.required),
       idUnidadOrganizativa: new FormControl('', Validators.required),
-      idTipoIndicador: new FormControl('', Validators.required), 
+      idTipoIndicador: new FormControl('', Validators.required),
       meta: new FormControl('', Validators.required),
       linaBase: new FormControl('', Validators.required),
     })
@@ -55,28 +55,12 @@ export class IndicadoresGestionComponent implements OnInit {
 
   getProductos() {
     this.apiProducto.getProducto()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.productos = res.data
-      })
+      .subscribe((res: any) => { this.productos = res.data })
   }
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.unidadesOrg = res.data
-      })
+      .subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
   getEstructuraPro() {
@@ -125,7 +109,7 @@ export class IndicadoresGestionComponent implements OnInit {
       .pipe(
         catchError((error) => {
           alertServerDown()
-          return  throwError(error)
+          return throwError(error)
         })
       )
       .subscribe((res: any) => {

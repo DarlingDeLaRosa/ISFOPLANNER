@@ -19,22 +19,23 @@
             <table>
                 <thead class="headerTable">
                     <tr class="headerRow">
-                        <th class="headerCell">Indicador</th>
+                        <th class="headerCell" style="width: 30%;">Indicador</th>
                         <th class="headerCell">Tipo de indicador</th>
                         <th class="headerCell">Estructura Programática</th>
                         <th class="headerCell">Responsable</th>
-                        <th class="headerCell">Valor de Línea Base</th>
+                        <th class="headerCell">Línea Base</th>
                         <th class="headerCell">Meta</th>
                         <th class="headerCell"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="dataRow" *ngFor="let indicador of productoConsult.indicadoresGestion">
-                        <td class="dataCell" style="width: 45%;">{{indicador.nombre}}</td>
+                        <td class="dataCell">{{indicador.nombre}}</td>
                         <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
+                        <td class="dataCell">{{indicador.estructuraProgramatica.nombre}}</td>
                         <td class="dataCell">{{indicador.responsable.nombre}}</td>
                         <td class="dataCell">{{indicador.linaBase}}%</td>
-                        <td class="dataCell">{{indicador.meta}}%</td>
+                        <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" (click)="openModal()">edit</mat-icon></td>
                     </tr>
                 </tbody>

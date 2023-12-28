@@ -30,22 +30,14 @@ export class ProductoFormulacionComponent implements OnInit {
       this.idProducto = params['numero'];
       console.log(this.idProducto);
     });
-    this.getByIdProducto();
 
+    this.getByIdProducto();
   }
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      // .pipe(
-      //   catchError((error) => {
-      //     alertServerDown()
-      //     return error
-      //   }))
-      .subscribe((resp: any) => {
-        this.productoConsult = resp.data;
-      })
+      .subscribe((resp: any) => {this.productoConsult = resp.data;})
   }
-
 
   openModal() {
     this.dialog.open(IndicadorEditarComponent)
