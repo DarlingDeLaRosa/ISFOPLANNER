@@ -33,7 +33,14 @@
     <div>
         <h2 class="subTitle">Actividades (Mejorar titulo)</h2>
         <div class="indicadorProducto">
-            <div>Grafico</div>
+            <div>
+              <ngx-charts-pie-grid
+              [view]="view"
+
+              [results]="single"
+              (select)="onSelect($event)">
+            </ngx-charts-pie-grid>
+          </div>
             <div class="previstaNoPrevistas">
                 <div class="totalActividades" [routerLink]="['actPrevistas']">
                     <span>
@@ -90,11 +97,11 @@
                     <h5>Reprogamada T4</h5>
                 </div>
             </div>
-            
+
         </span>
         <span>
             <h2 class="subTitle" >Estado de actividades previstas en el POA</h2>
-            
+
             <div class="estadoActividadContainer">
 
                 <div class="estadoActividad">

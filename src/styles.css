@@ -91,13 +91,39 @@ body {
 .colorGrreenBoton {
     color: white;
     background-color: #49aa42 !important;
+    cursor: pointer;
+
 }
+
 
 .colorGrreenBoton1 {
-    color: white;
-    background-color: #49aa42 !important;
+  color: white;
+  background-color: #49aa42;
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  padding: 1px 25px;
+  cursor: pointer;
+
+
+
 
 }
+.colorBlueBoton1 {
+  position: absolute !important;
+    color: white;
+    bottom: 10px ; /* Ajusta la distancia desde la parte inferior según tus preferencias */
+    right: 10px ; /* Ajusta la distancia desde la derecha según tus preferencias */
+    color: white  !important;
+    background-color: #004b8d !important ;
+    cursor: pointer;
+
+}
+/* .end {
+  position: absolute !important;
+    bottom: 10px ;
+    right: 120px ;
+} */
 
 .greenButton {
     color: white;
@@ -106,7 +132,18 @@ body {
     border-radius: 5px;
     height: 40px;
     padding: 1px 25px;
+    cursor: pointer;
 }
+.itemderecha {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.item{
+  margin-left: auto;
+}
+
 
 .borderOrangeButton {
     color: #EC801E !important;
@@ -129,7 +166,7 @@ body {
 .ejeProductoContainer {
     padding-left: 15px;
     display: grid;
-    grid-template-rows: 170px 1fr;
+    grid-template-rows: auto 1fr;
 }
 
 .filtrosContainer {

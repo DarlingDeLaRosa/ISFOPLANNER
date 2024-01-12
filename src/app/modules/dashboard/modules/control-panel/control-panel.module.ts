@@ -9,6 +9,7 @@ import { LogroProductoUnidadComponent } from './components/logro-producto-unidad
 import { EjecucionPresupuestariaComponent } from './components/ejecucion-presupuestaria/ejecucion-presupuestaria.component';
 import { ActividadPrevistasComponent } from './components/actividad-previstas/actividad-previstas.component';
 import { ActividadNoPrevistasComponent } from './components/actividad-no-previstas/actividad-no-previstas.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -17,13 +18,16 @@ import { ActividadNoPrevistasComponent } from './components/actividad-no-previst
     LogroProductoUnidadComponent,
     EjecucionPresupuestariaComponent,
     ActividadPrevistasComponent,
-    ActividadNoPrevistasComponent
+    ActividadNoPrevistasComponent,
+
+
   ],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
     FormsModule,
+    NgxChartsModule
   ]
 })
 export class ControlPanelModule { }

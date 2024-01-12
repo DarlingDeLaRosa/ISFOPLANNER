@@ -26,18 +26,8 @@ export class AyudaComponent implements OnInit {
   
   getPregunta() {
     this.apiPreguntas.getPreguntasFrecuentes()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res); 
-        this.getPreguntas = res.data
-      })
+      .subscribe((res: any) => { this.getPreguntas = res.data })
   }
-
 
   openModal(pregunta: PreguntaI) {
     this.dialog.open(AsnwerViewComponent, {data: pregunta})

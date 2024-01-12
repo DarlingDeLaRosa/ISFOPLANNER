@@ -41,15 +41,7 @@ export class ProductosComponent implements OnInit {
 
   getIndicadoresEstrategicos() {
     this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.indicadoresEstrategicos = res.data
-      })
+      .subscribe((res: any) => { this.indicadoresEstrategicos = res.data })
   }
 
   getProducto() {
@@ -108,7 +100,6 @@ export class ProductosComponent implements OnInit {
 
   setValueEditProducto(producto: any) {
     this.productosForm.reset(producto)
-    console.log(this.productosForm.value);
   }
 
   saveChangesButton() {

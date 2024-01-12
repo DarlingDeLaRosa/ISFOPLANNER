@@ -23,7 +23,6 @@ export class MedioVerificacionService {
         const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
         return this.http.post<ResponseI>(`${this.baseUrl}/MediosVerificacion`, medioVerificacion, {headers})
       }
-
       DeleteMedioVerificacion(id:number): Observable<ResponseI> {
         const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
         return this.http.delete<ResponseI>(`${this.baseUrl}/MediosVerificacion/${id}`, {headers})

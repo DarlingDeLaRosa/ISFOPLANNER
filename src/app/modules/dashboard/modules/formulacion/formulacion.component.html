@@ -21,34 +21,37 @@
                 <h4>Ejes estratégico</h4>
                 <mat-radio-group formControlName="ejesEstrategico" > <!---->
                     <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id" color="primary">
-                        {{ejeEstrategico.nombre}}<br><br>
-                    </mat-radio-button>
+                        {{ejeEstrategico.nombre}}
+                    </mat-radio-button><br>
+                    <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="" color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
             <div class="filtrosSection">
                 <h4>Estrategias</h4>
-                <mat-radio-group> <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
+                <mat-radio-group formControlName="estrategias" > <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
                     <mat-radio-button *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
                         {{estrategia.nombre}}
                     </mat-radio-button><br>
+                    <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="" color="primary">Todos</mat-radio-button><br>
                     <!-- <mat-checkbox>Egresados como compromiso institucional.</mat-checkbox><br>
                     <mat-checkbox>Planes de proyectos institucionales</mat-checkbox> -->
                 </mat-radio-group>
             </div>
             <div class="filtrosSection">
                 <h4>Resultado efecto</h4>
-                <mat-radio-group>
+                <mat-radio-group formControlName="resultadoEfecto">
                     <mat-radio-button *ngFor="let resultadoEfecto of resultadosEfecto" [value]="resultadoEfecto.id"
-                        color="primary">
-                        {{resultadoEfecto.nombre}}
-                    </mat-radio-button><br>
+                    color="primary">
+                    {{resultadoEfecto.nombre}}
+                </mat-radio-button><br>
+                <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="" color="primary">Todos</mat-radio-button><br>
                     <!-- <mat-checkbox>Fortalecida la capacidad investigativa de docentes investigadores, estudiantes y egresados</mat-checkbox> -->
                 </mat-radio-group>
             </div>
         </div>
-        <div class="ejeProductoContainer">
+        <div class="ejeProductoContainer" >
             <div class="EjeContainer">
-                <div class="ejeSection">
+                <div class="ejeSection" *ngIf="filterForm.value.ejesEstrategico > 0">
                     <div>
                         <h3>Eje:</h3>
                         <p>Impacto sectorial de programas y proyectos educativos</p>
@@ -59,7 +62,7 @@
                     </div>
 
                 </div>
-                <div class="ejeSection estrategiaResultado">
+                <div class="ejeSection estrategiaResultado" *ngIf="filterForm.value.estrategias > 0" >
                     <div>
                         <h3>Estrategia:</h3>
                         <p>Impacto sectorial de programas y proyectos educativos</p>

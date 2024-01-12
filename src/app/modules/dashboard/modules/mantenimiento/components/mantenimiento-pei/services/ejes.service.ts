@@ -1,39 +1,42 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { ResponseI } from 'src/app/interfaces/Response.interfaces';
 import { Token, environment } from 'src/environments/environments';
 import { EjesI } from '../interfaces/ejes.interface';
+import { alertServerDown } from 'src/app/alerts/alerts';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 
 export class EjesService {
 
   private token = Token.token
-    private baseUrl = environment.api2;
-    headers!: HttpHeaders;
+  private baseUrl = environment.api2;
 
-    constructor(
-      public http:HttpClient,
-      ){}
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  header = { headers: this.headers }
 
-      getEjes(): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.get<ResponseI>(`${this.baseUrl}/EjesEstrategicos`, {headers})
-      }
-      postEjes(eje:EjesI): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.post<ResponseI>(`${this.baseUrl}/EjesEstrategicos`, eje, {headers})
-      }
+  constructor(
+    public http: HttpClient,
+  ) { }
 
-      DeleteEjes(id:number): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.delete<ResponseI>(`${this.baseUrl}/EjesEstrategicos/${id}`, {headers})
-      }
+  getEjes(): Observable<ResponseI> {
+    return this.http.get<ResponseI>(`${this.baseUrl}/EjesEstrategicos`, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
+  postEjes(eje: EjesI): Observable<ResponseI> {
+    return this.http.post<ResponseI>(`${this.baseUrl}/EjesEstrategicos`, eje, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
 
-      updateEjes(eje:EjesI, id:number): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.put<ResponseI>(`${this.baseUrl}/EjesEstrategicos/${id}`, eje, {headers})
-      }
+  DeleteEjes(id: number): Observable<ResponseI> {
+    return this.http.delete<ResponseI>(`${this.baseUrl}/EjesEstrategicos/${id}`, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
+
+  updateEjes(eje: EjesI, id: number): Observable<ResponseI> {
+    return this.http.put<ResponseI>(`${this.baseUrl}/EjesEstrategicos/${id}`, eje, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
 }

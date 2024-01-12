@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormulacionComponent } from './formulacion.component';
 import { ProductoFormulacionComponent } from './components/producto-formulacion/producto-formulacion.component';
 import { ActividadesFormulacionComponent } from './components/actividades-formulacion/actividades-formulacion.component';
+import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.component';
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: 'actividad',
         component: ActividadesFormulacionComponent
+    },
+    {
+        path: 'nuevoInsumo',
+        component: NuevoInsumoComponent
     },
 ]
 

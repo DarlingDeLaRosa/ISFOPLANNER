@@ -50,15 +50,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
     let presupuestoYear = new Date().getFullYear()
 
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(presupuestoYear)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.presupuestosInst = res.data[0]
-      })
+      .subscribe((res: any) => { this.presupuestosInst = res.data[0] })
   }
 
   getUnidadOrganizativa() {

@@ -1,191 +1,270 @@
 <div class="routerComponent">
 
-    <div class="title">
-        <h1>Formulación POA</h1>
+  <div class="title">
+    <h1>Formulación POA</h1>
+  </div>
+
+  <div style="margin-bottom: 5px;">
+    <button class="backButton" mat-stroked-button
+      (click)=" irProductos()"><mat-icon>arrow_back</mat-icon>Producto</button>
+  </div>
+
+  <div class="actividadContainer">
+    <span class="titleActividad">
+      <h1>Actividades</h1>
+    </span>
+
+    <div class="formularioActividades">
+      <h2 class="mantenimientoTitle">Nueva Actividad</h2>
+      <form [formGroup]="ActividadForm">
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
+          <mat-label>Nombre de la actividad</mat-label>
+          <input matInput required formControlName="nombre">
+        </mat-form-field>&nbsp;
+
+        <!-- <mat-form-field appearance="fill" style="width: 15%;">
+          <mat-label>Región</mat-label>
+          <mat-select disableRipple formControlName="idRegion">
+            <ng-container>
+              <mat-option *ngFor="let item of regionesList" value={{item.id}}>
+                {{item.nombre}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>&nbsp;
+
+
+        <mat-form-field appearance="fill" style="width: 31%;">
+          <mat-label>Provincia</mat-label>
+          <mat-select disableRipple formControlName="idPrivincia">
+            <ng-container>
+              <mat-option *ngFor="let item of provinciasList" value={{item.id}}>
+                {{item.nombre}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width: 20%;">
+          <mat-label>Municipio</mat-label>
+          <mat-select disableRipple formControlName="idMunicipio">
+            <ng-container>
+              <mat-option *ngFor="let item of MunicipiosList" value={{item.id}}>
+                {{item.nombre}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>&nbsp; -->
+
+        <mat-form-field appearance="fill" style="width: 30%;">
+          <mat-label>Responsable</mat-label>
+          <mat-select disableRipple formControlName="responsable">
+            <ng-container>
+              <mat-option *ngFor="let item of responsableList" value={{item.id}}>
+                {{item.nombre}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width: 28%;">
+          <mat-label>Involucrados</mat-label>
+          <mat-select disableRipple multiple>
+            <ng-container>
+              <mat-option *ngFor="let item of involucradoList" value={{item.id}}>
+                {{item.nombre}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width: 40%;">
+          <mat-label>Frecuencia</mat-label>
+          <mat-select disableRipple formControlName="idFrecuencia">
+            <ng-container>
+              <mat-option *ngFor="let item of frecuenciaList" value={{item.id}}>
+                {{item.nombre}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width: 30%;">
+          <mat-label>Estado</mat-label>
+          <mat-select disableRipple formControlName="idEstado">
+            <ng-container>
+              <mat-option *ngFor="let item of estadosList" value={{item.id}}>
+                {{item.nombre}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>&nbsp;
+
+
+        <mat-form-field appearance="fill" style="width: 28%;">
+          <mat-label>Meses de impacto</mat-label>
+          <mat-select disableRipple multiple formControlName="mesesImpacto">
+            <ng-container>
+              <mat-option *ngFor="let item of mesesList" value={{item.id}}>
+                {{item.nombre}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>&nbsp;
+
+        <h3 class="mantenimientoTitle">Resultado esperado cualitativo</h3>
+
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+          <mat-label>Trimestre 1</mat-label>
+          <input matInput formControlName="resultadoEsperadoCualitativoT1">
+        </mat-form-field>&nbsp;
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+          <mat-label>Trimestre 2</mat-label>
+          <input matInput formControlName="resultadoEsperadoCualitativoT2">
+        </mat-form-field>&nbsp;
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+          <mat-label>Trimestre 3</mat-label>
+          <input matInput formControlName="resultadoEsperadoCualitativoT3">
+        </mat-form-field>&nbsp;
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+          <mat-label>Trimestre 4</mat-label>
+          <input matInput formControlName="resultadoEsperadoCualitativoT4">
+        </mat-form-field>&nbsp;
+
+        <h3 class="mantenimientoTitle">Resultado esperado Cuantitativo</h3>
+
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+          <mat-label>Trimestre 1</mat-label>
+          <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT1">
+        </mat-form-field>&nbsp;
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+          <mat-label>Trimestre 2</mat-label>
+          <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT2">
+        </mat-form-field>&nbsp;
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+          <mat-label>Trimestre 3</mat-label>
+          <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT3">
+        </mat-form-field>&nbsp;
+        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+          <mat-label>Trimestre 4</mat-label>
+          <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT4">
+        </mat-form-field>&nbsp;
+      </form>
     </div>
 
-    <div style="margin-bottom: 5px;">
-        <button class="backButton" mat-stroked-button [routerLink]="['../producto']"><mat-icon>arrow_back</mat-icon>Producto</button>
+    <!-- formulario de los insumos -->
+    <div class="formularioActividades">
+      <h3 class="mantenimientoTitle">Costeo</h3>
+  <form [formGroup]="insumoForm">
+
+    <mat-form-field appearance="fill" style="width: 15%;">
+      <mat-label>Categoría de insumo</mat-label>
+      <mat-select disableRipple formControlName="idCategoria" (selectionChange)="onSelectCategoria()">
+        <ng-container>
+          <mat-option *ngFor="let item of categoriaInsumoList" value={{item.id}}>
+            {{item.nombre}}
+          </mat-option>
+        </ng-container>
+        <ng-template #noEdificio>
+          <mat-option>No hay campos disponibles</mat-option>
+        </ng-template>
+      </mat-select>
+    </mat-form-field>&nbsp;
+
+
+    <mat-form-field appearance="fill" style="width: 30%;">
+      <mat-label>Insumos</mat-label>
+      <mat-select disableRipple formControlName="idInsumo" (selectionChange)="onSelectInsumo()" [required]="true">
+        <ng-container>
+          <mat-option *ngFor="let item of insumoListFilter" value={{item.id}}>
+            {{item.nombre}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:52%;">
+      <mat-label>Descripción de insumo</mat-label>
+      <input matInput readonly value={{descripcion}}>
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="fill" style="width: 20%;">
+      <mat-label>Unidad de medida</mat-label>
+      <mat-select disableRipple form formControlName="idUnidadMedida">
+        <ng-container>
+          <mat-option *ngFor="let item of UnidadesMedidaList" value={{item.id}}>
+            {{item.nombre}}
+          </mat-option>
+        </ng-container>
+        <ng-template #noEdificio>
+          <mat-option>No hay campos disponibles</mat-option>
+        </ng-template>
+      </mat-select>
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:20%;">
+      <mat-label>Costo unitario</mat-label>
+      <input matInput formControlName="costoUnitario" type="number">
+    </mat-form-field>&nbsp;
+
+    <!-- <h3 class="mantenimientoTitle">Detallar costeo en periodos:</h3> -->
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:20%;">
+      <mat-label>cantidad</mat-label>
+      <input matInput type="number" formControlName="cantidad">
+    </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width:25%;">
+        <mat-label>Fecha recepción</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fechaRecepcion">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>&nbsp;
+
+
+
+
+      <button class="greenButton" (click)="agregarInsumoAlObjeto()">Agregar</button>
+
+  </form>
+
     </div>
 
-    <div class="actividadContainer">
-        <span class="titleActividad">
-            <h1 >Actividades</h1>
-        </span>
+    <span class="titleInsumos">
+      <h1>Detalle costeo</h1>
+    </span>
 
-        <div class="formularioActividades">
-            <h2 class="mantenimientoTitle">Nueva Actividad</h2>
-
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
-                <mat-label>Nombre de la actividad</mat-label>
-                <input matInput required>
-            </mat-form-field>&nbsp;
-
-            <mat-form-field appearance="fill" style="width: 15%;">
-              <mat-label>Región</mat-label>
-              <mat-select disableRipple>
-                <ng-container>
-                  <mat-option *ngFor="let item of regionesList" value={{item.id}}>
-                    {{item.nombre}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>&nbsp;
-
-
-            <mat-form-field appearance="fill" style="width: 31%;">
-              <mat-label>Provincia</mat-label>
-              <mat-select disableRipple>
-                <ng-container>
-                  <mat-option *ngFor="let item of provinciasList" value={{item.id}}>
-                    {{item.nombre}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>&nbsp;
-
-            <mat-form-field appearance="fill" style="width: 20%;">
-              <mat-label>Municipio</mat-label>
-              <mat-select disableRipple>
-                <ng-container>
-                  <mat-option *ngFor="let item of MunicipiosList" value={{item.id}}>
-                    {{item.nombre}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>&nbsp;
-
-            <mat-form-field appearance="fill" style="width: 40%;">
-              <mat-label>Responsable</mat-label>
-              <mat-select disableRipple>
-                <ng-container>
-                  <mat-option *ngFor="let item of responsableList" value={{item.id}}>
-                    {{item.nombre}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>&nbsp;
-
-            <mat-form-field appearance="fill" style="width: 36%;">
-              <mat-label>Involucrados</mat-label>
-              <mat-select disableRipple multiple>
-                <ng-container>
-                  <mat-option *ngFor="let item of involucradoList" value={{item.id}}>
-                    {{item.nombre}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>&nbsp;
-
-            <mat-form-field appearance="fill" style="width: 33%;">
-              <mat-label>Frecuencia</mat-label>
-              <mat-select disableRipple>
-                <ng-container>
-                  <mat-option *ngFor="let item of frecuenciaList" value={{item.id}}>
-                    {{item.nombre}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>&nbsp;
-
-            <mat-form-field appearance="fill" style="width: 33%;">
-              <mat-label>Estado</mat-label>
-              <mat-select disableRipple>
-                <ng-container>
-                  <mat-option *ngFor="let item of estadosList" value={{item.id}}>
-                    {{item.nombre}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>&nbsp;
-
-
-            <mat-form-field appearance="fill" style="width: 30%;">
-              <mat-label>Meses de impacto</mat-label>
-              <mat-select disableRipple multiple>
-                <ng-container>
-                  <mat-option *ngFor="let item of mesesList" value={{item.id}}>
-                    {{item.nombre}}
-                  </mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>&nbsp;
-
-            <h3 class="mantenimientoTitle">Resultado esperado cualitativo</h3>
-
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
-              <mat-label>Trimestre 1</mat-label>
-              <input matInput >
-            </mat-form-field>&nbsp;
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
-              <mat-label>Trimestre 2</mat-label>
-              <input matInput >
-            </mat-form-field>&nbsp;
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
-              <mat-label>Trimestre 3</mat-label>
-              <input matInput >
-            </mat-form-field>&nbsp;
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
-              <mat-label>Trimestre 4</mat-label>
-              <input matInput >
-            </mat-form-field>&nbsp;
-
-            <h3 class="mantenimientoTitle">Resultado esperado Cuantitativo</h3>
-
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
-              <mat-label>Trimestre 1</mat-label>
-              <input matInput type="number" >
-            </mat-form-field>&nbsp;
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
-              <mat-label>Trimestre 2</mat-label>
-              <input matInput  type="number" >
-            </mat-form-field>&nbsp;
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
-              <mat-label>Trimestre 3</mat-label>
-              <input matInput type="number" >
-            </mat-form-field>&nbsp;
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
-              <mat-label>Trimestre 4</mat-label>
-              <input matInput type="number" >
-            </mat-form-field>&nbsp;
-
-        </div>
-
-        <span class="titleInsumos">
-            <h1>Insumos</h1>
-            <button mat-stroked-button class="borderOrangeButton" (click)="openModal()"><mat-icon>add</mat-icon> Añadir insumo</button>
-        </span>
-
-        <div style="margin-bottom: 15px;">
-            <table style="border: 1px solid #ccc;">
-                <thead class="headerTable">
-                    <tr class="headerRow" style="background-color: #95ade93f;">
-                        <th class="headerCell"  style="width: 4%;">No.</th>
-                        <th class="headerCell">Actividad</th>
-                        <th class="headerCell">Responsable</th>
-                        <th class="headerCell">Estructura Programática</th>
-                        <th class="headerCell">Prosupuesto Estimado</th>
-                        <th class="headerCell" style="width: 4%;"></th>
-                        <th class="headerCell" style="width: 4%;"></th>
-                        <th class="headerCell" style="width: 4%;"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="dataRow">
-                        <td class="dataCell">1</td>
-                        <td class="dataCell">Implementar modelo pedagógico para la formación de docentes</td>
-                        <td class="dataCell">Vicerrectoría Académica</td>
-                        <td class="dataCell">18.03.0003 Servicios de Formación de Docentes de excelencia</td>
-                        <td class="dataCell">RD$20,000.00</td>
-                        <td class="dataCell"><button class="statusButton"></button></td>
-                        <td class="dataCell"><mat-icon class="editIcon">edit</mat-icon></td>
-                        <td class="dataCell"><mat-icon class="removeIcon">delete</mat-icon></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <button class="greenButton">Crear actividad</button>
+    <div style="margin-bottom: 15px;">
+      <table style="border: 1px solid #ccc;">
+        <thead class="headerTable">
+          <tr class="headerRow" style="background-color: #95ade93f;">
+            <th class="headerCell">Insumo</th>
+            <th class="headerCell">Fecha recepción</th>
+            <th class="headerCell">Unidad de medida</th>
+            <th class="headerCell">Cantidad</th>
+            <th class="headerCell">Costo</th>
+            <th class="headerCell">Total</th>
+            <th class="headerCell">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="dataRow" *ngFor="let item of insumoTable">
+            <td class="dataCell">{{item.idInsumo}}</td>
+            <td class="dataCell">{{item.fechaRecepcion | date}}</td>
+            <td class="dataCell">{{item.idUnidadMedida}}</td>
+            <td class="dataCell">{{item.cantidad}}</td>
+            <td class="dataCell">{{item.costoUnitario}}</td>
+            <td class="dataCell">{{item.montoTotal}}</td>
+            <td class="dataCell"><mat-icon class="removeIcon" (click)="eliminarObjeto(item.id)">delete</mat-icon></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <div class="itemderecha">
+      <h2>
+        Monto total {{montoTotal | currency:'RD$':'symbol':'1.2-2'}}
+      </h2>
+      <button class="greenButton item" (click)=" Guardar()">Crear actividad</button>
+    </div>
+  </div>
 
 </div>

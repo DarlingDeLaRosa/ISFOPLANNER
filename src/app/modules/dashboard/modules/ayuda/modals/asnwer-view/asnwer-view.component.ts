@@ -12,11 +12,9 @@ export class AsnwerViewComponent implements OnInit{
   constructor(
     @Inject(MAT_DIALOG_DATA) public pregunta_Asnwer: PreguntaI,
   ){
-    console.log(pregunta_Asnwer);
   }
 
   ngOnInit(): void {
-    
   }
   
 }

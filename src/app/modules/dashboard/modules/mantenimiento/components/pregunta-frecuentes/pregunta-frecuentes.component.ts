@@ -34,15 +34,7 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
   getPregunta() {
     this.apiPreguntas.getPreguntasFrecuentes()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.getPreguntas = res.data
-      })
+      .subscribe((res: any) => { this.getPreguntas = res.data })
   }
 
   postPregunta() {
@@ -60,12 +52,6 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
   putPregunta() {
     this.apiPreguntas.putPreguntasFrecuentes(this.preguntasFrecuentesForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
       .subscribe((res: any) => {
         if (res.data != null) {
 
@@ -82,12 +68,6 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
     if (removeDecision) {
       this.apiPreguntas.removePreguntasFrecuentes(id)
-        .pipe(
-          catchError((error) => {
-            alertServerDown()
-            return error
-          })
-        )
         .subscribe((res: any) => {
           if (res.statusCode == 204) {
             alertRemoveSuccess()

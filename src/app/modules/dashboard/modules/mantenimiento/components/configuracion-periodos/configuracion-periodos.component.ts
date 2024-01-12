@@ -45,17 +45,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   getPeriodoConfig() {
     this.apiPeriodosConfig.getPeriodoConfig()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res);
-
-        this.periodosConfig = res.data
-      })
+      .subscribe((res: any) => { this.periodosConfig = res.data })
   }
 
   // postEstructuraPro() {
@@ -81,12 +71,6 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   putEstructuraPro() {
     this.apiPeriodosConfig.putPeriodoConfig(this.periodosConfigForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.ok) {
 
@@ -125,8 +109,6 @@ export class ConfiguracionPeriodosComponent implements OnInit {
   // }
 
   setValueEditEstructuraPro(estructuraPro: any) {
-    console.log(estructuraPro);
-    
     this.periodosConfigForm.reset(estructuraPro)
     this.periodosConfigForm.patchValue({
       nombre: estructuraPro.tipoProceso.nombre,

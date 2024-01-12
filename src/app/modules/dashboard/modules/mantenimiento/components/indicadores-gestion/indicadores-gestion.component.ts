@@ -65,66 +65,26 @@ export class IndicadoresGestionComponent implements OnInit {
 
   getEstructuraPro() {
     this.apiEstruturaPro.getEstructurasProgramaticas()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.estructurasPro = res.data
-      })
+      .subscribe((res: any) => { this.estructurasPro = res.data })
   }
-
 
   getFrecuencia() {
     this.apiIndicadoresGestion.getFrecuencia()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.frecuencias = res.data
-      })
+      .subscribe((res: any) => { this.frecuencias = res.data })
   }
 
   getAlcance() {
     this.apiIndicadoresGestion.getAlcance()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.alcances = res.data
-      })
+      .subscribe((res: any) => { this.alcances = res.data })
   }
-
 
   getIndicadoresGestion() {
     this.apiIndicadoresGestion.getIndicadorGestion()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
-      .subscribe((res: any) => {
-        this.indicadoresGestion = res.data
-      })
+      .subscribe((res: any) => { this.indicadoresGestion = res.data })
   }
 
   postIndicadoresGestion() {
     this.apiIndicadoresGestion.postIndicadorGestion(this.indicadoresGestionForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.statusCode == 201) {
 
@@ -138,12 +98,6 @@ export class IndicadoresGestionComponent implements OnInit {
 
   putIndicadoresGestion() {
     this.apiIndicadoresGestion.putIndicadorGestion(this.indicadoresGestionForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.ok) {
 
@@ -160,12 +114,6 @@ export class IndicadoresGestionComponent implements OnInit {
 
     if (removeDecision) {
       this.apiIndicadoresGestion.removeIndicadorGestion(id)
-        .pipe(
-          catchError((error) => {
-            alertServerDown()
-            return error
-          })
-        )
         .subscribe((res: any) => {
           if (res.ok) {
 
@@ -184,9 +132,6 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   saveChangesButton() {
-
-    console.log(this.indicadoresGestionForm.value);
-
     if (this.indicadoresGestionForm.valid) {
       if (this.indicadoresGestionForm.value.id > 0) this.putIndicadoresGestion()
       else this.postIndicadoresGestion()

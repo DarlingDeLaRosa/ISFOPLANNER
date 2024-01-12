@@ -22,16 +22,6 @@ export class MaterialApoyoComponent implements OnInit{
 
   getMaterial() {
     this.apiMaterial.getMaterialApoyo()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res);
-        
-        this.materialesApoyo = res.data
-      })
+      .subscribe((res: any) => { this.materialesApoyo = res.data })
   }
 }

@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../../mantenimiento/services/producto.service';
 import { catchError } from 'rxjs';
 import { alertServerDown } from 'src/app/alerts/alerts';
+import { ActividadI } from '../../interfaces/formulacion.interface';
+import { ActividadesService } from '../../services/actividades.service';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -18,25 +20,31 @@ export class ProductoFormulacionComponent implements OnInit {
   };
 
   idProducto: number = 0;
+  actividadesList:Array<ActividadI> = [];
+  actividadesProductoList:Array<ActividadI> = [];
+
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private productoApi: ProductoService,
+    private actividadService: ActividadesService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.idProducto = params['numero'];
-      console.log(this.idProducto);
     });
 
     this.getByIdProducto();
+    this.getAllActividades();
   }
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => {this.productoConsult = resp.data;})
+      .subscribe((resp: any) => {
+      this.productoConsult = resp.data;
+    })
   }
 
   openModal() {
@@ -45,6 +53,21 @@ export class ProductoFormulacionComponent implements OnInit {
 
   crearActividad(){
     this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} });
+  }
+
+  getAllActividades(){
+    this.actividadService.getActividades().subscribe((resp: any) => {
+      this.actividadesList = resp.data;
+      console.log(this.actividadesList);
+      this.filterActividades();
+
+    })
+  }
+
+  filterActividades() {
+    this.actividadesProductoList = this.actividadesList.filter(item => item.producto!.id == this.idProducto);
+    console.log(this.actividadesProductoList);
+
   }
 }
 

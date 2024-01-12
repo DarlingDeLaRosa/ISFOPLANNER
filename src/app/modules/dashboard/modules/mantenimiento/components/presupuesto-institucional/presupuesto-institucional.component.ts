@@ -33,26 +33,11 @@ export class PresupuestoInstitucionalComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional('')
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res);
-        this.presupuestosInst = res.data
-      })
+      .subscribe((res: any) => { this.presupuestosInst = res.data })
   }
 
   putUnidadOrganizativa() {
     this.apiPresupuestoInstitucional.putPresupuestoInstitucional(this.presupuestoInstiForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.ok) {
 
@@ -66,12 +51,6 @@ export class PresupuestoInstitucionalComponent implements OnInit {
 
   postUnidadOrganizativa() {
     this.apiPresupuestoInstitucional.postPresupuestoInstitucional(this.presupuestoInstiForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.ok) {
 

@@ -43,27 +43,11 @@ export class MaterialDeApoyoComponent implements OnInit {
 
   getMaterial() {
     this.apiMaterial.getMaterialApoyo()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res);
-        
-        this.materialesApoyo = res.data
-      })
+      .subscribe((res: any) => { this.materialesApoyo = res.data })
   }
 
   postMaterial() {
     this.apiMaterial.postMaterialApoyo(this.materialApoyoForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
         if (res.data != null) {
 
@@ -77,12 +61,6 @@ export class MaterialDeApoyoComponent implements OnInit {
 
   putMaterial() {
     this.apiMaterial.putMaterialApoyo(this.materialApoyoForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
       .subscribe((res: any) => {
         if (res.data != null) {
 
@@ -99,12 +77,6 @@ export class MaterialDeApoyoComponent implements OnInit {
 
     if (removeDecision) {
       this.apiMaterial.removeMaterialApoyo(id)
-        .pipe(
-          catchError((error) => {
-            alertServerDown()
-            return error
-          })
-        )
         .subscribe((res: any) => {
           if (res.ok) {
             alertRemoveSuccess()

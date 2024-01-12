@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Token, environment, header, sistema } from '../../../../../../environments/environments';
+import { Token, environment, sistema } from '../../../../../../environments/environments';
 import { UsuarioI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError } from 'rxjs';
 import { alertServerDown } from 'src/app/alerts/alerts';
@@ -14,30 +14,33 @@ export class UsuarioService {
   token: string = Token .token
   baseURL: string = environment.api2
   idSistema: number = sistema.idSistema
-  
+
+  headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
+  header = {headers: this.headers}
+
   constructor(private http: HttpClient) { }
   
   public getUsuario() {
     const getUsuario = `${this.baseURL}/Usuarios/getall/1/1/200`
-    return this.http.get(getUsuario, header)
+    return this.http.get(getUsuario, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public postUsuario(usuarioData: UsuarioI) {
     const postUsuario = `${this.baseURL}/Usuarios`
-    return this.http.post(postUsuario , usuarioData, header)
+    return this.http.post(postUsuario , usuarioData, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public putUsuario(usuarioData: UsuarioI) {
     const putUsuario = `${this.baseURL}/Usuarios?id=${usuarioData.id}`
-    return this.http.put(putUsuario, usuarioData, header)
+    return this.http.put(putUsuario, usuarioData, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public removeUsuario(id: number) {
     const removeUsuario = `${this.baseURL}/Usuarios/${id}`
-    return this.http.delete(removeUsuario,  header)
+    return this.http.delete(removeUsuario,  this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
@@ -45,7 +48,7 @@ export class UsuarioService {
 
   public getAllRecintos() {
     const getRecintos = `${this.baseURL}/Usuarios/getallrecintos`
-    return this.http.get(getRecintos, header)
+    return this.http.get(getRecintos, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
@@ -53,7 +56,7 @@ export class UsuarioService {
 
   public getAllCargos() {
     const getCargos = `${this.baseURL}/Usuarios/getallcargos`
-    return this.http.get(getCargos, header)
+    return this.http.get(getCargos, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
@@ -61,7 +64,7 @@ export class UsuarioService {
 
   public getAllRoles() {
     const getRol = `${this.baseURL}/Usuarios/getallroles/${this.idSistema}`
-    return this.http.get(getRol , header)
+    return this.http.get(getRol , this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 }

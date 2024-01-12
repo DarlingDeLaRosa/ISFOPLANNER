@@ -32,28 +32,12 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
   getEstructuraPro() {
     this.apiEstructuraPro.getEstructurasProgramaticas()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
-      .subscribe((res: any) => {
-        this.estructurasProgramaticas = res.data
-      })
+      .subscribe((res: any) => { this.estructurasProgramaticas = res.data })
   }
 
   postEstructuraPro() {
     this.apiEstructuraPro.postEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        })
-      )
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.statusCode == 201) {
 
           alertIsSuccess(true)
@@ -66,15 +50,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
   putEstructuraPro() {
     this.apiEstructuraPro.putEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return throwError(error)
-        })
-      )
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.ok) {
 
           alertIsSuccess(true)
@@ -90,15 +66,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
     if (removeDecision) {
       this.apiEstructuraPro.removeEstructurasProgramaticas(id)
-        .pipe(
-          catchError((error) => {
-            alertServerDown()
-            return error
-          })
-        )
         .subscribe((res: any) => {
-          console.log(res);
-
           if (res.ok) {
 
             alertRemoveSuccess()
