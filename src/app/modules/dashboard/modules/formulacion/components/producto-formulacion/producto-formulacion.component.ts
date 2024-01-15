@@ -16,12 +16,11 @@ import { ActividadesService } from '../../services/actividades.service';
 export class ProductoFormulacionComponent implements OnInit {
   productoConsult =  {
     nombre:'',
+    actividades: [{ costeo : {id: 0, montoTotalEstimado: 0}, esPrevista : true, estado: {id: 0, nombre: ''}, frecuencia: {id: 0, nombre: ''}, id: 0, nombre: '' }],
     indicadoresGestion: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:''}, tipoIndicador: {nombre: ''}, estructuraProgramatica: {nombre: ''}}]
   };
 
   idProducto: number = 0;
-  actividadesList:Array<ActividadI> = [];
-  actividadesProductoList:Array<ActividadI> = [];
 
   constructor(
     public dialog: MatDialog,
@@ -37,14 +36,16 @@ export class ProductoFormulacionComponent implements OnInit {
     });
 
     this.getByIdProducto();
-    this.getAllActividades();
+    // this.getAllActividades();
   }
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => {
-      this.productoConsult = resp.data;
-    })
+      .subscribe((resp: any) => { 
+        console.log(resp);
+        
+        this.productoConsult = resp.data;
+      })
   }
 
   openModal() {
@@ -55,20 +56,16 @@ export class ProductoFormulacionComponent implements OnInit {
     this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} });
   }
 
-  getAllActividades(){
-    this.actividadService.getActividades().subscribe((resp: any) => {
-      this.actividadesList = resp.data;
-      console.log(this.actividadesList);
-      this.filterActividades();
+  // getAllActividades(){
+  //   this.actividadService.getActividades().subscribe((resp: any) => {
+  //     this.actividadesList = resp.data;
+  //     this.filterActividades();
+  //   })
+  // }
 
-    })
-  }
-
-  filterActividades() {
-    this.actividadesProductoList = this.actividadesList.filter(item => item.producto!.id == this.idProducto);
-    console.log(this.actividadesProductoList);
-
-  }
+  // filterActividades() {
+  //   this.actividadesProductoList = this.actividadesList.filter(item => item.producto!.id == this.idProducto);
+  // }
 }
 
 

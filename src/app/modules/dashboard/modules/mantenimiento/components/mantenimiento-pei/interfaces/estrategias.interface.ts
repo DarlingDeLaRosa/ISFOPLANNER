@@ -4,6 +4,7 @@ export interface EstrategiaI{
     id?: number,
     nombre: string,
     creadoPor?: number,
-    idEjeEstrategico:number,
-    ejeEstrategico: EjesI
+    idEjeEstrategico?:number,
+    ejeEstrategico: EjesI,
+    resultadosEfectos?: any
 }

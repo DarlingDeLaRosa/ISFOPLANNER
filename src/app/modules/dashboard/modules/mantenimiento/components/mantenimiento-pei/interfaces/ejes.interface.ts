@@ -3,5 +3,6 @@ export interface EjesI {
     nombre: string,
     objetivo: string,
     numeroEje: number,
-    creadoPor: number
+    creadoPor?: number
+    estrategias?: any
 }

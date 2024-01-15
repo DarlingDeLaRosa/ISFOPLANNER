@@ -213,14 +213,10 @@ export class ActividadesFormulacionComponent implements OnInit {
     // this.dialog.open(NuevoInsumoComponent)
   }
 
-
-
   get currentActividadForm() {
     const form = this.ActividadForm.value as ActividadI;
     return form;
   }
-
-
 
   postActividades() {
     this.ActividadForm.get('idProducto')!.setValue(this.idProductorecibido);

@@ -19,22 +19,20 @@
             </div>
             <div class="filtrosSection">
                 <h4>Ejes estratégico</h4>
-                <mat-radio-group formControlName="ejesEstrategico" > <!---->
+                <mat-radio-group formControlName="ejesEstrategico">
                     <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id" color="primary">
                         {{ejeEstrategico.nombre}}
                     </mat-radio-button><br>
-                    <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="" color="primary">Todos</mat-radio-button><br>
+                    <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null" color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
             <div class="filtrosSection">
                 <h4>Estrategias</h4>
-                <mat-radio-group formControlName="estrategias" > <!--(change)="itbisOption($event)"--> <!-- formControlName="itbisGeneralEstado"-->
+                <mat-radio-group formControlName="estrategias" >
                     <mat-radio-button *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
                         {{estrategia.nombre}}
                     </mat-radio-button><br>
-                    <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="" color="primary">Todos</mat-radio-button><br>
-                    <!-- <mat-checkbox>Egresados como compromiso institucional.</mat-checkbox><br>
-                    <mat-checkbox>Planes de proyectos institucionales</mat-checkbox> -->
+                    <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null" color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
             <div class="filtrosSection">
@@ -44,32 +42,31 @@
                     color="primary">
                     {{resultadoEfecto.nombre}}
                 </mat-radio-button><br>
-                <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="" color="primary">Todos</mat-radio-button><br>
-                    <!-- <mat-checkbox>Fortalecida la capacidad investigativa de docentes investigadores, estudiantes y egresados</mat-checkbox> -->
+                <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null" color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
         </div>
         <div class="ejeProductoContainer" >
-            <div class="EjeContainer">
+            <div class="EjeContainer" >
                 <div class="ejeSection" *ngIf="filterForm.value.ejesEstrategico > 0">
                     <div>
                         <h3>Eje:</h3>
-                        <p>Impacto sectorial de programas y proyectos educativos</p>
+                        <p>{{selectedEjesEstrategico.nombre}}</p>
                     </div>
-                    <div>
+                    <div class="middleSection">
                         <h3>Objetivo Estratégico:</h3>
-                        <p>Impacto sectorial de programas y proyectos educativos</p>
+                        <p>{{selectedEjesEstrategico.objetivo}}</p>
                     </div>
 
                 </div>
                 <div class="ejeSection estrategiaResultado" *ngIf="filterForm.value.estrategias > 0" >
                     <div>
                         <h3>Estrategia:</h3>
-                        <p>Impacto sectorial de programas y proyectos educativos</p>
+                        <p>{{selectedEstrategia.nombre}}</p>
                     </div>
-                    <div>
+                    <div class="middleSection" *ngIf="filterForm.value.resultadoEfecto > 0">
                         <h3>Resultado efecto:</h3>
-                        <p>Impacto sectorial de programas y proyectos educativos</p>
+                        <p>{{selectedResultadoE.nombre}}</p>
                     </div>
                 </div>
                 <div class="ejeSectionTotal">
@@ -77,6 +74,7 @@
                     <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> RD$150,000.00</h4>
                 </div>
             </div>
+            
             <div class="ProductoContainer">
                 <h1>Productos</h1>
                 <div class="producto" *ngFor="let producto of productos">

@@ -9,6 +9,7 @@ import { ResultadoEfectoI } from '../mantenimiento/components/mantenimiento-pei/
 import { ResultadoEfectoService } from '../mantenimiento/components/mantenimiento-pei/services/resultadoEfecto.service';
 import { ProductoService } from '../mantenimiento/services/producto.service';
 import { Router } from '@angular/router';
+import { EjesI } from '../mantenimiento/components/mantenimiento-pei/interfaces/ejes.interface';
 
 @Component({
   selector: 'formulacion-root',
@@ -18,8 +19,11 @@ import { Router } from '@angular/router';
 export class FormulacionComponent implements OnInit {
 
   estrategias: Array<EstrategiaI> = [];
-  ejesEstrategicos: Array<any> = [];
+  ejesEstrategicos: Array<EjesI> = [];
   resultadosEfecto: Array<ResultadoEfectoI> = [];
+  selectedEjesEstrategico: EjesI = { estrategias: {}, id: 0, nombre: "", numeroEje: 0, objetivo: "" };
+  selectedEstrategia: EstrategiaI = { ejeEstrategico: {id: 0, nombre: '', objetivo: '', numeroEje: 0, },id: 0, nombre : "", resultadosEfectos: [] };
+  selectedResultadoE: ResultadoEfectoI = { estrategia: {id: 0, nombre: '', ejeEstrategico: {id: 0, nombre: '', objetivo: '', numeroEje: 0,}, resultadosEfectos: []}, id: 0, nombre: ""}
   productos: any[] = [];
   filterForm: FormGroup;
 
@@ -44,53 +48,42 @@ export class FormulacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProducto()
+    this.getAllResultadoEfecto();
     this.getAllEjes();
     this.getAllEstrategia();
-    this.getAllResultadoEfecto();
+    this.getProducto()
   }
 
-  enviarProducto(producto:number) {
-  this.router.navigate(['/dashboard/formulacion/producto'], { queryParams: {numero: producto}  });
+  enviarProducto(producto: number) {
+    this.router.navigate(['/dashboard/formulacion/producto'], { queryParams: { numero: producto } });
   }
 
   getAllResultadoEfecto() {
     this.resultadoEfectoService.getResultadoEfecto()
-      .subscribe((resp: any) => { this.resultadosEfecto = resp.data;  console.log(resp); })
+      .subscribe((resp: any) => { this.resultadosEfecto = resp.data; console.log(resp);})
   }
 
   getAllEjes() {
     this.ejesService.getEjes()
-      .subscribe((resp: any) => { this.ejesEstrategicos = resp.data; })
+      .subscribe((resp: any) => { this.ejesEstrategicos = resp.data;})
   }
 
   getAllEstrategia() {
     this.estrategiasService.getEstrategias()
-      .subscribe((resp: any) => { this.estrategias = resp.data; })
+      .subscribe((resp: any) => { this.estrategias = resp.data;})
   }
 
-
   getProducto() {
-    const {ejesEstrategico, estrategias, resultadoEfecto} = this.filterForm.value
-    console.log(ejesEstrategico, estrategias, resultadoEfecto);
-    
+    const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
+
     this.apiProducto.getProducto(ejesEstrategico, estrategias, resultadoEfecto)
-      .subscribe((res: any) => {
+      .subscribe((res: any) => { 
+
+        if (ejesEstrategico > 0) [this.selectedEjesEstrategico] = this.ejesEstrategicos.filter((ejeEs: EjesI)=> ejeEs.id == ejesEstrategico) 
+        if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI)=> estrategia.id == estrategias) 
+        if (ejesEstrategico > 0) [this.selectedResultadoE] = this.resultadosEfecto.filter((ejeEs: ResultadoEfectoI )=> ejeEs.id == resultadoEfecto) 
         
-        // res.data.map((indicador:any)=>{
-
-          // if(this.ejesEstrategicos.some((item:any)=> item.id !== indicador.indicadorEstrategico.resultadoEfecto.estrategia.ejeEstrategico.id) || this.ejesEstrategicos.length < 1 ){
-          //   this.ejesEstrategicos.push(indicador.indicadorEstrategico.resultadoEfecto.estrategia.ejeEstrategico)
-          // }
-
-          // if(this.estrategias.some((item:any)=> item.id !== indicador.indicadorEstrategico.id) || this.ejesEstrategicos.length < 1 ){
-          //   this.ejesEstrategicos.push(indicador.indicadorEstrategico)
-          // }
-
-        // })
-
-
-        this.productos = res.data
+        this.productos = res.data;
       })
   }
 }

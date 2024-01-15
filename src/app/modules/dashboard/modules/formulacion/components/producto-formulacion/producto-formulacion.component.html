@@ -63,14 +63,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="dataRow" *ngFor="let actividad of actividadesProductoList">
-                        <td class="dataCell" style="width: 4%;">{{actividad.id}}</td>
+                    <tr class="dataRow" *ngFor="let actividad of productoConsult.actividades">
+                        <td class="dataCell" style="width: 5%;">{{actividad.id}}</td>
                         <td class="dataCell"> {{actividad.nombre}}</td>
                         <td class="dataCell">{{actividad.frecuencia.nombre}}</td>
                         <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency }}</td>
-                        <td class="dataCell" style="width: 4%;"><button class="statusButton"></button></td>
-                        <td class="dataCell" style="width: 4%;"><mat-icon class="editIcon">edit</mat-icon></td>
-                        <td class="dataCell" style="width: 4%;"><mat-icon class="removeIcon">delete</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><button class="statusButton"></button></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon">edit</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon">delete</mat-icon></td>
                     </tr>
                 </tbody>
             </table>
