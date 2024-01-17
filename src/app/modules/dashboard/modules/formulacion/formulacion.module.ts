@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProductoFormulacionComponent,
     IndicadorEditarComponent,
     ActividadesFormulacionComponent,
-    NuevoInsumoComponent
+    NuevoInsumoComponent,
   ],
   imports: [
     RouterModule,

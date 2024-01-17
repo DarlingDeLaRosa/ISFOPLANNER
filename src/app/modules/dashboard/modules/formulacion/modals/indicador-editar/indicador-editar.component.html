@@ -1,60 +1,109 @@
 <div style="padding: 15px;" class="modal">
-  <h2 class="mantenimientoTitle" >Actualizar indicador</h2>
+  <h2 class="mantenimientoTitle">Actualizar indicador</h2>
   <div style="border:1px solid  #ccc ;">
   </div>&nbsp;
-  <div>
-      <mat-form-field appearance="fill" style="width: 35%;">
-        <mat-label>Medio verificación</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option>
 
-            </mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+  <span style="display: flex;">
+    <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+  </span>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
+    <span>
+      <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+    </span>
 
-      <mat-form-field appearance="fill" style="width: 30%;">
-        <mat-label>Frecuencia</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option>
+    <span>
+      <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+    </span>
 
-            </mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+    <span>
+      <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+    </span>
 
+    <span> <!--este es el bueno-->
+      <h3 style="margin: 0;" class="mantenimientoTitle">Indicador:</h3> {{indicador.nombre}}
+    </span>
+  </div>
 
-      <mat-form-field appearance="fill" style="width: 20%;">
-        <mat-label>Alcance</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option>
+  <div *ngIf="true">
 
-            </mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+    <h3 class="mantenimientoTitle">Indicador por recinto</h3>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width:10%;">
-        <mat-label>Linea base</mat-label>
-        <input matInput readonly disabled>
-      </mat-form-field>&nbsp;
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:30%;">
+      <mat-label>Tipo de Indicador</mat-label>
+      <input matInput readonly disabled>
+    </mat-form-field>&nbsp;
 
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:8.5%;">
+      <mat-label>Meta</mat-label>
+      <input matInput readonly disabled type="number">
+    </mat-form-field>&nbsp;
 
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
+      <mat-label>REC</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
 
-    </div>
-    <button class="greenButton">Guardar cambios</button>
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
+      <mat-label>FEM</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
 
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
+      <mat-label>JVM</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
+      <mat-label>LNNM</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
+      <mat-label>EPH</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
+      <mat-label>UM</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
+      <mat-label>EPH</mat-label>
+      <input matInput type="number">
+    </mat-form-field>
+
+  </div>
+
+  <div *ngIf="true">
+
+    <h3 class="mantenimientoTitle">Resultado esperado por trimestre.</h3>
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:19%;">
+      <mat-label>Meta anual</mat-label>
+      <input matInput readonly disabled type="number">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:19%;">
+      <mat-label>1er Trimestre</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:19%;">
+      <mat-label>2do Trimestre</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:20%;">
+      <mat-label>3er Trimestre</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
+    
+    <mat-form-field hideRequiredMarker appearance="fill" style="width:20%;">
+      <mat-label>4to Trimestre</mat-label>
+      <input matInput type="number">
+    </mat-form-field>&nbsp;
+  </div>
+
+  <button class="greenButton">Guardar cambios</button>
 </div>
-

@@ -1,3 +1,5 @@
+import { ResponsableI } from "../components/mantenimiento-pei/interfaces/responsable.interface"
+
 export interface PreguntaI {
   id: number | null
   pregunta: string,
@@ -28,14 +30,18 @@ export interface ProductoI {
 
 }
 
-
 export interface IndicadorGestionI {
-  id: number | null
+  id?: number | null
   nombre: string,
-  idProducto: number,
-  idAlcance: number,
-  idIndicadorEstrategico: number,
-  indicadoresRecinto: {
+  idProducto?: number,
+  idAlcance?: number,
+  linaBase: number, 
+  meta: number,
+  responsable:ResponsableI,
+  tipoIndicador: {nombre: string}
+  estructuraProgramatica: {nombre: string}
+  // idIndicadorEstrategico: number,
+  indicadoresRecinto?: {
     metaFem: number,
     metaJvm: number,
     metaLnnm: number,

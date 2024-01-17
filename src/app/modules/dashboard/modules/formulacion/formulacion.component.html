@@ -77,6 +77,9 @@
             
             <div class="ProductoContainer">
                 <h1>Productos</h1>
+                <div>
+
+                </div>
                 <div class="producto" *ngFor="let producto of productos">
                     <div class="titleProducto">
                         <span>
@@ -107,6 +110,9 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="noData" *ngIf="productos.length == 0">
+                    <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
                 </div>
             </div>
         </div>
