@@ -34,7 +34,8 @@ export interface IndicadorGestionI {
   id?: number | null
   nombre: string,
   idProducto?: number,
-  idAlcance?: number,
+  alcance?: any,
+  frecuencia: any
   linaBase: number, 
   meta: number,
   responsable:ResponsableI,

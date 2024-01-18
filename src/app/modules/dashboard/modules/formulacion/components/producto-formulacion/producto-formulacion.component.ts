@@ -15,7 +15,7 @@ export class ProductoFormulacionComponent implements OnInit {
   productoConsult =  {
     nombre:'',
     actividades: [{ costeo : {id: 0, montoTotalEstimado: 0}, esPrevista : true, estado: {id: 0, nombre: ''}, frecuencia: {id: 0, nombre: ''}, id: 0, nombre: '' }],
-    indicadoresGestion: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:'', id: 0}, tipoIndicador: {nombre: ''}, estructuraProgramatica: {nombre: ''}}]
+    indicadoresGestion: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:'', id: 0}, tipoIndicador: {nombre: ''}, estructuraProgramatica: {nombre: ''}, frecuencia: {}}]
   };
 
   idProducto: number = 0;
@@ -35,7 +35,7 @@ export class ProductoFormulacionComponent implements OnInit {
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => { this.productoConsult = resp.data;})
+      .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp); })
   }
 
   openModal(indicador: IndicadorGestionI) { this.dialog.open(IndicadorEditarComponent, {data: indicador}) }

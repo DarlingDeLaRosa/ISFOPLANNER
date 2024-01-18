@@ -7,21 +7,22 @@
     <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
   </span>
   <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
+    
     <span>
-      <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+      <h3 style="margin: 0;" class="mantenimientoTitle">Medio de Verficación:</h3> Hay que hacer incluir esa información 
     </span>
 
     <span>
-      <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+      <h3 style="margin: 0;" class="mantenimientoTitle">Frecuencia:</h3> {{indicador.frecuencia.nombre}}
     </span>
 
     <span>
-      <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+      <h3 style="margin: 0;" class="mantenimientoTitle">Alcance:</h3> {{indicador.alcance.nombre}}
     </span>
 
-    <span> <!--este es el bueno-->
-      <h3 style="margin: 0;" class="mantenimientoTitle">Indicador:</h3> {{indicador.nombre}}
-    </span>
+    <span>
+      <h3 style="margin: 0;" class="mantenimientoTitle">Linea Base:</h3> {{indicador.linaBase}}
+    </span><br>
   </div>
 
   <div *ngIf="true">
@@ -104,6 +105,6 @@
       <input matInput type="number">
     </mat-form-field>&nbsp;
   </div>
-
+  
   <button class="greenButton">Guardar cambios</button>
 </div>

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../../services/producto.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
+import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, errorMessageAlert } from 'src/app/alerts/alerts';
 import { IndicadorGestionService } from '../../services/indicadores-gestion.service';
-import { catchError, throwError } from 'rxjs';
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 
@@ -21,7 +20,6 @@ export class IndicadoresGestionComponent implements OnInit {
   productos: any[] = []
   estructurasPro: any[] = []
   unidadesOrg: any[] = []
-
 
   constructor(
     public fb: FormBuilder,
