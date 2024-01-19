@@ -4,6 +4,7 @@ import { Token, environment } from '../../../../../../environments/environments'
 import { IndicadorGestionI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError, throwError } from 'rxjs';
 import { alertServerDown } from 'src/app/alerts/alerts';
+import { indicadorRecinto } from '../../formulacion/interfaces/formulacion.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,18 @@ export class IndicadorGestionService {
   public removeIndicadorGestion(id: number) {
     const removeIndicadorGestion = `${this.baseURL}/IndicadoresGestion/${id}`
     return this.http.delete(removeIndicadorGestion, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
+  }
+
+  public postIndicadorRecintos(idIndicadorGestion: number | undefined | null, indicadoresRecintos: indicadorRecinto) {
+    const postIndicadorGestion = `${this.baseURL}/crear-indicador-recinto/${idIndicadorGestion}`
+    return this.http.post(postIndicadorGestion , indicadoresRecintos, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
+  }
+
+  public putIndicadorRecintos(indicadoresGestionData: IndicadorGestionI) {
+    const putIndicadorGestion = `${this.baseURL}/IndicadoresGestion/${indicadoresGestionData.id}`
+    return this.http.put(putIndicadorGestion, indicadoresGestionData, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 

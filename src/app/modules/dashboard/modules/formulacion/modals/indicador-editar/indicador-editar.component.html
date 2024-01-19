@@ -22,61 +22,61 @@
 
     <span>
       <h3 style="margin: 0;" class="mantenimientoTitle">Linea Base:</h3> {{indicador.linaBase}}
-    </span><br>
+    </span>
   </div>
 
-  <div *ngIf="true">
+  <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent" *ngIf="true">
 
     <h3 class="mantenimientoTitle">Indicador por recinto</h3>
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:30%;">
       <mat-label>Tipo de Indicador</mat-label>
-      <input matInput readonly disabled>
+      <input matInput readonly disabled [value]="indicador.tipoIndicador.nombre">
     </mat-form-field>&nbsp;
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:8.5%;">
       <mat-label>Meta</mat-label>
-      <input matInput readonly disabled type="number">
+      <input matInput readonly disabled type="number" [value]="indicador.meta">
     </mat-form-field>&nbsp;
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
       <mat-label>REC</mat-label>
-      <input matInput type="number">
+      <input matInput type="number" formControlName="metaRec">
     </mat-form-field>&nbsp;
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
       <mat-label>FEM</mat-label>
-      <input matInput type="number">
+      <input matInput type="number" formControlName="metaFem">
     </mat-form-field>&nbsp;
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
       <mat-label>JVM</mat-label>
-      <input matInput type="number">
+      <input matInput type="number" formControlName="metaJvm">
     </mat-form-field>&nbsp;
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
       <mat-label>LNNM</mat-label>
-      <input matInput type="number">
+      <input matInput type="number" formControlName="metaLnnm">
     </mat-form-field>&nbsp;
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
       <mat-label>EPH</mat-label>
-      <input matInput type="number">
+      <input matInput type="number" formControlName="metaEph">
     </mat-form-field>&nbsp;
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
       <mat-label>UM</mat-label>
-      <input matInput type="number">
+      <input matInput type="number" formControlName="metaUm">
     </mat-form-field>&nbsp;
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:8%;">
-      <mat-label>EPH</mat-label>
-      <input matInput type="number">
+      <mat-label>EMH</mat-label>
+      <input matInput type="number" formControlName="metaEmh">
     </mat-form-field>
 
-  </div>
+  </form>
 
-  <div *ngIf="true">
+  <div class="editarIndicadorFormContent" *ngIf="false  ">
 
     <h3 class="mantenimientoTitle">Resultado esperado por trimestre.</h3>
 
@@ -103,8 +103,8 @@
     <mat-form-field hideRequiredMarker appearance="fill" style="width:20%;">
       <mat-label>4to Trimestre</mat-label>
       <input matInput type="number">
-    </mat-form-field>&nbsp;
+    </mat-form-field>
   </div>
   
-  <button class="greenButton">Guardar cambios</button>
+  <button class="greenButton" (click)="postIndicadorRecinto()">Guardar cambios</button>
 </div>

@@ -39,8 +39,8 @@ export interface IndicadorGestionI {
   linaBase: number, 
   meta: number,
   responsable:ResponsableI,
-  tipoIndicador: {nombre: string}
-  estructuraProgramatica: {nombre: string}
+  tipoIndicador: {nombre: string, id: number}
+  estructuraProgramatica: {nombre: string, id: number}
   // idIndicadorEstrategico: number,
   indicadoresRecinto?: {
     metaFem: number,

@@ -15,7 +15,7 @@ export class ProductoFormulacionComponent implements OnInit {
   productoConsult =  {
     nombre:'',
     actividades: [{ costeo : {id: 0, montoTotalEstimado: 0}, esPrevista : true, estado: {id: 0, nombre: ''}, frecuencia: {id: 0, nombre: ''}, id: 0, nombre: '' }],
-    indicadoresGestion: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:'', id: 0}, tipoIndicador: {nombre: ''}, estructuraProgramatica: {nombre: ''}, frecuencia: {}}]
+    indicadoresGestion: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:'', id: 0}, tipoIndicador: {nombre: '', id: 0}, estructuraProgramatica: {nombre: '', id: 0}, frecuencia: {}}]
   };
 
   idProducto: number = 0;

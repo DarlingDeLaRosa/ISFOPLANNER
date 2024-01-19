@@ -1,8 +1,8 @@
 import { ResponsableI } from "../../mantenimiento/components/mantenimiento-pei/interfaces/responsable.interface"
 import { ProductoI } from "../../mantenimiento/interfaces/mantenimientoPOA.interface"
 
-export interface ActividadI{
-  id?:number,
+export interface ActividadI {
+  id?: number,
   nombre: string,
   idProducto: 0,
   idFrecuencia: 0,
@@ -12,8 +12,8 @@ export interface ActividadI{
   avance: 0,
   idResponsable: 0,
   costeo: CosteoI,
-  producto? : ProductoI,
-  responsables? : ResponsableI,
+  producto?: ProductoI,
+  responsables?: ResponsableI,
   frecuencia: FrecuenciaI,
   resultadoEsperadoCuantitativoT2?: 0,
   resultadoEsperadoCuantitativoT3?: 0,
@@ -33,31 +33,31 @@ export interface ActividadI{
 }
 
 
-export interface RegionesI{
+export interface RegionesI {
   id: number,
-  nombre:string,
-  provincia: ProvinciaI []
+  nombre: string,
+  provincia: ProvinciaI[]
 }
-export interface InsumosI{
+export interface InsumosI {
   id: number,
   nombre: string,
   descripcion: string,
   categoriaInsumo: CategoriaInsumoI
 }
 
-export interface CategoriaInsumoI{
+export interface CategoriaInsumoI {
   id: number,
-  nombre:string,
+  nombre: string,
 }
 
 
-export interface CosteoI{
+export interface CosteoI {
   montoTotalEstimado: number,
   costeoDetalles: CosteoDetallesI[],
 }
 
-export interface CosteoDetallesI{
-  id:string,
+export interface CosteoDetallesI {
+  id: string,
   idInsumo: number,
   costoUnitario: number,
   cantidad: number,
@@ -105,4 +105,14 @@ export interface CategoriaInsumosI {
 export interface UnidadesMedidaI {
   id: number,
   nombre: string,
+}
+
+export interface indicadorRecinto {
+  metaFem: number,
+  metaJvm: number,
+  metaLnnm: number,
+  metaEph: number,
+  metaUm: number,
+  metaEmh: number,
+  metaRec: number
 }
