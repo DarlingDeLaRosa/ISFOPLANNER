@@ -43,18 +43,34 @@
         </mat-radio-group>
       </div><br>
       
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 60%;">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 42%;">
         <mat-label>Nombre indicador operador</mat-label>
         <input matInput  formControlName="nombre">
       </mat-form-field>&nbsp;
       
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19.2%;">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 35%;">
+        <mat-label>Medio de verificacion</mat-label>
+        <mat-select formControlName="idAlcance" disableRipple>
+          <ng-container *ngIf="alcances.length > 0; else noAlcance">
+
+            <mat-option [value]="alcance.id" *ngFor="let alcance of alcances">
+              {{alcance.nombre}}
+            </mat-option>
+
+          </ng-container>
+          <ng-template #noAlcance>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 11.2%;">
         <mat-label>Linea Base</mat-label>
         <input type="number" formControlName="linaBase" matInput>
       </mat-form-field>&nbsp;
       
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19.2%;">
-        <mat-label>Meta general</mat-label>
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 9.2%;">
+        <mat-label>Meta</mat-label>
         <input type="number" formControlName="meta" matInput>
       </mat-form-field><br>
 

@@ -22,7 +22,6 @@ export class LogInComponent {
     })
   }
 
-
   seePassword() {
     if (this.seePass == 'password') {
       this.seePass = 'text'
