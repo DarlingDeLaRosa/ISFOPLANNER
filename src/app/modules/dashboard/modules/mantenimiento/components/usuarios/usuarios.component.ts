@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuarios.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
-import { sistema } from 'src/environments/environments';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -22,8 +22,8 @@ export class UsuariosComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiUsuario: UsuarioService,
-    private apiUnidadOrg: UnidadOrganizativaService
-
+    private apiUnidadOrg: UnidadOrganizativaService,
+    private userSystemService: UserSystemInformationService,
   ) {
     this.usuariosForm = this.fb.group({
       id: 0,
@@ -34,7 +34,7 @@ export class UsuariosComponent implements OnInit {
       idUnidad: new FormControl('', Validators.required),
       idCargo: new FormControl('', Validators.required),
       idRecinto: new FormControl('', Validators.required),
-      idSistema: sistema.idSistema
+      idSistema: this.userSystemService.getSistema
     })
   }
   

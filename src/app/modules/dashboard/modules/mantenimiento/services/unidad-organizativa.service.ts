@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Token, environment, sistema } from '../../../../../../environments/environments';
 import { UnidadOrgI } from '../interfaces/mantenimientoPOA.interface';
 import { alertServerDown } from 'src/app/alerts/alerts';
 import { catchError } from 'rxjs';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,25 +11,26 @@ import { catchError } from 'rxjs';
 
 export class UnidadOrganizativaService {
 
-  token: string = Token.token
-  baseURL: string = environment.api2
-  idSistema: number = sistema.idSistema
+  token?: string = this.userSystemService.getToken
+  baseURL: string = this.userSystemService.getURL
+  idSistema: number = this.userSystemService.getSistema
 
-  headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-  header = {headers: this.headers}
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  header = { headers: this.headers }
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private userSystemService: UserSystemInformationService,
+  ) { }
 
   public getUnidadesOrganizativas() {
-    const getUnidadOrg = `${this.baseURL}/UnidadesOrganizativas`
-    return this.http.get(getUnidadOrg, this.header)
-    .pipe(catchError((error) => { alertServerDown(); return error }))
+    return this.http.get(`${this.baseURL}/UnidadesOrganizativas`, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public putUnidadesOrganizativas(unidadOrg: UnidadOrgI, presupuestoInsti: number) {
-    const getUnidadOrg = `${this.baseURL}/UnidadesOrganizativas/${unidadOrg.id}/presupuesto/${presupuestoInsti}`
-    return this.http.put(getUnidadOrg, unidadOrg, this.header)
-    .pipe(catchError((error) => { alertServerDown(); return error }))
+    return this.http.put(`${this.baseURL}/UnidadesOrganizativas/${unidadOrg.id}/presupuesto/${presupuestoInsti}`, unidadOrg, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
 }

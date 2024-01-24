@@ -2,21 +2,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { ResponseI } from 'src/app/interfaces/Response.interfaces';
-import { Token, environment } from 'src/environments/environments';
-import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { alertServerDown } from 'src/app/alerts/alerts';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({ providedIn: 'root' })
+
 export class SupuestosRiesgosService {
-  private token = Token.token
-  private baseUrl = environment.api2;
+
+  private token = this.userSystemService.getToken
+  private baseUrl = this.userSystemService.getURL
 
   headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
   header = { headers: this.headers }
 
   constructor(
     public http: HttpClient,
+    private userSystemService: UserSystemInformationService,
   ) { }
 
   getSupuestosRiesgos(): Observable<ResponseI> {
@@ -33,5 +35,4 @@ export class SupuestosRiesgosService {
     return this.http.delete<ResponseI>(`${this.baseUrl}/SupuestosRiesgos/${id}`, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
   }
-
 }

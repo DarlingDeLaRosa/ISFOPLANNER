@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Token, environment } from '../../../../../../environments/environments';
 import { Observable, catchError, throwError } from 'rxjs';
-import { ResponseI } from 'src/app/interfaces/Response.interfaces';
 import { alertServerDown } from 'src/app/alerts/alerts';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +10,22 @@ import { alertServerDown } from 'src/app/alerts/alerts';
 
 export class FormulacionService {
 
-  token: string = Token.token
-  baseURL: string = environment.api2
+  token?: string = this.userSystemService.getToken
+  baseURL: string = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-  header = {headers: this.headers}
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  header = { headers: this.headers }
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private userSystemService: UserSystemInformationService,
+  ) { }
 
   public getFormulacion() {
-    const getFormulacion = `${this.baseURL}/MaterialesDeApoyo`
-    return this.http.get(getFormulacion, this.header)
-    .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+    return this.http.get(`${this.baseURL}/MaterialesDeApoyo`, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
   }
-
+}
 
 //   public postFormulacion(materialData: FormulacionI | string) {
 //     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`, })
@@ -50,4 +51,3 @@ export class FormulacionService {
 //     return this.http.delete(formulacionacion, materialHeader)
 //   }
 
-}

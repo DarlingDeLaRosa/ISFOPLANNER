@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Token, environment, sistema } from '../../../../../../environments/environments';
 import { UsuarioI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError } from 'rxjs';
 import { alertServerDown } from 'src/app/alerts/alerts';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,60 +11,53 @@ import { alertServerDown } from 'src/app/alerts/alerts';
 
 export class UsuarioService {
 
-  token: string = Token .token
-  baseURL: string = environment.api2
-  idSistema: number = sistema.idSistema
+  token?: string = this.userSystemService.getToken
+  baseURL: string = this.userSystemService.getURL
+  idSistema: number = this.userSystemService.getSistema
 
   headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
   header = {headers: this.headers}
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private userSystemService: UserSystemInformationService,
+  ) {}
   
   public getUsuario() {
-    const getUsuario = `${this.baseURL}/Usuarios/getall/1/1/200`
-    return this.http.get(getUsuario, this.header)
+    return this.http.get(`${this.baseURL}/Usuarios/getall/1/1/200`, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public postUsuario(usuarioData: UsuarioI) {
-    const postUsuario = `${this.baseURL}/Usuarios`
-    return this.http.post(postUsuario , usuarioData, this.header)
+    return this.http.post(`${this.baseURL}/Usuarios`, usuarioData, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public putUsuario(usuarioData: UsuarioI) {
-    const putUsuario = `${this.baseURL}/Usuarios?id=${usuarioData.id}`
-    return this.http.put(putUsuario, usuarioData, this.header)
+    return this.http.put(`${this.baseURL}/Usuarios?id=${usuarioData.id}`, usuarioData, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   public removeUsuario(id: number) {
-    const removeUsuario = `${this.baseURL}/Usuarios/${id}`
-    return this.http.delete(removeUsuario,  this.header)
+    return this.http.delete(`${this.baseURL}/Usuarios/${id}`,  this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   // get todos los recintos
-
   public getAllRecintos() {
-    const getRecintos = `${this.baseURL}/Usuarios/getallrecintos`
-    return this.http.get(getRecintos, this.header)
+    return this.http.get(`${this.baseURL}/Usuarios/getallrecintos`, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   //get todos los cargos
-
   public getAllCargos() {
-    const getCargos = `${this.baseURL}/Usuarios/getallcargos`
-    return this.http.get(getCargos, this.header)
+    return this.http.get(`${this.baseURL}/Usuarios/getallcargos`, this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
   // get todos los roles
-
   public getAllRoles() {
-    const getRol = `${this.baseURL}/Usuarios/getallroles/${this.idSistema}`
-    return this.http.get(getRol , this.header)
+    return this.http.get(`${this.baseURL}/Usuarios/getallroles/${this.idSistema}` , this.header)
     .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 }

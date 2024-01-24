@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Token, environment } from '../../../../../../environments/environments';
 import { EstructuraProgramaticaI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError, throwError } from 'rxjs';
 import { alertServerDown } from 'src/app/alerts/alerts';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,35 +11,34 @@ import { alertServerDown } from 'src/app/alerts/alerts';
 
 export class EstructuraProgramaticaService {
 
-  token: string = Token.token
-  baseURL: string = environment.api2
+  token?: string = this.userSystemService.getToken
+  baseURL: string = this.userSystemService.getURL
 
   headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
   header = {headers: this.headers}
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private userSystemService: UserSystemInformationService,
+  ) { }
 
   public getEstructurasProgramaticas() {
-    const getEstructurasProgramaticas = `${this.baseURL}/EstructurasProgramaticas`
-    return this.http.get(getEstructurasProgramaticas, this.header)
+    return this.http.get(`${this.baseURL}/EstructurasProgramaticas`, this.header)
     .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public postEstructurasProgramaticas(estructuraProData: EstructuraProgramaticaI) {
-    const postEstructurasProgramaticas = `${this.baseURL}/EstructurasProgramaticas`
-    return this.http.post(postEstructurasProgramaticas , estructuraProData, this.header)
+    return this.http.post(`${this.baseURL}/EstructurasProgramaticas` , estructuraProData, this.header)
     .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public putEstructurasProgramaticas(estructuraProData: EstructuraProgramaticaI) {
-    const putEstructurasProgramaticas = `${this.baseURL}/EstructurasProgramaticas?id=${estructuraProData.id}`
-    return this.http.put(putEstructurasProgramaticas, estructuraProData, this.header)
+    return this.http.put(`${this.baseURL}/EstructurasProgramaticas?id=${estructuraProData.id}`, estructuraProData, this.header)
     .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public removeEstructurasProgramaticas(id: number) {
-    const removeEstructurasProgramaticas = `${this.baseURL}/EstructurasProgramaticas/${id}`
-    return this.http.delete(removeEstructurasProgramaticas,  this.header)
+    return this.http.delete(`${this.baseURL}/EstructurasProgramaticas/${id}`,  this.header)
     .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 

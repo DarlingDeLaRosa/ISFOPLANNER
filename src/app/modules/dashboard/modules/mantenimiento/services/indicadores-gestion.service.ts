@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Token, environment } from '../../../../../../environments/environments';
 import { IndicadorGestionI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError, throwError } from 'rxjs';
 import { alertServerDown } from 'src/app/alerts/alerts';
 import { indicadorRecinto } from '../../formulacion/interfaces/formulacion.interface';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,61 +12,56 @@ import { indicadorRecinto } from '../../formulacion/interfaces/formulacion.inter
 
 export class IndicadorGestionService {
 
-  token: string = Token.token 
-  baseURL: string = environment.api2
+  token?: string = this.userSystemService.getToken 
+  baseURL: string = this.userSystemService.getURL
 
   headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
   header = {headers: this.headers}
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private userSystemService: UserSystemInformationService,
+    ){}
 
   public getIndicadorGestion() {
-    const getIndicadorGestion = `${this.baseURL}/IndicadoresGestion`
-    return this.http.get(getIndicadorGestion, this.header)
+    return this.http.get(`${this.baseURL}/IndicadoresGestion`, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public postIndicadorGestion(indicadoresGestionData: IndicadorGestionI | string) {
-    const postIndicadorGestion = `${this.baseURL}/IndicadoresGestion`
-    return this.http.post(postIndicadorGestion , indicadoresGestionData, this.header)
+    return this.http.post(`${this.baseURL}/IndicadoresGestion` , indicadoresGestionData, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public putIndicadorGestion(indicadoresGestionData: IndicadorGestionI) {
-    const putIndicadorGestion = `${this.baseURL}/IndicadoresGestion/${indicadoresGestionData.id}`//
-    return this.http.put(putIndicadorGestion, indicadoresGestionData, this.header)
+    return this.http.put(`${this.baseURL}/IndicadoresGestion/${indicadoresGestionData.id}`, indicadoresGestionData, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public removeIndicadorGestion(id: number) {
-    const removeIndicadorGestion = `${this.baseURL}/IndicadoresGestion/${id}`
-    return this.http.delete(removeIndicadorGestion, this.header)
+    return this.http.delete(`${this.baseURL}/IndicadoresGestion/${id}`, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public postIndicadorRecintos(idIndicadorGestion: number | undefined | null, indicadoresRecintos: indicadorRecinto) {
-    const postIndicadorGestion = `${this.baseURL}/crear-indicador-recinto/${idIndicadorGestion}`
-    return this.http.post(postIndicadorGestion , indicadoresRecintos, this.header)
+    return this.http.post(`${this.baseURL}/crear-indicador-recinto/${idIndicadorGestion}` , indicadoresRecintos, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public putIndicadorRecintos(indicadoresGestionData: IndicadorGestionI) {
-    const putIndicadorGestion = `${this.baseURL}/IndicadoresGestion/${indicadoresGestionData.id}`
-    return this.http.put(putIndicadorGestion, indicadoresGestionData, this.header)
+    return this.http.put(`${this.baseURL}/IndicadoresGestion/${indicadoresGestionData.id}`, indicadoresGestionData, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   /// Tipo de alcance
   public getAlcance() {
-    const getAlcance = `${this.baseURL}/TiposAlcances`
-    return this.http.get(getAlcance, this.header)
+    return this.http.get( `${this.baseURL}/TiposAlcances`, this.header)
     .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   //Frecuencia
   public getFrecuencia() {
-    const getFrecuencia = `${this.baseURL}/Frecuencias`
-    return this.http.get(getFrecuencia, this.header)
+    return this.http.get(`${this.baseURL}/Frecuencias`, this.header)
     .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 }

@@ -1,35 +1,42 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { ResponseI } from 'src/app/interfaces/Response.interfaces';
-import { Token, environment } from 'src/environments/environments';
 import { MedioVerificacionI } from '../interfaces/medio-verificacion.interface';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { alertServerDown } from 'src/app/alerts/alerts';
 
 @Injectable()
 export class MedioVerificacionService {
 
-  private token = Token.token
-    private baseUrl = environment.api2;
-    headers!: HttpHeaders;
+  private token = this.userSystemService.getToken
+  private baseUrl = this.userSystemService.getURL
 
-    constructor(
-      public http:HttpClient,
-      ){}
-      getMedioVerificacion(): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.get<ResponseI>(`${this.baseUrl}/MediosVerificacion`, {headers})
-      }
-      postMedioVerificacion(medioVerificacion:MedioVerificacionI): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.post<ResponseI>(`${this.baseUrl}/MediosVerificacion`, medioVerificacion, {headers})
-      }
-      DeleteMedioVerificacion(id:number): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.delete<ResponseI>(`${this.baseUrl}/MediosVerificacion/${id}`, {headers})
-      }
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  header = { headers: this.headers }
 
-      updateMedioVerificacion(medioVerificacion:MedioVerificacionI, id:number): Observable<ResponseI> {
-        const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-        return this.http.put<ResponseI>(`${this.baseUrl}/MediosVerificacion/${id}`, medioVerificacion, {headers})
-      }
+  constructor(
+    public http: HttpClient,
+    private userSystemService: UserSystemInformationService,
+  ) { }
+
+  getMedioVerificacion(): Observable<ResponseI> {
+    return this.http.get<ResponseI>(`${this.baseUrl}/MediosVerificacion`, this.header)
+    .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
+
+  postMedioVerificacion(medioVerificacion: MedioVerificacionI): Observable<ResponseI> {
+    return this.http.post<ResponseI>(`${this.baseUrl}/MediosVerificacion`, medioVerificacion, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
+
+  DeleteMedioVerificacion(id: number): Observable<ResponseI> {
+    return this.http.delete<ResponseI>(`${this.baseUrl}/MediosVerificacion/${id}`, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
+
+  updateMedioVerificacion(medioVerificacion: MedioVerificacionI, id: number): Observable<ResponseI> {
+    return this.http.put<ResponseI>(`${this.baseUrl}/MediosVerificacion/${id}`, medioVerificacion, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
 }
