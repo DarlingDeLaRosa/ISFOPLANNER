@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserI } from '../interfaces/Response.interfaces';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 
 export class UserSystemInformationService {
 
@@ -24,7 +22,11 @@ export class UserSystemInformationService {
     get getURLgeneralService(): string { return this.URLgeneralServerURL }
 
     set setUserLogged(user: UserI | undefined) { this.userLogged = user }
-    set setUserToken(token: string ) { this.userToken = token };
+    
+    set setUserToken(token: string ) { 
+        let tokenT: string = token.replace(/^"(.*)"$/, '$1');
+        this.userToken = `Bearer ${tokenT}`
+    };
 
     saveDataLocalStorage(key: string, data: any): void {
         const authUserData = JSON.stringify(data);

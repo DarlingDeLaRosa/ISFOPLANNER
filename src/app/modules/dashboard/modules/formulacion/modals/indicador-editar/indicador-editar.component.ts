@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IndicadorGestionService } from '../../../mantenimiento/services/indicadores-gestion.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { alertIsSuccess } from 'src/app/alerts/alerts';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-indicador-editar',
@@ -13,11 +14,13 @@ import { alertIsSuccess } from 'src/app/alerts/alerts';
 export class IndicadorEditarComponent implements OnInit {
 
   indicadoresGestionForm: FormGroup;
+  indicadorRecinto: boolean = false
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public indicador: IndicadorGestionI,
     public fb: FormBuilder,
     private apiIndicadoresGestion: IndicadorGestionService,
+    private userSystemService: UserSystemInformationService,
   ) {
     this.indicadoresGestionForm = this.fb.group({
       metaFem: new FormControl('', Validators.required),
@@ -28,9 +31,16 @@ export class IndicadorEditarComponent implements OnInit {
       metaEmh: new FormControl('', Validators.required),
       metaRec: new FormControl('', Validators.required)
     })
+    
+    if (userSystemService.getUserLogged?.recinto.siglas === 'REC' && indicador.tipoIndicador.id == 1) {
+      this.indicadorRecinto = true
+    }
   }
 
-  ngOnInit(): void { console.log(this.indicador); }
+  ngOnInit(): void { 
+    console.log(this.indicador);
+    console.log(this.userSystemService.getUserLogged);
+  }
 
   postIndicadorRecinto() {
     this.apiIndicadoresGestion.postIndicadorRecintos( this.indicador.id ,this.indicadoresGestionForm.value)

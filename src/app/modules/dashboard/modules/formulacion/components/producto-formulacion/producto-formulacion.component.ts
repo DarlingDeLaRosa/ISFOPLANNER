@@ -15,7 +15,7 @@ export class ProductoFormulacionComponent implements OnInit {
   productoConsult =  {
     nombre:'',
     actividades: [{ costeo : {id: 0, montoTotalEstimado: 0}, esPrevista : true, estado: {id: 0, nombre: ''}, frecuencia: {id: 0, nombre: ''}, id: 0, nombre: '' }],
-    indicadoresGestion: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:'', id: 0}, tipoIndicador: {nombre: '', id: 0}, estructuraProgramatica: {nombre: '', id: 0}, frecuencia: {}}]
+    indicadoresoperativo: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:'', id: 0}, tipoIndicador: {nombre: '', id: 0}, estructuraProgramatica: {nombre: '', id: 0}, frecuencia: {}}]
   };
 
   idProducto: number = 0;
@@ -29,7 +29,6 @@ export class ProductoFormulacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => { this.idProducto = params['numero']; });
-
     this.getByIdProducto();
   }
 
@@ -39,10 +38,7 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   openModal(indicador: IndicadorGestionI) { this.dialog.open(IndicadorEditarComponent, {data: indicador}) }
-
-  crearActividad(){
-    this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} });
-  }
+  crearActividad(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} }); }
 }
 
 

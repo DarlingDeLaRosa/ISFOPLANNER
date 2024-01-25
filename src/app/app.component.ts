@@ -7,7 +7,8 @@ import { UserI } from './interfaces/Response.interfaces';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+  
   title = 'isfoPlanner';
   userData: string | null
   token: string | null
@@ -30,5 +31,4 @@ export class AppComponent implements OnInit{
       this.userSystemService.setUserToken = this.token 
     }
   }
-
 }

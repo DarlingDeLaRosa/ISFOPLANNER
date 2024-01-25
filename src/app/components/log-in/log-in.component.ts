@@ -37,13 +37,12 @@ export class LogInComponent {
     this.authService.postLogIn(this.formUserLogIn.value)
       .subscribe((res: any) => {
         
-        console.log(res);
         if (res.data != undefined) {
 
-          this.userSystemService.saveDataLocalStorage("user",res.data)  
-          this.userSystemService.saveDataLocalStorage("token", `Bearer${res.token}`)
-            
-          this.userSystemService.setUserToken = `Bearer${res.token}`
+          this.userSystemService.saveDataLocalStorage("userData",res.data)  
+          this.userSystemService.saveDataLocalStorage("token", res.token)
+          
+          this.userSystemService.setUserToken = res.token
           this.userSystemService.setUserLogged = res.data
 
           this.router.navigate(['/dashboard/panelDeControl'])
