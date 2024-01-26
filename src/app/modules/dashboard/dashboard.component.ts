@@ -8,13 +8,11 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class dashboardComponent implements OnInit{
   sidenavOpened: boolean = false;
-  //crear las variables para esconder planes tranversales y mantenimiento 
+  rolModulesPermition: any = this.userSystemService.getUserLogged
 
   constructor(
     private userSystemService: UserSystemInformationService,
   ){}
   
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 }

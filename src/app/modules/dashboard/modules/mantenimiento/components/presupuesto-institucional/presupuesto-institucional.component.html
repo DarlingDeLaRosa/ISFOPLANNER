@@ -40,6 +40,7 @@
                             <th class="headerCell" style="width: 20%;">Monto Ejecutado</th>
                             <th class="headerCell" style="width: 20%;">Presupuesto</th>
                             <th class="headerCell" style="width: 10%;"></th>
+                            <th class="headerCell" style="width: 10%;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,6 +49,7 @@
                             <td class="dataIndiCell">{{ presupuestoInst.justicarModificacion }}</td> 
                             <td class="dataIndiCell">{{ presupuestoInst.montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <td class="dataIndiCell">{{ presupuestoInst.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                            <td class="dataIndiCell"><mat-slide-toggle color="#004b8d"></mat-slide-toggle></td>
                             <td class="dataIndiCell"><mat-icon (click)="setValueEditPreInst(presupuestoInst)" class="editIcon">edit</mat-icon></td>
                         </tr>
                     </tbody>

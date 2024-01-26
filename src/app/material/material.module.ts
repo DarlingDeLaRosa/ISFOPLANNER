@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const materialComponents: any = [
   MatButtonModule,
@@ -30,6 +31,7 @@ const materialComponents: any = [
   MatRadioModule,
   MatCheckboxModule,
   MatNativeDateModule,
+  MatSlideToggleModule
 ]
 
 @NgModule({

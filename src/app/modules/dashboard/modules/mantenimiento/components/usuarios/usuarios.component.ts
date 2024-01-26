@@ -58,7 +58,8 @@ export class UsuariosComponent implements OnInit {
 
   getAllRoles() {
     this.apiUsuario.getAllRoles()
-      .subscribe((res: any) => { this.roles = res.data })
+      .subscribe((res: any) => { this.roles = res.data ; console.log(res);
+      })
   }
 
   getAllCargos() {
@@ -68,7 +69,7 @@ export class UsuariosComponent implements OnInit {
 
   getUsuarios() {
     this.apiUsuario.getUsuario()
-      .subscribe((res: any) => { this.usuarios = res.data })
+      .subscribe((res: any) => { this.usuarios = res.data ; console.log(res)})
   }
 
   postUsuarios() {
