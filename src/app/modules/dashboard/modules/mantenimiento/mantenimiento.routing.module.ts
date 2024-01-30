@@ -23,7 +23,7 @@ import { PresupuestoInstitucionalComponent } from './components/presupuesto-inst
 const routes: Routes = [
   {
     path: '',
-    children:[
+    children: [
       {
         path: 'mantenimientoPoa',
         component: MantenimientoComponent,
@@ -45,7 +45,7 @@ const routes: Routes = [
           },
           {
             path: 'indicadoresGestion',
-            component: IndicadoresGestionComponent ,
+            component: IndicadoresGestionComponent,
             outlet: 'mantenimiento'
           },
 
@@ -55,38 +55,23 @@ const routes: Routes = [
             outlet: 'mantenimiento'
           },
           {
-            path: 'estructuraProgramatica',
-            component: EstructuraProgramaticaComponent,
+            path: 'indicadoresEstrategicos',
+            component: IndicadoresEstrategicosComponent,
             outlet: 'mantenimiento'
           },
           {
-            path: 'usuarios',
-            component: UsuariosComponent,
+            path: 'ejesI',
+            component: EjesComponent,
             outlet: 'mantenimiento'
           },
           {
-            path: 'material-apoyo',
-            component: MaterialDeApoyoComponent,
+            path: 'estrategias',
+            component: EstrategiasComponent,
             outlet: 'mantenimiento'
           },
           {
-            path: 'preguntas-frecuentes',
-            component: PreguntaFrecuentesComponent,
-            outlet: 'mantenimiento'
-          },
-          {
-            path: 'asignacion-presupuesto',
-            component: AsignacionPresupuestoComponent,
-            outlet: 'mantenimiento'
-          },
-          {
-            path: 'presupuesto-institucional',
-            component: PresupuestoInstitucionalComponent,
-            outlet: 'mantenimiento'
-          },
-          {
-            path: 'configuracion-periodos',
-            component: ConfiguracionPeriodosComponent,
+            path: 'resultadoEfecto',
+            component: ResultadoEfectoComponent,
             outlet: 'mantenimiento'
           },
         ]
@@ -98,23 +83,8 @@ const routes: Routes = [
     component: MantenimientoPeiComponent,
     children: [
       {
-        path: 'indicadoresEstrategicos',
-        component: IndicadoresEstrategicosComponent,
-        outlet: 'mantenimiento'
-      },
-      {
-        path: 'ejes',
-        component: EjesComponent,
-        outlet: 'mantenimiento'
-      },
-      {
-        path: 'estrategias',
-        component: EstrategiasComponent,
-        outlet: 'mantenimiento'
-      },
-      {
-        path: 'resultadoEfecto',
-        component: ResultadoEfectoComponent,
+        path: 'presupuesto-institucional',
+        component: PresupuestoInstitucionalComponent,
         outlet: 'mantenimiento'
       },
       {
@@ -135,6 +105,36 @@ const routes: Routes = [
       {
         path: 'Responsables-indicadores',
         component: ResponsablesIndicadoresComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'material-apoyo',
+        component: MaterialDeApoyoComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'preguntas-frecuentes',
+        component: PreguntaFrecuentesComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'asignacion-presupuesto',
+        component: AsignacionPresupuestoComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'configuracion-periodos',
+        component: ConfiguracionPeriodosComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'estructuraProgramatica',
+        component: EstructuraProgramaticaComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'usuarios',
+        component: UsuariosComponent,
         outlet: 'mantenimiento'
       },
     ]

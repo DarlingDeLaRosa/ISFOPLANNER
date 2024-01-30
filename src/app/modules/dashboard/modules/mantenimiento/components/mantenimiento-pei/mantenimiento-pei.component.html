@@ -5,44 +5,56 @@
   </div>
 
   <div class="fuctionContent" style="padding: 0 5px 0 15px;">
-    <h2>PEI</h2>
-    <button class="orangeButton" style="padding: 0 25px;" [routerLink]="['../mantenimientoPoa']">POA</button>
+    <h2>Configuración</h2>
+    <button class="orangeButton" style="padding: 0 25px;" [routerLink]="['../mantenimientoPoa']">POA / PEI</button>
   </div>
 
   <div class="mantenimientoContainer">
 
     <div class="mantenimientoOptions">
 
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['ejes'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Ejes
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estrategias'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Estrategias
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['resultadoEfecto'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Resultado efecto
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['indicadoresEstrategicos'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Indicadores estratégicos
-      </a>
+
+
       <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['requerimientos'] } }]"
         routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Completar indicadores
+        <mat-icon>settings</mat-icon>Requerimientos
       </a>
-
-      <!-- <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['supuestosriesgos'] } }]"
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estructuraProgramatica'] } }]"
         routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Estructura programática
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['supuestosriesgos'] } }]" routerLinkActive="active">
         <mat-icon>settings</mat-icon>Supuestos riesgos
       </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['medio-verificacion'] } }]"
-       routerLinkActive="active">
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['medio-verificacion'] } }]" routerLinkActive="active">
        <mat-icon>settings</mat-icon>Medio verificación
      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['Responsables-indicadores'] } }]"
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['material-apoyo'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Material de apoyo
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['preguntas-frecuentes'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Preguntas frecuentes
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['usuarios'] } }]" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Usuarios
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['configuracion-periodos'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Configuración Periodos
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['asignacion-presupuesto'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Asignación de presupuesto
+      </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['presupuesto-institucional'] } }]"
+        routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Presuspuesto Institucional
+      </a>
+     
+
+      <!-- <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['Responsables-indicadores'] } }]"
         routerLinkActive="active">
         <mat-icon>settings</mat-icon>Responsables
       </a> -->

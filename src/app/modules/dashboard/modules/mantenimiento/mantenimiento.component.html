@@ -5,24 +5,29 @@
   </div>
 
   <div class="fuctionContent" style="padding: 0 5px 0 15px;">
-    <h2>POA</h2>
-    <button class="orangeButton" style="padding: 0 25px;" [routerLink]="['../mantenimientoPei']">PEI</button>
+    <h2>POA / PEI</h2>
+    <button class="orangeButton" style="padding: 0 25px;" [routerLink]="['../mantenimientoPei']">Configuración</button>
   </div>
 
   <div class="mantenimientoContainer">
 
     <div class="mantenimientoOptions">
 
-      <!-- <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['ejes'] } }]" routerLinkActive="active">
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['ejesI'] } }]" routerLinkActive="active">
         <mat-icon>settings</mat-icon>Ejes
-      </a> -->
-      <!-- <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estrategias'] } }]" routerLinkActive="active">
+      </a>
+      
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estrategias'] } }]" routerLinkActive="active">
         <mat-icon>settings</mat-icon>Estrategias
-      </a> -->
-      <!-- <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['resultadoEfecto'] } }]"
-        routerLinkActive="active">
+      </a>
+      
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['resultadoEfecto']}}]" routerLinkActive="active">
         <mat-icon>settings</mat-icon>Resultado efecto
-      </a> -->
+      </a>
+
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['indicadoresEstrategicos']}}]" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Indicadores estratégicos
+      </a>
       
       <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['productos'] } }]" routerLinkActive="active">
         <mat-icon>settings</mat-icon>Productos
@@ -31,33 +36,7 @@
         routerLinkActive="active">
         <mat-icon>settings</mat-icon>Indicadores operativos
       </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['estructuraProgramatica'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Estructura programática
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['usuarios'] } }]" routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Usuarios
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['material-apoyo'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Material de apoyo
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['preguntas-frecuentes'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Preguntas frecuentes
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['asignacion-presupuesto'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Asignación de presupuesto
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['configuracion-periodos'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Configuración Periodos
-      </a>
-      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['presupuesto-institucional'] } }]"
-        routerLinkActive="active">
-        <mat-icon>settings</mat-icon>Presuspuesto Institucional
-      </a>
+
     </div>
 
     <div class="mantenimientoForms">

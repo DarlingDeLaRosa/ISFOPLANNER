@@ -28,6 +28,7 @@ export class IndicadoresEstrategicosComponent implements OnInit{
       nombre:  new FormControl('', Validators.required),
       linaBase:  new FormControl<number>(0, Validators.required),
       meta: new FormControl<number>(0, Validators.required),
+      mediosVerificaciones: new FormControl ('', Validators.required),
       idResultadoefecto:  new FormControl<number>(0, Validators.required),
         anio1: new FormControl<number>(0, Validators.required),
         metaAnio1: new FormControl<number>(0, Validators.required),

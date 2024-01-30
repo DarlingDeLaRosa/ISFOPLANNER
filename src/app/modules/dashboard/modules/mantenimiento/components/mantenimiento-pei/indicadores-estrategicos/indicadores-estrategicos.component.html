@@ -15,6 +15,47 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
+      <mat-form-field appearance="fill" style="width: 30%;">
+        <mat-label>Medio verificación</mat-label>
+        <mat-select disableRipple formControlName="idResultadoefecto">
+          <ng-container>
+            <mat-option [value]="resultado.id" *ngFor="let resultado of resultadoefecto">
+              {{resultado.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 30%;">
+        <mat-label>Responsables</mat-label>
+        <mat-select disableRipple formControlName="idResultadoefecto">
+          <ng-container>
+            <mat-option [value]="resultado.id" *ngFor="let resultado of resultadoefecto">
+              {{resultado.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noEdificio>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+      
+      <mat-form-field appearance="fill" style="width: 43%;">
+        <form > <!--[formGroup]=""-->
+          <mat-label>Seleccione el Involucrado</mat-label>
+          <mat-select disableRipple formControlName="idInvolucrado" multiple>
+            <!-- <ng-container>
+              <mat-option [value]="involucrados.id" *ngFor="let involucrados of involucrado">
+                {{involucrados.nombre}} </mat-option>
+            </ng-container> -->
+            <ng-template #noEdificio>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </form>
+      </mat-form-field>&nbsp;
+
       <!-- <mat-form-field appearance="fill" style="width: 50%;">
         <mat-label>Cronograma</mat-label>
         <mat-select disableRipple>
@@ -31,6 +72,7 @@
         <mat-label>Indicador estrategico</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
+
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
         <mat-label>Linea Base</mat-label>
         <input matInput type="number" formControlName="linaBase">
@@ -75,8 +117,6 @@
         <input matInput  type="number" formControlName="metaAnio4">
       </mat-form-field>&nbsp;
 
-
-
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
         <mat-label>Meta general</mat-label>
         <input matInput  type="number" formControlName="meta">
@@ -111,7 +151,6 @@
               <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(item)">edit</mat-icon></td>
               <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(item)">delete</mat-icon></td>
             </tr>
-
           </tbody>
         </table>
       </div>
