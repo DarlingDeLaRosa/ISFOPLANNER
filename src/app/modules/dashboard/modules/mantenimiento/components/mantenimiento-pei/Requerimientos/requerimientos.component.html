@@ -60,25 +60,49 @@
     </button> -->
 
   <form [formGroup]="requerimientoForm">
-    <mat-form-field hideRequiredMarker appearance="fill" style="width: 55%;">
+    <mat-form-field hideRequiredMarker appearance="fill" style="width: 60%;">
       <mat-label> Nombre del Requerimiento</mat-label>
       <input matInput formControlName="nombre">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="fill" style="width: 35%;">
+    <mat-form-field appearance="fill" style="width: 39%;">
       <mat-label>Financiero</mat-label>
-      <mat-select disableRipple>
+      <mat-select disableRipple formControlName="esFinanciero">
         <ng-container>
-          <mat-option [value]="true">Si </mat-option>
+          <mat-option [value]="true">Si</mat-option>
           <mat-option [value]="false">No</mat-option>
         </ng-container>
         <ng-template #noEdificio>
           <mat-option>No hay campos disponibles</mat-option>
         </ng-template>
       </mat-select>
-    </mat-form-field>&nbsp;
+    </mat-form-field>
 
   </form>
+  <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado</h2>
+  <div style="border:1px solid  #ccc ;">
+    <table>
+      <thead class="headerTable">
+        <tr class="headerRow" style="background-color: #95ade93f;">
+          <th class="headerCell">Requerimiento</th>
+          <th class="headerCell">Financiero</th>
+          <th class="headerCell" style="width: 10%;"></th>
+          <th class="headerCell" style="width: 10%;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="dataRow" *ngFor="let requerimiento of requerimientos"> 
+          <td class="dataIndiCell">{{requerimiento.nombre}}</td>
+          <td class="dataIndiCell" *ngIf="requerimiento.esFinanciero == true; else noFinanciero">SI</td>
+          <ng-template #noFinanciero> <td class="dataIndiCell" >NO</td></ng-template>
+
+          <td class="dataIndiCell"><mat-icon class="editIcon" >edit</mat-icon></td> <!--(click)="setValueMedioVerificacion(item)"-->
+          <td class="dataIndiCell"><mat-icon class="removeIcon" >delete</mat-icon></td><!--(click)="deleteMedioVerificacion(item)"-->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- 
     <h3 class="mantenimientoTitle">Supuestos riesgos</h3>
     <form [formGroup]="supuestosRiesgosForm">
@@ -92,10 +116,6 @@
       </button>
     </form>
  -->
-
-
-
-
 
   <!-- <button mat-fab class="colorGrreenBoton" (click)="guardar()">
       <mat-icon>add</mat-icon>

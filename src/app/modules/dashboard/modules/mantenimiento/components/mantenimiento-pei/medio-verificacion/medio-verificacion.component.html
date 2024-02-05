@@ -1,7 +1,7 @@
- <div style="padding: 15px;">
-    <h2 class="mantenimientoTitle">Medio de verificación</h2>
-    <div>
-      <form [formGroup]="medioVerificacionForm">
+<div style="padding: 15px;">
+  <h2 class="mantenimientoTitle">Medio de verificación</h2>
+  <div>
+    <form [formGroup]="medioVerificacionForm">
       <!-- <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Seleccione un indicador estratégico</mat-label>
         <mat-select disableRipple formControlName="idIndicadorEstrategico">
@@ -21,30 +21,27 @@
 
       <button type="submit" class="greenButton" (click)=" guardar()">Guardar cambios</button>
     </form>
-      <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado</h2>
-        <div style="border:1px solid  #ccc ;">
-      <div>
-            <table>
-              <thead class="headerTable">
-                <tr class="headerRow" style="background-color: #95ade93f;">
-                  <th class="headerCell">Indicador estratégico</th>
-                    <th class="headerCell">Medio de verificación</th>
-                    <th class="headerCell" style="width: 10%;"></th>
-                    <th class="headerCell" style="width: 10%;"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="dataRow" *ngFor="let item of medioVerificacion">
-                    <td class="dataIndiCell">{{item.indicadorEstrategico?.nombre}}</td>
-                  <td class="dataIndiCell">{{item.nombre}}</td>
-                  <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueMedioVerificacion(item)">edit</mat-icon></td>
-                  <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado</h2>
+    <div style="border:1px solid  #ccc ;">
+        <table>
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Indicador estratégico</th>
+              <th class="headerCell">Medio de verificación</th>
+              <th class="headerCell" style="width: 10%;"></th>
+              <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let item of medioVerificacion">
+              <td class="dataIndiCell">{{item.indicadorEstrategico?.nombre}}</td>
+              <td class="dataIndiCell">{{item.nombre}}</td>
+              <td class="dataIndiCell"><mat-icon class="editIcon"
+                  (click)="setValueMedioVerificacion(item)">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon"
+                  (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
+            </tr>
+          </tbody>
+        </table>
     </div>
   </div>
-
-
-
