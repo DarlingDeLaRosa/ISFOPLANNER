@@ -99,7 +99,7 @@ export interface PresupuestoInstitucionalI {
 }
 
 export interface PresupuestoInstiGetI {
-
+  enUso: boolean,
   id: number,
   montoTotal: number,
   montoRestante: number,

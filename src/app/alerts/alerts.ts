@@ -86,7 +86,7 @@ export function alertServerDown() {
 export function alertNoValidForm() {
   Swal.fire({
     icon: 'info',
-    title: 'Completa los campos requeridos para realizar la acción ',
+    title: 'Completa los campos requeridos para realizar la acción',
     showConfirmButton: false,
     timer: 2000
   })

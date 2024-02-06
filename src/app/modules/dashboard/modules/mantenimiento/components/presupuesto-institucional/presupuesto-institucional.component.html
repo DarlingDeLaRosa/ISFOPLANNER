@@ -24,7 +24,6 @@
             </mat-form-field>
 
             <button type="submit" class="greenButton">Guardar cambios</button>
-
         </form>
 
         <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de unidades organizativas</h2>
@@ -49,7 +48,7 @@
                             <td class="dataIndiCell">{{ presupuestoInst.justicarModificacion }}</td> 
                             <td class="dataIndiCell">{{ presupuestoInst.montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <td class="dataIndiCell">{{ presupuestoInst.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
-                            <td class="dataIndiCell"><mat-slide-toggle color="#004b8d"></mat-slide-toggle></td>
+                            <td class="dataIndiCell"><mat-slide-toggle color="#004b8d" [(ngModel)]="presupuestoInst.enUso" (change)="postActivarPresupuesto(presupuestoInst)"></mat-slide-toggle></td>
                             <td class="dataIndiCell"><mat-icon (click)="setValueEditPreInst(presupuestoInst)" class="editIcon">edit</mat-icon></td>
                         </tr>
                     </tbody>

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PresupuestoInstitucionalI } from '../interfaces/mantenimientoPOA.interface';
 import { alertServerDown } from 'src/app/alerts/alerts';
-import { catchError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
@@ -11,10 +11,10 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 
 export class PresupuestoInstitucionalService {
 
-  token?: string = this.userSystemService.getToken
+  token: string = this.userSystemService.getToken
   baseURL: string = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(
@@ -22,27 +22,23 @@ export class PresupuestoInstitucionalService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  public getPresupuestoInstitucional(presupuestoYear: number | string) {
-    return this.http.get(`${this.baseURL}/PresupuestoInstitucional?year=${presupuestoYear}`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return error }))
+  public getPresupuestoInstitucional(enUso: boolean) {
+    return this.http.get(`${this.baseURL}/PresupuestoInstitucional?enUso=${enUso}`, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
   public postPresupuestoInstitucional(PresupuestoInstitucionalData: PresupuestoInstitucionalI) {
     return this.http.post(`${this.baseURL}/PresupuestoInstitucional`, PresupuestoInstitucionalData, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return error }))
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
   }
 
   public putPresupuestoInstitucional(PresupuestoInstitucionalData: PresupuestoInstitucionalI) {
     return this.http.put(`${this.baseURL}/PresupuestoInstitucional/${PresupuestoInstitucionalData.id}`, PresupuestoInstitucionalData, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return error }))
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
   }
-
-  //   public removePresupuestoInstitucional(id: number) {
-  //     const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-  //     const  PresupuestoInstitucionalHeader = {headers: headers}
-
-  //     const removePresupuestoInstitucional = `${this.baseURL}/PresupuestoInstitucionals/${id}`
-  //     return this.http.delete(removePresupuestoInstitucional,  PresupuestoInstitucionalHeader)
-  //   }
-
+  
+  public postActivarPresupuesto(idPresupuesto: number) {
+    return this.http.post(`${this.baseURL}/activar-presupuesto/${idPresupuesto}`, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
 }

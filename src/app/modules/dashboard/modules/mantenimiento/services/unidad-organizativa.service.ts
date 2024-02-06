@@ -28,9 +28,14 @@ export class UnidadOrganizativaService {
       .pipe(catchError((error) => { alertServerDown(); return error }))
   }
 
-  public putUnidadesOrganizativas(unidadOrg: UnidadOrgI, presupuestoInsti: number) {
-    return this.http.put(`${this.baseURL}/UnidadesOrganizativas/${unidadOrg.id}/presupuesto/${presupuestoInsti}`, unidadOrg, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return error }))
+  public postUnidadesOrganizativas(unidadOrg: UnidadOrgI){
+    return this.http.put(`${this.baseURL}/asignar-presupuesto`, unidadOrg, this.header)
+    .pipe(catchError((error) => { alertServerDown(); return error }))
   }
+
+  // public putUnidadesOrganizativas(unidadOrg: UnidadOrgI, presupuestoInsti: number) {
+  //   return this.http.put(`${this.baseURL}/UnidadesOrganizativas/${unidadOrg.id}/presupuesto/${presupuestoInsti}`, unidadOrg, this.header)
+  //     .pipe(catchError((error) => { alertServerDown(); return error }))
+  // }
 
 }

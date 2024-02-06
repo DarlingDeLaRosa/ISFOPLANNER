@@ -14,19 +14,9 @@ import { PresupuestoInstitucionalService } from '../../services/presupuestoInsti
 export class AsignacionPresupuestoComponent implements OnInit {
 
   asignacionPresupuestoForm: FormGroup;
-  unidadesOrg: any[] = []
+  unidadesOrg: UnidadOrgI[] = []
   presupuestosInst: PresupuestoInstiGetI = {
-    id: 0,
-    montoTotal: 0,
-    montoRestante: 0,
-    montoEjecutado: 0,
-    justicarModificacion: '',
-    fechaInicio: new Date,
-    fechaFin: new Date,
-    creadoEn: new Date,
-    creadoPor: '',
-    actualizadoEn: new Date,
-    actualizadoPor: ''
+    enUso:false, id: 0, montoTotal: 0, montoRestante: 0, montoEjecutado: 0, justicarModificacion: '', fechaInicio: new Date, fechaFin: new Date, creadoEn: new Date, creadoPor: '', actualizadoEn: new Date, actualizadoPor: ''
   }
 
   constructor(
@@ -35,9 +25,9 @@ export class AsignacionPresupuestoComponent implements OnInit {
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService
   ) {
     this.asignacionPresupuestoForm = this.fb.group({
-      id: 0,
-      nombre: new FormControl('', Validators.required),
-      presupuestoEstimado: new FormControl('', Validators.required),
+      idPresupuestoInstitucional: 0,
+      idUnidadOrganizativa: new FormControl('', Validators.required),
+      monto: new FormControl('', Validators.required),
     })
   }
 
@@ -47,19 +37,17 @@ export class AsignacionPresupuestoComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    let presupuestoYear = new Date().getFullYear()
-
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(presupuestoYear)
-      .subscribe((res: any) => { this.presupuestosInst = res.data[0] })
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true) 
+    .subscribe((res: any) => { this.presupuestosInst = res.data[0]; })
   }
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
-      .subscribe((res: any) => { this.unidadesOrg = res.data })
+      .subscribe((res: any) => { this.unidadesOrg = res.data; console.log(res);})
   }
 
   putUnidadOrganizativa() {
-    this.apiUnidadOrg.putUnidadesOrganizativas(this.asignacionPresupuestoForm.value, this.presupuestosInst.id)
+    this.apiUnidadOrg.postUnidadesOrganizativas(this.asignacionPresupuestoForm.value)
       .subscribe((res: any) => {
         if (res.ok) {
 
@@ -78,14 +66,14 @@ export class AsignacionPresupuestoComponent implements OnInit {
   }
 
   async deletePresupuestoUnidadOrg(unidadOrg: UnidadOrgI) {
-
     let removeDecision: boolean = await alertRemoveSure("Estas seguro que deseas remover el presupuesto de la unidad.")
-
     if (removeDecision) {
 
-      this.asignacionPresupuestoForm.value.id = unidadOrg.id
-      this.asignacionPresupuestoForm.value.nombre = unidadOrg.nombre
-      this.asignacionPresupuestoForm.value.presupuestoEstimado = 0
+
+
+      // this.asignacionPresupuestoForm.value.id = unidadOrg.id
+      // this.asignacionPresupuestoForm.value.nombre = unidadOrg.nombre
+      // this.asignacionPresupuestoForm.value.presupuestoEstimado = 0
 
       this.putUnidadOrganizativa()
     }
