@@ -1,33 +1,33 @@
-<div style="padding: 15px;" class="modal">
-  <h2 class="mantenimientoTitle">Actualizar indicador</h2>
+<div class="modal">
+  <h2 class="Stitle">Actualizar indicador</h2>
   <div style="border:1px solid  #ccc ;">
-  </div>&nbsp;
+  </div>
 
   <span style="display: flex;">
-    <h3 class="mantenimientoTitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+    <h3 class="Stitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
   </span>
   <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
     
     <span>
-      <h3 style="margin: 0;" class="mantenimientoTitle">Medio de Verficación:</h3> Hay que hacer incluir esa información 
+      <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3> Hay que hacer incluir esa información 
     </span>
 
     <span>
-      <h3 style="margin: 0;" class="mantenimientoTitle">Frecuencia:</h3> {{indicador.frecuencia.nombre}}
+      <h3 style="margin: 0;" class="Stitle">Frecuencia:</h3> {{indicador.frecuencia.nombre}}
     </span>
 
     <span>
-      <h3 style="margin: 0;" class="mantenimientoTitle">Alcance:</h3> {{indicador.alcance.nombre}}
+      <h3 style="margin: 0;" class="Stitle">Alcance:</h3> {{indicador.alcance.nombre}}
     </span>
 
     <span>
-      <h3 style="margin: 0;" class="mantenimientoTitle">Linea Base:</h3> {{indicador.linaBase}}
+      <h3 style="margin: 0;" class="Stitle">Linea Base:</h3> {{indicador.linaBase}}
     </span>
   </div>
 
   <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent" *ngIf="indicadorRecinto">
 
-    <h3 class="mantenimientoTitle">Indicador por recinto</h3>
+    <h3 class="Stitle">Indicador por recinto</h3>
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:30%;">
       <mat-label>Tipo de Indicador</mat-label>
@@ -78,7 +78,7 @@
 
   <div class="editarIndicadorFormContent" *ngIf="true">
 
-    <h3 class="mantenimientoTitle">Resultado esperado por trimestre.</h3>
+    <h3 class="Stitle">Resultado esperado por trimestre.</h3>
 
     <mat-form-field hideRequiredMarker appearance="fill" style="width:19%;">
       <mat-label>Meta anual</mat-label>

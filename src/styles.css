@@ -97,28 +97,32 @@ body {
 
 
 .colorGrreenBoton1 {
-  color: white;
-  background-color: #49aa42;
-  border: none;
-  border-radius: 5px;
-  height: 40px;
-  padding: 1px 25px;
-  cursor: pointer;
+    color: white;
+    background-color: #49aa42;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    padding: 1px 25px;
+    cursor: pointer;
 
 
 
 
 }
+
 .colorBlueBoton1 {
-  position: absolute !important;
+    position: absolute !important;
     color: white;
-    bottom: 10px ; /* Ajusta la distancia desde la parte inferior según tus preferencias */
-    right: 10px ; /* Ajusta la distancia desde la derecha según tus preferencias */
-    color: white  !important;
-    background-color: #004b8d !important ;
+    bottom: 10px;
+    /* Ajusta la distancia desde la parte inferior según tus preferencias */
+    right: 10px;
+    /* Ajusta la distancia desde la derecha según tus preferencias */
+    color: white !important;
+    background-color: #004b8d !important;
     cursor: pointer;
 
 }
+
 /* .end {
   position: absolute !important;
     bottom: 10px ;
@@ -134,14 +138,15 @@ body {
     padding: 1px 25px;
     cursor: pointer;
 }
+
 .itemderecha {
-  display: flex;
-  justify-content: flex-end;
-  text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
 }
 
-.item{
-  margin-left: auto;
+.item {
+    margin-left: auto;
 }
 
 
@@ -199,8 +204,8 @@ mat-checkbox {
     border: solid 1px #ccc;
 }
 
-.middleSection{
-    border-left: 1px solid #ccc ;
+.middleSection {
+    border-left: 1px solid #ccc;
 }
 
 .ejeSection {
@@ -271,11 +276,6 @@ mat-checkbox {
     margin: 0;
 }
 
-.editIcon {
-    font-size: 25px;
-    color: #004b8d;
-    margin: 0px 20px;
-}
 
 .titleProducto h3 {
     font-weight: 500;
@@ -350,11 +350,21 @@ table {
     height: 25px;
 }
 
-.removeIcon {
-    color: red;
+
+.editIcon,
+.removeIcon .detailsIcon {
     font-size: 25px;
     margin: 0px 20px;
+    color: #49aa42;
     cursor: pointer;
+}
+
+.removeIcon {
+    color: red;
+}
+
+.detailsIcon {
+    color: #004b8d;
 }
 
 .formularioActividades {
@@ -607,12 +617,12 @@ table {
     color: white;
 }
 
-.mantenimientoTitle {
+.Stitle {
     font-weight: 400 !important;
     color: #004b8d;
 }
 
-.mantenimientoTitle1 {
+.Stitle1 {
     font-weight: 400 !important;
     color: #004b8d;
     display: inline-block;
@@ -621,10 +631,15 @@ table {
     /* Ajusta el margen entre los elementos según tus preferencias */
 }
 
-
 .asnwerModal {
     padding: 15px;
     width: 800px;
+}
+
+.modal {
+    width: 1200px;
+    height: auto;
+    padding: 25px;
 }
 
 .checkPresupuesto {
@@ -661,18 +676,18 @@ table {
     width: 600px;
 }
 
-.tipoIndicador h4{
+.tipoIndicador h4 {
     margin: 0;
 }
 
-.noData{
+.noData {
     display: grid;
     place-items: center;
     width: 100%;
     height: 90%;
 }
 
-.editarIndicadorFormContent{
+.editarIndicadorFormContent {
     margin-top: 10px;
 }
 

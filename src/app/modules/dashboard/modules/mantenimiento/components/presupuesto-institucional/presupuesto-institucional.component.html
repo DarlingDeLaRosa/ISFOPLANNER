@@ -1,5 +1,5 @@
 <div style="padding: 15px;">
-    <h2 class="mantenimientoTitle">Presupuesto Institucional</h2>
+    <h2 class="Stitle">Presupuesto Institucional</h2>
     <div>
         <form [formGroup]="presupuestoInstiForm" (ngSubmit)="saveChangesButton()" > 
 
@@ -26,7 +26,7 @@
             <button type="submit" class="greenButton">Guardar cambios</button>
         </form>
 
-        <h2 style=" margin-top: 15px;" class="mantenimientoTitle">Listado de unidades organizativas</h2>
+        <h2 style=" margin-top: 15px;" class="Stitle">Listado de unidades organizativas</h2>
 
         <div style="border:1px solid  #ccc ;">
 
@@ -48,7 +48,7 @@
                             <td class="dataIndiCell">{{ presupuestoInst.justicarModificacion }}</td> 
                             <td class="dataIndiCell">{{ presupuestoInst.montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <td class="dataIndiCell">{{ presupuestoInst.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
-                            <td class="dataIndiCell"><mat-slide-toggle color="#004b8d" [(ngModel)]="presupuestoInst.enUso" (change)="postActivarPresupuesto(presupuestoInst)"></mat-slide-toggle></td>
+                            <td class="dataIndiCell"><mat-slide-toggle color="#004b8d" [(ngModel)]="presupuestoInst.enUso" (change)="postActivarPresupuesto(presupuestoInst.id)"></mat-slide-toggle></td>
                             <td class="dataIndiCell"><mat-icon (click)="setValueEditPreInst(presupuestoInst)" class="editIcon">edit</mat-icon></td>
                         </tr>
                     </tbody>

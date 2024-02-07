@@ -11,7 +11,7 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 
 export class UnidadOrganizativaService {
 
-  token?: string = this.userSystemService.getToken
+  token: string = this.userSystemService.getToken
   baseURL: string = this.userSystemService.getURL
   idSistema: number = this.userSystemService.getSistema
 

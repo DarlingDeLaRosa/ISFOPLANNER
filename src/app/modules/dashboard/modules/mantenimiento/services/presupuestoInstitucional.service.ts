@@ -22,8 +22,8 @@ export class PresupuestoInstitucionalService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  public getPresupuestoInstitucional(enUso: boolean) {
-    return this.http.get(`${this.baseURL}/PresupuestoInstitucional?enUso=${enUso}`, this.header)
+  public getPresupuestoInstitucional(enUso?: boolean ) {
+    return this.http.get(`${this.baseURL}/PresupuestoInstitucional?enUso=${enUso ?? ''}`, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 
@@ -40,5 +40,10 @@ export class PresupuestoInstitucionalService {
   public postActivarPresupuesto(idPresupuesto: number) {
     return this.http.post(`${this.baseURL}/activar-presupuesto/${idPresupuesto}`, this.header)
       .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+  }
+
+  public getUnidadesPresupuestoAsignado() {
+    return this.http.get(`${this.baseURL}/PresupuestoInstitucional/presupuestos-asignados`, this.header)
+      .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
   }
 }

@@ -36,11 +36,11 @@ export interface IndicadorGestionI {
   idProducto?: number,
   alcance?: any,
   frecuencia: any
-  linaBase: number, 
+  linaBase: number,
   meta: number,
-  responsable:ResponsableI,
-  tipoIndicador: {nombre: string, id: number}
-  estructuraProgramatica: {nombre: string, id: number}
+  responsable: ResponsableI,
+  tipoIndicador: { nombre: string, id: number }
+  estructuraProgramatica: { nombre: string, id: number }
   // idIndicadorEstrategico: number,
   indicadoresRecinto?: {
     metaFem: number,
@@ -77,9 +77,18 @@ export interface PreguntaI {
 
 
 export interface UnidadOrgI {
-  id: number | null
+  monto: number
+  montoEjecutado: number
+  montoRestante: number
+  unidadOrganizativa?: subUnidadI
+}
+
+export interface subUnidadI {
+  id: number
   nombre: string
-  presupuestoEstimado: string
+  presupuesto: UnidadOrgI[]
+  subUnidades: subUnidadI[]
+  expanded?: boolean;
 }
 
 export interface PeriodoConfigI {

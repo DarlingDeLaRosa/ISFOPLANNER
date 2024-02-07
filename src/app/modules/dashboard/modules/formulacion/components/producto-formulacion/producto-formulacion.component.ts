@@ -38,6 +38,7 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   openModal(indicador: IndicadorGestionI) { this.dialog.open(IndicadorEditarComponent, {data: indicador}) }
+  
   crearActividad(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} }); }
 }
 

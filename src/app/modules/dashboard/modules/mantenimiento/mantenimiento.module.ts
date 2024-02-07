@@ -25,6 +25,7 @@ import { ConfiguracionPeriodosComponent } from './components/configuracion-perio
 import { AsignacionPresupuestoComponent } from './components/asignacion-presupuesto/asignacion-presupuesto.component';
 import { PresupuestoInstitucionalComponent } from './components/presupuesto-institucional/presupuesto-institucional.component';
 import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
+import { DetailViewComponent } from './modals/detail-view/detail-view.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { RequerimientosComponent } from './components/mantenimiento-pei/Requerim
     ResponsablesIndicadoresComponent,
     ConfiguracionPeriodosComponent,
     AsignacionPresupuestoComponent,
-    PresupuestoInstitucionalComponent
+    PresupuestoInstitucionalComponent,
+    DetailViewComponent
   ],
 
   providers:[

@@ -35,7 +35,7 @@ export class PresupuestoInstitucionalComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(false)
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional()
       .subscribe((res: any) => { this.presupuestosInst = res.data; console.log(res)})
   }
 
@@ -49,8 +49,8 @@ export class PresupuestoInstitucionalComponent implements OnInit {
       .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
   }
 
-  postActivarPresupuesto(presupuesto: PresupuestoInstiGetI) {
-    this.apiPresupuestoInstitucional.postActivarPresupuesto(presupuesto.id)
+  postActivarPresupuesto(presupuesto: number) {
+    this.apiPresupuestoInstitucional.postActivarPresupuesto(presupuesto)
       .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
   }
 

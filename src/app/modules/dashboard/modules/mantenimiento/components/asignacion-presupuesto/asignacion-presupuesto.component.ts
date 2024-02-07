@@ -5,6 +5,8 @@ import { alertIsSuccess, alertRemoveSure, alertServerDown } from 'src/app/alerts
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { PresupuestoInstiGetI, UnidadOrgI } from '../../interfaces/mantenimientoPOA.interface';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
+import { DetailViewComponent } from '../../modals/detail-view/detail-view.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-asignacion-presupuesto',
@@ -15,6 +17,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   asignacionPresupuestoForm: FormGroup;
   unidadesOrg: UnidadOrgI[] = []
+  // : any[] = []
   presupuestosInst: PresupuestoInstiGetI = {
     enUso:false, id: 0, montoTotal: 0, montoRestante: 0, montoEjecutado: 0, justicarModificacion: '', fechaInicio: new Date, fechaFin: new Date, creadoEn: new Date, creadoPor: '', actualizadoEn: new Date, actualizadoPor: ''
   }
@@ -22,7 +25,9 @@ export class AsignacionPresupuestoComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiUnidadOrg: UnidadOrganizativaService,
-    private apiPresupuestoInstitucional: PresupuestoInstitucionalService
+    private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
+    public dialog: MatDialog,
+
   ) {
     this.asignacionPresupuestoForm = this.fb.group({
       idPresupuestoInstitucional: 0,
@@ -34,17 +39,24 @@ export class AsignacionPresupuestoComponent implements OnInit {
   ngOnInit(): void {
     this.getUnidadOrganizativa()
     this.getPresupuestoInstitucional()
+    this.getUnidadOrganizativaAsignadas()
   }
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true) 
     .subscribe((res: any) => { this.presupuestosInst = res.data[0]; })
   }
-
+  
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
+      .subscribe((res: any) => {  console.log(res);})
+  }
+
+  getUnidadOrganizativaAsignadas() {
+    this.apiPresupuestoInstitucional.getUnidadesPresupuestoAsignado()
       .subscribe((res: any) => { this.unidadesOrg = res.data; console.log(res);})
   }
+
 
   putUnidadOrganizativa() {
     this.apiUnidadOrg.postUnidadesOrganizativas(this.asignacionPresupuestoForm.value)
@@ -60,6 +72,9 @@ export class AsignacionPresupuestoComponent implements OnInit {
       })
   }
 
+  openModal( subUnidades: UnidadOrgI) { 
+    this.dialog.open(DetailViewComponent, {data: subUnidades}) 
+  }
 
   setValueEditUnidadOrg(unidadOrg: any) {
     this.asignacionPresupuestoForm.reset(unidadOrg)
