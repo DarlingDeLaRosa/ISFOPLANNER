@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { alertServerDown } from 'src/app/alerts/alerts';
+import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class FormulacionService {
 
   public getFormulacion() {
     return this.http.get(`${this.baseURL}/MaterialesDeApoyo`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 }
 

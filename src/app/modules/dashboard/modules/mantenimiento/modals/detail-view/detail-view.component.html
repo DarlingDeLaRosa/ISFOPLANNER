@@ -5,8 +5,6 @@
     </div>
 
     <div>
-        <!-- <h2 style=" margin-top: 15px;" class="Stitle">{{subUnidades.nombre}}</h2> -->
-        <!-- *ngFor="let subUnidades of unidadesOrg.unidadOrganizativa.subUnidades" -->
         <div style="border:1px solid  #ccc ;">
 
             <table>
@@ -27,21 +25,19 @@
                             <ng-template #NoSubUnidades>
                                 <td class="dataIndiCell"></td>
                             </ng-template>
-                            <!-- <td class="dataIndiCell"></td> Espacio para alinear correctamente la flecha -->
                             <td class="dataIndiCell">{{ subUnidad.nombre }}</td>
-                            <td class="dataIndiCell" *ngIf="subUnidad.presupuesto.length > 0; else NoMontoAsignado">{{subUnidad.presupuesto[0].montoEjecutado }}</td>
-                            <td class="dataIndiCell" *ngIf="subUnidad.presupuesto.length > 0; else NoMontoAsignado">{{subUnidad.presupuesto[0].monto}}</td>
+                            <td class="dataIndiCell" *ngIf="subUnidad.presupuesto.length > 0; else NoMontoAsignado">{{subUnidad.presupuesto[0].montoEjecutado | currency: 'DOP ': 'symbol': '1.2-2'}}</td>
+                            <td class="dataIndiCell" *ngIf="subUnidad.presupuesto.length > 0; else NoMontoAsignado">{{subUnidad.presupuesto[0].monto | currency: 'DOP ': 'symbol': '1.2-2'}}</td>
                         </tr>
                         <tr *ngIf="subUnidad.expanded">
-                            <td></td> <!-- Celda vacía para alinear correctamente las subunidades -->
-                            <td colspan="4"> <!-- Espacio para alinear correctamente las subunidades -->
+                            <td colspan="4"> 
                                 <table>
                                     <tbody>
                                         <tr class="dataRow" *ngFor="let subSubUnidad of subUnidad.subUnidades">
-                                            <td class="dataIndiCell" style="width: 2px;"></td>
+                                            <td class="dataIndiCell" style="width: 5%;"></td>
                                             <td class="dataIndiCell">{{ subSubUnidad?.nombre ?? "NA" }}</td>
-                                            <td class="dataIndiCell" style="width: 20%;" *ngIf="subUnidad.presupuesto.length > 0; else NoMontoAsignado">{{subSubUnidad.presupuesto[0].montoEjecutado}}</td>
-                                            <td class="dataIndiCell" style="width: 20%;" *ngIf="subUnidad.presupuesto.length > 0; else NoMontoAsignado">{{subSubUnidad.presupuesto[0].monto }}</td>
+                                            <td class="dataIndiCell" style="width: 20%;" *ngIf="subUnidad.presupuesto.length > 0; else NoMontoAsignado">{{subSubUnidad.presupuesto[0].montoEjecutado | currency: 'DOP ': 'symbol': '1.2-2'}}</td>
+                                            <td class="dataIndiCell" style="width: 20%;" *ngIf="subUnidad.presupuesto.length > 0; else NoMontoAsignado">{{subSubUnidad.presupuesto[0].monto | currency: 'DOP ': 'symbol': '1.2-2'}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

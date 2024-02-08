@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { alertServerDown } from 'src/app/alerts/alerts';
-import { catchError } from 'rxjs';
+import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
+import { catchError, throwError } from 'rxjs';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
@@ -24,6 +24,6 @@ export class TipoProcesosService {
 
   public getTipoProcesos() {
     return this.http.get(`${this.baseURL}/Configuraciones/tipos-de-procesos`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return error }))
+    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 }

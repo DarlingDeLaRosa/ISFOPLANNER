@@ -10,11 +10,12 @@ export class ResponsesHandlerService {
 
     constructor() { }
 
-    handleResponse(response: any, onSuccess: () => void,  formToReset?: FormGroup) {
+    handleResponse(response: any, onSuccess: () => void, formToReset?: FormGroup, onSecondSuccess?: () => void) {
         if (response.ok) {
             alertIsSuccess(true);
             onSuccess();
             formToReset?.reset();
+            if (onSecondSuccess != undefined) onSecondSuccess();
         } else {
             alertIsSuccess(false);
         }

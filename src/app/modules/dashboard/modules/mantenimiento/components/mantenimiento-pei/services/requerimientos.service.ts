@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { ResponseI } from 'src/app/interfaces/Response.interfaces';
 import { RequerimientoI } from '../interfaces/requerimientos.interface';
-import { alertServerDown } from 'src/app/alerts/alerts';
+import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({ providedIn: 'root' })
@@ -22,21 +22,21 @@ export class RequerimientosService {
 
   getRequerimientos(): Observable<ResponseI> {
     return this.http.get<ResponseI>(`${this.baseUrl}/Requerimientos`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   postRequerimientos(requerimiento: RequerimientoI): Observable<ResponseI> {
     return this.http.post<ResponseI>(`${this.baseUrl}/Requerimientos`, requerimiento, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   deleteRequerimientos(id: number): Observable<ResponseI> {
     return this.http.delete<ResponseI>(`${this.baseUrl}/Requerimientos/${id}`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   updateRequerimientos(requerimiento: RequerimientoI, id: number): Observable<ResponseI> {
     return this.http.put<ResponseI>(`${this.baseUrl}/Requerimientos/${id}`, requerimiento, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 }

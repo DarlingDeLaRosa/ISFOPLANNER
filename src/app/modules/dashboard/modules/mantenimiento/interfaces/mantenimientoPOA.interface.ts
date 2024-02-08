@@ -83,11 +83,18 @@ export interface UnidadOrgI {
   unidadOrganizativa?: subUnidadI
 }
 
+export  interface asignarUnidadOrgI{
+  idPresupuestoInstitucional: number,
+  idUnidadOrganizativa?: number,
+  monto: number
+}
+
 export interface subUnidadI {
   id: number
   nombre: string
   presupuesto: UnidadOrgI[]
   subUnidades: subUnidadI[]
+  unidadPadre?: subUnidadI
   expanded?: boolean;
 }
 

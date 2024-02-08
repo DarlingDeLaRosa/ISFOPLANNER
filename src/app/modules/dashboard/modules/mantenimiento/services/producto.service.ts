@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductoI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError, throwError } from 'rxjs';
-import { alertServerDown } from 'src/app/alerts/alerts';
+import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
@@ -24,17 +24,17 @@ export class ProductoService {
 
   public getProducto(eje?: number, estrategia?: number, resultadoEfecto?: number) {
     return this.http.get(`${this.baseURL}/Productos?eje=${eje ?? ''}&estrategia=${estrategia ?? ''}&resultadoEfecto=${resultadoEfecto ?? ''}`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public getByIdProducto(id: number) {
     return this.http.get(`${this.baseURL}/Productos/${id}`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public postProducto(productoData: ProductoI) {
     return this.http.post(`${this.baseURL}/Productos`, productoData, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public putProducto(productoData: ProductoI) {

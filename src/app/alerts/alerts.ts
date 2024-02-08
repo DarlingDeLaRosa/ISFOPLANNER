@@ -36,8 +36,7 @@ export function errorMessageAlert(message: string) {
     position: 'center',
     icon: 'error',
     title: message,
-    showConfirmButton: false,
-    timer: 1500
+    confirmButtonColor: 'red',
   })
 }
 

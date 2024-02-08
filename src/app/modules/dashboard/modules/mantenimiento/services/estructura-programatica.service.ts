@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EstructuraProgramaticaI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError, throwError } from 'rxjs';
-import { alertServerDown } from 'src/app/alerts/alerts';
+import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
@@ -24,22 +24,22 @@ export class EstructuraProgramaticaService {
 
   public getEstructurasProgramaticas() {
     return this.http.get(`${this.baseURL}/EstructurasProgramaticas`, this.header)
-    .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
+    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public postEstructurasProgramaticas(estructuraProData: EstructuraProgramaticaI) {
     return this.http.post(`${this.baseURL}/EstructurasProgramaticas` , estructuraProData, this.header)
-    .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
+    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public putEstructurasProgramaticas(estructuraProData: EstructuraProgramaticaI) {
     return this.http.put(`${this.baseURL}/EstructurasProgramaticas?id=${estructuraProData.id}`, estructuraProData, this.header)
-    .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
+    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public removeEstructurasProgramaticas(id: number) {
     return this.http.delete(`${this.baseURL}/EstructurasProgramaticas/${id}`,  this.header)
-    .pipe(catchError((error) => { alertServerDown(); return throwError(error)}))
+    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
 }
