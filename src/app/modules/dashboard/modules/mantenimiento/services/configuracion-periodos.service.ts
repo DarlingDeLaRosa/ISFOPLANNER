@@ -26,6 +26,11 @@ export class ConfiguracionPeriodoServive {
   public getPeriodoConfig() {
     return this.http.get(`${this.baseURL}/Configuraciones`, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+  } 
+  
+  public postPeriodoConfig(periodoConfigData: PeriodoConfigI) {
+    return this.http.post(`${this.baseURL}/Configuraciones`, periodoConfigData, this.header)
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public putPeriodoConfig(periodoConfigData: PeriodoConfigI) {

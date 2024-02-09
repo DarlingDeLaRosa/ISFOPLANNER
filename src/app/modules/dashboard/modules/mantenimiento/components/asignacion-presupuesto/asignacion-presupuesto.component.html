@@ -25,7 +25,7 @@
 
             <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
             <mat-label>Unidad Organizativa</mat-label>
-            <mat-select formControlName="idUnidadOrganizativa" disableRipple (selectionChange)="accion = false">
+            <mat-select formControlName="idUnidadOrganizativa" disableRipple>
               <ng-container *ngIf="unidadesOrgPadres.length > 0; else noUnidadPadre">
                 <mat-option [value]="unidadOrgPadre.id" *ngFor="let unidadOrgPadre of unidadesOrgPadres">
                   {{unidadOrgPadre.nombre}}
@@ -42,7 +42,8 @@
                 <input type="number" matInput formControlName="monto">
             </mat-form-field>
 
-            <button type="submit" class="greenButton">Guardar cambios</button>
+            <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
+            <button (click)="cleanForm()" *ngIf="accion" class="cleanButton">Limpiar edición</button>
         </form>
 
         <h2 style=" margin-top: 15px;" class="Stitle">Listado de unidades organizativas</h2>
@@ -57,6 +58,7 @@
                         <th class="headerCell" style="width: 20%;">Monto Total</th>
                         <th class="headerCell" style="width: 10%;"></th>
                         <th class="headerCell" style="width: 10%;"></th>
+                        <th class="headerCell" style="width: 10%;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,6 +68,7 @@
                         <td class="dataIndiCell">{{unidadOrg?.monto | currency: 'DOP ': 'symbol': '1.2-2'}} </td>
                         <td class="dataIndiCell"><mat-icon *ngIf="unidadOrg.unidadOrganizativa?.subUnidades != undefined && unidadOrg.unidadOrganizativa?.subUnidades?.length"  (click)="openModal(unidadOrg)" class="detailsIcon">list</mat-icon></td>
                         <td class="dataIndiCell"><mat-icon (click)="setValueEditUnidadOrg(unidadOrg)" class="editIcon">edit</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon (click)="deletePresupuestoUnidadOrg(unidadOrg.unidadOrganizativa)" class="removeIcon">delete</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

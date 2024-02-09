@@ -23,7 +23,9 @@
                 <textarea matInput formControlName="justicarModificacion"></textarea>
             </mat-form-field>
 
-            <button type="submit" class="greenButton">Guardar cambios</button>
+            <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
+            <button (click)="presupuestoInstiForm.reset()" *ngIf="presupuestoInstiForm.value.id" class="cleanButton">Limpiar edición</button>
+
         </form>
 
         <h2 style=" margin-top: 15px;" class="Stitle">Listado de unidades organizativas</h2>

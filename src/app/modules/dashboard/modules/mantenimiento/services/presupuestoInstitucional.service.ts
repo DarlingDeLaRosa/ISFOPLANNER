@@ -56,4 +56,9 @@ export class PresupuestoInstitucionalService {
     return this.http.put(`${this.baseURL}/actualizar-presupuesto`, unidadOrg, this.header)
     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
+
+  public deleteAsignacionPresupuesto(unidadOrg?: number){
+    return this.http.delete(`${this.baseURL}/eliminar-presupuesto/${unidadOrg}`, this.header)
+    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+  }
 }

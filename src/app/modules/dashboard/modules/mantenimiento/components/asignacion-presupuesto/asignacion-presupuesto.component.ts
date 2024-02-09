@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { alertNoValidForm } from 'src/app/alerts/alerts';
+import { alertNoValidForm, alertRemoveSure } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { PresupuestoInstiGetI, UnidadOrgI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
@@ -65,19 +65,23 @@ export class AsignacionPresupuestoComponent implements OnInit {
   postAsignarPresupuestoUnidadOrg() {
     this.apiPresupuestoInstitucional.postAsignarPresupuesto(this.asignacionPresupuestoForm.value)
       .subscribe((res: any) => {
-        this.responseHandler.handleResponse(res, ()=> this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, ()=> this.getPresupuestoInstitucional() )
+        this.responseHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
       })
   }
 
   putAsignarPresupuestoUnidadOrg() {
-    console.log(this.accion);
-    console.log(this.asignacionPresupuestoForm.value);
-    
     this.apiPresupuestoInstitucional.putAsignarPresupuesto(this.asignacionPresupuestoForm.value)
       .subscribe((res: any) => {
-        this.responseHandler.handleResponse(res, ()=> this.getUnidadOrganizativaAsignadas(),this.asignacionPresupuestoForm, ()=> this.getPresupuestoInstitucional())
+        this.responseHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
         this.accion = false
+        // this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.enable()
       })
+  }
+
+  cleanForm() {
+    this.accion = false
+    this.asignacionPresupuestoForm.reset();
+    this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.enable()
   }
 
   openModal(subUnidades: UnidadOrgI) {
@@ -87,18 +91,34 @@ export class AsignacionPresupuestoComponent implements OnInit {
   setValueEditUnidadOrg(unidadOrg: UnidadOrgI) {
     this.accion = true
     this.asignacionPresupuestoForm.patchValue({
-      idUnidadOrganizativa: unidadOrg.unidadOrganizativa?.id, 
+      idUnidadOrganizativa: unidadOrg.unidadOrganizativa?.id,
       monto: unidadOrg.monto
     })
+    this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.disable()
+  }
+
+  async deletePresupuestoUnidadOrg(unidad?: subUnidadI) {
+    const montoPresupuesto = unidad?.presupuesto[0].monto;
+    const montoFormateado = montoPresupuesto?.toLocaleString('es-ES', { style: 'currency', currency: 'DOP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    let removeDecision: boolean = await alertRemoveSure(`Estas seguro de eliminar el presupuesto de ${unidad?.nombre} (${montoFormateado})`)
+
+    if (removeDecision) {
+      this.apiPresupuestoInstitucional.deleteAsignacionPresupuesto(unidad?.id)
+        .subscribe((res: any) => {
+          this.responseHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
+        })
+    }
   }
 
   saveChangesButton() {
+    this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.enable()
     this.asignacionPresupuestoForm.value.idPresupuestoInstitucional = this.presupuestosInst.id
 
     if (this.asignacionPresupuestoForm.valid) {
       if (this.accion) this.putAsignarPresupuestoUnidadOrg();
       else this.postAsignarPresupuestoUnidadOrg()
-    
-    } else  alertNoValidForm() 
+
+    } else alertNoValidForm()
   }
 }

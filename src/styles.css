@@ -129,7 +129,7 @@ body {
     right: 120px ;
 } */
 
-.greenButton {
+.greenButton, .cleanButton{
     color: white;
     background-color: #49aa42;
     border: none;
@@ -137,6 +137,10 @@ body {
     height: 40px;
     padding: 1px 25px;
     cursor: pointer;
+}
+
+.cleanButton{
+    background-color: red;
 }
 
 .itemderecha {

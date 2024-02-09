@@ -36,7 +36,7 @@ export class PresupuestoInstitucionalComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional()
-      .subscribe((res: any) => { this.presupuestosInst = res.data; console.log(res)})
+      .subscribe((res: any) => { this.presupuestosInst = res.data;})
   }
 
   putUnidadOrganizativa() {

@@ -1,30 +1,25 @@
 <div style="padding: 15px;">
     <h2 class="Stitle">Configuración de periodos</h2>
     <div>
-        <form [formGroup]="periodosConfigForm" (ngSubmit)="putEstructuraPro()">
-
+        <form [formGroup]="periodosConfigForm" (ngSubmit)="saveChangesButton()">
+            
             <mat-form-field hideRequiredMarker appearance="fill" style="width: 30%;">
                 <mat-label>Proceso</mat-label>
-                <input matInput formControlName="nombre">
-            </mat-form-field>&nbsp;      
-            <!-- 
-            <mat-form-field appearance="fill" style="width: 30%;">
-                <mat-label>Proceso</mat-label>
-                <mat-select disableRipple formControlName="">
-                    <ng-container *ngIf="tipoProcesos.length > 0; else noAlcance">
+                <mat-select disableRipple formControlName="idTipoProceso">
+                    <ng-container *ngIf="tipoProcesos.length > 0; else noProceso">
 
                         <mat-option [value]="tipoProceso.id" *ngFor="let tipoProceso of tipoProcesos">
                             {{tipoProceso.nombre}}
                         </mat-option>
 
                     </ng-container>
-                    <ng-template #noAlcance>
+                    <ng-template #noProceso>
                         <mat-option>No hay campos disponibles</mat-option>
                     </ng-template>
                 </mat-select>
-            </mat-form-field>&nbsp; -->
+            </mat-form-field>&nbsp; 
 
-            <mat-form-field appearance="fill" style="width: 40%;">
+            <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
                 <mat-label>Periodo de tiempo</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Fecha Inicial" formControlName="fechaInicio">
@@ -36,12 +31,13 @@
 
             <mat-form-field hideRequiredMarker appearance="fill" style="width: 28%;">
                 <mat-label>Prorroga</mat-label>
-                <input matInput required [matDatepicker]="date" appearance="fill" formControlName="prorroga">
+                <input matInput [matDatepicker]="date" appearance="fill" formControlName="prorroga">
                 <mat-datepicker-toggle [for]="date" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #date></mat-datepicker>
             </mat-form-field>
 
-            <button type="submit" class="greenButton">Guardar cambios</button>
+            <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
+            <button (click)="periodosConfigForm.reset()" *ngIf="periodosConfigForm.value.id" class="cleanButton">Limpiar edición</button>
 
         </form>
 

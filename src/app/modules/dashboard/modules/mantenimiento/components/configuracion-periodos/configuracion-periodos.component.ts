@@ -4,6 +4,8 @@ import { catchError, throwError } from 'rxjs';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { ConfiguracionPeriodoServive } from '../../services/configuracion-periodos.service';
 import { TipoProcesosService } from '../../services/tipo-proceso.service';
+import { format } from 'date-fns';
+import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
 
 
 @Component({
@@ -20,15 +22,15 @@ export class ConfiguracionPeriodosComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiTipoProceso: TipoProcesosService,
-    private apiPeriodosConfig: ConfiguracionPeriodoServive
+    private apiPeriodosConfig: ConfiguracionPeriodoServive,
+    private responseHandler: ResponsesHandlerService
   ) {
     this.periodosConfigForm = this.fb.group({
       id: 0,
       idTipoProceso: new FormControl('', Validators.required),
-      nombre: new FormControl('', Validators.required),
       fechaInicio: new FormControl('', Validators.required),
       fechaFin: new FormControl('', Validators.required),
-      prorroga:new FormControl('', Validators.required)
+      prorroga: new FormControl('')
     })
   }
 
@@ -42,44 +44,19 @@ export class ConfiguracionPeriodosComponent implements OnInit {
       .subscribe((res: any) => { this.tipoProcesos = res.data })
   }
 
-
   getPeriodoConfig() {
     this.apiPeriodosConfig.getPeriodoConfig()
       .subscribe((res: any) => { this.periodosConfig = res.data })
   }
 
-  // postEstructuraPro() {
-  //   this.apiPeriodosConfig.posgetEstructuraPro(this.periodosConfigForm.value)
-  //     .pipe(
-  //       catchError((error) => {
-  //         alertServerDown()
-  //         return error
-  //       })
-  //     )
-  //     .subscribe((res: any) => {
-  //       console.log(res);
+  postPeriodoConfig() {
+    this.apiPeriodosConfig.postPeriodoConfig(this.periodosConfigForm.value)
+      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPeriodoConfig(), this.periodosConfigForm) })
+  }
 
-  //       if (res.statusCode == 201) {
-
-  //         alertIsSuccess(true)
-  //         this.getEstructuraPro()
-  //         this.periodosConfigForm.reset()
-
-  //       } else alertIsSuccess(false)
-  //     })
-  // }
-
-  putEstructuraPro() {
+  putPeriodoConfig() {
     this.apiPeriodosConfig.putPeriodoConfig(this.periodosConfigForm.value)
-      .subscribe((res: any) => {
-        if (res.ok) {
-
-          alertIsSuccess(true)
-          this.getPeriodoConfig()
-          this.periodosConfigForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+    .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPeriodoConfig(), this.periodosConfigForm) })
   }
 
   // async deleteEstructuraPro(id: number) {
@@ -110,19 +87,19 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   setValueEditEstructuraPro(estructuraPro: any) {
     this.periodosConfigForm.reset(estructuraPro)
-    this.periodosConfigForm.patchValue({
-      nombre: estructuraPro.tipoProceso.nombre,
-      idTipoProceso: estructuraPro.tipoProceso.id
-    }) 
+    this.periodosConfigForm.patchValue({ idTipoProceso: estructuraPro.tipoProceso.id})
   }
 
-  // saveChangesButton() {
-  //   if (this.periodosConfigForm.valid) {
-  //     if (this.periodosConfigForm.value.id > 0) this.putEstructuraPro()
-  //     else this.postEstructuraPro()
-  //   } else {
-  //     alertNoValidForm()
-  //   }
-  // }
+  saveChangesButton() {
+    this.periodosConfigForm.value.fechaInicio = format(this.periodosConfigForm.value.fechaInicio, 'yyyy-MM-dd');
+    this.periodosConfigForm.value.fechaFin = format(this.periodosConfigForm.value.fechaFin, 'yyyy-MM-dd');
+    if (this.periodosConfigForm.value.prorroga != '') this.periodosConfigForm.value.prorroga = format(this.periodosConfigForm.value.prorroga, 'yyyy-MM-dd');
+    
+    if (this.periodosConfigForm.valid) {
 
+      if (this.periodosConfigForm.value.id > 0) this.putPeriodoConfig()
+      else this.postPeriodoConfig()
+
+    } else alertNoValidForm()
+  }
 }
