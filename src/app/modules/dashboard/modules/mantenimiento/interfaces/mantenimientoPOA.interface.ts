@@ -1,7 +1,7 @@
 import { ResponsableI } from "../components/mantenimiento-pei/interfaces/responsable.interface"
 
-export interface PreguntaI {
-  id: number | null
+export interface PreguntaPostI {
+  id: number 
   pregunta: string,
   contexto: string,
   respuesta: string,
@@ -9,7 +9,7 @@ export interface PreguntaI {
 }
 
 export interface MaterialApoyoI {
-  id: number | null
+  id: number
   titulo: string,
   descripcion: string,
   enlace: string,
@@ -66,7 +66,7 @@ export interface UsuarioI {
 }
 
 export interface PreguntaI {
-  id: number | null
+  id: number 
   actualizadoEn: Date
   contexto: string
   creadoEn: Date

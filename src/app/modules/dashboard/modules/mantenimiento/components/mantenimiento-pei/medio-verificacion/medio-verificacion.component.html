@@ -1,32 +1,22 @@
 <div style="padding: 15px;">
   <h2 class="Stitle">Medio de verificación</h2>
   <div>
-    <form [formGroup]="medioVerificacionForm">
-      <!-- <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label>Seleccione un indicador estratégico</mat-label>
-        <mat-select disableRipple formControlName="idIndicadorEstrategico">
-          <ng-container>
-            <mat-option [value]="indicador.id" *ngFor="let indicador of indicadoresEstartegicos">
-              {{indicador.nombre}}</mat-option>
-          </ng-container>
-        </mat-select>
-      </mat-form-field>&nbsp; -->
-
-      <!-- <h3 class="Stitle"></h3> -->
+    <form [formGroup]="medioVerificacionForm" (ngSubmit)=" saveChangesButton()">
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
         <mat-label> Nombre del medio de verificación</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <button type="submit" class="greenButton" (click)=" guardar()">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
+      <button (click)="medioVerificacionForm.reset()" *ngIf="medioVerificacionForm.value.id" class="cleanButton">Limpiar edición</button>
+
     </form>
     <h2 style=" margin-top: 15px;" class="Stitle">Listado</h2>
     <div style="border:1px solid  #ccc ;">
         <table>
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Indicador estratégico</th>
               <th class="headerCell">Medio de verificación</th>
               <th class="headerCell" style="width: 10%;"></th>
               <th class="headerCell" style="width: 10%;"></th>
@@ -34,12 +24,9 @@
           </thead>
           <tbody>
             <tr class="dataRow" *ngFor="let item of medioVerificacion">
-              <td class="dataIndiCell">{{item.indicadorEstrategico?.nombre}}</td>
               <td class="dataIndiCell">{{item.nombre}}</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon"
-                  (click)="setValueMedioVerificacion(item)">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon"
-                  (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueMedioVerificacion(item)">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
             </tr>
           </tbody>
         </table>

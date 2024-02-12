@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { catchError, throwError } from 'rxjs';
+import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    private apiEstructuraPro: EstructuraProgramaticaService
+    private apiEstructuraPro: EstructuraProgramaticaService,
+    private responseHandler: ResponsesHandlerService
   ) {
     this.estructuraProgramaticaForm = this.fb.group({
       id: 0,
@@ -37,28 +39,12 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
   postEstructuraPro() {
     this.apiEstructuraPro.postEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
-      .subscribe((res: any) => {
-        if (res.statusCode == 201) {
-
-          alertIsSuccess(true)
-          this.getEstructuraPro()
-          this.estructuraProgramaticaForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+    .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
   }
 
   putEstructuraPro() {
     this.apiEstructuraPro.putEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
-      .subscribe((res: any) => {
-        if (res.ok) {
-
-          alertIsSuccess(true)
-          this.getEstructuraPro()
-          this.estructuraProgramaticaForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+    .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
   }
 
   async deleteEstructuraPro(id: number) {
@@ -66,16 +52,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
     if (removeDecision) {
       this.apiEstructuraPro.removeEstructurasProgramaticas(id)
-        .subscribe((res: any) => {
-          if (res.ok) {
-
-            alertRemoveSuccess()
-            this.getEstructuraPro()
-
-          } else {
-            errorMessageAlert('Ocurrio un error, No se pudo eliminar correctamente.')
-          }
-        })
+      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
     }
   }
 

@@ -18,29 +18,13 @@
         <textarea matInput formControlName="descripcion"></textarea>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" style="width: 40%;">
-        <mat-label>Unidad organizativa</mat-label>
-        <mat-select formControlName="idUnidadOrganizativa" disableRipple>
-          <ng-container *ngIf="unidadesOrg.length > 0; else noUnidadOrg">
-
-            <mat-option [value]="unidadOrg.id" *ngFor="let unidadOrg of unidadesOrg" >
-              {{unidadOrg.nombre}}
-            </mat-option>
-
-          </ng-container>
-          <ng-template #noUnidadOrg>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
-
-
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 15%;">
         <mat-label>Versión</mat-label>
         <input matInput formControlName="versionDocumento">
       </mat-form-field><br>
 
-      <button type="submit" class="greenButton">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
+      <button (click)="materialApoyoForm.reset()" *ngIf="materialApoyoForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
 
@@ -53,7 +37,6 @@
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
               <th class="headerCell">Titulo</th>
-              <th class="headerCell">Unidad organizativa</th>
               <th class="headerCell">Version</th>
               <th class="headerCell">Enlace</th>
               <th class="headerCell" style="width: 10%;"></th>
@@ -63,7 +46,6 @@
           <tbody>
             <tr class="dataRow" *ngFor="let material of materialesApoyo">
               <td class="dataIndiCell">{{material.titulo}}</td>
-              <td class="dataIndiCell">{{material.unidadOrganizativa.nombre}}</td>
               <td class="dataIndiCell">{{material.versionDocumento}}</td>
               <td class="dataIndiCell">{{material.enlace}}</td>
               <td class="dataIndiCell"><mat-icon (click)="setValueEditMaterial(material)" class="editIcon">edit</mat-icon></td>

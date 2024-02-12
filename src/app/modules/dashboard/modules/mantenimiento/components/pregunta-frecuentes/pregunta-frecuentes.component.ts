@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { preguntasFrecuentesService } from '../../services/preguntas-frecuentes.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { PreguntaI } from '../../interfaces/mantenimientoPOA.interface';
+import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
 
 @Component({
   selector: 'app-pregunta-frecuentes',
@@ -13,11 +14,12 @@ import { PreguntaI } from '../../interfaces/mantenimientoPOA.interface';
 export class PreguntaFrecuentesComponent implements OnInit {
 
   preguntasFrecuentesForm: FormGroup;
-  getPreguntas: any[] = []
+  getPreguntas: PreguntaI[] = []
 
   constructor(
     public fb: FormBuilder,
-    private apiPreguntas: preguntasFrecuentesService
+    private apiPreguntas: preguntasFrecuentesService,
+    private responseHandler: ResponsesHandlerService
   ) {
     this.preguntasFrecuentesForm = this.fb.group({
       id: 0,
@@ -34,33 +36,17 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
   getPregunta() {
     this.apiPreguntas.getPreguntasFrecuentes()
-      .subscribe((res: any) => { this.getPreguntas = res.data })
+      .subscribe((res: any) => { this.getPreguntas = res.data; console.log(this.getPreguntas);})
   }
 
   postPregunta() {
     this.apiPreguntas.postPreguntasFrecuentes(this.preguntasFrecuentesForm.value)
-      .subscribe((res: any) => {
-        if (res.data != null) {
-
-          alertIsSuccess(true)
-          this.getPregunta()
-          this.preguntasFrecuentesForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
   }
 
   putPregunta() {
     this.apiPreguntas.putPreguntasFrecuentes(this.preguntasFrecuentesForm.value)
-      .subscribe((res: any) => {
-        if (res.data != null) {
-
-          alertIsSuccess(true)
-          this.getPregunta()
-          this.preguntasFrecuentesForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
   }
 
   async deletePregunta(id: number) {
@@ -68,14 +54,7 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
     if (removeDecision) {
       this.apiPreguntas.removePreguntasFrecuentes(id)
-        .subscribe((res: any) => {
-          if (res.statusCode == 204) {
-            alertRemoveSuccess()
-            this.getPregunta()
-          } else {
-            errorMessageAlert('Ocurrio un error, No se pudo eliminar correctamente.')
-          }
-        })
+      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
     }
   }
 

@@ -1,76 +1,41 @@
 <div style="padding: 15px;">
-    <h2 class="Stitle">Supuestos riesgos</h2>
-
-    <div>
-      <!-- <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label>Seleccione un indicador estratégico</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option></mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp; -->
+  
+  <h2 class="Stitle">Supuestos riesgos</h2>
+  <div>
+    <form  [formGroup]="supuestoRiesgoForm" (ngSubmit)="saveChangesButton()">
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
         <mat-label> Nombre del riesgo</mat-label>
-        <input matInput>
+        <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-     <!-- <button mat-fab class="colorGrreenBoton" (click)="guardar()">
-        <mat-icon>add</mat-icon>
-      </button> -->
+      <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
+      <button (click)="supuestoRiesgoForm.reset()" *ngIf="supuestoRiesgoForm.value.id" class="cleanButton">Limpiar edición</button>
 
-        <!--<h3 class="Stitle">Supuestos riesgos</h3>
+    </form>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
-        <mat-label> Nombre del Requerimiento</mat-label>
-        <input matInput>
-      </mat-form-field>&nbsp;
+    <h2 style=" margin-top: 15px;" class="Stitle">Listado de requerimientos</h2>
 
-      <button mat-fab class="colorGrreenBoton">
-        <mat-icon>add</mat-icon>
-      </button>
-
-      <h3 class="Stitle">Medio de verificación</h3>
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
-        <mat-label>Medio de verificación</mat-label>
-        <input matInput>
-      </mat-form-field>&nbsp;
-
-      <button mat-fab class="colorGrreenBoton">
-        <mat-icon>add</mat-icon>
-      </button> -->
-
-      <button type="submit" class="greenButton">Guardar cambios</button>
-
-      <h2 style=" margin-top: 15px;" class="Stitle">Listado de requerimientos</h2>
-
-        <div style="border:1px solid  #ccc ;">
+    <div style="border:1px solid  #ccc ;">
 
       <div>
-            <table>
-              <thead class="headerTable">
-                <tr class="headerRow" style="background-color: #95ade93f;">
-                    <th class="headerCell">Riesgo</th>
-                    <th class="headerCell">Indicador estrategico</th>
-                    <th class="headerCell" style="width: 10%;"></th>
-                    <th class="headerCell" style="width: 10%;"></th>
-                </tr>
-            </thead>
-              <tbody>
-                <tr class="dataRow"  *ngFor="let item of supuestosRiesgos">
-                    <td class="dataIndiCell">{{item.nombre}}</td>
-                  <td class="dataIndiCell">{{item.indicadorEstrategico?.nombre}}</td>
-                  <td class="dataIndiCell"><mat-icon class="editIcon">edit</mat-icon></td>
-                  <td class="dataIndiCell"><mat-icon class="removeIcon">delete</mat-icon></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <table>
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Riesgo</th>
+              <th class="headerCell" style="width: 10%;"></th>
+              <th class="headerCell" style="width: 10%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let supuestoRiesgo of supuestosRiesgos">
+              <td class="dataIndiCell">{{supuestoRiesgo.nombre}}</td>
+              <td class="dataIndiCell"><mat-icon (click)="setValueEditSupuestoRiesgo(supuestoRiesgo)" class="editIcon">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="deleteSupuestoRiesgo(supuestoRiesgo.id)" class="removeIcon">delete</mat-icon></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

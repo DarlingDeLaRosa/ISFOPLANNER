@@ -20,7 +20,7 @@
             <div class="iconoContainer">?</div>
             <div class="preguntaFrecuente">
                 <span class="titlePregunta">
-                    <h2>{{pregunta.pregunta}}</h2>
+                    <h2>{{pregunta.pregunta.includes('?') || pregunta.pregunta.includes('¿') ? pregunta.pregunta : '¿' + pregunta.pregunta + '?'}}</h2>
                     <h3>{{pregunta.actualizadoEn | date : 'dd/MM/yyyy'}}</h3>
                 </span>
                 <h4><span style="font-weight: 500;">Contexto: </span>{{pregunta.contexto}}</h4>

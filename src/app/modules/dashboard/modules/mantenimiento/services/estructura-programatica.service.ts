@@ -11,10 +11,10 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 
 export class EstructuraProgramaticaService {
 
-  token?: string = this.userSystemService.getToken
+  token: string = this.userSystemService.getToken
   baseURL: string = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
+  headers: HttpHeaders = new HttpHeaders({'Authorization': this.token })
   header = {headers: this.headers}
 
   constructor(
@@ -33,13 +33,12 @@ export class EstructuraProgramaticaService {
   }
 
   public putEstructurasProgramaticas(estructuraProData: EstructuraProgramaticaI) {
-    return this.http.put(`${this.baseURL}/EstructurasProgramaticas?id=${estructuraProData.id}`, estructuraProData, this.header)
+    return this.http.put(`${this.baseURL}/EstructurasProgramaticas/${estructuraProData.id}`, estructuraProData, this.header)
     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public removeEstructurasProgramaticas(id: number) {
-    return this.http.delete(`${this.baseURL}/EstructurasProgramaticas/${id}`,  this.header)
+    return this.http.delete(`${this.baseURL}/EstructurasProgramaticas/${id}`, this.header)
     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
-
 }

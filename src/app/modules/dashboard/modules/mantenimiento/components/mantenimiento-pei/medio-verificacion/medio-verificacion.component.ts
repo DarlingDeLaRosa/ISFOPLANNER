@@ -1,144 +1,94 @@
 import { Component, OnInit } from '@angular/core';
 import { IndicadorEstrategicoService } from '../services/indicadoresEstrategicos.service';
 import { catchError } from 'rxjs';
-import { alertIsSuccess, alertRemoveSure, alertServerDown, successMessageAlert } from 'src/app/alerts/alerts';
+import { alertIsSuccess, alertNoValidForm, alertRemoveSure, alertServerDown, successMessageAlert } from 'src/app/alerts/alerts';
 import { IndicadoresEstrategicosI } from '../interfaces/indicadorEstrategico.interface';
 import { MedioVerificacionI } from '../interfaces/medio-verificacion.interface';
 import { MedioVerificacionService } from '../services/medio-verificacion.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
 
 @Component({
   selector: 'app-mantenimiento-pei',
   templateUrl: './medio-verificacion.component.html',
   styleUrls: ['./medio-verificacion.component.css']
 })
-export class MedioVerificacionComponent implements OnInit{
+export class MedioVerificacionComponent implements OnInit {
 
   indicadoresEstartegicos: Array<IndicadoresEstrategicosI> = [];
   medioVerificacion: Array<MedioVerificacionI> = [];
   medioVerificacionForm: FormGroup;
 
   constructor(
-    private indicadorEstrategicoService:IndicadorEstrategicoService,
+    private responseHandler: ResponsesHandlerService,
     private medioVerifService: MedioVerificacionService,
     private fb: FormBuilder,
-  ){
+  ) {
 
-    
-  this.medioVerificacionForm = this.fb.group({
-    id: new FormControl<number>(0, Validators.required),
-    idIndicadorEstrategico:  new FormControl<number>(0, Validators.required),
-    nombre: new FormControl('',[Validators.required]),
-  })
-}
 
-get currentForm() {
-  const form = this.medioVerificacionForm.value as MedioVerificacionI;
-  return form;
-}
-
-  ngOnInit(): void {
-  this.getAllIndicadoresEstartegicos();
-  this.getAllMedioVerifiacion();
+    this.medioVerificacionForm = this.fb.group({
+      id: 0,
+      nombre: new FormControl('', [Validators.required]),
+    })
   }
 
-
-  getAllIndicadoresEstartegicos() {
-    this.indicadorEstrategicoService.getIndicadoresEstrategicos().pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      })).subscribe((resp: any) => {
-      this.indicadoresEstartegicos = resp.data;
-    })
+  ngOnInit(): void {
+    this.getAllMedioVerifiacion();
   }
 
   getAllMedioVerifiacion() {
     this.medioVerifService.getMedioVerificacion()
-    .pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      }))
-      .subscribe((resp: any) => {
-      this.medioVerificacion = resp.data;
-      console.log(this.medioVerificacion);
-    })
+      .subscribe((resp: any) => { this.medioVerificacion = resp.data; console.log(this.medioVerificacion); })
   }
 
   postMedioVerificacion() {
-    this.medioVerifService.postMedioVerificacion(this.currentForm).pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      })).subscribe((resp:any) => {
-      if (resp.ok == true) {
-        this.getAllMedioVerifiacion();
-        alertIsSuccess(true);
-        this.medioVerificacionForm.reset();
-      }else {
-        alertIsSuccess(false);
-      }
-    })
+    this.medioVerifService.postMedioVerificacion(this.medioVerificacionForm.value)
+      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
   }
 
-  
-  updateMedioVerificacion(){
-    this.medioVerifService.updateMedioVerificacion(this.currentForm , this.currentForm.id!).pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      }))
-    .subscribe((resp:any)=>{
-      resp.data
-      successMessageAlert("El registro fue editado correctamente");
-      this.getAllMedioVerifiacion();
-      this.medioVerificacionForm.reset();
-    })
+
+  updateMedioVerificacion() {
+    this.medioVerifService.updateMedioVerificacion(this.medioVerificacionForm.value, this.medioVerificacionForm.value.id)
+      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
   }
 
-  setValueMedioVerificacion(medioVerificaicon:MedioVerificacionI){
-    this.medioVerificacionForm.setValue({
-      id: medioVerificaicon.id!,
-      nombre:  medioVerificaicon.nombre,
-      idIndicadorEstrategico: medioVerificaicon.indicadorEstrategico?.id
-    });
-}
-
-
-async deleteMedioVerificacion(medioVerificaicon: MedioVerificacionI) {
-  let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este medio de verificacion?")
-  if (remove) {
-    this.medioVerifService.DeleteMedioVerificacion(medioVerificaicon.id!)
-    .pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      }))
-      .subscribe((resp: any) => {
-        alertIsSuccess(true);
-        this.getAllMedioVerifiacion();
-      })
+  setValueMedioVerificacion(medioVerificacion: MedioVerificacionI) {
+    this.medioVerificacionForm.reset(medioVerificacion);
   }
-}
 
-
-
-  guardar(){
-    if (this.medioVerificacionForm.invalid) return;
-
-    if(!this.currentForm.id){
-      if(this.medioVerificacionForm.valid){
-        this.postMedioVerificacion();
-        this.getAllMedioVerifiacion();
-      }
+  async deleteMedioVerificacion(medioVerificaicon: MedioVerificacionI) {
+    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este medio de verificacion?")
+    
+    if (remove) {
+      this.medioVerifService.DeleteMedioVerificacion(medioVerificaicon.id!)
+        .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
     }
+  }
 
-    if(this.currentForm.id){
-      if(this.medioVerificacionForm.valid){
-        this.updateMedioVerificacion();
-        this.getAllMedioVerifiacion();
-      }
+  // guardar() {
+  //   if (this.medioVerificacionForm.invalid) return;
+
+  //   if (this.medioVerificacionForm.value.id) {
+  //     if (this.medioVerificacionForm.valid) {
+  //       this.postMedioVerificacion();
+  //       this.getAllMedioVerifiacion();
+  //     }
+  //   }
+
+  //   if (this.medioVerificacionForm.value.id) {
+  //     if (this.medioVerificacionForm.valid) {
+  //       this.updateMedioVerificacion();
+  //       this.getAllMedioVerifiacion();
+  //     }
+  //   }
+  // }
+
+  saveChangesButton() {
+    if(this.medioVerificacionForm.valid){
+      if (this.medioVerificacionForm.value.id > 0) this.updateMedioVerificacion()
+      else this.postMedioVerificacion()
+    }else{
+      alertNoValidForm()
     }
   }
 

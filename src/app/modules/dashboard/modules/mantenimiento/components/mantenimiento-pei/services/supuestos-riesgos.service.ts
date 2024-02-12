@@ -13,7 +13,7 @@ export class SupuestosRiesgosService {
   private token = this.userSystemService.getToken
   private baseUrl = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(
@@ -26,8 +26,13 @@ export class SupuestosRiesgosService {
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
-  psotSupuestosRiesgos(supuestosriesgos: SupuestosRiesgosI): Observable<ResponseI> {
+  postSupuestosRiesgos(supuestosriesgos: SupuestosRiesgosI): Observable<ResponseI> {
     return this.http.post<ResponseI>(`${this.baseUrl}/SupuestosRiesgos`, supuestosriesgos, this.header)
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+  }
+
+  putSupuestosRiesgos(supuestosriesgos: SupuestosRiesgosI): Observable<ResponseI> {
+    return this.http.put<ResponseI>(`${this.baseUrl}/SupuestosRiesgos/${supuestosriesgos.id}`, supuestosriesgos, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 

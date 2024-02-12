@@ -12,7 +12,7 @@ export class MedioVerificacionService {
   private token = this.userSystemService.getToken
   private baseUrl = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(
@@ -21,22 +21,22 @@ export class MedioVerificacionService {
   ) { }
 
   getMedioVerificacion(): Observable<ResponseI> {
-    return this.http.get<ResponseI>(`${this.baseUrl}/MediosVerificacion`, this.header)
+    return this.http.get<ResponseI>(`${this.baseUrl}/MediosVerificacione`, this.header)
     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   postMedioVerificacion(medioVerificacion: MedioVerificacionI): Observable<ResponseI> {
-    return this.http.post<ResponseI>(`${this.baseUrl}/MediosVerificacion`, medioVerificacion, this.header)
+    return this.http.post<ResponseI>(`${this.baseUrl}/MediosVerificacione`, medioVerificacion, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   DeleteMedioVerificacion(id: number): Observable<ResponseI> {
-    return this.http.delete<ResponseI>(`${this.baseUrl}/MediosVerificacion/${id}`, this.header)
+    return this.http.delete<ResponseI>(`${this.baseUrl}/MediosVerificacione/${id}`, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   updateMedioVerificacion(medioVerificacion: MedioVerificacionI, id: number): Observable<ResponseI> {
-    return this.http.put<ResponseI>(`${this.baseUrl}/MediosVerificacion/${id}`, medioVerificacion, this.header)
+    return this.http.put<ResponseI>(`${this.baseUrl}/MediosVerificacione/${id}`, medioVerificacion, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 }

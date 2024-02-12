@@ -24,8 +24,8 @@
         <input matInput formControlName="enlance">
       </mat-form-field><br>
 
-      <button type="submit" class="greenButton">Guardar cambios</button>
-
+      <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
+      <button (click)="preguntasFrecuentesForm.reset()" *ngIf="preguntasFrecuentesForm.value.id" class="cleanButton">Limpiar edición</button>
     </form>
 
     <h2 style=" margin-top: 15px;" class="Stitle">Listado de Preguntas frecuentes</h2>
@@ -38,14 +38,18 @@
             <tr class="headerRow" style="background-color: #95ade93f;">
                 <th class="headerCell">Pregunta</th>
                 <th class="headerCell">Contexto</th>
+                <th class="headerCell">Link</th>
                 <th class="headerCell" style="width: 10%;"></th>
                 <th class="headerCell" style="width: 10%;"></th>
             </tr>
         </thead>
           <tbody>
             <tr class="dataRow" *ngFor="let pregunta of getPreguntas">
-              <td class="dataIndiCell">{{pregunta.pregunta}}</td>
+              <td class="dataIndiCell">
+                {{ pregunta.pregunta.includes('?') || pregunta.pregunta.includes('¿') ? pregunta.pregunta : '¿' + pregunta.pregunta + '?' }}
+              </td>
               <td class="dataIndiCell">{{pregunta.contexto}}</td>
+              <td class="dataIndiCell">{{pregunta.enlance}}</td>
               <td class="dataIndiCell" (click)="setValueEditPregunta(pregunta)"><mat-icon class="editIcon">edit</mat-icon></td>
               <td class="dataIndiCell" (click)="deletePregunta(pregunta.id)"><mat-icon class="removeIcon">delete</mat-icon></td>
             </tr>

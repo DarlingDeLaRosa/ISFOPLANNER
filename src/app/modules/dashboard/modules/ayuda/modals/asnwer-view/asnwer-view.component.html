@@ -1,5 +1,5 @@
 <div class="asnwerModal">
-    <h1>{{pregunta_Asnwer.pregunta}}</h1>
+    <h1>{{pregunta_Asnwer.pregunta.includes('?') || pregunta_Asnwer.pregunta.includes('¿') ? pregunta_Asnwer.pregunta : '¿' + pregunta_Asnwer.pregunta + '?'}}</h1>
     <hr>
     <div>
         <p style="white-space: pre-line;"> 

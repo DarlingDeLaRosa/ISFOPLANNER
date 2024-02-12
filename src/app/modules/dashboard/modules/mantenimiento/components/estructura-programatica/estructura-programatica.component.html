@@ -13,7 +13,8 @@
         <input matInput formControlName="codigo">
       </mat-form-field>
 
-      <button type="submit" class="greenButton">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
+      <button (click)="estructuraProgramaticaForm.reset()" *ngIf="estructuraProgramaticaForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
 
