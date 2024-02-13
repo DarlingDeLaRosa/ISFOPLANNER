@@ -1,4 +1,6 @@
-import { ResponsableI } from "../components/mantenimiento-pei/interfaces/responsable.interface"
+import { ActividadI } from "../../formulacion/interfaces/formulacion.interface"
+import { IndicadoresEstrategicosI } from "../components/mantenimiento-pei/interfaces/indicadorEstrategico.interface"
+import { ResponsableI } from '../components/mantenimiento-pei/interfaces/responsable.interface';
 
 export interface PreguntaPostI {
   id: number 
@@ -25,9 +27,13 @@ export interface EstructuraProgramaticaI {
 }
 
 export interface ProductoI {
-  id: number | null
+  id: number 
   nombre: string,
-
+  totalConsumido: number,
+  indicadorEstrategico: IndicadoresEstrategicosI
+  actividades: ActividadI
+  indicadoresGestion: IndicadorGestionI[]
+  responsables: ResponsableI[]
 }
 
 export interface IndicadorGestionI {

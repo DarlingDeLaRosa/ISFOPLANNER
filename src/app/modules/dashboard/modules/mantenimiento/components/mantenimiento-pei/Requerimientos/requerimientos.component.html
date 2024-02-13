@@ -1,65 +1,8 @@
 <div style="padding: 15px;">
   <h2 class="Stitle">Requerimientos</h2>
-  <!-- <form [formGroup]="indicadorForm">
 
-      <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label>Seleccione un indicador estratégico</mat-label>
-        <mat-select disableRipple required formControlName="id" (selectionChange)="onSelectedIndicador()">
-          <ng-container *ngIf="indicadoresEstartegicos && indicadoresEstartegicos.length > 0; else noIndicador">
-            <mat-option [value]="indicador.id" *ngFor="let indicador of indicadoresEstartegicos">
-              {{indicador.nombre}} </mat-option>
-          </ng-container>
-          <ng-template #noIndicador>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
-    </form>
-    <form [formGroup]="MedioVerificacionForm">
-      <h3 class="Stitle">Medio de verificación</h3>
+  <form [formGroup]="requerimientoForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
-        <mat-label> Nombre del medio de verificación</mat-label>
-        <input matInput formControlName="nombre">
-      </mat-form-field>&nbsp;
-
-      <button mat-fab class="colorGrreenBoton" (click)="guardarMedioVerificacion()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </form> -->
-
-
-  <!-- <h3 class="Stitle1" style="width: 50%;">Responsables</h3>
-    <h3 class="Stitle1" style="width: 50%;">Involucrados</h3>
-
-    <mat-form-field appearance="fill" style="width: 41%;">
-      <form [formGroup]="ResponsableForm">
-        <mat-label>Seleccione el responsable</mat-label>
-        <mat-select disableRipple formControlName="idUnidadOrganizativa" multiple >
-          <ng-container>
-            <mat-option [value]="respon.id" *ngFor="let respon of responsable">
-              {{respon.nombre}} </mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </form>
-    </mat-form-field>&nbsp;
-
-
-    <button mat-fab class="colorGrreenBoton" (click)="guardarResponsable()">
-      <mat-icon>add</mat-icon>
-    </button>&nbsp; -->
-
-  <!--     
-
-
-    <button mat-fab class="colorGrreenBoton" (click)="guardarInvolucrado()">
-      <mat-icon>add</mat-icon>
-    </button> -->
-
-  <form [formGroup]="requerimientoForm">
     <mat-form-field hideRequiredMarker appearance="fill" style="width: 60%;">
       <mat-label> Nombre del Requerimiento</mat-label>
       <input matInput formControlName="nombre">
@@ -68,17 +11,16 @@
     <mat-form-field appearance="fill" style="width: 39%;">
       <mat-label>Financiero</mat-label>
       <mat-select disableRipple formControlName="esFinanciero">
-        <ng-container>
           <mat-option [value]="true">Si</mat-option>
           <mat-option [value]="false">No</mat-option>
-        </ng-container>
-        <ng-template #noEdificio>
-          <mat-option>No hay campos disponibles</mat-option>
-        </ng-template>
       </mat-select>
     </mat-form-field>
 
+    <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
+    <button (click)="requerimientoForm.reset()" *ngIf="requerimientoForm.value.id" class="cleanButton">Limpiar edición</button>
+
   </form>
+
   <h2 style=" margin-top: 15px;" class="Stitle">Listado</h2>
   <div style="border:1px solid  #ccc ;">
     <table>
@@ -96,176 +38,11 @@
           <td class="dataIndiCell" *ngIf="requerimiento.esFinanciero == true; else noFinanciero">SI</td>
           <ng-template #noFinanciero> <td class="dataIndiCell" >NO</td></ng-template>
 
-          <td class="dataIndiCell"><mat-icon class="editIcon" >edit</mat-icon></td> <!--(click)="setValueMedioVerificacion(item)"-->
-          <td class="dataIndiCell"><mat-icon class="removeIcon" >delete</mat-icon></td><!--(click)="deleteMedioVerificacion(item)"-->
+          <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueRequerimiento(requerimiento)">edit</mat-icon></td> 
+          <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteRequerimiento(requerimiento.id)">delete</mat-icon></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- 
-    <h3 class="Stitle">Supuestos riesgos</h3>
-    <form [formGroup]="supuestosRiesgosForm">
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
-        <mat-label> Nombre del riesgo</mat-label>
-        <input matInput formControlName="nombre">
-      </mat-form-field>&nbsp;
-
-      <button mat-fab class="colorGrreenBoton" (click)="guardarRiesgos()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </form>
- -->
-
-  <!-- <button mat-fab class="colorGrreenBoton" (click)="guardar()">
-      <mat-icon>add</mat-icon>
-    </button> -->
-
-  <!--<h3 class="Stitle">Supuestos riesgos</h3>
-
-    <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
-      <mat-label> Nombre del Requerimiento</mat-label>
-      <input matInput>
-    </mat-form-field>&nbsp;
-
-    <button mat-fab class="colorGrreenBoton">
-      <mat-icon>add</mat-icon>
-    </button>
-
-    <h3 class="Stitle">Medio de verificación</h3>
-
-    <mat-form-field hideRequiredMarker appearance="fill" style="width: 91%;">
-      <mat-label>Medio de verificación</mat-label>
-      <input matInput>
-    </mat-form-field>&nbsp;
-
-    <button mat-fab class="colorGrreenBoton">
-      <mat-icon>add</mat-icon>
-    </button> -->
-
-  <!-- <button type="submit" class="greenButton" (click)="guardar()">Guardar cambios</button> -->
-
-  <!-- <div>
-        <table>
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Requerimiento</th>
-              <th class="headerCell">Supuestos Riesgos</th>
-              <th class="headerCell">Medio verificación</th>
-              <th class="headerCell">Responsables</th>
-              <th class="headerCell">Involucrados</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="dataRow">
-              <ng-container *ngFor="let requerimiento of requerimientoSelected">
-            <tr class="dataIndiCell">{{requerimiento.nombre}} <mat-icon class="removeIcon" (click)="deleteRequerimientos(requerimiento)">delete</mat-icon></tr>
-            </ng-container>
-            <td>
-              <ng-container *ngFor="let riesgos of supuestosRiesgosSelected">
-                <tr class="dataIndiCell">{{riesgos.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
-              </ng-container>
-            <td>
-              <ng-container *ngFor="let verificacion of medioVerificacionSelected">
-                <tr class="dataIndiCell">{{verificacion.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
-              </ng-container>
-            <td>
-              <ng-container *ngFor="let responsable of ResponsablesSelected">
-                <tr class="dataIndiCell">{{responsable.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
-              </ng-container>
-            <td>
-              <ng-container *ngFor="let involucrado of involucradoSelected">
-                <tr class="dataIndiCell">{{involucrado.nombre}} <mat-icon class="removeIcon">delete</mat-icon></tr>
-              </ng-container>
-              </tr>
-          </tbody>
-        </table>
-      </div> -->
-  <!-- <div class="contenedor">
-      <table style="width: 20%;">
-        <div style="border:1px solid  #ccc ;">
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Requerimientos</th>
-              <th class="headerCell" style="width: 10%;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let item of requerimientoSelected">
-              <td class="dataIndiCell">{{item.nombre}}</td>
-
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteRequerimientos(item)">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </div>
-      </table>&nbsp;
-      <table style="width: 30%;">
-         <div style="border:1px solid  #ccc ;">
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Supuestos riesgos</th>
-              <th class="headerCell" style="width: 10%;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let item of supuestosRiesgosSelected">
-              <td class="dataIndiCell">{{item.nombre}}</td>
-
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteSupuestosRiesgos(item)">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </div>
-      </table>&nbsp;
-      <table style="width: 20%;">
-        <div style="border:1px solid  #ccc ;">
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Medio Verificación</th>
-              <th class="headerCell" style="width: 10%;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let item of medioVerificacionSelected">
-              <td class="dataIndiCell">{{item.nombre}}</td>
-
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </div>
-      </table>&nbsp;
-      <div style="border:1px solid  #ccc ;">
-      <table style="width: 20%;">
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Responsables</th>
-              <th class="headerCell" style="width: 10%;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let item of ResponsablesSelected">
-              <td class="dataIndiCell">{{item.nombre}}</td>
-
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteResponsable(item)">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </table>&nbsp;
-      </div>
-      <div style="border:1px solid  #ccc ;">
-      <table>
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Involucrados</th>
-              <th class="headerCell"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let item of involucradoSelected">
-              <td class="dataIndiCell">{{item.nombre}}</td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteInvolucrado(item)">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </table>&nbsp;
-      </div>
-    </div> -->
 </div>

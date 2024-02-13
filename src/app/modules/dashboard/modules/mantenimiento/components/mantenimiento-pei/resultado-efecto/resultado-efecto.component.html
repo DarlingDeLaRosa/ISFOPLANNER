@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
   <h2 class="Stitle" >Resultado Efecto</h2>
   <div>
-    <form [formGroup]="resultadoEfectoForm">
+    <form [formGroup]="resultadoEfectoForm" (ngSubmit)="saveChanges()">
       <mat-form-field appearance="fill" style="width: 40%;">
         <mat-label>Estrategia</mat-label>
         <mat-select disableRipple formControlName="idEstrategia">
@@ -20,7 +20,8 @@
         <input matInput formControlName="nombre">
       </mat-form-field>
 
-      <button class="greenButton" (click)="guardar()">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
+      <button (click)="resultadoEfectoForm.reset()" *ngIf="resultadoEfectoForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
 
@@ -32,20 +33,20 @@
         <table>
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Eje</th>
               <th class="headerCell">Estrategia</th>
               <th class="headerCell">Resultado efecto</th>
-              <th class="headerCell">Eje</th>
               <th class="headerCell" style="width: 10%;"></th>
               <th class="headerCell" style="width: 10%;"></th>
             </tr>
         </thead>
           <tbody>
-            <tr class="dataRow"  *ngFor="let item of resultadoefecto">
-              <td class="dataIndiCell">{{item.estrategia.nombre}}</td>
-              <td class="dataIndiCell">{{item.nombre}}</td>
-              <td class="dataIndiCell">{{item.estrategia.ejeEstrategico.numeroEje}}</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueResultadoEfecto(item)">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteResultadoEfecto(item)">delete</mat-icon></td>
+            <tr class="dataRow"  *ngFor="let resultadoefecto of resultadoefectos">
+              <td class="dataIndiCell">{{resultadoefecto.estrategia.ejeEstrategico.numeroEje}}</td>
+              <td class="dataIndiCell">{{resultadoefecto.estrategia.nombre}}</td>
+              <td class="dataIndiCell">{{resultadoefecto.nombre}}</td>
+              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueResultadoEfecto(resultadoefecto)">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteResultadoEfecto(resultadoefecto.id)">delete</mat-icon></td>
             </tr>
 
           </tbody>

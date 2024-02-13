@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
   <h2 class="Stitle" >Productos</h2>
   <div>
-    <form [formGroup]="productosForm" (ngSubmit)="saveChangesButton()">
+    <form [formGroup]="productosForm" (ngSubmit)="saveChanges()">
       
       <mat-form-field appearance="fill" style="width: 39%;">
         <mat-label>Indicador estrategico</mat-label>
@@ -25,7 +25,7 @@
 
       <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Responsable</mat-label>
-        <mat-select formControlName="idUnidadOrganizativa" disableRipple multiple>
+        <mat-select formControlName="responsables" disableRipple multiple>
           <ng-container *ngIf="unidadesOrg.length > 0; else noUnidadOrg">
 
             <mat-option [value]="unidadOrg.id" *ngFor="let unidadOrg of unidadesOrg">
@@ -39,44 +39,30 @@
         </mat-select>
       </mat-form-field><br>
 
-      <!-- <mat-form-field>
-        <mat-label>Toppings</mat-label>
-        <mat-select multiple>
-          <mat-option *ngFor="let topping of unidadesOrg" [value]="topping">
-            {{ topping }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-       -->
-      <!-- <mat-form-field>
-        <mat-label>Toppings</mat-label>
-        <mat-select  multiple>
-          @for (topping of toppingList; track topping) {
-            <mat-option [value]="topping">{{topping}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field> -->
-
-      <button type="submit" class="greenButton">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
+      <button (click)="productosForm.reset()" *ngIf="productosForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
 
     <h2 style=" margin-top: 15px;" class="Stitle">Listado de productos</h2>
 
     <div style="border:1px solid  #ccc ;">
-
       <div>
         <table>
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
+                <th class="headerCell">Indicador Estrategicos</th>
                 <th class="headerCell">Producto</th>
+                <th class="headerCell" style="width: 10%;"></th>
                 <th class="headerCell" style="width: 10%;"></th>
                 <th class="headerCell" style="width: 10%;"></th>
             </tr>
         </thead>
           <tbody>
             <tr class="dataRow" *ngFor="let producto of productos">
+              <td class="dataIndiCell">{{producto.indicadorEstrategico.nombre}}</td>
               <td class="dataIndiCell">{{producto.nombre}}</td>
+              <td class="dataIndiCell"><mat-icon (click)="openModal(producto.responsables)" class="detailsIcon">list</mat-icon></td>
               <td class="dataIndiCell"><mat-icon (click)="setValueEditProducto(producto)" class="editIcon">edit</mat-icon></td>
               <td class="dataIndiCell"><mat-icon (click)="deleteProducto(producto.id)" class="removeIcon">delete</mat-icon></td>
             </tr>

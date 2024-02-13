@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MaterialApoyoService } from '../../services/material-apoyo.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, errorMessageAlert } from 'src/app/alerts/alerts';
 import { MaterialApoyoI } from '../../interfaces/mantenimientoPOA.interface';
-import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
   selector: 'app-material-apoyo',
@@ -18,7 +18,7 @@ export class MaterialDeApoyoComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiMaterial: MaterialApoyoService,
-    private responseHandler: ResponsesHandlerService
+    private helperHandler: HelperService
   ) {
     this.materialApoyoForm = this.fb.group({
       id: 0,
@@ -40,12 +40,12 @@ export class MaterialDeApoyoComponent implements OnInit {
 
   postMaterial() {
     this.apiMaterial.postMaterialApoyo(this.materialApoyoForm.value)
-    .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getMaterial(), this.materialApoyoForm) })
+    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getMaterial(), this.materialApoyoForm) })
   }
 
   putMaterial() {
     this.apiMaterial.putMaterialApoyo(this.materialApoyoForm.value)
-    .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getMaterial(), this.materialApoyoForm) })
+    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getMaterial(), this.materialApoyoForm) })  
   }
 
   async deleteMaterial(id: number) {
@@ -53,21 +53,16 @@ export class MaterialDeApoyoComponent implements OnInit {
 
     if (removeDecision) {
       this.apiMaterial.removeMaterialApoyo(id)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getMaterial(), this.materialApoyoForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getMaterial(), this.materialApoyoForm) })
     }
   }
 
   setValueEditMaterial(dataMaterial:any) {
       this.materialApoyoForm.reset(dataMaterial)
   }
-
-  saveChangesButton() {
-    if(this.materialApoyoForm.valid){
-      if (this.materialApoyoForm.value.id > 0) this.putMaterial()
-      else this.postMaterial()
-    }else{
-      alertNoValidForm()
-    }
+  
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putMaterial(), this.materialApoyoForm, () => this.postMaterial())
   }
 
 }

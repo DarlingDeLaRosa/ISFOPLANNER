@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { alertNoValidForm, alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertRemoveSure } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { PresupuestoInstiGetI, UnidadOrgI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 import { DetailViewComponent } from '../../modals/detail-view/detail-view.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
+import { HelperService } from 'src/app/services/appHelper.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-asignacion-presupuesto',
@@ -25,11 +26,11 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    public dialog: MatDialog,
+    private userSystemService: UserSystemInformationService,
     private apiUnidadOrg: UnidadOrganizativaService,
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
-    private responseHandler: ResponsesHandlerService,
-    public dialog: MatDialog,
-
+    private helperHandler: HelperService,
   ) {
     this.asignacionPresupuestoForm = this.fb.group({
       idPresupuestoInstitucional: 0,
@@ -42,6 +43,8 @@ export class AsignacionPresupuestoComponent implements OnInit {
     this.getUnidadOrganizativa()
     this.getPresupuestoInstitucional()
     this.getUnidadOrganizativaAsignadas()
+
+    console.log(this.userSystemService.getUserLogged);
   }
 
   getPresupuestoInstitucional() {
@@ -61,20 +64,18 @@ export class AsignacionPresupuestoComponent implements OnInit {
       .subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
-
   postAsignarPresupuestoUnidadOrg() {
     this.apiPresupuestoInstitucional.postAsignarPresupuesto(this.asignacionPresupuestoForm.value)
       .subscribe((res: any) => {
-        this.responseHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
+        this.helperHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
       })
   }
 
   putAsignarPresupuestoUnidadOrg() {
     this.apiPresupuestoInstitucional.putAsignarPresupuesto(this.asignacionPresupuestoForm.value)
       .subscribe((res: any) => {
-        this.responseHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
+        this.helperHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
         this.accion = false
-        // this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.enable()
       })
   }
 
@@ -106,19 +107,15 @@ export class AsignacionPresupuestoComponent implements OnInit {
     if (removeDecision) {
       this.apiPresupuestoInstitucional.deleteAsignacionPresupuesto(unidad?.id)
         .subscribe((res: any) => {
-          this.responseHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
+          this.helperHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())
         })
     }
   }
 
-  saveChangesButton() {
+  saveChanges() {
     this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.enable()
     this.asignacionPresupuestoForm.value.idPresupuestoInstitucional = this.presupuestosInst.id
 
-    if (this.asignacionPresupuestoForm.valid) {
-      if (this.accion) this.putAsignarPresupuestoUnidadOrg();
-      else this.postAsignarPresupuestoUnidadOrg()
-
-    } else alertNoValidForm()
+    this.helperHandler.saveChanges(() => this.putAsignarPresupuestoUnidadOrg(), this.asignacionPresupuestoForm, () => this.postAsignarPresupuestoUnidadOrg())
   }
 }

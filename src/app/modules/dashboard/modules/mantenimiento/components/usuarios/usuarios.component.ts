@@ -4,6 +4,7 @@ import { UsuarioService } from '../../services/usuarios.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -24,6 +25,7 @@ export class UsuariosComponent implements OnInit {
     private apiUsuario: UsuarioService,
     private apiUnidadOrg: UnidadOrganizativaService,
     private userSystemService: UserSystemInformationService,
+    private helperHandler: HelperService
   ) {
     this.usuariosForm = this.fb.group({
       id: 0,
@@ -120,13 +122,8 @@ export class UsuariosComponent implements OnInit {
     this.usuariosForm.reset(usuarios)
   }
 
-  saveChangesButton() {
-    if (this.usuariosForm.valid) {
-      if (this.usuariosForm.value.id > 0) this.putUsuarios()
-      else this.postUsuarios()
-    } else {
-      alertNoValidForm()
-    }
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putUsuarios(), this.usuariosForm, () => this.postUsuarios())
   }
 
 }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { alertIsSuccess } from '../alerts/alerts';
+import { alertIsSuccess, alertNoValidForm } from '../alerts/alerts';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class ResponsesHandlerService {
+export class HelperService {
 
     constructor() { }
 
@@ -19,5 +19,14 @@ export class ResponsesHandlerService {
         } else {
             alertIsSuccess(false);
         }
+    }
+
+    saveChanges(updateFunction: () => void, form: FormGroup, saveFunction: () => void) {
+        if (form.valid) {
+        
+            if (form.value.id > 0) updateFunction()
+            else saveFunction()
+        
+        } else alertNoValidForm()
     }
 }

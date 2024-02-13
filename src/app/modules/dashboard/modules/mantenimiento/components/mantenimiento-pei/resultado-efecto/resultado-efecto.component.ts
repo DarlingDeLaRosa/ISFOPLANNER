@@ -6,25 +6,29 @@ import { alertIsSuccess, alertRemoveSure, alertServerDown, successMessageAlert }
 import { EstrategiaI } from '../interfaces/estrategias.interface';
 import { ResultadoEfectoService } from '../services/resultadoEfecto.service';
 import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
   selector: 'app-resultado-efecto',
   templateUrl: './resultado-efecto.component.html',
   styleUrls: ['./resultado-efecto.component.css']
 })
-export class ResultadoEfectoComponent implements OnInit{
-  estrategia: Array<EstrategiaI> = [];
-  resultadoefecto: Array<ResultadoEfectoI> = [];
+export class ResultadoEfectoComponent implements OnInit {
+
   resultadoEfectoForm: FormGroup;
+  estrategia: Array<EstrategiaI> = [];
+  resultadoefectos: Array<ResultadoEfectoI> = [];
+
   constructor(
+    private fb: FormBuilder,
+    private helperHandler: HelperService,
     private estrategiasService: EstrategiasService,
     private resultadoEfectoService: ResultadoEfectoService,
-    private fb: FormBuilder,
-  ){
+  ) {
     this.resultadoEfectoForm = this.fb.group({
-      id: new FormControl<number>(0),
-      nombre:  new FormControl('', Validators.required),
-      idEstrategia:  new FormControl<number>(0, Validators.required),
+      id: 0,
+      nombre: new FormControl('', Validators.required),
+      idEstrategia: new FormControl<number>(0, Validators.required),
     })
   }
 
@@ -34,99 +38,45 @@ export class ResultadoEfectoComponent implements OnInit{
   }
 
   getAllEstrategia() {
-    this.estrategiasService.getEstrategias().pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      })).subscribe((resp: any) => {
-      this.estrategia = resp.data;
-    })
+    this.estrategiasService.getEstrategias()
+      .subscribe((resp: any) => { this.estrategia = resp.data; })
   }
 
   getAllResultadoEfecto() {
-    this.resultadoEfectoService.getResultadoEfecto().pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      })).subscribe((resp: any) => {
-      this.resultadoefecto = resp.data;
-    })
+    this.resultadoEfectoService.getResultadoEfecto()
+      .subscribe((resp: any) => { this.resultadoefectos = resp.data; })
   }
 
-  get currentForm() {
-    const form = this.resultadoEfectoForm.value as ResultadoEfectoI;
-    return form;
-  }
-
-  setValueResultadoEfecto(resultadoEfecto:ResultadoEfectoI){
+  setValueResultadoEfecto(resultadoEfecto: ResultadoEfectoI) {
     this.resultadoEfectoForm.setValue({
       id: resultadoEfecto.id!,
-      nombre:  resultadoEfecto.nombre,
+      nombre: resultadoEfecto.nombre,
       idEstrategia: resultadoEfecto.estrategia.id
     });
-}
-
-postResultadoEfecto() {
-  this.resultadoEfectoService.postResultadoEfecto(this.currentForm).pipe(
-    catchError((error) => {
-      alertServerDown()
-      return error
-    })).subscribe((resp:any) => {
-    if (resp.data != null) {
-      this.getAllResultadoEfecto();
-      alertIsSuccess(true);
-      this.resultadoEfectoForm.reset();
-    }else {
-      alertIsSuccess(false);
-    }
-  })
-}
-updateResultadoEfecto(){
-  this.resultadoEfectoService.updateResultadoEfecto(this.currentForm , this.currentForm.id!).pipe(
-    catchError((error) => {
-      alertServerDown()
-      return error
-    }))
-  .subscribe((resp:any)=>{
-    resp.data
-    this.getAllResultadoEfecto();
-    successMessageAlert("El registro fue editado correctamente");
-    this.resultadoEfectoForm.reset();
-  })
-}
-
-async deleteResultadoEfecto(resultadoefecto: ResultadoEfectoI) {
-  let remove: boolean = await alertRemoveSure("Estas seguro de eliminar esta estrategia?")
-  if (remove) {
-    this.resultadoEfectoService.deleteResultadoEfecto(resultadoefecto.id!)
-    .pipe(
-      catchError((error) => {
-        alertServerDown()
-        return error
-      }))
-      .subscribe((resp: any) => {
-        alertIsSuccess(true);
-        this.getAllResultadoEfecto();
-      })
   }
-}
 
+  postResultadoEfecto() {
+    this.resultadoEfectoService.postResultadoEfecto(this.resultadoEfectoForm.value)
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllResultadoEfecto(), this.resultadoEfectoForm) })
+  }
 
-guardar(){
-  if (this.resultadoEfectoForm.invalid) return;
+  putResultadoEfecto() {
+    this.resultadoEfectoService.updateResultadoEfecto(this.resultadoEfectoForm.value, this.resultadoEfectoForm.value.id)
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllResultadoEfecto(), this.resultadoEfectoForm) })
+  }
 
-      if(!this.currentForm.id){
-        if(this.resultadoEfectoForm.valid){
-          this.postResultadoEfecto();
-        }
-      }
+  async deleteResultadoEfecto(resultadoefectoId: number) {
+    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar esta estrategia?")
 
-      if(this.currentForm.id){
-        if(this.resultadoEfectoForm.valid){
-          this.updateResultadoEfecto();
-        }
-      }
+    if (removeDecision) {
+      this.resultadoEfectoService.deleteResultadoEfecto(resultadoefectoId)
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllResultadoEfecto(), this.resultadoEfectoForm) })
     }
+  }
+
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putResultadoEfecto(), this.resultadoEfectoForm, () => this.postResultadoEfecto())
+  }
 }
 
 

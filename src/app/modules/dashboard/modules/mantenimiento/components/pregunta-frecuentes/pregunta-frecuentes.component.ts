@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { preguntasFrecuentesService } from '../../services/preguntas-frecuentes.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { PreguntaI } from '../../interfaces/mantenimientoPOA.interface';
-import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
   selector: 'app-pregunta-frecuentes',
@@ -19,7 +19,7 @@ export class PreguntaFrecuentesComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiPreguntas: preguntasFrecuentesService,
-    private responseHandler: ResponsesHandlerService
+    private helperHandler: HelperService
   ) {
     this.preguntasFrecuentesForm = this.fb.group({
       id: 0,
@@ -41,12 +41,12 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
   postPregunta() {
     this.apiPreguntas.postPreguntasFrecuentes(this.preguntasFrecuentesForm.value)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
   }
 
   putPregunta() {
     this.apiPreguntas.putPreguntasFrecuentes(this.preguntasFrecuentesForm.value)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
   }
 
   async deletePregunta(id: number) {
@@ -54,7 +54,7 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
     if (removeDecision) {
       this.apiPreguntas.removePreguntasFrecuentes(id)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
     }
   }
 
@@ -62,13 +62,7 @@ export class PreguntaFrecuentesComponent implements OnInit {
     this.preguntasFrecuentesForm.reset(dataPregunta)
   }
 
-  saveChangesButton() {
-    if (this.preguntasFrecuentesForm.valid) {
-      if (this.preguntasFrecuentesForm.value.id > 0) this.putPregunta()
-      else this.postPregunta()
-    } else {
-      alertNoValidForm()
-    }
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putPregunta(), this.preguntasFrecuentesForm, () => this.postPregunta())
   }
-
 }

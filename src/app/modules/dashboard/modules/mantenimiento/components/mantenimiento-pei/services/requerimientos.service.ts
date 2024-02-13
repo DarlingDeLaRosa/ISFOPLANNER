@@ -12,7 +12,7 @@ export class RequerimientosService {
   private token = this.userSystemService.getToken
   private baseUrl = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(
@@ -27,6 +27,11 @@ export class RequerimientosService {
 
   postRequerimientos(requerimiento: RequerimientoI): Observable<ResponseI> {
     return this.http.post<ResponseI>(`${this.baseUrl}/Requerimientos`, requerimiento, this.header)
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+  }
+
+  putRequerimientos(requerimiento: RequerimientoI): Observable<ResponseI> {
+    return this.http.put<ResponseI>(`${this.baseUrl}/Requerimientos/${requerimiento.id}`, requerimiento, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 

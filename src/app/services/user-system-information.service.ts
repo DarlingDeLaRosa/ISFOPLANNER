@@ -8,7 +8,6 @@ export class UserSystemInformationService {
     private userLogged?: UserI
     private userToken!: string
     private sistema: number = 2
-    // private presupuestoInstitucional: number = 0
 
     private URLremoteDesarrollo = "http://isfoplaner.somee.com"
     private URLdesarrollo = "http://172.25.4.24:3000"

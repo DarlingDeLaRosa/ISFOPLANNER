@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../../services/producto.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
-import { catchError, throwError } from 'rxjs';
+import { alertRemoveSure } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
+import { HelperService } from 'src/app/services/appHelper.service';
+import { ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
+import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indicadorEstrategico.interface';
+import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
+import { DetailViewComponent } from '../../modals/detail-view/detail-view.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-productos',
@@ -14,20 +19,23 @@ import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indic
 export class ProductosComponent implements OnInit {
 
   productosForm: FormGroup
-  productos: any[] = []
-  indicadoresEstrategicos: any[] = []
-  unidadesOrg: any[] = []
+  productos: ProductoI[] = []
+  indicadoresEstrategicos: IndicadoresEstrategicosI[] = []
+  unidadesOrg: subUnidadI[] = []
 
   constructor(
     public fb: FormBuilder,
+    public dialog: MatDialog,
     private apiProducto: ProductoService,
     private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
-    private apiUnidadOrg: UnidadOrganizativaService
-  ){
+    private apiUnidadOrg: UnidadOrganizativaService,
+    private helperHandler: HelperService
+
+  ) {
     this.productosForm = this.fb.group({
       id: 0,
       nombre: new FormControl('', Validators.required),
-      idUnidadOrganizativa: new FormControl('', Validators.required),
+      responsables: new FormControl('', Validators.required),
       idIndicadorEstrategico: new FormControl('', Validators.required),
     })
   }
@@ -51,33 +59,19 @@ export class ProductosComponent implements OnInit {
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
-      .subscribe((res: any) => { this.unidadesOrg = res.data })
+      .subscribe((res: any) => { this.unidadesOrg = res.data; })
   }
 
   postProducto() {
+    console.log(this.productosForm.value);
+    
     this.apiProducto.postProducto(this.productosForm.value)
-      .subscribe((res: any) => {
-        if (res.ok) {
-
-          alertIsSuccess(true)
-          this.getProducto()
-          this.productosForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
   }
 
   putProducto() {
     this.apiProducto.putProducto(this.productosForm.value)
-      .subscribe((res: any) => {
-        if (res.ok) {
-
-          alertIsSuccess(true)
-          this.getProducto()
-          this.productosForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
   }
 
   async deleteProducto(id: number) {
@@ -85,29 +79,26 @@ export class ProductosComponent implements OnInit {
 
     if (removeDecision) {
       this.apiProducto.removeProducto(id)
-        .subscribe((res: any) => {
-          if (res.ok) {
-
-            alertRemoveSuccess()
-            this.getProducto()
-
-          } else {
-            errorMessageAlert('Ocurrio un error, No se pudo eliminar correctamente.')
-          }
-        })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
     }
+  }
+
+  openModal(responsables: ResponsableI[]) {
+    this.dialog.open(DetailViewComponent, { data: responsables })
   }
 
   setValueEditProducto(producto: any) {
-    this.productosForm.reset(producto)
+    console.log(producto);
+    
+    this.productosForm.patchValue({
+      id: producto.id,
+      nombre: producto.nombre,
+      idIndicadorEstrategico: producto.indicadorEstrategico.id,
+      responsables: producto.responsables.map((responsable: ResponsableI)=>{ return responsable.id}),
+    })
   }
 
-  saveChangesButton() {
-    if (this.productosForm.valid) {
-      if (this.productosForm.value.id > 0) this.putProducto()
-      else this.postProducto()
-    } else {
-      alertNoValidForm()
-    }
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putProducto(), this.productosForm, () => this.postProducto())
   }
 }

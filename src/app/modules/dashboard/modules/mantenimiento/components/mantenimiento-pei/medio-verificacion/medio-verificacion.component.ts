@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IndicadorEstrategicoService } from '../services/indicadoresEstrategicos.service';
-import { catchError } from 'rxjs';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSure, alertServerDown, successMessageAlert } from 'src/app/alerts/alerts';
+import { alertRemoveSure } from 'src/app/alerts/alerts';
 import { IndicadoresEstrategicosI } from '../interfaces/indicadorEstrategico.interface';
 import { MedioVerificacionI } from '../interfaces/medio-verificacion.interface';
 import { MedioVerificacionService } from '../services/medio-verificacion.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
   selector: 'app-mantenimiento-pei',
@@ -20,12 +18,10 @@ export class MedioVerificacionComponent implements OnInit {
   medioVerificacionForm: FormGroup;
 
   constructor(
-    private responseHandler: ResponsesHandlerService,
-    private medioVerifService: MedioVerificacionService,
     private fb: FormBuilder,
+    private helperHandler: HelperService,
+    private medioVerifService: MedioVerificacionService,
   ) {
-
-
     this.medioVerificacionForm = this.fb.group({
       id: 0,
       nombre: new FormControl('', [Validators.required]),
@@ -43,13 +39,12 @@ export class MedioVerificacionComponent implements OnInit {
 
   postMedioVerificacion() {
     this.medioVerifService.postMedioVerificacion(this.medioVerificacionForm.value)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
   }
 
-
-  updateMedioVerificacion() {
+  putMedioVerificacion() {
     this.medioVerifService.updateMedioVerificacion(this.medioVerificacionForm.value, this.medioVerificacionForm.value.id)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
   }
 
   setValueMedioVerificacion(medioVerificacion: MedioVerificacionI) {
@@ -61,36 +56,11 @@ export class MedioVerificacionComponent implements OnInit {
     
     if (remove) {
       this.medioVerifService.DeleteMedioVerificacion(medioVerificaicon.id!)
-        .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
     }
   }
-
-  // guardar() {
-  //   if (this.medioVerificacionForm.invalid) return;
-
-  //   if (this.medioVerificacionForm.value.id) {
-  //     if (this.medioVerificacionForm.valid) {
-  //       this.postMedioVerificacion();
-  //       this.getAllMedioVerifiacion();
-  //     }
-  //   }
-
-  //   if (this.medioVerificacionForm.value.id) {
-  //     if (this.medioVerificacionForm.valid) {
-  //       this.updateMedioVerificacion();
-  //       this.getAllMedioVerifiacion();
-  //     }
-  //   }
-  // }
-
-  saveChangesButton() {
-    if(this.medioVerificacionForm.valid){
-      if (this.medioVerificacionForm.value.id > 0) this.updateMedioVerificacion()
-      else this.postMedioVerificacion()
-    }else{
-      alertNoValidForm()
-    }
+  
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putMedioVerificacion(), this.medioVerificacionForm, () => this.postMedioVerificacion())
   }
-
-
 }

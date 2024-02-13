@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 import { alertNoValidForm } from 'src/app/alerts/alerts';
 import { format } from 'date-fns';
-import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 import { PresupuestoInstiGetI } from '../../interfaces/mantenimientoPOA.interface';
 
 @Component({
@@ -19,7 +19,7 @@ export class PresupuestoInstitucionalComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
-    private responseHandler: ResponsesHandlerService
+    private helperHandler: HelperService
   ) {
     this.presupuestoInstiForm = this.fb.group({
       id: 0,
@@ -36,35 +36,32 @@ export class PresupuestoInstitucionalComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional()
-      .subscribe((res: any) => { this.presupuestosInst = res.data;})
+      .subscribe((res: any) => { this.presupuestosInst = res.data; })
   }
 
   putUnidadOrganizativa() {
     this.apiPresupuestoInstitucional.putPresupuestoInstitucional(this.presupuestoInstiForm.value)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
   }
 
   postUnidadOrganizativa() {
     this.apiPresupuestoInstitucional.postPresupuestoInstitucional(this.presupuestoInstiForm.value)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
   }
 
   postActivarPresupuesto(presupuesto: number) {
     this.apiPresupuestoInstitucional.postActivarPresupuesto(presupuesto)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
   }
 
   setValueEditPreInst(presupuestoInstiForm: any) {
     this.presupuestoInstiForm.reset(presupuestoInstiForm)
   }
 
-  saveChangesButton() {
-    this.presupuestoInstiForm.value.fechaInicio = format(this.presupuestoInstiForm.value.fechaInicio, 'yyyy-MM-dd');
+  saveChanges() {
     this.presupuestoInstiForm.value.fechaFin = format(this.presupuestoInstiForm.value.fechaFin, 'yyyy-MM-dd');
-
-    if (this.presupuestoInstiForm.valid) {
-      if (this.presupuestoInstiForm.value.id > 0) this.putUnidadOrganizativa()
-      else this.postUnidadOrganizativa()
-    } else alertNoValidForm()
+    this.presupuestoInstiForm.value.fechaInicio = format(this.presupuestoInstiForm.value.fechaInicio, 'yyyy-MM-dd');
+    
+    this.helperHandler.saveChanges(() => this.putUnidadOrganizativa(), this.presupuestoInstiForm, () => this.postUnidadOrganizativa())
   }
 }

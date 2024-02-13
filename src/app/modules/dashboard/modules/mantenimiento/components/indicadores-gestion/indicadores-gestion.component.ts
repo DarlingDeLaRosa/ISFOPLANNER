@@ -5,6 +5,7 @@ import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, 
 import { IndicadorGestionService } from '../../services/indicadores-gestion.service';
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -26,7 +27,8 @@ export class IndicadoresGestionComponent implements OnInit {
     private apiProducto: ProductoService,
     private apiIndicadoresGestion: IndicadorGestionService,
     private apiEstruturaPro: EstructuraProgramaticaService,
-    private apiUnidadOrg: UnidadOrganizativaService
+    private apiUnidadOrg: UnidadOrganizativaService,
+    private helperHandler: HelperService
   ) {
     this.indicadoresGestionForm = this.fb.group({
       id: 0,
@@ -129,13 +131,7 @@ export class IndicadoresGestionComponent implements OnInit {
     this.indicadoresGestionForm.reset(indicadoresGestion)
   }
 
-  saveChangesButton() {
-    if (this.indicadoresGestionForm.valid) {
-      if (this.indicadoresGestionForm.value.id > 0) this.putIndicadoresGestion()
-      else this.postIndicadoresGestion()
-    } else {
-      alertNoValidForm()
-    }
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putIndicadoresGestion(), this.indicadoresGestionForm, () => this.postIndicadoresGestion())
   }
-
 }

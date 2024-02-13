@@ -13,7 +13,7 @@ export class EstrategiasService {
   private token = this.userSystemService.getToken
   private baseUrl = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(

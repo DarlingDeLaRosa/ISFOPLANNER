@@ -11,14 +11,14 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 
 export class ProductoService {
 
-  token: string | number = this.userSystemService.getToken 
+  token: string | number = this.userSystemService.getToken
   baseURL: string = this.userSystemService.getURL
 
   constructor(
     private http: HttpClient,
     private userSystemService: UserSystemInformationService,
-  ) {}
-  
+  ) { }
+
   headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
@@ -38,12 +38,12 @@ export class ProductoService {
   }
 
   public putProducto(productoData: ProductoI) {
-    return this.http.put(`${this.baseURL}/Productos?id=${productoData.id}`, productoData, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return error }))
+    return this.http.put(`${this.baseURL}/Productos/${productoData.id}`, productoData, this.header)
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   public removeProducto(id: number) {
     return this.http.delete(`${this.baseURL}/Productos/${id}`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return error }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 }

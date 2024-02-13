@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { catchError, throwError } from 'rxjs';
-import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private apiEstructuraPro: EstructuraProgramaticaService,
-    private responseHandler: ResponsesHandlerService
+    private helperHandler: HelperService
   ) {
     this.estructuraProgramaticaForm = this.fb.group({
       id: 0,
@@ -39,12 +39,12 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
   postEstructuraPro() {
     this.apiEstructuraPro.postEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
-    .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
+    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
   }
 
   putEstructuraPro() {
     this.apiEstructuraPro.putEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
-    .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
+    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
   }
 
   async deleteEstructuraPro(id: number) {
@@ -52,7 +52,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
     if (removeDecision) {
       this.apiEstructuraPro.removeEstructurasProgramaticas(id)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
     }
   }
 
@@ -60,13 +60,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
     this.estructuraProgramaticaForm.reset(estructuraPro)
   }
 
-  saveChangesButton() {
-    if (this.estructuraProgramaticaForm.valid) {
-      if (this.estructuraProgramaticaForm.value.id > 0) this.putEstructuraPro()
-      else this.postEstructuraPro()
-    } else {
-      alertNoValidForm()
-    }
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putEstructuraPro(), this.estructuraProgramaticaForm, () => this.postEstructuraPro())
   }
-
 }

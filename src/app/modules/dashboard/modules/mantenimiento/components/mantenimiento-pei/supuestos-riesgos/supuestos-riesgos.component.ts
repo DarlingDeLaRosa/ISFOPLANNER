@@ -3,7 +3,7 @@ import { SupuestosRiesgosService } from '../services/supuestos-riesgos.service';
 import { alertNoValidForm, alertRemoveSure} from 'src/app/alerts/alerts';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ResponsesHandlerService } from 'src/app/services/responsesHandler.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
   selector: 'app-resultado-efecto',
@@ -18,7 +18,7 @@ export class SupuestosRiegosComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private supuestosRiesgosService: SupuestosRiesgosService,
-    private responseHandler: ResponsesHandlerService
+    private helperHandler: HelperService
   ) {
     this.supuestoRiesgoForm = this.fb.group({
       id: 0,
@@ -38,12 +38,12 @@ export class SupuestosRiegosComponent implements OnInit {
 
   postSupuestoRiesgo() {
     this.supuestosRiesgosService.postSupuestosRiesgos(this.supuestoRiesgoForm.value)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllSupuestosRiesgos(), this.supuestoRiesgoForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllSupuestosRiesgos(), this.supuestoRiesgoForm) })
   }
 
   putSupuestoRiesgo() {
     this.supuestosRiesgosService.putSupuestosRiesgos(this.supuestoRiesgoForm.value)
-      .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllSupuestosRiesgos(), this.supuestoRiesgoForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllSupuestosRiesgos(), this.supuestoRiesgoForm) })
   }
 
   async deleteSupuestoRiesgo(id: number) {
@@ -51,20 +51,15 @@ export class SupuestosRiegosComponent implements OnInit {
 
     if (removeDecision) {
       this.supuestosRiesgosService.deleteSupuestiRiesgos(id)
-        .subscribe((res: any) => { this.responseHandler.handleResponse(res, () => this.getAllSupuestosRiesgos(), this.supuestoRiesgoForm) })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllSupuestosRiesgos(), this.supuestoRiesgoForm) })
     }
   }
 
   setValueEditSupuestoRiesgo(supuestoRiesgo: SupuestosRiesgosI) {
     this.supuestoRiesgoForm.reset(supuestoRiesgo)
   }
-
-  saveChangesButton() {
-    if (this.supuestoRiesgoForm.valid) {
-      if (this.supuestoRiesgoForm.value.id > 0) this.putSupuestoRiesgo()
-      else this.postSupuestoRiesgo()
-    } else {
-      alertNoValidForm()
-    }
+  
+  saveChanges() {
+    this.helperHandler.saveChanges(() => this.putSupuestoRiesgo(), this.supuestoRiesgoForm, () => this.postSupuestoRiesgo())
   }
 }
