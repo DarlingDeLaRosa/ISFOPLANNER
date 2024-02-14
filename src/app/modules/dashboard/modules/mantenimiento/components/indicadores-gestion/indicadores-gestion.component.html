@@ -37,7 +37,7 @@
 
       <div class="tipoIndicador">
         <h4>Indique el tipo de indicador?</h4>
-        <mat-radio-group formControlName="idTipoIndicador"> <!--(change)="itbisOption($event)"-->
+        <mat-radio-group formControlName="idTipoIndicador">
           <mat-radio-button [value]="1" color="primary">Indicador de flujo</mat-radio-button> <!--matTooltip="Todos Los productos seran calculados con un 18% de ITBIS." [disabled]="disableItbis" -->
           <mat-radio-button [value]="2" color="primary">Indicador Acumulativo</mat-radio-button> <!--matTooltip="Los productos tomaran el porcentaje de ITBIS especificado al momento de la creación." [disabled]="disableItbis"-->
         </mat-radio-group>
@@ -109,20 +109,21 @@
       <mat-form-field appearance="fill" style="width: 60%;">
         <mat-label>Responsable</mat-label>
         <mat-select formControlName="idUnidadOrganizativa" disableRipple>
-          <ng-container *ngIf="unidadesOrg.length > 0; else noUnidadOrg">
+          <ng-container *ngIf="unidadesOrg.length > 0; else noResP">
 
             <mat-option [value]="unidadOrg.id" *ngFor="let unidadOrg of unidadesOrg">
               {{unidadOrg.nombre}}
             </mat-option>
 
           </ng-container>
-          <ng-template #noUnidadOrg>
+          <ng-template #noResP>
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
         </mat-select>
       </mat-form-field><br>
 
-      <button type="submit" class="greenButton">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
+      <button (click)="indicadoresGestionForm.reset()" *ngIf="indicadoresGestionForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
 
@@ -138,9 +139,11 @@
                 <th class="headerCell">Producto</th>
                 <th class="headerCell">Alcance</th>
                 <th class="headerCell">Frecuencia</th>
+                <th class="headerCell">Linea Base</th>
                 <th class="headerCell">Meta</th>
-                <th class="headerCell" style="width: 10%;"></th>
-                <th class="headerCell" style="width: 10%;"></th>
+                <th class="headerCell">Responsables</th>
+                <th class="headerCell" style="width: 6%;"></th>
+                <th class="headerCell" style="width: 6%;"></th>
             </tr>
         </thead>
           <tbody>
@@ -149,7 +152,9 @@
               <td class="dataIndiCell">{{indicadorG.producto.nombre}}</td>
               <td class="dataIndiCell">{{indicadorG.alcance.nombre}}</td>
               <td class="dataIndiCell">{{indicadorG.frecuencia.nombre}}</td>
+              <td class="dataIndiCell">{{indicadorG.linaBase}}</td>
               <td class="dataIndiCell">{{indicadorG.meta}}</td>
+              <td class="dataIndiCell">{{indicadorG.responsables[0].nombre}}</td>
               <td class="dataIndiCell"><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>
               <td class="dataIndiCell"><mat-icon (click)="deleteIndicadoresGestion(indicadorG.id)" class="removeIcon">delete</mat-icon></td>
             </tr>

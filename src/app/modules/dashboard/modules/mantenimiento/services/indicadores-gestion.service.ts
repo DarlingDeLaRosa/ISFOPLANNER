@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IndicadorGestionI } from '../interfaces/mantenimientoPOA.interface';
+import { IndicadorGestionI, IndicadoresGestionGetI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError, throwError } from 'rxjs';
 import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { indicadorRecinto } from '../../formulacion/interfaces/formulacion.interface';
@@ -12,10 +12,10 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 
 export class IndicadorGestionService {
 
-  token?: string = this.userSystemService.getToken 
+  token: string = this.userSystemService.getToken 
   baseURL: string = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
+  headers: HttpHeaders = new HttpHeaders({'Authorization': this.token })
   header = {headers: this.headers}
 
   constructor(
@@ -33,7 +33,7 @@ export class IndicadorGestionService {
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
-  public putIndicadorGestion(indicadoresGestionData: IndicadorGestionI) {
+  public putIndicadorGestion(indicadoresGestionData: IndicadoresGestionGetI) {
     return this.http.put(`${this.baseURL}/IndicadoresGestion/${indicadoresGestionData.id}`, indicadoresGestionData, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
@@ -48,7 +48,7 @@ export class IndicadorGestionService {
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
-  public putIndicadorRecintos(indicadoresGestionData: IndicadorGestionI) {
+  public putIndicadorRecintos(indicadoresGestionData: IndicadoresGestionGetI) {
     return this.http.put(`${this.baseURL}/IndicadoresGestion/${indicadoresGestionData.id}`, indicadoresGestionData, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }

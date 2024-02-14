@@ -1,9 +1,10 @@
 import { ActividadI } from "../../formulacion/interfaces/formulacion.interface"
 import { IndicadoresEstrategicosI } from "../components/mantenimiento-pei/interfaces/indicadorEstrategico.interface"
+import { MedioVerificacionI } from "../components/mantenimiento-pei/interfaces/medio-verificacion.interface";
 import { ResponsableI } from '../components/mantenimiento-pei/interfaces/responsable.interface';
 
 export interface PreguntaPostI {
-  id: number 
+  id: number
   pregunta: string,
   contexto: string,
   respuesta: string,
@@ -27,28 +28,34 @@ export interface EstructuraProgramaticaI {
 }
 
 export interface ProductoI {
-  id: number 
+  id: number
   nombre: string,
   totalConsumido: number,
   indicadorEstrategico: IndicadoresEstrategicosI
-  actividades: ActividadI
-  indicadoresGestion: IndicadorGestionI[]
+  actividades: ActividadI[]
+  indicadoresGestion: IndicadoresGestionGetI[]
   responsables: ResponsableI[]
 }
 
 export interface IndicadorGestionI {
-  id?: number | null
   nombre: string,
-  idProducto?: number,
-  alcance?: any,
-  frecuencia: any
   linaBase: number,
   meta: number,
-  responsable: ResponsableI,
-  tipoIndicador: { nombre: string, id: number }
-  estructuraProgramatica: { nombre: string, id: number }
-  // idIndicadorEstrategico: number,
-  indicadoresRecinto?: {
+  logroEsperadoT1: number,
+  logroEsperadoT2: number,
+  logroEsperadoT3: number,
+  logroEsperadoT4: number,
+  idResponsable: number,
+  idEstructuraProgramatica: number,
+  idTipoIndicador: number,
+  idProducto: number,
+  idAlcance: number,
+  idFrecuencia: number,
+  mediosVerificaciones: [
+    number
+  ],
+  responsables: number[],
+  indicadoresRecinto: {
     metaFem: number,
     metaJvm: number,
     metaLnnm: number,
@@ -57,6 +64,34 @@ export interface IndicadorGestionI {
     metaEmh: number,
     metaRec: number
   }
+}
+
+
+export interface IndicadoresGestionGetI {
+  id: number,
+  nombre: string,
+  linaBase: number,
+  meta: number,
+  logroEsperadoT1: number,
+  logroEsperadoT2: number,
+  logroEsperadoT3: number,
+  logroEsperadoT4: number,
+  estructuraProgramatica: EstructuraProgramaticaI
+  tipoIndicador: {
+    id: 1,
+    nombre: "Flujo"
+  },
+  alcance: {
+    id: 1,
+    nombre: "Recinto"
+  },
+  frecuencia: {
+    id: 1,
+    nombre: "Anual"
+  },
+  producto: ProductoI
+  responsables: ResponsableI[]
+  mediosverificaciones: MedioVerificacionI
 }
 
 export interface UsuarioI {
@@ -72,7 +107,7 @@ export interface UsuarioI {
 }
 
 export interface PreguntaI {
-  id: number 
+  id: number
   actualizadoEn: Date
   contexto: string
   creadoEn: Date
@@ -89,7 +124,7 @@ export interface UnidadOrgI {
   unidadOrganizativa?: subUnidadI
 }
 
-export  interface asignarUnidadOrgI{
+export interface asignarUnidadOrgI {
   idPresupuestoInstitucional: number,
   idUnidadOrganizativa?: number,
   monto: number

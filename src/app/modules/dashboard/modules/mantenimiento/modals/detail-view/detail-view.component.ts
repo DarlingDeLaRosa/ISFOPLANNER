@@ -9,10 +9,6 @@ import { UnidadOrgI, subUnidadI } from '../../interfaces/mantenimientoPOA.interf
 })
 export class DetailViewComponent {
   
-  unidadDireccion: subUnidadI[] = []
-  unidadDepartamento: subUnidadI[] = []
-  unidadDivision: subUnidadI[] = []
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public unidadesOrg: UnidadOrgI,
   ) {}

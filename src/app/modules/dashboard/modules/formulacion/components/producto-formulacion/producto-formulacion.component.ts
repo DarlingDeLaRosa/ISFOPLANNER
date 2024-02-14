@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IndicadorEditarComponent } from '../../modals/indicador-editar/indicador-editar.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../../mantenimiento/services/producto.service';
-import { IndicadorGestionI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { IndicadorGestionI, IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -12,13 +12,8 @@ import { IndicadorGestionI, ProductoI } from '../../../mantenimiento/interfaces/
 })
 export class ProductoFormulacionComponent implements OnInit {
 
-  productoConsult =  {
-    nombre:'',
-    actividades: [{ costeo : {id: 0, montoTotalEstimado: 0}, esPrevista : true, estado: {id: 0, nombre: ''}, frecuencia: {id: 0, nombre: ''}, id: 0, nombre: '' }],
-    indicadoresoperativo: [{ nombre: '',linaBase:0, meta: 0, responsable:{nombre:'', id: 0}, tipoIndicador: {nombre: '', id: 0}, estructuraProgramatica: {nombre: '', id: 0}, frecuencia: {}}]
-  };
-
   idProducto: number = 0;
+  productoConsult!: ProductoI
 
   constructor(
     public dialog: MatDialog,
@@ -37,7 +32,7 @@ export class ProductoFormulacionComponent implements OnInit {
       .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp); })
   }
 
-  openModal(indicador: IndicadorGestionI) { this.dialog.open(IndicadorEditarComponent, {data: indicador}) }
+  openModal(indicador: IndicadoresGestionGetI) { this.dialog.open(IndicadorEditarComponent, {data: indicador}) }
   
   crearActividad(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} }); }
 }

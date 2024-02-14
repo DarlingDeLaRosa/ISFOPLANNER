@@ -12,7 +12,7 @@ export class ResponsableService {
   private token = this.userSystemService.getToken
   private baseUrl = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(
@@ -22,23 +22,15 @@ export class ResponsableService {
 
   getResponsable(): Observable<ResponseI> {
     return this.http.get<ResponseI>(`${this.baseUrl}/UnidadesOrganizativas`, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
   postResponsable(responsable: ResponsableI): Observable<ResponseI> {
     return this.http.post<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/agregar-responsable`, responsable, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
-  public deleteResponsable(idIndicadorEstrategico: number, idUnidadOrganizativa: number) {
-    const headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
-    const requestBody = { idIndicadorEstrategico, idUnidadOrganizativa };
-    return this.http.delete<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/remover-responsable`, { headers, body: requestBody, })
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
-  }
-  
-  // deleteResponsable(responsable:ResponsableI): Observable<removerResponsableI> {
-  //   const headers: HttpHeaders = new HttpHeaders({'Authorization': `Bearer ${this.token}`})
-  //   return this.http.delete<removerResponsableI>(`${this.baseUrl}/IndicadoresEstrategicos/remover-responsable`, {headers})
+  // deleteResponsable(responsableId: number){
+  //   return this.http.delete(`${this.baseUrl}/productos/`, )
   // }
 }

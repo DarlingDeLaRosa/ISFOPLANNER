@@ -29,11 +29,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="dataRow" *ngFor="let indicador of productoConsult.indicadoresoperativo">
+                    <tr class="dataRow" *ngFor="let indicador of productoConsult.indicadoresGestion">
                         <td class="dataCell">{{indicador.nombre}}</td>
                         <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
                         <td class="dataCell">{{indicador.estructuraProgramatica.nombre}}</td>
-                        <td class="dataCell">{{indicador.responsable.nombre}}</td>
+                        <td class="dataCell">{{indicador.responsables[0].nombre}}</td>
                         <td class="dataCell">{{indicador.linaBase}}%</td>
                         <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" (click)="openModal(indicador)">edit</mat-icon></td>

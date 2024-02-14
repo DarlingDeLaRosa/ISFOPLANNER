@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { catchError, throwError } from 'rxjs';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { ConfiguracionPeriodoServive } from '../../services/configuracion-periodos.service';
 import { TipoProcesosService } from '../../services/tipo-proceso.service';
 import { format } from 'date-fns';
 import { HelperService } from 'src/app/services/appHelper.service';
-
 
 @Component({
   selector: 'app-configuracion-periodos',
   templateUrl: './configuracion-periodos.component.html',
   styleUrls: ['./configuracion-periodos.component.css']
 })
+
 export class ConfiguracionPeriodosComponent implements OnInit {
 
   periodosConfigForm: FormGroup;

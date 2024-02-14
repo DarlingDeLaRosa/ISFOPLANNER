@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IndicadorGestionI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { IndicadorGestionI, IndicadoresGestionGetI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IndicadorGestionService } from '../../../mantenimiento/services/indicadores-gestion.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +17,7 @@ export class IndicadorEditarComponent implements OnInit {
   indicadorRecinto: boolean = false
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public indicador: IndicadorGestionI,
+    @Inject(MAT_DIALOG_DATA) public indicador: IndicadoresGestionGetI,
     public fb: FormBuilder,
     private apiIndicadoresGestion: IndicadorGestionService,
     private userSystemService: UserSystemInformationService,

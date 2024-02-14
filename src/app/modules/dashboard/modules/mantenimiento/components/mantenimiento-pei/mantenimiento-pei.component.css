@@ -2,7 +2,7 @@
 .mantenimientoContainer{
   display: grid;
   padding: 0 15px;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 22% 78%;
   grid-column-gap: 10px;
 }
 

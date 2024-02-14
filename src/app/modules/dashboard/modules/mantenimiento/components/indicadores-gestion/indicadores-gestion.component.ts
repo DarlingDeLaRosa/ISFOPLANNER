@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../../services/producto.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, errorMessageAlert } from 'src/app/alerts/alerts';
+import { alertRemoveSure } from 'src/app/alerts/alerts';
 import { IndicadorGestionService } from '../../services/indicadores-gestion.service';
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { EstructuraProgramaticaI, IndicadoresGestionGetI, ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
+import { FrecuenciaI } from '../../../formulacion/interfaces/formulacion.interface';
+import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { DetailViewComponent } from '../../modals/detail-view/detail-view.component';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -15,20 +20,21 @@ import { HelperService } from 'src/app/services/appHelper.service';
 export class IndicadoresGestionComponent implements OnInit {
 
   indicadoresGestionForm: FormGroup;
-  indicadoresGestion: any[] = []
-  frecuencias: any[] = []
+  indicadoresGestion: IndicadoresGestionGetI[] = []
+  frecuencias: FrecuenciaI[] = []
   alcances: any[] = []
-  productos: any[] = []
-  estructurasPro: any[] = []
-  unidadesOrg: any[] = []
+  productos: ProductoI[] = []
+  estructurasPro: EstructuraProgramaticaI[] = []
+  unidadesOrg: subUnidadI[] = []
 
   constructor(
     public fb: FormBuilder,
+    public dialog: MatDialog,
     private apiProducto: ProductoService,
+    private helperHandler: HelperService,
+    private apiUnidadOrg: UnidadOrganizativaService,
     private apiIndicadoresGestion: IndicadorGestionService,
     private apiEstruturaPro: EstructuraProgramaticaService,
-    private apiUnidadOrg: UnidadOrganizativaService,
-    private helperHandler: HelperService
   ) {
     this.indicadoresGestionForm = this.fb.group({
       id: 0,
@@ -85,28 +91,12 @@ export class IndicadoresGestionComponent implements OnInit {
 
   postIndicadoresGestion() {
     this.apiIndicadoresGestion.postIndicadorGestion(this.indicadoresGestionForm.value)
-      .subscribe((res: any) => {
-        if (res.statusCode == 201) {
-
-          alertIsSuccess(true)
-          this.getIndicadoresGestion()
-          this.indicadoresGestionForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm) })
   }
 
   putIndicadoresGestion() {
     this.apiIndicadoresGestion.putIndicadorGestion(this.indicadoresGestionForm.value)
-      .subscribe((res: any) => {
-        if (res.ok) {
-
-          alertIsSuccess(true)
-          this.getIndicadoresGestion()
-          this.indicadoresGestionForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm) })
   }
 
   async deleteIndicadoresGestion(id: number) {
@@ -114,22 +104,26 @@ export class IndicadoresGestionComponent implements OnInit {
 
     if (removeDecision) {
       this.apiIndicadoresGestion.removeIndicadorGestion(id)
-        .subscribe((res: any) => {
-          if (res.ok) {
-
-            alertRemoveSuccess()
-            this.getIndicadoresGestion()
-
-          } else {
-            errorMessageAlert('Ocurrio un error, No se pudo eliminar correctamente.')
-          }
-        })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm) })
     }
   }
 
-  setValueEditIndicadoresGestion(indicadoresGestion: any) {
-    this.indicadoresGestionForm.reset(indicadoresGestion)
+  setValueEditIndicadoresGestion(indicadoresGestion: IndicadoresGestionGetI) {
+    this.indicadoresGestionForm.patchValue({
+      id: indicadoresGestion.id,
+      nombre: indicadoresGestion.nombre,
+      idProducto: indicadoresGestion.producto.id,
+      idAlcance: indicadoresGestion.alcance.id,
+      idFrecuencia: indicadoresGestion.frecuencia.id,
+      idEstructuraProgramatica: indicadoresGestion.estructuraProgramatica.id,
+      idUnidadOrganizativa: indicadoresGestion.responsables[0].id,
+      idTipoIndicador: indicadoresGestion.tipoIndicador.id,
+      meta: indicadoresGestion.meta,
+      linaBase: indicadoresGestion.linaBase
+    })
   }
+
+  openModal(responsables: ResponsableI[]) { this.dialog.open(DetailViewComponent, { data: responsables })}
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putIndicadoresGestion(), this.indicadoresGestionForm, () => this.postIndicadoresGestion())

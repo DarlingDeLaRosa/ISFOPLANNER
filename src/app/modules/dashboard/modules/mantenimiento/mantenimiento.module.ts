@@ -26,6 +26,7 @@ import { AsignacionPresupuestoComponent } from './components/asignacion-presupue
 import { PresupuestoInstitucionalComponent } from './components/presupuesto-institucional/presupuesto-institucional.component';
 import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { DetailViewComponent } from './modals/detail-view/detail-view.component';
+import { ResponsibleViewComponent } from './modals/responsible-view/responsible-view.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { DetailViewComponent } from './modals/detail-view/detail-view.component'
     ConfiguracionPeriodosComponent,
     AsignacionPresupuestoComponent,
     PresupuestoInstitucionalComponent,
-    DetailViewComponent
+    DetailViewComponent,
+    ResponsibleViewComponent
   ],
 
   providers:[

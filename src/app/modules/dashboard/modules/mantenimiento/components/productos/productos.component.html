@@ -53,7 +53,7 @@
             <tr class="headerRow" style="background-color: #95ade93f;">
                 <th class="headerCell">Indicador Estrategicos</th>
                 <th class="headerCell">Producto</th>
-                <th class="headerCell" style="width: 10%;"></th>
+                <th class="headerCell">Responsables</th>
                 <th class="headerCell" style="width: 10%;"></th>
                 <th class="headerCell" style="width: 10%;"></th>
             </tr>
@@ -62,7 +62,7 @@
             <tr class="dataRow" *ngFor="let producto of productos">
               <td class="dataIndiCell">{{producto.indicadorEstrategico.nombre}}</td>
               <td class="dataIndiCell">{{producto.nombre}}</td>
-              <td class="dataIndiCell"><mat-icon (click)="openModal(producto.responsables)" class="detailsIcon">list</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="openModal(producto)" class="detailsIcon">list</mat-icon></td>
               <td class="dataIndiCell"><mat-icon (click)="setValueEditProducto(producto)" class="editIcon">edit</mat-icon></td>
               <td class="dataIndiCell"><mat-icon (click)="deleteProducto(producto.id)" class="removeIcon">delete</mat-icon></td>
             </tr>

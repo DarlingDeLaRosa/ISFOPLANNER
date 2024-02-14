@@ -8,8 +8,8 @@ import { HelperService } from 'src/app/services/appHelper.service';
 import { ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
 import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indicadorEstrategico.interface';
 import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
-import { DetailViewComponent } from '../../modals/detail-view/detail-view.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ResponsibleViewComponent } from '../../modals/responsible-view/responsible-view.component';
 
 @Component({
   selector: 'app-productos',
@@ -26,10 +26,10 @@ export class ProductosComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public dialog: MatDialog,
+    private helperHandler: HelperService,
     private apiProducto: ProductoService,
-    private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
     private apiUnidadOrg: UnidadOrganizativaService,
-    private helperHandler: HelperService
+    private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
 
   ) {
     this.productosForm = this.fb.group({
@@ -83,13 +83,11 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  openModal(responsables: ResponsableI[]) {
-    this.dialog.open(DetailViewComponent, { data: responsables })
+  openModal(producto: ProductoI) {
+    this.dialog.open(ResponsibleViewComponent, { data: producto })
   }
 
   setValueEditProducto(producto: any) {
-    console.log(producto);
-    
     this.productosForm.patchValue({
       id: producto.id,
       nombre: producto.nombre,

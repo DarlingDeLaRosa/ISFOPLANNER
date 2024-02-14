@@ -46,4 +46,11 @@ export class ProductoService {
     return this.http.delete(`${this.baseURL}/Productos/${id}`, this.header)
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
+
+  // Eliminar responsable de productos 
+  
+  // public removeResponsableProducto(id: number, idResponsable: number[]) {
+  //   return this.http.delete(`${this.baseURL}/Productos/remover-responsable`, this.header, id)
+  //     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+  // }
 }
