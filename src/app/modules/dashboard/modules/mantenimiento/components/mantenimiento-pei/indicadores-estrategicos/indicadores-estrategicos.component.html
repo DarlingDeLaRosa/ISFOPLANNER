@@ -1,128 +1,158 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" >Indicadores Estrategicos</h2>
+  <h2 class="Stitle">Indicadores Estrategicos</h2>
   <div>
-    <form [formGroup]="IndicadorEstrForm">
-      <mat-form-field appearance="fill" style="width: 30%;">
-        <mat-label>Resultado Efecto</mat-label>
-        <mat-select disableRipple formControlName="idResultadoefecto">
-          <ng-container>
-            <mat-option [value]="resultado.id" *ngFor="let resultado of resultadoefecto">
-              {{resultado.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+    <form [formGroup]="IndicadorEstrForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field appearance="fill" style="width: 30%;">
-        <mat-label>Medio verificación</mat-label>
-        <mat-select disableRipple formControlName="idResultadoefecto">
-          <ng-container>
-            <mat-option [value]="resultado.id" *ngFor="let resultado of resultadoefecto">
-              {{resultado.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width: 30%;">
-        <mat-label>Responsables</mat-label>
-        <mat-select disableRipple formControlName="idResultadoefecto">
-          <ng-container>
-            <mat-option [value]="resultado.id" *ngFor="let resultado of resultadoefecto">
-              {{resultado.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
-      
-      <mat-form-field appearance="fill" style="width: 43%;">
-        <form > <!--[formGroup]=""-->
-          <mat-label>Seleccione el Involucrado</mat-label>
-          <mat-select disableRipple formControlName="idInvolucrado" multiple>
-            <!-- <ng-container>
-              <mat-option [value]="involucrados.id" *ngFor="let involucrados of involucrado">
-                {{involucrados.nombre}} </mat-option>
-            </ng-container> -->
-            <ng-template #noEdificio>
-              <mat-option>No hay campos disponibles</mat-option>
-            </ng-template>
-          </mat-select>
-        </form>
-      </mat-form-field>&nbsp;
-
-      <!-- <mat-form-field appearance="fill" style="width: 50%;">
-        <mat-label>Cronograma</mat-label>
-        <mat-select disableRipple>
-          <ng-container>
-            <mat-option></mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field> -->
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 45%;">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 65.5%;">
         <mat-label>Indicador estrategico</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 20%;">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 16%;">
         <mat-label>Linea Base</mat-label>
         <input matInput type="number" formControlName="linaBase">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
-        <mat-label>Año 1</mat-label>
-        <input matInput type="number" formControlName="anio1">
-      </mat-form-field>&nbsp;
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 10%; ">
-        <mat-label>Meta 1</mat-label>
-        <input matInput  type="number" formControlName="metaAnio1">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
-        <mat-label>Año 2</mat-label>
-        <input matInput  type="number" formControlName="anio2">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 10%;">
-        <mat-label>Meta 2</mat-label>
-        <input matInput  type="number" formControlName="metaAnio2">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
-        <mat-label>Año 3</mat-label>
-        <input matInput  type="number" formControlName="anio3">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 9%;">
-        <mat-label>Meta 3</mat-label>
-        <input matInput  type="number" formControlName="metaAnio3">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 14%;">
-        <mat-label>Año 4</mat-label>
-        <input matInput  type="number" formControlName="anio4">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 9%;">
-        <mat-label>Meta 4</mat-label>
-        <input matInput  type="number" formControlName="metaAnio4">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 19%;">
+      <mat-form-field hideRequiredMarker appearance="fill" style="width: 16.5%;">
         <mat-label>Meta general</mat-label>
-        <input matInput  type="number" formControlName="meta">
-      </mat-form-field><br>
+        <input matInput type="number" formControlName="meta">
+      </mat-form-field>&nbsp;
 
-      <button class="greenButton" (click)="guardar()">Guardar cambios</button>
+      <mat-form-field appearance="fill" style="width: 33%;">
+        <mat-label>Resultado Efecto</mat-label>
+        <mat-select formControlName="idResultadoefecto">
+          <ng-container *ngIf="resultadosEfecto.length > 0; else noResEfec">
+            <mat-option [value]="resultadoefecto.id" *ngFor="let resultadoefecto of resultadosEfecto">
+              {{resultadoefecto.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noResEfec>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 32%;">
+        <mat-label>Medio verificación</mat-label>
+        <mat-select multiple disableRipple formControlName="mediosVerificaciones">
+          <ng-container *ngIf="mediosVerificacion.length > 0; else noMedVer">
+            <mat-option [value]="medioVerificacion.id" *ngFor="let medioVerificacion of mediosVerificacion">
+              {{medioVerificacion.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noMedVer>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 33%;">
+        <mat-label>Requerimientos</mat-label>
+        <mat-select multiple disableRipple formControlName="requerimientos">
+          <ng-container *ngIf="requerimientos.length > 0; else noReq">
+            <mat-option [value]="requerimiento.id" *ngFor="let requerimiento of requerimientos">
+              {{requerimiento.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noReq>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 33%;">
+        <mat-label>Involucrados</mat-label>
+        <mat-select disableRipple formControlName="involucrados" multiple>
+          <ng-container *ngIf="involucrados.length > 0; else noInvol">
+            <mat-option [value]="involucrado.id" *ngFor="let involucrado of involucrados">
+              {{involucrado.nombre}} </mat-option>
+          </ng-container>
+          <ng-template #noInvol>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 32%;">
+        <mat-label>Responsables</mat-label>
+        <mat-select multiple disableRipple formControlName="responsables">
+          <ng-container *ngIf="responsables.length > 0; else noRes">
+            <mat-option [value]="responsable.id" *ngFor="let responsable of responsables">
+              {{responsable.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noRes>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width: 33%;">
+        <mat-label>Supuestos Riesgos</mat-label>
+        <mat-select multiple disableRipple formControlName="supuestosRiesgos">
+          <ng-container *ngIf="supuestosRiesgos.length > 0; else noSupRies">
+            <mat-option [value]="supuestosRiesgo.id" *ngFor="let supuestosRiesgo of supuestosRiesgos">
+              {{supuestosRiesgo.nombre}}</mat-option>
+          </ng-container>
+          <ng-template #noSupRies>
+            <mat-option>No hay campos disponibles</mat-option>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>&nbsp;
+
+      <h2 class="Stitle">Cronograma</h2>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px;">
+
+        <span>
+          <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+            <mat-label>Año 1</mat-label>
+            <input matInput type="number" formControlName="anio1">
+          </mat-form-field>&nbsp;
+
+          <mat-form-field hideRequiredMarker appearance="fill" style="width: 48%; ">
+            <mat-label>Meta 1</mat-label>
+            <input matInput type="number" formControlName="metaAnio1">
+          </mat-form-field>
+        </span>
+
+        <span>
+          <mat-form-field hideRequiredMarker appearance="fill" style="width: 48%;">
+            <mat-label>Año 2</mat-label>
+            <input matInput type="number" formControlName="anio2">
+          </mat-form-field>&nbsp;
+
+          <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+            <mat-label>Meta 2</mat-label>
+            <input matInput type="number" formControlName="metaAnio2">
+          </mat-form-field>&nbsp;
+        </span>
+
+        <span>
+          <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+            <mat-label>Año 3</mat-label>
+            <input matInput type="number" formControlName="anio3">
+          </mat-form-field>&nbsp;
+
+          <mat-form-field hideRequiredMarker appearance="fill" style="width: 48%;">
+            <mat-label>Meta 3</mat-label>
+            <input matInput type="number" formControlName="metaAnio3">
+          </mat-form-field>&nbsp;
+        </span>
+
+        <span>
+          <mat-form-field hideRequiredMarker appearance="fill" style="width: 48%;">
+            <mat-label>Año 4</mat-label>
+            <input matInput type="number" formControlName="anio4">
+          </mat-form-field>&nbsp;
+
+          <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+            <mat-label>Meta 4</mat-label>
+            <input matInput type="number" formControlName="metaAnio4">
+          </mat-form-field>&nbsp;
+        </span>
+
+      </div>
+
+      <br>
+
+      <button type="submit" class="greenButton">Guardar cambios</button>
 
     </form>
 
@@ -134,19 +164,29 @@
         <table>
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
-                <th class="headerCell">Nombre indicador</th>
-                <th class="headerCell">Resultado efecto</th>
-                <th class="headerCell">Linea Base</th>
-                <th class="headerCell">Meta</th>
-                <th class="headerCell" style="width: 10%;"></th>
-                <th class="headerCell" style="width: 10%;"></th>
+              <th class="headerCell">Indicador</th>
+              <th class="headerCell">Medio de verificación</th>
+              <th class="headerCell">Requerimientos</th>
+              <th class="headerCell">Involucrados</th>
+              <th class="headerCell">Responsables</th>
+              <th class="headerCell">Supuestos Riesgos</th>
+              <th class="headerCell">Resultado efecto</th>
+              <th class="headerCell">Linea Base</th>
+              <th class="headerCell">Meta</th>
+              <th class="headerCell" style="width: 10%;"></th>
+              <th class="headerCell" style="width: 10%;"></th>
             </tr>
-        </thead>
+          </thead>
           <tbody>
             <tr class="dataRow" *ngFor="let item of indicadoresEstartegicos">
               <td class="dataIndiCell">{{item.nombre}}</td>
               <td class="dataIndiCell">{{item.resultadoEfecto.nombre}}</td>
               <td class="dataIndiCell">{{item.linaBase}}</td>
+              <td class="dataIndiCell">{{item.meta}}</td>
+              <td class="dataIndiCell">{{item.meta}}</td>
+              <td class="dataIndiCell">{{item.meta}}</td>
+              <td class="dataIndiCell">{{item.meta}}</td>
+              <td class="dataIndiCell">{{item.meta}}</td>
               <td class="dataIndiCell">{{item.meta}}</td>
               <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(item)">edit</mat-icon></td>
               <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(item)">delete</mat-icon></td>

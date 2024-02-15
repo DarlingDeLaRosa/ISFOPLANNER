@@ -13,7 +13,7 @@ export class involucradoService {
   private token = this.userSystemService.getToken
   private baseUrl = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(
@@ -26,15 +26,15 @@ export class involucradoService {
       .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
-  postInvolucrado(involucrado: InvolucradoI): Observable<ResponseI> {
-    return this.http.post<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/agregar-involucrado`, involucrado, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
-  }
+  // postInvolucrado(involucrado: InvolucradoI): Observable<ResponseI> {
+  //   return this.http.post<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/agregar-involucrado`, involucrado, this.header)
+  //     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+  // }
 
-  deleteInvolucrado(idIndicadorEstrategico: number, idInvolucrado: number) {
-    const headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
-    const requestBody = { idIndicadorEstrategico, idInvolucrado };
-    return this.http.delete<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/remover-involucrado`, { headers, body: requestBody, })
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
-  }
+  // deleteInvolucrado(idIndicadorEstrategico: number, idInvolucrado: number) {
+  //   const headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  //   const requestBody = { idIndicadorEstrategico, idInvolucrado };
+  //   return this.http.delete<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/remover-involucrado`, { headers, body: requestBody, })
+  //     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+  // }
 }
