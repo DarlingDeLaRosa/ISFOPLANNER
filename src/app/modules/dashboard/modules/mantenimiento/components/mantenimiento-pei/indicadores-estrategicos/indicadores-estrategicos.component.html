@@ -98,7 +98,7 @@
 
       <h2 class="Stitle">Cronograma</h2>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px;">
+      <div formGroupName="cronograma" class="cronogramaForm">
 
         <span>
           <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
@@ -152,7 +152,8 @@
 
       <br>
 
-      <button type="submit" class="greenButton">Guardar cambios</button>
+      <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
+      <button (click)="IndicadorEstrForm.reset()" *ngIf="IndicadorEstrForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
 
@@ -165,31 +166,31 @@
           <thead class="headerTable">
             <tr class="headerRow" style="background-color: #95ade93f;">
               <th class="headerCell">Indicador</th>
-              <th class="headerCell">Medio de verificación</th>
+              <th class="headerCell">Resultado efecto</th>
+              <th class="headerCell">Linea Base</th>
+              <th class="headerCell">Meta</th>
               <th class="headerCell">Requerimientos</th>
               <th class="headerCell">Involucrados</th>
               <th class="headerCell">Responsables</th>
               <th class="headerCell">Supuestos Riesgos</th>
-              <th class="headerCell">Resultado efecto</th>
-              <th class="headerCell">Linea Base</th>
-              <th class="headerCell">Meta</th>
-              <th class="headerCell" style="width: 10%;"></th>
-              <th class="headerCell" style="width: 10%;"></th>
+              <th class="headerCell">Medio de verificación</th>
+              <th class="headerCell" style="width: 6%;"></th>
+              <th class="headerCell" style="width: 6%;"></th>
             </tr>
           </thead>
           <tbody>
-            <tr class="dataRow" *ngFor="let item of indicadoresEstartegicos">
-              <td class="dataIndiCell">{{item.nombre}}</td>
-              <td class="dataIndiCell">{{item.resultadoEfecto.nombre}}</td>
-              <td class="dataIndiCell">{{item.linaBase}}</td>
-              <td class="dataIndiCell">{{item.meta}}</td>
-              <td class="dataIndiCell">{{item.meta}}</td>
-              <td class="dataIndiCell">{{item.meta}}</td>
-              <td class="dataIndiCell">{{item.meta}}</td>
-              <td class="dataIndiCell">{{item.meta}}</td>
-              <td class="dataIndiCell">{{item.meta}}</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(item)">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(item)">delete</mat-icon></td>
+            <tr class="dataRow" *ngFor="let indicador of indicadoresEstrategicos">
+              <td class="dataIndiCell">{{indicador.nombre}}</td>
+              <td class="dataIndiCell">{{indicador.resultadoEfecto.nombre}}</td>
+              <td class="dataIndiCell">{{indicador.linaBase}}</td>
+              <td class="dataIndiCell">{{indicador.meta}}</td>
+              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.requerimientos, 'Requerimientos', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.involucrados, 'Involucrados', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.responsables, 'Responsables', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.supuestosRiesgos, 'Supuestos Riesgos', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.mediosverificaciones, 'Resultado Efectos', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
+              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
             </tr>
           </tbody>
         </table>

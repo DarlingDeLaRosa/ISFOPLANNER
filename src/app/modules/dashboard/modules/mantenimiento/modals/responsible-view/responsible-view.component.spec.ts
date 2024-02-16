@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResponsibleViewComponent } from './responsible-view.component';
+import { EntidadListViewComponent } from './responsible-view.component';
 
-describe('ResponsibleViewComponent', () => {
-  let component: ResponsibleViewComponent;
-  let fixture: ComponentFixture<ResponsibleViewComponent>;
+describe('EntidadListViewComponent', () => {
+  let component: EntidadListViewComponent;
+  let fixture: ComponentFixture<EntidadListViewComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ResponsibleViewComponent]
+      declarations: [EntidadListViewComponent]
     });
-    fixture = TestBed.createComponent(ResponsibleViewComponent);
+    fixture = TestBed.createComponent(EntidadListViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

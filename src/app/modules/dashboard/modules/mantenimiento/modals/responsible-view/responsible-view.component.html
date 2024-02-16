@@ -1,7 +1,7 @@
 <div class="modal">
     <div class="fuctionContent">
-        <h2 class="Stitle">Responsables</h2>
-        <h2 style="color: #aaa;">{{entidad.nombre}}</h2>
+        <h2 class="Stitle">{{propiedad.nombre}}</h2>
+        <h2 style="color: #aaa;">{{propiedad.entidad}}</h2>
     </div>
 
     <div>
@@ -10,12 +10,12 @@
             <table>
                 <thead class="headerTable">
                     <tr class="headerRow" style="background-color: #95ade93f;">
-                        <th class="headerCell">Unidad Organizativa</th>
+                        <th class="headerCell">Elementos</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="dataRow" *ngFor="let responsable of entidad.responsables">
-                        <td class="dataIndiCell">{{responsable.nombre}}</td>
+                    <tr class="dataRow" *ngFor="let elemento of propiedad.elementoList">
+                        <td class="dataIndiCell">{{elemento.nombre}}</td>
                     </tr>
                 </tbody>
             </table>

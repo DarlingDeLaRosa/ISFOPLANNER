@@ -6,9 +6,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './responsible-view.component.html',
   styleUrls: ['./responsible-view.component.css']
 })
-export class ResponsibleViewComponent{
+export class EntidadListViewComponent{
   
   constructor(
-    @Inject(MAT_DIALOG_DATA) public entidad: any,
+    @Inject(MAT_DIALOG_DATA) public propiedad: {elementoList: any[], nombre: string, entidad: string},
   ) {}
 }

@@ -36,8 +36,8 @@ export class IndicadorEstrategicoService {
     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
-  updateIndicadoresEstrategicos(indicadoresestrategicos: IndicadoresEstrategicosI, id: number): Observable<ResponseI> {
-    return this.http.put<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/${id}`, indicadoresestrategicos, this.header)
+  putIndicadoresEstrategicos(indicadoresestrategicos: IndicadoresEstrategicosI): Observable<ResponseI> {
+    return this.http.put<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos/${indicadoresestrategicos.id}`, indicadoresestrategicos, this.header)
     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 }

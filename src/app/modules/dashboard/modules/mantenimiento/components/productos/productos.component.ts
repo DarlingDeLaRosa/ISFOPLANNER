@@ -9,7 +9,7 @@ import { ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interfa
 import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indicadorEstrategico.interface';
 import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { ResponsibleViewComponent } from '../../modals/responsible-view/responsible-view.component';
+import { EntidadListViewComponent } from '../../modals/responsible-view/responsible-view.component';
 
 @Component({
   selector: 'app-productos',
@@ -30,7 +30,6 @@ export class ProductosComponent implements OnInit {
     private apiProducto: ProductoService,
     private apiUnidadOrg: UnidadOrganizativaService,
     private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
-
   ) {
     this.productosForm = this.fb.group({
       id: 0,
@@ -45,7 +44,6 @@ export class ProductosComponent implements OnInit {
     this.getIndicadoresEstrategicos()
     this.getUnidadOrganizativa()
   }
-
 
   getIndicadoresEstrategicos() {
     this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos()
@@ -63,8 +61,6 @@ export class ProductosComponent implements OnInit {
   }
 
   postProducto() {
-    console.log(this.productosForm.value);
-    
     this.apiProducto.postProducto(this.productosForm.value)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
   }
@@ -84,7 +80,7 @@ export class ProductosComponent implements OnInit {
   }
 
   openModal(producto: ProductoI) {
-    this.dialog.open(ResponsibleViewComponent, { data: producto })
+    this.dialog.open(EntidadListViewComponent, { data: producto })
   }
 
   setValueEditProducto(producto: any) {

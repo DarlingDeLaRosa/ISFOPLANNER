@@ -3,7 +3,7 @@ import { IndicadoresEstrategicosI } from '../interfaces/indicadorEstrategico.int
 import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
 import { IndicadorEstrategicoService } from '../services/indicadoresEstrategicos.service';
 import { ResultadoEfectoService } from '../services/resultadoEfecto.service';
-import { alertIsSuccess, alertRemoveSure, successMessageAlert } from 'src/app/alerts/alerts';
+import { alertRemoveSure } from 'src/app/alerts/alerts';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { MedioVerificacionService } from '../services/medio-verificacion.service';
@@ -16,6 +16,8 @@ import { ResponsableService } from '../services/reponsable.service';
 import { ResponsableI } from '../interfaces/responsable.interface';
 import { SupuestosRiesgosService } from '../services/supuestos-riesgos.service';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { EntidadListViewComponent } from '../../../modals/responsible-view/responsible-view.component';
 
 @Component({
   selector: 'app-indicadores-estrategicos',
@@ -31,10 +33,11 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   resultadosEfecto: Array<ResultadoEfectoI> = [];
   supuestosRiesgos: Array<SupuestosRiesgosI> = [];
   mediosVerificacion: Array<MedioVerificacionI> = [];
-  indicadoresEstartegicos: Array<IndicadoresEstrategicosI> = [];
+  indicadoresEstrategicos: Array<IndicadoresEstrategicosI> = [];
 
   constructor(
     private fb: FormBuilder,
+    public dialog: MatDialog,
     private helperHandler: HelperService,
     private involucradoService: involucradoService,
     private responsablesService: ResponsableService,
@@ -53,18 +56,20 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       supuestosRiesgos: new FormControl('', Validators.required),
       mediosVerificaciones: new FormControl('', Validators.required),
       idResultadoefecto: new FormControl<number>(0, Validators.required),
-
       involucrados: new FormControl('', Validators.required),
       responsables: new FormControl('', Validators.required),
-      anio1: new FormControl<number>(0, Validators.required),
-      anio2: new FormControl<number>(0, Validators.required),
-      anio3: new FormControl<number>(0, Validators.required),
-      anio4: new FormControl<number>(0, Validators.required),
 
-      metaAnio1: new FormControl<number>(0, Validators.required),
-      metaAnio2: new FormControl<number>(0, Validators.required),
-      metaAnio3: new FormControl<number>(0, Validators.required),
-      metaAnio4: new FormControl<number>(0, Validators.required),
+      cronograma: this.fb.group({
+        anio1: new FormControl<number>(0, Validators.required),
+        anio2: new FormControl<number>(0, Validators.required),
+        anio3: new FormControl<number>(0, Validators.required),
+        anio4: new FormControl<number>(0, Validators.required),
+
+        metaAnio1: new FormControl<number>(0, Validators.required),
+        metaAnio2: new FormControl<number>(0, Validators.required),
+        metaAnio3: new FormControl<number>(0, Validators.required),
+        metaAnio4: new FormControl<number>(0, Validators.required),
+      }),
     })
   }
 
@@ -83,8 +88,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   getAllIndicadoresEstrategicos() {
-    this.indicadoresEstraService.getIndicadoresEstrategicos().subscribe((resp: any) => { this.indicadoresEstartegicos = resp.data; console.log(this.indicadoresEstartegicos);
-    })
+    this.indicadoresEstraService.getIndicadoresEstrategicos().subscribe((resp: any) => { this.indicadoresEstrategicos = resp.data; console.log(this.indicadoresEstrategicos); })
   }
 
   getAllMedioVerificacion() {
@@ -108,91 +112,45 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   setValueIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {
-    this.IndicadorEstrForm.setValue({
+    console.log(indicadorEstrategico);
+    
+    this.IndicadorEstrForm.patchValue({
       id: indicadorEstrategico.id,
       nombre: indicadorEstrategico.nombre,
       linaBase: indicadorEstrategico.linaBase,
       meta: indicadorEstrategico.meta,
+      requerimientos: indicadorEstrategico.requerimientos.map((requerimiento: RequerimientoI)=>{ return requerimiento.id}),
+      supuestosRiesgos: indicadorEstrategico.supuestosRiesgos.map((supuestosRiesgo: SupuestosRiesgosI)=>{ return supuestosRiesgo.id}),
+      mediosVerificaciones: indicadorEstrategico.mediosverificaciones.map((mediosverificacione: MedioVerificacionI)=>{ return mediosverificacione.id}),
       idResultadoefecto: indicadorEstrategico.resultadoEfecto.id,
-      anio1: indicadorEstrategico.cronograma.anio1,
-      metaAnio1: indicadorEstrategico.cronograma.metaAnio1,
-      anio2: indicadorEstrategico.cronograma.anio2,
-      metaAnio2: indicadorEstrategico.cronograma.metaAnio2,
-      anio3: indicadorEstrategico.cronograma.anio3,
-      metaAnio3: indicadorEstrategico.cronograma.metaAnio3,
-      anio4: indicadorEstrategico.cronograma.anio4,
-      metaAnio4: indicadorEstrategico.cronograma.metaAnio4
+      involucrados: indicadorEstrategico.involucrados.map((involucrado: InvolucradoI)=>{ return involucrado.id}),
+      responsables: indicadorEstrategico.responsables.map((responsable: ResponsableI)=>{ return responsable.id}),
     });
+
+    this.IndicadorEstrForm.get('cronograma')?.reset(indicadorEstrategico.cronograma)
   }
 
   postIndicadoresEstrategicos() {
-    const objetoPost: any = {
-      nombre: this.IndicadorEstrForm.get('nombre')!.value,
-      linaBase: this.IndicadorEstrForm.get('linaBase')!.value,
-      meta: this.IndicadorEstrForm.get('meta')!.value,
-      idResultadoefecto: this.IndicadorEstrForm.get('idResultadoefecto')!.value,
-      cronograma: {
-        anio1: this.IndicadorEstrForm.get('anio1')!.value,
-        metaAnio1: this.IndicadorEstrForm.get('metaAnio1')!.value,
-        anio2: this.IndicadorEstrForm.get('anio2')!.value,
-        metaAnio2: this.IndicadorEstrForm.get('metaAnio2')!.value,
-        anio3: this.IndicadorEstrForm.get('anio3')!.value,
-        metaAnio3: this.IndicadorEstrForm.get('metaAnio3')!.value,
-        anio4: this.IndicadorEstrForm.get('anio4')!.value,
-        metaAnio4: this.IndicadorEstrForm.get('metaAnio4')!.value,
-      },
-    };
-    this.indicadoresEstraService.postIndicadoresEstrategicos(objetoPost).
-
-      subscribe((resp: any) => {
-        console.log(objetoPost);
-        if (resp.data != null) {
-          this.getAllIndicadoresEstrategicos();
-          alertIsSuccess(true);
-          this.IndicadorEstrForm.reset();
-        } else {
-          alertIsSuccess(false);
-        }
-      })
+    this.indicadoresEstraService.postIndicadoresEstrategicos(this.IndicadorEstrForm.value)
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
   }
-  putIndicadoresEstrategicos() {
-    const objetoPost: any = {
-      id: this.IndicadorEstrForm.value.id,
-      nombre: this.IndicadorEstrForm.get('nombre')!.value,
-      linaBase: this.IndicadorEstrForm.get('linaBase')!.value,
-      meta: this.IndicadorEstrForm.get('meta')!.value,
-      idResultadoefecto: this.IndicadorEstrForm.get('idResultadoefecto')!.value,
-      cronograma: {
-        anio1: this.IndicadorEstrForm.get('anio1')!.value,
-        metaAnio1: this.IndicadorEstrForm.get('metaAnio1')!.value,
-        anio2: this.IndicadorEstrForm.get('anio2')!.value,
-        metaAnio2: this.IndicadorEstrForm.get('metaAnio2')!.value,
-        anio3: this.IndicadorEstrForm.get('anio3')!.value,
-        metaAnio3: this.IndicadorEstrForm.get('metaAnio3')!.value,
-        anio4: this.IndicadorEstrForm.get('anio4')!.value,
-        metaAnio4: this.IndicadorEstrForm.get('metaAnio4')!.value,
-      },
-    };
 
-    this.indicadoresEstraService.updateIndicadoresEstrategicos(objetoPost, this.IndicadorEstrForm.value.id)
-      .subscribe((resp: any) => {
-        resp.data
-        successMessageAlert("El registro fue editado correctamente");
-        this.getAllIndicadoresEstrategicos();
-        this.IndicadorEstrForm.reset();
-      })
+  putIndicadoresEstrategicos() {
+    this.indicadoresEstraService.putIndicadoresEstrategicos(this.IndicadorEstrForm.value)
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
   }
 
   async deleteIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {
-    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este indicador?")
+    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este indicador estrategico?")
 
     if (remove) {
       this.indicadoresEstraService.deleteIndicadoresEstrategicos(indicadorEstrategico.id!)
-        .subscribe((resp: any) => {
-          alertIsSuccess(true);
-          this.getAllIndicadoresEstrategicos();
-        })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
     }
+  }
+
+  openModal(elementoList: any[], nombre: string, entidad: string) {
+    this.dialog.open(EntidadListViewComponent, { data: { elementoList, nombre, entidad } })
   }
 
   saveChanges() {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { alertIsSuccess, alertNoValidForm } from '../alerts/alerts';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +9,8 @@ import { FormGroup } from '@angular/forms';
 
 export class HelperService {
 
-    constructor() { }
+    constructor(
+    ) { }
 
     handleResponse(response: any, onSuccess: () => void, formToReset?: FormGroup, onSecondSuccess?: () => void) {
         if (response.ok) {
