@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SupuestosRiesgosService } from '../services/supuestos-riesgos.service';
-import { alertNoValidForm, alertRemoveSure} from 'src/app/alerts/alerts';
+import { alertRemoveSure} from 'src/app/alerts/alerts';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/appHelper.service';
@@ -32,8 +32,7 @@ export class SupuestosRiegosComponent implements OnInit {
 
   getAllSupuestosRiesgos() {
     this.supuestosRiesgosService.getSupuestosRiesgos()
-      .subscribe((resp: any) => { this.supuestosRiesgos = resp.data; console.log(this.supuestosRiesgos);
-       })
+      .subscribe((resp: any) => { this.supuestosRiesgos = resp.data; console.log(this.supuestosRiesgos);})
   }
 
   postSupuestoRiesgo() {

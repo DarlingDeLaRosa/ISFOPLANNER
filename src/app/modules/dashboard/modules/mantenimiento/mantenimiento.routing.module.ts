@@ -19,6 +19,7 @@ import { AsignacionPresupuestoComponent } from './components/asignacion-presupue
 import { ConfiguracionPeriodosComponent } from './components/configuracion-periodos/configuracion-periodos.component';
 import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { PresupuestoInstitucionalComponent } from './components/presupuesto-institucional/presupuesto-institucional.component';
+import { RolesComponent } from './components/roles/roles.component';
 
 const routes: Routes = [
   {
@@ -135,6 +136,11 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: UsuariosComponent,
+        outlet: 'mantenimiento'
+      },
+      {
+        path: 'roles',
+        component: RolesComponent,
         outlet: 'mantenimiento'
       },
     ]

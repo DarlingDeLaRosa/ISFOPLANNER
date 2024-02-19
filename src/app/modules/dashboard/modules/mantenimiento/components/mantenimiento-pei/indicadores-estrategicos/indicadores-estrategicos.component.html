@@ -10,7 +10,7 @@
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 16%;">
         <mat-label>Linea Base</mat-label>
-        <input matInput type="number" formControlName="linaBase">
+        <input matInput type="number" formControlName="lineaBase">
       </mat-form-field>&nbsp;
 
       <mat-form-field hideRequiredMarker appearance="fill" style="width: 16.5%;">
@@ -182,7 +182,7 @@
             <tr class="dataRow" *ngFor="let indicador of indicadoresEstrategicos">
               <td class="dataIndiCell">{{indicador.nombre}}</td>
               <td class="dataIndiCell">{{indicador.resultadoEfecto.nombre}}</td>
-              <td class="dataIndiCell">{{indicador.linaBase}}</td>
+              <td class="dataIndiCell">{{indicador.lineaBase}}</td>
               <td class="dataIndiCell">{{indicador.meta}}</td>
               <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.requerimientos, 'Requerimientos', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
               <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.involucrados, 'Involucrados', indicador.nombre)" class="detailsIcon">list</mat-icon></td>

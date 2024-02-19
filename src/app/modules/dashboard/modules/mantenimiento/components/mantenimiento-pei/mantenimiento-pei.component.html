@@ -35,6 +35,9 @@
         routerLinkActive="active">
         <mat-icon>settings</mat-icon>Preguntas frecuentes
       </a>
+      <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['roles'] } }]" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>Roles
+      </a>      
       <a class="item-menu" [routerLink]="[{ outlets: { mantenimiento: ['usuarios'] } }]" routerLinkActive="active">
         <mat-icon>settings</mat-icon>Usuarios
       </a>

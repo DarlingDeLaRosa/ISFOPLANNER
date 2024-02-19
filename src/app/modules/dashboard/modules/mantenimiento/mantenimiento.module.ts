@@ -27,6 +27,7 @@ import { PresupuestoInstitucionalComponent } from './components/presupuesto-inst
 import { RequerimientosComponent } from './components/mantenimiento-pei/Requerimientos/requerimientos.component';
 import { DetailViewComponent } from './modals/detail-view/detail-view.component';
 import { EntidadListViewComponent } from './modals/responsible-view/responsible-view.component';
+import { RolesComponent } from './components/roles/roles.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { EntidadListViewComponent } from './modals/responsible-view/responsible-
     AsignacionPresupuestoComponent,
     PresupuestoInstitucionalComponent,
     DetailViewComponent,
-    EntidadListViewComponent
+    EntidadListViewComponent,
+    RolesComponent
   ],
 
   providers:[

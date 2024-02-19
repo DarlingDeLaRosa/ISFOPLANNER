@@ -125,5 +125,4 @@ export class UsuariosComponent implements OnInit {
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putUsuarios(), this.usuariosForm, () => this.postUsuarios())
   }
-
 }

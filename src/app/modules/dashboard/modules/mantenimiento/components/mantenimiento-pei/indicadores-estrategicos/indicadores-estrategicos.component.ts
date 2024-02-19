@@ -52,7 +52,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       nombre: new FormControl('', Validators.required),
       meta: new FormControl<number>(0, Validators.required),
       requerimientos: new FormControl('', Validators.required),
-      linaBase: new FormControl<number>(0, Validators.required),
+      lineaBase: new FormControl<number>(0, Validators.required),
       supuestosRiesgos: new FormControl('', Validators.required),
       mediosVerificaciones: new FormControl('', Validators.required),
       idResultadoefecto: new FormControl<number>(0, Validators.required),
@@ -117,7 +117,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     this.IndicadorEstrForm.patchValue({
       id: indicadorEstrategico.id,
       nombre: indicadorEstrategico.nombre,
-      linaBase: indicadorEstrategico.linaBase,
+      lineaBase: indicadorEstrategico.lineaBase,
       meta: indicadorEstrategico.meta,
       requerimientos: indicadorEstrategico.requerimientos.map((requerimiento: RequerimientoI)=>{ return requerimiento.id}),
       supuestosRiesgos: indicadorEstrategico.supuestosRiesgos.map((supuestosRiesgo: SupuestosRiesgosI)=>{ return supuestosRiesgo.id}),
@@ -131,6 +131,8 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   postIndicadoresEstrategicos() {
+    console.log(this.IndicadorEstrForm.value);
+    
     this.indicadoresEstraService.postIndicadoresEstrategicos(this.IndicadorEstrForm.value)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
   }

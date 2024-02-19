@@ -9,7 +9,7 @@ import { SupuestosRiesgosI } from "./supuestos-riesgos.interface";
 export interface IndicadoresEstrategicosI {
   id?: number,
   nombre: string,
-  linaBase: number,
+  lineaBase: number,
   meta: number,
   creadoPor?: number,
   // idResultadoefecto: number
