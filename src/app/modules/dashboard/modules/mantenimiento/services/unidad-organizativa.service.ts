@@ -15,7 +15,7 @@ export class UnidadOrganizativaService {
   baseURL: string = this.userSystemService.getURL
   idSistema: number = this.userSystemService.getSistema
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(

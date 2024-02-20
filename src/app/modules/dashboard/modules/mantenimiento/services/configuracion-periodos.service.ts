@@ -11,11 +11,11 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 
 export class ConfiguracionPeriodoServive {
 
-  token?: string = this.userSystemService.getToken
+  token: string = this.userSystemService.getToken
   idSistema: number =  this.userSystemService.getSistema
   baseURL: string = this.userSystemService.getURL
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(

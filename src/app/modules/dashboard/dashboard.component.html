@@ -43,7 +43,7 @@
 
           <div class="btnMenuContainer">
             <button class="btnMenu" (click)="sidenavOpened = !sidenavOpened"><mat-icon>menu</mat-icon></button>&nbsp;
-            <h2 class="departamento">Departamento de Planes, Programas y proyectos</h2>
+            <h2 class="departamento">{{userLogged.division.nombre}}</h2> <!--Validar las demas unidades organizticas-->
           </div>
 
           <div class="logout">

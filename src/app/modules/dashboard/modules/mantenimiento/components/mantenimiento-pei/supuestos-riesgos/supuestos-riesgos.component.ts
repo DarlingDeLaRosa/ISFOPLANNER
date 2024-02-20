@@ -32,7 +32,7 @@ export class SupuestosRiegosComponent implements OnInit {
 
   getAllSupuestosRiesgos() {
     this.supuestosRiesgosService.getSupuestosRiesgos()
-      .subscribe((resp: any) => { this.supuestosRiesgos = resp.data; console.log(this.supuestosRiesgos);})
+      .subscribe((resp: any) => { this.supuestosRiesgos = resp.data;})
   }
 
   postSupuestoRiesgo() {

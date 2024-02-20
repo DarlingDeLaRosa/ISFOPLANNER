@@ -10,11 +10,11 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 
 export class TipoProcesosService {
 
-  token?: string = this.userSystemService.getToken 
+  token: string = this.userSystemService.getToken 
   baseURL: string = this.userSystemService.getURL
   idSistema: number = this.userSystemService.getSistema
 
-  headers: HttpHeaders = new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(
