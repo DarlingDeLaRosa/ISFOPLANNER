@@ -9,11 +9,13 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 export class dashboardComponent implements OnInit{
   sidenavOpened: boolean = false;
   userLogged: any = this.userSystemService.getUserLogged
+  modulos?: any[] = this.userSystemService.getUserLogged?.rol.modulos
 
   constructor(
     private userSystemService: UserSystemInformationService,
   ){}
   
   ngOnInit(): void {
+    console.log(this.userLogged);
   }
 }

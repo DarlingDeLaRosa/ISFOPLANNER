@@ -4,22 +4,22 @@
 
     <form [formGroup]="preguntasFrecuentesForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
+      <mat-form-field  appearance="fill" style="width: 59%;">
         <mat-label>Pregunta</mat-label>
         <input matInput formControlName="pregunta">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
+      <mat-form-field  appearance="fill" style="width: 40%;">
         <mat-label>Contexto</mat-label>
         <input matInput formControlName="contexto">
       </mat-form-field>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+      <mat-form-field  appearance="fill" style="width: 100%;">
         <mat-label>Respuesta</mat-label>
         <textarea matInput formControlName="respuesta" ></textarea>
       </mat-form-field>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
+      <mat-form-field  appearance="fill" style="width: 40%;">
         <mat-label>Enlace relacionado</mat-label>
         <input matInput formControlName="enlance">
       </mat-form-field><br>

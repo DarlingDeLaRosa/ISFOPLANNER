@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EstructuraProgramaticaI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError, throwError } from 'rxjs';
 import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
@@ -33,13 +32,13 @@ export class RolesPermisosService {
     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
   }
 
-  public putRolesPermisos(rolPermisoData: RolesI) {
-    return this.http.put(`${this.baseURL}/RolesPermisos/${rolPermisoData.idRol}`, rolPermisoData, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
-  }
+  // public putRolesPermisos(rolPermisoData: RolesI) {
+  //   return this.http.put(`${this.baseURL}/RolesPermisos/${rolPermisoData.idRol}`, rolPermisoData, this.header)
+  //   .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+  // }
 
   public removeRolesPermisos(id: number) {
-    return this.http.delete(`${this.baseURL}/RolesPermisos/${id}`, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.http.delete(`${this.baseURL}/Rol/${id}`, this.header)
+    .pipe(catchError((error) => { error.error.message ? errorMessageAlert(error.error.message) : alertServerDown(); return throwError(error) }))
   }
 }

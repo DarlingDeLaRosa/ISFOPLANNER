@@ -23,6 +23,19 @@ export class HelperService {
         }
     }
 
+    handleResponseGeneralServer(response: any, onSuccess: () => void, formToReset?: FormGroup, onSecondSuccess?: () => void) {
+        console.log(response);
+        
+        if (response.status) {
+            alertIsSuccess(true);
+            onSuccess();
+            formToReset?.reset();
+            if (onSecondSuccess != undefined) onSecondSuccess();
+        } else {
+            alertIsSuccess(false);
+        }
+    }
+
     saveChanges(updateFunction: () => void, form: FormGroup, saveFunction: () => void) {
         if (form.valid) {
         

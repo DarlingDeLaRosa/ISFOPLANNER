@@ -4,7 +4,7 @@
   <div>
     <form [formGroup]="rolesForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+      <mat-form-field  appearance="fill" style="width: 100%;">
         <mat-label>Rol</mat-label>
         <input matInput formControlName="rolName">
       </mat-form-field><br>
@@ -12,11 +12,11 @@
       <h2 class="Stitle">Permisos</h2>
 
       <div formArrayName="permisos" *ngIf="rolesForm.value.permisos.length > 0">
-        <div style="border:1px solid  #ccc ;">
+        <div style="border:1px solid  #cccccca8 ;">
 
           <table>
             <thead class="headerTable">
-              <tr class="headerRow" style="background-color: #eee;">
+              <tr class="headerRow" style="background-color: #eeeeee83;">
                 <th class="headerCell" style="width: 40%;">Modulos</th>
                 <th class="headerCell">Leer</th>
                 <th class="headerCell">Crear</th>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
               <tr class="dataRow" [formGroupName]="i" *ngFor="let permiso of rolesForm.value.permisos; let i = index">
-                <td class="dataIndiCell">{{ roles[0].modulos[i].nombre }}</td>
+                <td class="dataIndiCell" *ngIf="roles.length">{{ roles[0].modulos[i].nombre }}</td>
                 <td class="dataIndiCell"><mat-checkbox color="primary" formControlName="leer"></mat-checkbox></td>
                 <td class="dataIndiCell"><mat-checkbox color="primary" formControlName="crear"></mat-checkbox></td>
                 <td class="dataIndiCell"><mat-checkbox color="primary" formControlName="editar"></mat-checkbox></td>
@@ -39,19 +39,9 @@
       <br>
 
       <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-      <button (click)="rolesForm.reset()" *ngIf="rolesForm.value.id" class="cleanButton">Limpiar edición</button>
+      <button (click)="rolesForm.reset()" *ngIf="rolesForm.value.idRol" class="cleanButton">Limpiar edición</button>
 
     </form>
-
-    <!-- <h2>{{ roles[0].modulos[i].nombre }}</h2> -->
-    <!-- <div class="permisostypes">
-            <mat-checkbox></mat-checkbox>
-            <mat-checkbox>Cheess Burger</mat-checkbox>
-            <mat-checkbox>Hot Dog</mat-checkbox>
-            <mat-checkbox>Fried Chiken</mat-checkbox>
-          </div> -->
-
-
 
     <h2 style=" margin-top: 15px;" class="Stitle">Listado de Roles y permisos</h2>
 
@@ -69,8 +59,8 @@
           <tr class="dataRow" *ngFor="let rol of roles">
             <td class="dataIndiCell">{{rol.nombre}}</td>
             <td class="dataIndiCell"><mat-icon (click)="openModal(rol)" class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon (click)="setValueRolesPermisos()" class="editIcon">edit</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon (click)="deleteRolesPermisos()" class="removeIcon">delete</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon (click)="setValueRolesPermisos(rol)" class="editIcon">edit</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon (click)="deleteRolesPermisos(rol.idRol)" class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuarios.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
-import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
+import { alertNoValidForm, alertRemoveSure } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { GetRolesI } from '../mantenimiento-pei/interfaces/RolesPermisos.interface';
 
 @Component({
   selector: 'app-usuarios',
@@ -13,91 +13,76 @@ import { HelperService } from 'src/app/services/appHelper.service';
 })
 export class UsuariosComponent implements OnInit {
 
-  usuariosForm: FormGroup;
+  cargos: any[] = []
   usuarios: any[] = []
   recintos: any[] = []
-  cargos: any[] = []
-  roles: any[] = []
+  roles: GetRolesI[] = []
   unidadesOrg: any[] = []
-  
+  usuariosForm: FormGroup;
+  departamentos: any[] = []
+  divisiones: any[] = []
+
   constructor(
     public fb: FormBuilder,
     private apiUsuario: UsuarioService,
-    private apiUnidadOrg: UnidadOrganizativaService,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
-    private helperHandler: HelperService
   ) {
     this.usuariosForm = this.fb.group({
-      id: 0,
-      usuario: new FormControl('', Validators.required),
-      nombre: new FormControl('', Validators.required),
-      apellidos: new FormControl('', Validators.required),
+      idUsuario: 0,
+      idSistema: this.userSystemService.getSistema,
       idRol: new FormControl('', Validators.required),
-      idUnidad: new FormControl('', Validators.required),
+      nombre: new FormControl('', Validators.required),
       idCargo: new FormControl('', Validators.required),
+      usuario: new FormControl('', Validators.required),
+      apellidos: new FormControl('', Validators.required),
       idRecinto: new FormControl('', Validators.required),
-      idSistema: this.userSystemService.getSistema
+      idDivision: new FormControl('', Validators.required),
+      idDepartamento: new FormControl('', Validators.required),
     })
   }
-  
+
   ngOnInit(): void {
-    this.getAllRecintos()
-    this.getAllCargos()
     this.getUsuarios()
     this.getAllRoles()
-    this.getUnidadOrganizativa()
+    this.getAllCargos()
+    this.getDivisiones()
+    this.getAllRecintos()
+    this.getDepartamentos()
   }
 
-  getUnidadOrganizativa() {
-    this.apiUnidadOrg.getUnidadesOrganizativas()
-      .subscribe((res: any) => { this.unidadesOrg = res.data })
+  getDepartamentos() {
+    this.apiUsuario.getAllDepartamento().subscribe((res: any) => { this.departamentos = res.data; })
+  }
+
+  getDivisiones() {
+    this.apiUsuario.getAllDivisiones().subscribe((res: any) => { this.divisiones = res.data; })
   }
 
   getAllRecintos() {
-    this.apiUsuario.getAllRecintos()
-      .subscribe((res: any) => { this.recintos = res.data })
+    this.apiUsuario.getAllRecintos().subscribe((res: any) => { this.recintos = res.data; })
   }
 
   getAllRoles() {
-    this.apiUsuario.getAllRoles()
-      .subscribe((res: any) => { this.roles = res.data ; console.log(res);
-      })
+    this.apiUsuario.getAllRoles().subscribe((res: any) => { this.roles = res.data; })
   }
 
   getAllCargos() {
-    this.apiUsuario.getAllCargos()
-      .subscribe((res: any) => { this.cargos = res.data })
+    this.apiUsuario.getAllCargos().subscribe((res: any) => { this.cargos = res.data; })
   }
 
   getUsuarios() {
-    this.apiUsuario.getUsuario()
-      .subscribe((res: any) => { this.usuarios = res.data ; console.log(res)})
+    this.apiUsuario.getUsuario().subscribe((res: any) => { this.usuarios = res.data; })
   }
 
   postUsuarios() {
     this.apiUsuario.postUsuario(this.usuariosForm.value)
-      .subscribe((res: any) => {
-        if (res.ok) {
-
-          alertIsSuccess(true)
-          this.getUsuarios()
-          this.usuariosForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+      .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm) })
   }
 
   putUsuarios() {
     this.apiUsuario.putUsuario(this.usuariosForm.value)
-      .subscribe((res: any) => {
-        if (res.ok) {
-
-          alertIsSuccess(true)
-          this.getUsuarios()
-          this.usuariosForm.reset()
-
-        } else alertIsSuccess(false)
-      })
+      .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm) })
   }
 
   async deleteUsuarios(id: number) {
@@ -105,24 +90,32 @@ export class UsuariosComponent implements OnInit {
 
     if (removeDecision) {
       this.apiUsuario.removeUsuario(id)
-        .subscribe((res: any) => {
-          if (res.ok) {
-
-            alertRemoveSuccess()
-            this.getUsuarios()
-
-          } else {
-            errorMessageAlert('Ocurrio un error, No se pudo eliminar correctamente.')
-          }
-        })
+        .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm) })
     }
   }
 
-  setValueEditUsuarios(usuarios: any) {
-    this.usuariosForm.reset(usuarios)
+  setValueEditUsuarios(usuario: any) {
+    this.usuariosForm.patchValue({
+      idUsuario: usuario.idUsuario,
+      usuario: usuario.usuario,
+      idRol: usuario.rol.idRol,
+      apellidos: usuario.persona.apellidos,
+      idRecinto: usuario.persona.recinto.idRecinto,
+      nombre: usuario.persona.nombre,
+      idCargo: usuario.persona.idCargo,
+      idDivision: usuario.persona.division.id,
+      idSistema: this.userSystemService.getSistema,
+      idDepartamento: usuario.persona.idDepartamento,
+    })
   }
 
   saveChanges() {
-    this.helperHandler.saveChanges(() => this.putUsuarios(), this.usuariosForm, () => this.postUsuarios())
+    console.log(JSON.stringify(this.usuariosForm.value));
+
+    if (this.usuariosForm.valid) {
+      if (this.usuariosForm.value.idUsuario > 0) this.putUsuarios()
+      else this.postUsuarios()
+    } else alertNoValidForm()
   }
+
 }

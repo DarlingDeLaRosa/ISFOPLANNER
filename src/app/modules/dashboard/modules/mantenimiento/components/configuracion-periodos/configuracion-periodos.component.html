@@ -3,7 +3,7 @@
     <div>
         <form [formGroup]="periodosConfigForm" (ngSubmit)="saveChanges()">
             
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 30%;">
+            <mat-form-field  appearance="fill" style="width: 30%;">
                 <mat-label>Proceso</mat-label>
                 <mat-select disableRipple formControlName="idTipoProceso">
                     <ng-container *ngIf="tipoProcesos.length > 0; else noProceso">
@@ -19,7 +19,7 @@
                 </mat-select>
             </mat-form-field>&nbsp; 
 
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
+            <mat-form-field  appearance="fill" style="width: 40%;">
                 <mat-label>Periodo de tiempo</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Fecha Inicial" formControlName="fechaInicio">
@@ -29,7 +29,7 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>&nbsp;
 
-            <mat-form-field hideRequiredMarker appearance="fill" style="width: 28%;">
+            <mat-form-field  appearance="fill" style="width: 28%;">
                 <mat-label>Prorroga</mat-label>
                 <input matInput [matDatepicker]="date" appearance="fill" formControlName="prorroga">
                 <mat-datepicker-toggle [for]="date" matSuffix></mat-datepicker-toggle>

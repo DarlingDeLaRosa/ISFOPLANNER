@@ -17,7 +17,7 @@
     <div class="formularioActividades">
       <h2 class="Stitle">Nueva Actividad</h2>
       <form [formGroup]="ActividadForm">
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
+        <mat-form-field  appearance="fill" style="width: 40%;">
           <mat-label>Nombre de la actividad</mat-label>
           <input matInput required formControlName="nombre">
         </mat-form-field>&nbsp;
@@ -114,38 +114,38 @@
 
         <h3 class="Stitle">Resultado esperado cualitativo</h3>
 
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+        <mat-form-field  appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 1</mat-label>
           <input matInput formControlName="resultadoEsperadoCualitativoT1">
         </mat-form-field>&nbsp;
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+        <mat-form-field  appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 2</mat-label>
           <input matInput formControlName="resultadoEsperadoCualitativoT2">
         </mat-form-field>&nbsp;
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+        <mat-form-field  appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 3</mat-label>
           <input matInput formControlName="resultadoEsperadoCualitativoT3">
         </mat-form-field>&nbsp;
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+        <mat-form-field  appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 4</mat-label>
           <input matInput formControlName="resultadoEsperadoCualitativoT4">
         </mat-form-field>&nbsp;
 
         <h3 class="Stitle">Resultado esperado Cuantitativo</h3>
 
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+        <mat-form-field  appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 1</mat-label>
           <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT1">
         </mat-form-field>&nbsp;
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+        <mat-form-field  appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 2</mat-label>
           <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT2">
         </mat-form-field>&nbsp;
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+        <mat-form-field  appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 3</mat-label>
           <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT3">
         </mat-form-field>&nbsp;
-        <mat-form-field hideRequiredMarker appearance="fill" style="width: 24%;">
+        <mat-form-field  appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 4</mat-label>
           <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT4">
         </mat-form-field>&nbsp;
@@ -183,7 +183,7 @@
       </mat-select>
     </mat-form-field>&nbsp;
 
-    <mat-form-field hideRequiredMarker appearance="fill" style="width:52%;">
+    <mat-form-field  appearance="fill" style="width:52%;">
       <mat-label>Descripción de insumo</mat-label>
       <input matInput readonly value={{descripcion}}>
     </mat-form-field>&nbsp;
@@ -202,18 +202,18 @@
       </mat-select>
     </mat-form-field>&nbsp;
 
-    <mat-form-field hideRequiredMarker appearance="fill" style="width:20%;">
+    <mat-form-field  appearance="fill" style="width:20%;">
       <mat-label>Costo unitario</mat-label>
       <input matInput formControlName="costoUnitario" type="number">
     </mat-form-field>&nbsp;
 
     <!-- <h3 class="Stitle">Detallar costeo en periodos:</h3> -->
-    <mat-form-field hideRequiredMarker appearance="fill" style="width:20%;">
+    <mat-form-field  appearance="fill" style="width:20%;">
       <mat-label>cantidad</mat-label>
       <input matInput type="number" formControlName="cantidad">
     </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width:25%;">
+      <mat-form-field  appearance="fill" style="width:25%;">
         <mat-label>Fecha recepción</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="fechaRecepcion">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

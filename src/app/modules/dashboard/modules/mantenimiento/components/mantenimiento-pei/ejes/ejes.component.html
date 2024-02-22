@@ -2,17 +2,17 @@
   <h2 class="Stitle" >Ejes Estrategicos</h2>
   <div>
     <form  [formGroup]="ejeForm" (ngSubmit)="saveChanges()">
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 48%;">
+      <mat-form-field  appearance="fill" style="width: 48%;">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 50%;">
+      <mat-form-field  appearance="fill" style="width: 50%;">
         <mat-label>Número</mat-label>
         <input matInput type="number" formControlName="numeroEje">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+      <mat-form-field  appearance="fill" style="width: 100%;">
         <mat-label>Objetivo</mat-label>
         <input matInput formControlName="objetivo">
       </mat-form-field>

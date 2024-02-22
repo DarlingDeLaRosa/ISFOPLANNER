@@ -3,22 +3,22 @@
   <div>
     <form [formGroup]="materialApoyoForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 59%;">
+      <mat-form-field  appearance="fill" style="width: 59%;">
         <mat-label>Titulo del documento</mat-label>
         <input matInput formControlName="titulo">
       </mat-form-field>&nbsp;
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 40%;">
+      <mat-form-field  appearance="fill" style="width: 40%;">
         <mat-label>Enlace relacionado</mat-label>
         <input matInput formControlName="enlace">
       </mat-form-field>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 100%;">
+      <mat-form-field  appearance="fill" style="width: 100%;">
         <mat-label>Descripción</mat-label>
         <textarea matInput formControlName="descripcion"></textarea>
       </mat-form-field>
 
-      <mat-form-field hideRequiredMarker appearance="fill" style="width: 15%;">
+      <mat-form-field  appearance="fill" style="width: 15%;">
         <mat-label>Versión</mat-label>
         <input matInput formControlName="versionDocumento">
       </mat-form-field><br>

@@ -1,0 +1,33 @@
+<div class="modal">
+    <div class="fuctionContent">
+        <h2 class="Stitle">Permisos</h2>
+        <h2 style="color: #aaa;">{{rol.nombre}}</h2>
+    </div>
+
+    <div formArrayName="permisos" > <!--*ngIf="rolesForm.value.permisos.length > 0"-->
+        <div style="border:1px solid  #95ade93f ;">
+
+            <table>
+                <thead class="headerTable">
+                    <tr class="headerRow" style="background-color: #95ade93f;">
+                        <th class="headerCell" style="width: 40%;">Modulos</th>
+                        <th class="headerCell">Leer</th>
+                        <th class="headerCell">Crear</th>
+                        <th class="headerCell">Editar</th>
+                        <th class="headerCell">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow" *ngFor="let modulo of rol.modulos">                        
+                        <td class="dataIndiCell">{{modulo.nombre}}</td>
+                        <td class="dataIndiCell"><mat-icon  style="color: #49aa42;" *ngIf="modulo.permiso.leer ; else noPermitido">done</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon  style="color: #49aa42;" *ngIf="modulo.permiso.crear ; else noPermitido">done</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon  style="color: #49aa42;" *ngIf="modulo.permiso.editar ; else noPermitido">done</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon  style="color: #49aa42;" *ngIf="modulo.permiso.editar ; else noPermitido">done</mat-icon></td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noPermitido><mat-icon style="color: red;">close</mat-icon></ng-template>
+        </div>
+    </div>
+</div>

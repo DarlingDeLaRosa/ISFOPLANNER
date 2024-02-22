@@ -6,6 +6,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 import { RolesPermisosService } from '../../services/roles.service';
 import { MatDialog } from '@angular/material/dialog';
 import { modulosService } from '../../services/modulos.service';
+import { RolesViewComponent } from '../../modals/roles-view/roles-view.component';
+import { alertNoValidForm, alertRemoveSure } from 'src/app/alerts/alerts';
 
 @Component({
   selector: 'app-roles',
@@ -26,6 +28,7 @@ export class RolesComponent implements OnInit {
     private rolesPermisosService: RolesPermisosService,
     private userSystemService: UserSystemInformationService,
   ) {
+    console.log(userSystemService.getUserLogged);
 
     this.rolesForm = this.fb.group({
       idRol: 0,
@@ -33,17 +36,6 @@ export class RolesComponent implements OnInit {
       idSistema: this.userSystemService.getSistema,
       permisos: this.fb.array([])
     })
-
-    console.log(this.rolesForm.value);
-
-    //[
-    //   {
-    //     idModulo: 0,
-    //     crear: new FormControl('', Validators.required),
-    //     editar: new FormControl('', Validators.required),
-    //     eliminar: new FormControl('', Validators.required),
-    //   }
-    // ]
   }
 
   ngOnInit(): void {
@@ -55,7 +47,9 @@ export class RolesComponent implements OnInit {
     this.moduloService.getModulosByIdSistema()
       .subscribe((resp: any) => {
         resp.data.map((modulo: modulo) => {
+
           const permisoGroup = this.fb.group({
+            idPermiso: 0,
             idModulo: modulo.idModulo,
             leer: new FormControl(false, Validators.required),
             crear: new FormControl(false, Validators.required),
@@ -66,41 +60,66 @@ export class RolesComponent implements OnInit {
           (this.rolesForm.get('permisos') as FormArray).push(permisoGroup)
         })
       })
+
   }
 
   getRolesPermisos() {
-    this.rolesPermisosService.getRolesPermisos()
-      .subscribe((resp: any) => {
-        this.roles = resp.data;
-
-        // resp.data[0].modulos.map((modulo: modulos) => {
-
-        //   const permisoGroup = this.fb.group({
-        //     idModulo: modulo.idModulo,
-        //     crear: new FormControl(modulo.permiso.crear, Validators.required),
-        //     editar: new FormControl(modulo.permiso.editar, Validators.required),
-        //     eliminar: new FormControl(modulo.permiso.eliminar, Validators.required),
-        //   });
-
-        //   (this.rolesForm.get('permisos') as FormArray).push(permisoGroup)
-        // })
-      })
-
+    this.rolesPermisosService.getRolesPermisos().subscribe((resp: any) => { this.roles = resp.data; })
   }
 
-  setValueRolesPermisos() {
+  postRolesPermisos() {
+    this.rolesPermisosService.postRolesPermisos(this.rolesForm.value)
+      .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getRolesPermisos(), this.rolesForm) })
+  }
+
+  putRolesPermisos() {
+    this.rolesPermisosService.postRolesPermisos(this.rolesForm.value)
+      .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getRolesPermisos(), this.rolesForm) })
+  }
+
+  setValueRolesPermisos(rol: GetRolesI) {
+    const permisosArray = this.rolesForm.get('permisos') as FormArray;
+
+    this.rolesForm.patchValue({
+      idRol: rol.idRol,
+      rolName: rol.nombre,
+    })
+
+    this.rolesForm.patchValue({
+      permisos: rol.modulos.map((permiso, index) => {
+        const permisoGroup = permisosArray.at(index);
+        permisoGroup.patchValue({
+          idPermiso: permiso.permiso.idPermiso,
+          idModulo: permiso.idModulo,
+          leer: permiso.permiso.leer,
+          idSistema: this.userSystemService.getSistema,
+          crear: permiso.permiso.crear,
+          editar: permiso.permiso.editar,
+          eliminar: permiso.permiso.eliminar,
+        })
+      })
+    })
     console.log(this.rolesForm.value);
   }
 
-  deleteRolesPermisos() {
+  async deleteRolesPermisos(id: number) {
+    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el rol.")
 
+    if (removeDecision) {
+      this.rolesPermisosService.removeRolesPermisos(id)
+        .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getRolesPermisos(), this.rolesForm) })
+    }
   }
 
   openModal(rol: GetRolesI) {
-    // this.dialog.open(EntidadListViewComponent, { data: producto })
+    this.dialog.open(RolesViewComponent, { data: rol })
   }
 
   saveChanges() {
-    // this.helperHandler.saveChanges(() => this.putSupuestoRiesgo(), this.supuestoRiesgoForm, () => this.postSupuestoRiesgo())
+    if (this.rolesForm.valid) {
+      if (this.rolesForm.value.idRol > 0) this.putRolesPermisos()
+      else this.postRolesPermisos()
+    } else alertNoValidForm()
   }
+
 }
