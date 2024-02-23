@@ -5,6 +5,7 @@ import { ResponseI } from 'src/app/interfaces/Response.interfaces';
 import { MedioVerificacionI } from '../interfaces/medio-verificacion.interface';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Injectable()
 export class MedioVerificacionService {
@@ -17,26 +18,23 @@ export class MedioVerificacionService {
 
   constructor(
     public http: HttpClient,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
   getMedioVerificacion(): Observable<ResponseI> {
-    return this.http.get<ResponseI>(`${this.baseUrl}/MediosVerificacione`, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/MediosVerificacione`, this.header))
   }
 
   postMedioVerificacion(medioVerificacion: MedioVerificacionI): Observable<ResponseI> {
-    return this.http.post<ResponseI>(`${this.baseUrl}/MediosVerificacione`, medioVerificacion, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/MediosVerificacione`, medioVerificacion, this.header))
   }
 
   DeleteMedioVerificacion(id: number): Observable<ResponseI> {
-    return this.http.delete<ResponseI>(`${this.baseUrl}/MediosVerificacione/${id}`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.delete<ResponseI>(`${this.baseUrl}/MediosVerificacione/${id}`, this.header))
   }
 
   updateMedioVerificacion(medioVerificacion: MedioVerificacionI, id: number): Observable<ResponseI> {
-    return this.http.put<ResponseI>(`${this.baseUrl}/MediosVerificacione/${id}`, medioVerificacion, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.put<ResponseI>(`${this.baseUrl}/MediosVerificacione/${id}`, medioVerificacion, this.header))
   }
 }

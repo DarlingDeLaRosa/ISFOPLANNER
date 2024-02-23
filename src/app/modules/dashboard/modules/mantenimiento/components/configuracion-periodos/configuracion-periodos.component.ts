@@ -54,7 +54,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   putPeriodoConfig() {
     this.apiPeriodosConfig.putPeriodoConfig(this.periodosConfigForm.value)
-    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPeriodoConfig(), this.periodosConfigForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPeriodoConfig(), this.periodosConfigForm) })
   }
 
   setValueEditEstructuraPro(estructuraPro: any) {

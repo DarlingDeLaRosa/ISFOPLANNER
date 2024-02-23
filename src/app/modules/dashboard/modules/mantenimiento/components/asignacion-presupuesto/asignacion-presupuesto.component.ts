@@ -16,10 +16,10 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class AsignacionPresupuestoComponent implements OnInit {
 
-  asignacionPresupuestoForm: FormGroup;
+  accion: boolean = false
   unidadesOrg: UnidadOrgI[] = []
   unidadesOrgPadres: subUnidadI[] = []
-  accion: boolean = false
+  asignacionPresupuestoForm: FormGroup;
   presupuestosInst: PresupuestoInstiGetI = {
     enUso: false, id: 0, montoTotal: 0, montoRestante: 0, montoEjecutado: 0, justicarModificacion: '', fechaInicio: new Date, fechaFin: new Date, creadoEn: new Date, creadoPor: '', actualizadoEn: new Date, actualizadoPor: ''
   }
@@ -27,15 +27,15 @@ export class AsignacionPresupuestoComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public dialog: MatDialog,
-    private userSystemService: UserSystemInformationService,
-    private apiUnidadOrg: UnidadOrganizativaService,
-    private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
     private helperHandler: HelperService,
+    private apiUnidadOrg: UnidadOrganizativaService,
+    private userSystemService: UserSystemInformationService,
+    private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {
     this.asignacionPresupuestoForm = this.fb.group({
       idPresupuestoInstitucional: 0,
-      idUnidadOrganizativa: new FormControl('', Validators.required),
       monto: new FormControl('', Validators.required),
+      idUnidadOrganizativa: new FormControl('', Validators.required),
     })
   }
 

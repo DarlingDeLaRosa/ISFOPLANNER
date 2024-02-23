@@ -4,6 +4,7 @@ import { PresupuestoInstitucionalI, asignarUnidadOrgI } from '../interfaces/mant
 import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { catchError, throwError } from 'rxjs';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,46 +20,39 @@ export class PresupuestoInstitucionalService {
 
   constructor(
     private http: HttpClient,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
   public getPresupuestoInstitucional(enUso?: boolean ) {
-    return this.http.get(`${this.baseURL}/PresupuestoInstitucional?enUso=${enUso ?? ''}`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional?enUso=${enUso ?? ''}`, this.header))
   }
 
   public postPresupuestoInstitucional(PresupuestoInstitucionalData: PresupuestoInstitucionalI) {
-    return this.http.post(`${this.baseURL}/PresupuestoInstitucional`, PresupuestoInstitucionalData, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/PresupuestoInstitucional`, PresupuestoInstitucionalData, this.header))
   }
 
   public putPresupuestoInstitucional(PresupuestoInstitucionalData: PresupuestoInstitucionalI) {
-    return this.http.put(`${this.baseURL}/PresupuestoInstitucional/${PresupuestoInstitucionalData.id}`, PresupuestoInstitucionalData, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/PresupuestoInstitucional/${PresupuestoInstitucionalData.id}`, PresupuestoInstitucionalData, this.header))
   }
   
   public postActivarPresupuesto(idPresupuesto: number) {
-    return this.http.post(`${this.baseURL}/activar-presupuesto/${idPresupuesto}`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/activar-presupuesto/${idPresupuesto}`, this.header))
   }
 
   public getUnidadesPresupuestoAsignado() {
-    return this.http.get(`${this.baseURL}/PresupuestoInstitucional/presupuestos-asignados`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional/presupuestos-asignados`, this.header))
   }
 
   public postAsignarPresupuesto(unidadOrg: asignarUnidadOrgI){
-    return this.http.post(`${this.baseURL}/asignar-presupuesto`, unidadOrg, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/asignar-presupuesto`, unidadOrg, this.header))
   }
   
   public putAsignarPresupuesto(unidadOrg: asignarUnidadOrgI){
-    return this.http.put(`${this.baseURL}/actualizar-presupuesto`, unidadOrg, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/actualizar-presupuesto`, unidadOrg, this.header))
   }
 
   public deleteAsignacionPresupuesto(unidadOrg?: number){
-    return this.http.delete(`${this.baseURL}/eliminar-presupuesto/${unidadOrg}`, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.delete(`${this.baseURL}/eliminar-presupuesto/${unidadOrg}`, this.header))
   }
 }

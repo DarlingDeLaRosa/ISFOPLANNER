@@ -26,7 +26,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MaterialModule,
     NgxChartsModule
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,30 +7,37 @@
           alt="Planificación Institucional">
       </div>
 
-      <div class="plannerOptions">
+      <div class="plannerOptions" *ngIf="userLogged.rol.modulos">
 
-        <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active" *ngIf="">
+        <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(7)">
           <mat-icon>dashboard</mat-icon>Panel de Control
         </a>
-        <a class="item-menu" [routerLink]="['formulacion']" routerLinkActive="active">
+        
+        <a class="item-menu" [routerLink]="['formulacion']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(8)">
           <mat-icon>calendar_month</mat-icon>Formulación POA
         </a>
-        <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active">
+        
+        <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(9)">
           <mat-icon>traffic</mat-icon>Monitoreo
         </a>
-        <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active" > <!--Aqui va el if que condiciona el usuario  de planes transversale-->
+        
+        <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(10)">
           <mat-icon>chat</mat-icon>Planes Transversales
         </a>
-        <!-- <a class="item-menu" [routerLink]="['rendicionDeCuentas']" routerLinkActive="active">
+<!--         
+        <a class="item-menu" [routerLink]="['rendicionDeCuentas']" routerLinkActive="active" >
           <mat-icon>account_balance</mat-icon>Rendicion de Cuentas
-        </a> -->
-        <a class="item-menu" [routerLink]="['materialDeApoyo']" routerLinkActive="active">
+        </a>
+         -->
+        <a class="item-menu" [routerLink]="['materialDeApoyo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(11)">
           <mat-icon>library_books</mat-icon>Material de Apoyo
         </a>
-        <a class="item-menu" [routerLink]="['ayuda']" routerLinkActive="active">
+
+        <a class="item-menu" [routerLink]="['ayuda']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(12)">
           <mat-icon>question_mark</mat-icon>Ayuda
         </a>
-        <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active"><!--Aqui va el if que condiciona el usuario  de mantenimiento-->
+        
+        <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(13)">
           <mat-icon>settings</mat-icon>Mantenimiento
         </a>
 

@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PermissionService } from '../../services/applyPermissions.service';
 
 @Component({
   selector: 'dash-root',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class dashboardComponent implements OnInit{
+export class dashboardComponent {
+
   sidenavOpened: boolean = false;
   userLogged: any = this.userSystemService.getUserLogged
-  modulos?: any[] = this.userSystemService.getUserLogged?.rol.modulos
 
   constructor(
+    public permisosCRUD: PermissionService,
     private userSystemService: UserSystemInformationService,
   ){}
-  
-  ngOnInit(): void {
-    console.log(this.userLogged);
-  }
 }

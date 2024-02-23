@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PeriodoConfigI } from '../interfaces/mantenimientoPOA.interface';
-import { catchError, throwError } from 'rxjs';
-import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,30 +10,28 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 
 export class ConfiguracionPeriodoServive {
 
+  baseURL: string = this.userSystemService.getURL
   token: string = this.userSystemService.getToken
   idSistema: number =  this.userSystemService.getSistema
-  baseURL: string = this.userSystemService.getURL
 
   headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
   constructor(
     private http: HttpClient,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) {}
 
   public getPeriodoConfig() {
-    return this.http.get(`${this.baseURL}/Configuraciones`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(()=> this.http.get(`${this.baseURL}/Configuraciones`, this.header))
   } 
   
   public postPeriodoConfig(periodoConfigData: PeriodoConfigI) {
-    return this.http.post(`${this.baseURL}/Configuraciones`, periodoConfigData, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(()=> this.http.post(`${this.baseURL}/Configuraciones`, periodoConfigData, this.header))
   }
 
   public putPeriodoConfig(periodoConfigData: PeriodoConfigI) {
-    return this.http.put(`${this.baseURL}/Configuraciones/${periodoConfigData.id}`, periodoConfigData, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(()=> this.http.put(`${this.baseURL}/Configuraciones/${periodoConfigData.id}`, periodoConfigData, this.header))
   }
 }

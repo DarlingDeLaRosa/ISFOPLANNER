@@ -5,6 +5,7 @@ import { ResponseI } from 'src/app/interfaces/Response.interfaces';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -18,26 +19,23 @@ export class SupuestosRiesgosService {
 
   constructor(
     public http: HttpClient,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
   getSupuestosRiesgos(): Observable<ResponseI> {
-    return this.http.get<ResponseI>(`${this.baseUrl}/SupuestosRiesgos`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/SupuestosRiesgos`, this.header))
   }
 
   postSupuestosRiesgos(supuestosriesgos: SupuestosRiesgosI): Observable<ResponseI> {
-    return this.http.post<ResponseI>(`${this.baseUrl}/SupuestosRiesgos`, supuestosriesgos, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/SupuestosRiesgos`, supuestosriesgos, this.header))
   }
 
   putSupuestosRiesgos(supuestosriesgos: SupuestosRiesgosI): Observable<ResponseI> {
-    return this.http.put<ResponseI>(`${this.baseUrl}/SupuestosRiesgos/${supuestosriesgos.id}`, supuestosriesgos, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.put<ResponseI>(`${this.baseUrl}/SupuestosRiesgos/${supuestosriesgos.id}`, supuestosriesgos, this.header))
   }
 
   deleteSupuestiRiesgos(id: number): Observable<ResponseI> {
-    return this.http.delete<ResponseI>(`${this.baseUrl}/SupuestosRiesgos/${id}`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.delete<ResponseI>(`${this.baseUrl}/SupuestosRiesgos/${id}`, this.header))
   }
 }

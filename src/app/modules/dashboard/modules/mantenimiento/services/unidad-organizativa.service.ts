@@ -4,6 +4,7 @@ import { UnidadOrgI } from '../interfaces/mantenimientoPOA.interface';
 import { alertServerDown } from 'src/app/alerts/alerts';
 import { catchError } from 'rxjs';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,19 +21,11 @@ export class UnidadOrganizativaService {
 
   constructor(
     private http: HttpClient,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
   public getUnidadesOrganizativas() {
-    return this.http.get(`${this.baseURL}/UnidadesOrganizativas`, this.header)
-      .pipe(catchError((error) => { alertServerDown(); return error }))
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas`, this.header))
   }
-
-  
-
-  // public putUnidadesOrganizativas(unidadOrg: UnidadOrgI, presupuestoInsti: number) {
-  //   return this.http.put(`${this.baseURL}/UnidadesOrganizativas/${unidadOrg.id}/presupuesto/${presupuestoInsti}`, unidadOrg, this.header)
-  //     .pipe(catchError((error) => { alertServerDown(); return error }))
-  // }
-
 }

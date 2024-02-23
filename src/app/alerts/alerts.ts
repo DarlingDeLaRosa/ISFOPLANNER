@@ -90,3 +90,18 @@ export function alertNoValidForm() {
     timer: 2000
   })
 }
+
+export function loading(load: boolean) {
+  if(load){
+    Swal.fire({
+      width: '200px',
+      html: '<div class="loader"></div>',
+      showConfirmButton: false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+    })
+  }
+  else{
+    Swal.close();
+  }
+}

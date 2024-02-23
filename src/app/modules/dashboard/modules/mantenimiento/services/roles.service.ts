@@ -4,6 +4,7 @@ import { catchError, throwError } from 'rxjs';
 import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { RolesI } from '../components/mantenimiento-pei/interfaces/RolesPermisos.interface';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,31 +15,24 @@ export class RolesPermisosService {
   token: string = this.userSystemService.getToken
   baseURL: string = this.userSystemService.getURLgeneralService
 
-  headers: HttpHeaders = new HttpHeaders({'Authorization': this.token })
-  header = {headers: this.headers}
+  headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
+  header = { headers: this.headers }
 
   constructor(
     private http: HttpClient,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
   public getRolesPermisos() {
-    return this.http.get(`${this.baseURL}/Rol/getrolesbyidsistema/${this.userSystemService.getSistema}`, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleGeneralServiceRequest(() => this.http.get(`${this.baseURL}/Rol/getrolesbyidsistema/${this.userSystemService.getSistema}`, this.header))
   }
 
   public postRolesPermisos(rolPermisoData: RolesI) {
-    return this.http.post(`${this.baseURL}/Rol/addroltransation` , rolPermisoData, this.header)
-    .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleGeneralServiceRequest(() => this.http.post(`${this.baseURL}/Rol/addroltransation`, rolPermisoData, this.header))
   }
 
-  // public putRolesPermisos(rolPermisoData: RolesI) {
-  //   return this.http.put(`${this.baseURL}/RolesPermisos/${rolPermisoData.idRol}`, rolPermisoData, this.header)
-  //   .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
-  // }
-
   public removeRolesPermisos(id: number) {
-    return this.http.delete(`${this.baseURL}/Rol/${id}`, this.header)
-    .pipe(catchError((error) => { error.error.message ? errorMessageAlert(error.error.message) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleGeneralServiceRequest(() => this.http.delete(`${this.baseURL}/Rol/${id}`, this.header))
   }
 }

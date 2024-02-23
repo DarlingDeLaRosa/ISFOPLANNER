@@ -4,6 +4,7 @@ import { ProductoI } from '../interfaces/mantenimientoPOA.interface';
 import { catchError, throwError } from 'rxjs';
 import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ProductoService {
 
   constructor(
     private http: HttpClient,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
@@ -23,34 +25,22 @@ export class ProductoService {
   header = { headers: this.headers }
 
   public getProducto(eje?: number, estrategia?: number, resultadoEfecto?: number) {
-    return this.http.get(`${this.baseURL}/Productos?eje=${eje ?? ''}&estrategia=${estrategia ?? ''}&resultadoEfecto=${resultadoEfecto ?? ''}`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos?eje=${eje ?? ''}&estrategia=${estrategia ?? ''}&resultadoEfecto=${resultadoEfecto ?? ''}`, this.header))
   }
 
   public getByIdProducto(id: number) {
-    return this.http.get(`${this.baseURL}/Productos/${id}`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos/${id}`, this.header))
   }
 
   public postProducto(productoData: ProductoI) {
-    return this.http.post(`${this.baseURL}/Productos`, productoData, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/Productos`, productoData, this.header))
   }
 
   public putProducto(productoData: ProductoI) {
-    return this.http.put(`${this.baseURL}/Productos/${productoData.id}`, productoData, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/Productos/${productoData.id}`, productoData, this.header))
   }
 
   public removeProducto(id: number) {
-    return this.http.delete(`${this.baseURL}/Productos/${id}`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.delete(`${this.baseURL}/Productos/${id}`, this.header))
   }
-
-  // Eliminar responsable de productos 
-  
-  // public removeResponsableProducto(id: number, idResponsable: number[]) {
-  //   return this.http.delete(`${this.baseURL}/Productos/remover-responsable`, this.header, id)
-  //     .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
-  // }
 }

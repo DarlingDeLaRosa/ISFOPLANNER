@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
-import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
+import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
@@ -18,12 +17,12 @@ export class FormulacionService {
 
   constructor(
     private http: HttpClient,
+    private helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
   public getFormulacion() {
-    return this.http.get(`${this.baseURL}/MaterialesDeApoyo`, this.header)
-      .pipe(catchError((error) => { error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }))
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/MaterialesDeApoyo`, this.header))
   }
 }
 

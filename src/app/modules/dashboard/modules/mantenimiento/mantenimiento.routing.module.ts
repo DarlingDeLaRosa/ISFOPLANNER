@@ -49,7 +49,6 @@ const routes: Routes = [
             component: IndicadoresGestionComponent,
             outlet: 'mantenimiento'
           },
-
           {
             path: 'productos',
             component: ProductosComponent,
