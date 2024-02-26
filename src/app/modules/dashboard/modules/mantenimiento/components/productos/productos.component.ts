@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../../services/producto.service';
-import { alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
 import { HelperService } from 'src/app/services/appHelper.service';
@@ -19,7 +19,7 @@ import { EntidadListViewComponent } from '../../modals/responsible-view/responsi
 export class ProductosComponent implements OnInit {
 
   productosForm: FormGroup
-  productos: ProductoI[] = []
+  productos!: ProductoI[];
   indicadoresEstrategicos: IndicadoresEstrategicosI[] = []
   unidadesOrg: subUnidadI[] = []
 
@@ -74,16 +74,19 @@ export class ProductosComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el producto.")
 
     if (removeDecision) {
+      loading(true)
       this.apiProducto.removeProducto(id)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
     }
   }
 
-  openModal(producto: ProductoI) {
-    this.dialog.open(EntidadListViewComponent, { data: producto })
+  openModal(elementoList: any[], nombre: string, entidad: string) {
+    this.dialog.open(EntidadListViewComponent, { data: { elementoList, nombre, entidad } })
   }
 
   setValueEditProducto(producto: any) {
+    console.log(producto);
+    
     this.productosForm.patchValue({
       id: producto.id,
       nombre: producto.nombre,

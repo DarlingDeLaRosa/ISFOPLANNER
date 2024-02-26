@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { preguntasFrecuentesService } from '../../services/preguntas-frecuentes.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
+import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert, loading } from 'src/app/alerts/alerts';
 import { PreguntaI } from '../../interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 
@@ -14,7 +14,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 export class PreguntaFrecuentesComponent implements OnInit {
 
   preguntasFrecuentesForm: FormGroup;
-  getPreguntas: PreguntaI[] = []
+  getPreguntas!: PreguntaI[]
 
   constructor(
     public fb: FormBuilder,
@@ -53,6 +53,7 @@ export class PreguntaFrecuentesComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar la pregunta frecuente.")
 
     if (removeDecision) {
+      loading(true)
       this.apiPreguntas.removePreguntasFrecuentes(id)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPregunta(), this.preguntasFrecuentesForm) })
     }

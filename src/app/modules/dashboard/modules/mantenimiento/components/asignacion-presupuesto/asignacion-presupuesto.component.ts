@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { PresupuestoInstiGetI, UnidadOrgI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
@@ -17,7 +17,7 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 export class AsignacionPresupuestoComponent implements OnInit {
 
   accion: boolean = false
-  unidadesOrg: UnidadOrgI[] = []
+  unidadesOrg!: UnidadOrgI[] 
   unidadesOrgPadres: subUnidadI[] = []
   asignacionPresupuestoForm: FormGroup;
   presupuestosInst: PresupuestoInstiGetI = {
@@ -43,8 +43,6 @@ export class AsignacionPresupuestoComponent implements OnInit {
     this.getUnidadOrganizativa()
     this.getPresupuestoInstitucional()
     this.getUnidadOrganizativaAsignadas()
-
-    console.log(this.userSystemService.getUserLogged);
   }
 
   getPresupuestoInstitucional() {
@@ -105,6 +103,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure(`Estas seguro de eliminar el presupuesto de ${unidad?.nombre} (${montoFormateado})`)
 
     if (removeDecision) {
+      loading(true)
       this.apiPresupuestoInstitucional.deleteAsignacionPresupuesto(unidad?.id)
         .subscribe((res: any) => {
           this.helperHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())

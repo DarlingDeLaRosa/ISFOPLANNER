@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EstrategiasService } from '../services/estrategias.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { catchError } from 'rxjs';
-import { alertIsSuccess, alertRemoveSure, alertServerDown, successMessageAlert } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { EstrategiaI } from '../interfaces/estrategias.interface';
 import { ResultadoEfectoService } from '../services/resultadoEfecto.service';
 import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
@@ -17,7 +16,7 @@ export class ResultadoEfectoComponent implements OnInit {
 
   resultadoEfectoForm: FormGroup;
   estrategia: Array<EstrategiaI> = [];
-  resultadoefectos: Array<ResultadoEfectoI> = [];
+  resultadoefectos!: Array<ResultadoEfectoI>;
 
   constructor(
     private fb: FormBuilder,
@@ -69,6 +68,7 @@ export class ResultadoEfectoComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar esta estrategia?")
 
     if (removeDecision) {
+      loading(true)
       this.resultadoEfectoService.deleteResultadoEfecto(resultadoefectoId)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllResultadoEfecto(), this.resultadoEfectoForm) })
     }

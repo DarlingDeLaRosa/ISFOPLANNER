@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { IndicadoresEstrategicosI } from '../interfaces/indicadorEstrategico.interface';
 import { MedioVerificacionI } from '../interfaces/medio-verificacion.interface';
 import { MedioVerificacionService } from '../services/medio-verificacion.service';
@@ -14,7 +14,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 export class MedioVerificacionComponent implements OnInit {
 
   indicadoresEstartegicos: Array<IndicadoresEstrategicosI> = [];
-  medioVerificacion: Array<MedioVerificacionI> = [];
+  medioVerificacion!: Array<MedioVerificacionI>;
   medioVerificacionForm: FormGroup;
 
   constructor(
@@ -55,6 +55,7 @@ export class MedioVerificacionComponent implements OnInit {
     let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este medio de verificacion?")
     
     if (remove) {
+      loading(true)
       this.medioVerifService.DeleteMedioVerificacion(medioVerificaicon.id!)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
     }

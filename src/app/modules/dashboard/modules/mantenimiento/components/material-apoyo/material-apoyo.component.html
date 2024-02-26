@@ -3,28 +3,29 @@
   <div>
     <form [formGroup]="materialApoyoForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field  appearance="fill" style="width: 59%;">
+      <mat-form-field appearance="fill" style="width: 59%;">
         <mat-label>Titulo del documento</mat-label>
         <input matInput formControlName="titulo">
       </mat-form-field>&nbsp;
 
-      <mat-form-field  appearance="fill" style="width: 40%;">
+      <mat-form-field appearance="fill" style="width: 40%;">
         <mat-label>Enlace relacionado</mat-label>
         <input matInput formControlName="enlace">
       </mat-form-field>
 
-      <mat-form-field  appearance="fill" style="width: 100%;">
+      <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Descripción</mat-label>
         <textarea matInput formControlName="descripcion"></textarea>
       </mat-form-field>
 
-      <mat-form-field  appearance="fill" style="width: 15%;">
+      <mat-form-field appearance="fill" style="width: 15%;">
         <mat-label>Versión</mat-label>
         <input matInput formControlName="versionDocumento">
       </mat-form-field><br>
 
       <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-      <button (click)="materialApoyoForm.reset()" *ngIf="materialApoyoForm.value.id" class="cleanButton">Limpiar edición</button>
+      <button (click)="materialApoyoForm.reset()" *ngIf="materialApoyoForm.value.id" class="cleanButton">Limpiar
+        edición</button>
 
     </form>
 
@@ -32,28 +33,36 @@
 
     <div style="border:1px solid  #ccc ;">
 
-      <div>
-        <table>
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Titulo</th>
-              <th class="headerCell">Version</th>
-              <th class="headerCell">Enlace</th>
-              <th class="headerCell" style="width: 10%;"></th>
-              <th class="headerCell" style="width: 10%;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let material of materialesApoyo">
-              <td class="dataIndiCell">{{material.titulo}}</td>
-              <td class="dataIndiCell">{{material.versionDocumento}}</td>
-              <td class="dataIndiCell">{{material.enlace}}</td>
-              <td class="dataIndiCell"><mat-icon (click)="setValueEditMaterial(material)" class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon (click)="deleteMaterial(material.id)"class="removeIcon">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+      <table>
+        <thead class="headerTable">
+          <tr class="headerRow" style="background-color: #95ade93f;">
+            <th class="headerCell">Titulo</th>
+            <th class="headerCell">Version</th>
+            <th class="headerCell">Enlace</th>
+            <th class="headerCell" style="width: 10%;"></th>
+            <th class="headerCell" style="width: 10%; padding-right: 15px;">
+              <div *ngIf="!materialesApoyo" class="loader"></div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="dataRow" *ngFor="let material of materialesApoyo">
+            <td class="dataIndiCell">{{material.titulo}}</td>
+            <td class="dataIndiCell">{{material.versionDocumento}}</td>
+            <td class="dataIndiCell">{{material.enlace}}</td>
+            <td class="dataIndiCell"><mat-icon (click)="setValueEditMaterial(material)" class="editIcon">edit</mat-icon>
+            </td>
+            <td class="dataIndiCell"><mat-icon (click)="deleteMaterial(material.id)"
+                class="removeIcon">delete</mat-icon></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    
+    <div class="noData" *ngIf="materialesApoyo && materialesApoyo.length == 0">
+      <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>
   </div>
 

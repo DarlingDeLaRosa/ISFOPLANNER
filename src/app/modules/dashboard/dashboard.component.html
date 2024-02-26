@@ -41,6 +41,10 @@
           <mat-icon>settings</mat-icon>Mantenimiento
         </a>
 
+        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active">
+          <mat-icon>settings</mat-icon>Asignacion de presupuesto
+        </a>
+
       </div>
     </mat-sidenav>
 
@@ -50,7 +54,7 @@
 
           <div class="btnMenuContainer">
             <button class="btnMenu" (click)="sidenavOpened = !sidenavOpened"><mat-icon>menu</mat-icon></button>&nbsp;
-            <h2 class="departamento">{{userLogged.division.nombre}}</h2> <!--Validar las demas unidades organizticas-->
+            <h2 class="departamento">{{userLogged.unidad}}</h2> <!--Validar las demas unidades organizticas-->
           </div>
 
           <div class="logout">

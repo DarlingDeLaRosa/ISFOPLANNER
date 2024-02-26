@@ -3,17 +3,17 @@
   <div>
     <form [formGroup]="IndicadorEstrForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field  appearance="fill" style="width: 65.5%;">
+      <mat-form-field appearance="fill" style="width: 65.5%;">
         <mat-label>Indicador estrategico</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <mat-form-field  appearance="fill" style="width: 16%;">
+      <mat-form-field appearance="fill" style="width: 16%;">
         <mat-label>Linea Base</mat-label>
         <input matInput type="number" formControlName="lineaBase">
       </mat-form-field>&nbsp;
 
-      <mat-form-field  appearance="fill" style="width: 16.5%;">
+      <mat-form-field appearance="fill" style="width: 16.5%;">
         <mat-label>Meta general</mat-label>
         <input matInput type="number" formControlName="meta">
       </mat-form-field>&nbsp;
@@ -101,48 +101,48 @@
       <div formGroupName="cronograma" class="cronogramaForm">
 
         <span>
-          <mat-form-field  appearance="fill" style="width: 50%;">
+          <mat-form-field appearance="fill" style="width: 50%;">
             <mat-label>Año 1</mat-label>
             <input matInput type="number" formControlName="anio1">
           </mat-form-field>&nbsp;
 
-          <mat-form-field  appearance="fill" style="width: 48%; ">
+          <mat-form-field appearance="fill" style="width: 48%; ">
             <mat-label>Meta 1</mat-label>
             <input matInput type="number" formControlName="metaAnio1">
           </mat-form-field>
         </span>
 
         <span>
-          <mat-form-field  appearance="fill" style="width: 48%;">
+          <mat-form-field appearance="fill" style="width: 48%;">
             <mat-label>Año 2</mat-label>
             <input matInput type="number" formControlName="anio2">
           </mat-form-field>&nbsp;
 
-          <mat-form-field  appearance="fill" style="width: 50%;">
+          <mat-form-field appearance="fill" style="width: 50%;">
             <mat-label>Meta 2</mat-label>
             <input matInput type="number" formControlName="metaAnio2">
           </mat-form-field>&nbsp;
         </span>
 
         <span>
-          <mat-form-field  appearance="fill" style="width: 50%;">
+          <mat-form-field appearance="fill" style="width: 50%;">
             <mat-label>Año 3</mat-label>
             <input matInput type="number" formControlName="anio3">
           </mat-form-field>&nbsp;
 
-          <mat-form-field  appearance="fill" style="width: 48%;">
+          <mat-form-field appearance="fill" style="width: 48%;">
             <mat-label>Meta 3</mat-label>
             <input matInput type="number" formControlName="metaAnio3">
           </mat-form-field>&nbsp;
         </span>
 
         <span>
-          <mat-form-field  appearance="fill" style="width: 48%;">
+          <mat-form-field appearance="fill" style="width: 48%;">
             <mat-label>Año 4</mat-label>
             <input matInput type="number" formControlName="anio4">
           </mat-form-field>&nbsp;
 
-          <mat-form-field  appearance="fill" style="width: 50%;">
+          <mat-form-field appearance="fill" style="width: 50%;">
             <mat-label>Meta 4</mat-label>
             <input matInput type="number" formControlName="metaAnio4">
           </mat-form-field>&nbsp;
@@ -153,7 +153,8 @@
       <br>
 
       <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-      <button (click)="IndicadorEstrForm.reset()" *ngIf="IndicadorEstrForm.value.id" class="cleanButton">Limpiar edición</button>
+      <button (click)="IndicadorEstrForm.reset()" *ngIf="IndicadorEstrForm.value.id" class="cleanButton">Limpiar
+        edición</button>
 
     </form>
 
@@ -161,40 +162,57 @@
 
     <div style="border:1px solid  #ccc ;">
 
-      <div>
-        <table>
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Indicador</th>
-              <th class="headerCell">Resultado efecto</th>
-              <th class="headerCell">Linea Base</th>
-              <th class="headerCell">Meta</th>
-              <th class="headerCell">Requerimientos</th>
-              <th class="headerCell">Involucrados</th>
-              <th class="headerCell">Responsables</th>
-              <th class="headerCell">Supuestos Riesgos</th>
-              <th class="headerCell">Medio de verificación</th>
-              <th class="headerCell" style="width: 6%;"></th>
-              <th class="headerCell" style="width: 6%;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let indicador of indicadoresEstrategicos">
-              <td class="dataIndiCell">{{indicador.nombre}}</td>
-              <td class="dataIndiCell">{{indicador.resultadoEfecto.nombre}}</td>
-              <td class="dataIndiCell">{{indicador.lineaBase}}</td>
-              <td class="dataIndiCell">{{indicador.meta}}</td>
-              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.requerimientos, 'Requerimientos', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.involucrados, 'Involucrados', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.responsables, 'Responsables', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.supuestosRiesgos, 'Supuestos Riesgos', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon (click)="openModal(indicador.mediosverificaciones, 'Resultado Efectos', indicador.nombre)" class="detailsIcon">list</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table>
+        <thead class="headerTable">
+          <tr class="headerRow" style="background-color: #95ade93f;">
+            <th class="headerCell">Indicador</th>
+            <th class="headerCell">Resultado efecto</th>
+            <th class="headerCell">Linea Base</th>
+            <th class="headerCell">Meta</th>
+            <th class="headerCell">Requerimientos</th>
+            <th class="headerCell">Involucrados</th>
+            <th class="headerCell">Responsables</th>
+            <th class="headerCell">Supuestos Riesgos</th>
+            <th class="headerCell">Medio de verificación</th>
+            <th class="headerCell" style="width: 6%;"></th>
+            <th class="headerCell" style="width: 6%; padding-right: 15px;">
+              <div *ngIf="!indicadoresEstrategicos" class="loader"></div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="dataRow" *ngFor="let indicador of indicadoresEstrategicos">
+            <td class="dataIndiCell">{{indicador.nombre}}</td>
+            <td class="dataIndiCell">{{indicador.resultadoEfecto.nombre}}</td>
+            <td class="dataIndiCell">{{indicador.lineaBase}}</td>
+            <td class="dataIndiCell">{{indicador.meta}}</td>
+            <td class="dataIndiCell"><mat-icon
+                (click)="openModal(indicador.requerimientos, 'Requerimientos', indicador.nombre)"
+                class="detailsIcon">list</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon
+                (click)="openModal(indicador.involucrados, 'Involucrados', indicador.nombre)"
+                class="detailsIcon">list</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon
+                (click)="openModal(indicador.responsables, 'Responsables', indicador.nombre)"
+                class="detailsIcon">list</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon
+                (click)="openModal(indicador.supuestosRiesgos, 'Supuestos Riesgos', indicador.nombre)"
+                class="detailsIcon">list</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon
+                (click)="openModal(indicador.mediosverificaciones, 'Resultado Efectos', indicador.nombre)"
+                class="detailsIcon">list</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon class="editIcon"
+                (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon class="removeIcon"
+                (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    
+    <div class="noData" *ngIf="indicadoresEstrategicos && indicadoresEstrategicos.length == 0">
+      <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>
   </div>
 

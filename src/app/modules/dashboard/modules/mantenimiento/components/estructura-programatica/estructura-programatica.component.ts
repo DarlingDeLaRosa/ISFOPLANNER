@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
+import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert, loading } from 'src/app/alerts/alerts';
 import { catchError, throwError } from 'rxjs';
 import { HelperService } from 'src/app/services/appHelper.service';
 
@@ -14,7 +14,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 export class EstructuraProgramaticaComponent implements OnInit {
 
   estructuraProgramaticaForm: FormGroup;
-  estructurasProgramaticas: any[] = []
+  estructurasProgramaticas!: any[] 
 
   constructor(
     public fb: FormBuilder,
@@ -51,6 +51,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar la estructura programatica.")
 
     if (removeDecision) {
+      loading(true)
       this.apiEstructuraPro.removeEstructurasProgramaticas(id)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
     }

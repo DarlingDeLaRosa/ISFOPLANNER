@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { RequerimientosService } from '../services/requerimientos.service';
 import { RequerimientoI } from '../interfaces/requerimientos.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +14,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 export class RequerimientosComponent implements OnInit {
 
   requerimientoForm: FormGroup;
-  requerimientos: Array<RequerimientoI> = [];
+  requerimientos!: Array<RequerimientoI>;
 
   constructor(
     private fb: FormBuilder,
@@ -51,6 +51,7 @@ export class RequerimientosComponent implements OnInit {
     let removeDesicion: boolean = await alertRemoveSure("Estas seguro de eliminar este requerimiento?")
 
     if (removeDesicion) {
+      loading(true)
       this.requerimientoService.deleteRequerimientos(requerimientos)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllRequerimientos(), this.requerimientoForm) })
     }

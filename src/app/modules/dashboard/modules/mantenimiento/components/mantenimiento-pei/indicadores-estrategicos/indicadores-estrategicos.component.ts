@@ -3,7 +3,7 @@ import { IndicadoresEstrategicosI } from '../interfaces/indicadorEstrategico.int
 import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
 import { IndicadorEstrategicoService } from '../services/indicadoresEstrategicos.service';
 import { ResultadoEfectoService } from '../services/resultadoEfecto.service';
-import { alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { MedioVerificacionService } from '../services/medio-verificacion.service';
@@ -33,7 +33,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   resultadosEfecto: Array<ResultadoEfectoI> = [];
   supuestosRiesgos: Array<SupuestosRiesgosI> = [];
   mediosVerificacion: Array<MedioVerificacionI> = [];
-  indicadoresEstrategicos: Array<IndicadoresEstrategicosI> = [];
+  indicadoresEstrategicos!: Array<IndicadoresEstrategicosI>;
 
   constructor(
     private fb: FormBuilder,
@@ -146,6 +146,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este indicador estrategico?")
 
     if (remove) {
+      loading(true)
       this.indicadoresEstraService.deleteIndicadoresEstrategicos(indicadorEstrategico.id!)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
     }

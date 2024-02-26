@@ -1,5 +1,5 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" >Resultado Efecto</h2>
+  <h2 class="Stitle">Resultado Efecto</h2>
   <div>
     <form [formGroup]="resultadoEfectoForm" (ngSubmit)="saveChanges()">
       <mat-form-field appearance="fill" style="width: 40%;">
@@ -15,13 +15,14 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field  appearance="fill" style="width: 59%;">
+      <mat-form-field appearance="fill" style="width: 59%;">
         <mat-label>Resultado Efecto</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>
 
       <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-      <button (click)="resultadoEfectoForm.reset()" *ngIf="resultadoEfectoForm.value.id" class="cleanButton">Limpiar edición</button>
+      <button (click)="resultadoEfectoForm.reset()" *ngIf="resultadoEfectoForm.value.id" class="cleanButton">Limpiar
+        edición</button>
 
     </form>
 
@@ -29,30 +30,37 @@
 
     <div style="border:1px solid  #ccc ;">
 
-      <div>
-        <table>
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-              <th class="headerCell">Eje</th>
-              <th class="headerCell">Estrategia</th>
-              <th class="headerCell">Resultado efecto</th>
-              <th class="headerCell" style="width: 10%;"></th>
-              <th class="headerCell" style="width: 10%;"></th>
-            </tr>
+      <table>
+        <thead class="headerTable">
+          <tr class="headerRow" style="background-color: #95ade93f;">
+            <th class="headerCell">Eje</th>
+            <th class="headerCell">Estrategia</th>
+            <th class="headerCell">Resultado efecto</th>
+            <th class="headerCell" style="width: 10%;"></th>
+            <th class="headerCell" style="width: 10%; padding-right: 15px;">
+              <div *ngIf="!resultadoefectos" class="loader"></div>
+            </th>
+          </tr>
         </thead>
-          <tbody>
-            <tr class="dataRow"  *ngFor="let resultadoefecto of resultadoefectos">
-              <td class="dataIndiCell">{{resultadoefecto.estrategia.ejeEstrategico.numeroEje}}</td>
-              <td class="dataIndiCell">{{resultadoefecto.estrategia.nombre}}</td>
-              <td class="dataIndiCell">{{resultadoefecto.nombre}}</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueResultadoEfecto(resultadoefecto)">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteResultadoEfecto(resultadoefecto.id)">delete</mat-icon></td>
-            </tr>
+        <tbody>
+          <tr class="dataRow" *ngFor="let resultadoefecto of resultadoefectos">
+            <td class="dataIndiCell">{{resultadoefecto.estrategia.ejeEstrategico.numeroEje}}</td>
+            <td class="dataIndiCell">{{resultadoefecto.estrategia.nombre}}</td>
+            <td class="dataIndiCell">{{resultadoefecto.nombre}}</td>
+            <td class="dataIndiCell"><mat-icon class="editIcon"
+                (click)="setValueResultadoEfecto(resultadoefecto)">edit</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon class="removeIcon"
+                (click)="deleteResultadoEfecto(resultadoefecto.id)">delete</mat-icon></td>
+          </tr>
 
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
+
+    <div class="noData" *ngIf="resultadoefectos && resultadoefectos.length == 0">
+      <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
+    </div>
+
   </div>
 
 </div>

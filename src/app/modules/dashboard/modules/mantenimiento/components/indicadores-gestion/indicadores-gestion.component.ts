@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { ProductoService } from '../../services/producto.service';
-import { alertRemoveSure } from 'src/app/alerts/alerts';
-import { IndicadorGestionService } from '../../services/indicadores-gestion.service';
-import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
-import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { HelperService } from 'src/app/services/appHelper.service';
-import { EstructuraProgramaticaI, IndicadoresGestionGetI, ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FrecuenciaI } from '../../../formulacion/interfaces/formulacion.interface';
 import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
-import { MatDialog } from '@angular/material/dialog';
+import { IndicadorGestionService } from '../../services/indicadores-gestion.service';
 import { DetailViewComponent } from '../../modals/detail-view/detail-view.component';
+import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
+import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
+import { EstructuraProgramaticaI, IndicadoresGestionGetI, ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -20,7 +20,7 @@ import { DetailViewComponent } from '../../modals/detail-view/detail-view.compon
 export class IndicadoresGestionComponent implements OnInit {
 
   indicadoresGestionForm: FormGroup;
-  indicadoresGestion: IndicadoresGestionGetI[] = []
+  indicadoresGestion!: IndicadoresGestionGetI[]
   frecuencias: FrecuenciaI[] = []
   alcances: any[] = []
   productos: ProductoI[] = []
@@ -103,6 +103,7 @@ export class IndicadoresGestionComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar la estructura programatica.")
 
     if (removeDecision) {
+      loading(true)
       this.apiIndicadoresGestion.removeIndicadorGestion(id)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm) })
     }

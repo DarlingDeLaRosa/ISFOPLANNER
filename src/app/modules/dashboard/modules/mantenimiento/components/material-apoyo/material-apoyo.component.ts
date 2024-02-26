@@ -13,7 +13,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 export class MaterialDeApoyoComponent implements OnInit {
 
   materialApoyoForm: FormGroup;
-  materialesApoyo: MaterialApoyoI[] = []
+  materialesApoyo!: MaterialApoyoI[]
 
   constructor(
     public fb: FormBuilder,

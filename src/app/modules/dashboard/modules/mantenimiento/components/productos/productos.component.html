@@ -1,8 +1,8 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" >Productos</h2>
+  <h2 class="Stitle">Productos</h2>
   <div>
     <form [formGroup]="productosForm" (ngSubmit)="saveChanges()">
-      
+
       <mat-form-field appearance="fill" style="width: 39%;">
         <mat-label>Indicador estrategico</mat-label>
         <mat-select formControlName="idIndicadorEstrategico" disableRipple>
@@ -18,7 +18,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field  appearance="fill" style="width: 60%;">
+      <mat-form-field appearance="fill" style="width: 60%;">
         <mat-label>Nombre del Producto</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>
@@ -40,35 +40,43 @@
       </mat-form-field><br>
 
       <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-      <button (click)="productosForm.reset()" *ngIf="productosForm.value.id" class="cleanButton">Limpiar edición</button>
+      <button (click)="productosForm.reset()" *ngIf="productosForm.value.id" class="cleanButton">Limpiar
+        edición</button>
 
     </form>
 
     <h2 style=" margin-top: 15px;" class="Stitle">Listado de productos</h2>
 
     <div style="border:1px solid  #ccc ;">
-      <div>
-        <table>
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-                <th class="headerCell">Indicador Estrategicos</th>
-                <th class="headerCell">Producto</th>
-                <th class="headerCell">Responsables</th>
-                <th class="headerCell" style="width: 10%;"></th>
-                <th class="headerCell" style="width: 10%;"></th>
-            </tr>
+
+      <table>
+        <thead class="headerTable">
+          <tr class="headerRow" style="background-color: #95ade93f;">
+            <th class="headerCell">Indicador Estrategicos</th>
+            <th class="headerCell">Producto</th>
+            <th class="headerCell">Responsables</th>
+            <th class="headerCell" style="width: 10%;"></th>
+            <th class="headerCell" style="width: 6%; padding-right: 15px;">
+              <div *ngIf="!productos" class="loader"></div>
+            </th>
+          </tr>
         </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let producto of productos">
-              <td class="dataIndiCell">{{producto.indicadorEstrategico.nombre}}</td>
-              <td class="dataIndiCell">{{producto.nombre}}</td>
-              <td class="dataIndiCell"><mat-icon (click)="openModal(producto)" class="detailsIcon">list</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon (click)="setValueEditProducto(producto)" class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon (click)="deleteProducto(producto.id)" class="removeIcon">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <tbody>
+          <tr class="dataRow" *ngFor="let producto of productos">
+            <td class="dataIndiCell">{{producto.indicadorEstrategico.nombre}}</td>
+            <td class="dataIndiCell">{{producto.nombre}}</td>
+            <td class="dataIndiCell"><mat-icon (click)="openModal(producto.responsables , 'Responsables', producto.nombre)" class="detailsIcon">list</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon (click)="setValueEditProducto(producto)" class="editIcon">edit</mat-icon>
+            </td>
+            <td class="dataIndiCell"><mat-icon (click)="deleteProducto(producto.id)"
+                class="removeIcon">delete</mat-icon></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="noData" *ngIf="productos && productos.length == 0">
+      <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>
   </div>
 

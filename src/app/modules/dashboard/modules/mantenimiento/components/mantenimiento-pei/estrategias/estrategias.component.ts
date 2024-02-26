@@ -4,7 +4,7 @@ import { EstrategiaI } from '../interfaces/estrategias.interface';
 import { EjesService } from '../services/ejes.service';
 import { EjesI } from '../interfaces/ejes.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class EstrategiasComponent implements OnInit {
 
   ejes: Array<EjesI> = [];
   estrategiaForm: FormGroup;
-  estrategias: Array<EstrategiaI> = [];
+  estrategias!: Array<EstrategiaI> ;
 
   constructor(
     private fb: FormBuilder,
@@ -68,6 +68,7 @@ export class EstrategiasComponent implements OnInit {
     let removeDesicion: boolean = await alertRemoveSure("Estas seguro de eliminar esta estrategia?")
 
     if (removeDesicion) {
+      loading(true)
       this.estrategiasService.DeleteEstrategias(estrategiaId)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllEstrategia(), this.estrategiaForm) })
     }

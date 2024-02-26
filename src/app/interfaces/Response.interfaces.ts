@@ -75,5 +75,6 @@ export interface UserI {
         teléfono: string,
         ext: string
     }
+    unidad: string
 }
 

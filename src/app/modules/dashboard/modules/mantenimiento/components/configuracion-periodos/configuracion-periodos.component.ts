@@ -14,7 +14,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 export class ConfiguracionPeriodosComponent implements OnInit {
 
   periodosConfigForm: FormGroup;
-  periodosConfig: any[] = []
+  periodosConfig!: any[]
   tipoProcesos: any[] = []
 
   constructor(

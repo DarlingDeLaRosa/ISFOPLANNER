@@ -15,5 +15,7 @@ export class dashboardComponent {
   constructor(
     public permisosCRUD: PermissionService,
     private userSystemService: UserSystemInformationService,
-  ){}
+  ){
+    console.log(this.userLogged);
+  }
 }

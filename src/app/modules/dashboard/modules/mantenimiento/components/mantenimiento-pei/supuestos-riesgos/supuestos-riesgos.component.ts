@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SupuestosRiesgosService } from '../services/supuestos-riesgos.service';
-import { alertRemoveSure} from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading} from 'src/app/alerts/alerts';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/appHelper.service';
@@ -12,7 +12,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 })
 export class SupuestosRiegosComponent implements OnInit {
 
-  supuestosRiesgos: Array<SupuestosRiesgosI> = [];
+  supuestosRiesgos!: Array<SupuestosRiesgosI>;
   supuestoRiesgoForm: FormGroup;
 
   constructor(
@@ -49,6 +49,7 @@ export class SupuestosRiegosComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el material de apoyo.")
 
     if (removeDecision) {
+      loading(true)
       this.supuestosRiesgosService.deleteSupuestiRiesgos(id)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllSupuestosRiesgos(), this.supuestoRiesgoForm) })
     }

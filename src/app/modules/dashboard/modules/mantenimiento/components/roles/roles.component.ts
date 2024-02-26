@@ -7,7 +7,7 @@ import { RolesPermisosService } from '../../services/roles.service';
 import { MatDialog } from '@angular/material/dialog';
 import { modulosService } from '../../services/modulos.service';
 import { RolesViewComponent } from '../../modals/roles-view/roles-view.component';
-import { alertNoValidForm, alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertNoValidForm, alertRemoveSure, loading } from 'src/app/alerts/alerts';
 
 @Component({
   selector: 'app-roles',
@@ -18,7 +18,7 @@ export class RolesComponent implements OnInit {
 
   modulos: modulo[] = [];;
   rolesForm: FormGroup;
-  roles: Array<GetRolesI> = [];
+  roles!: Array<GetRolesI>;
 
   constructor(
     public fb: FormBuilder,
@@ -106,6 +106,7 @@ export class RolesComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el rol.")
 
     if (removeDecision) {
+      loading(true)
       this.rolesPermisosService.removeRolesPermisos(id)
         .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getRolesPermisos(), this.rolesForm) })
     }

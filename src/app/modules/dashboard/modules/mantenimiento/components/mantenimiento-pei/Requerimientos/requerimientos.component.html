@@ -3,7 +3,7 @@
 
   <form [formGroup]="requerimientoForm" (ngSubmit)="saveChanges()">
 
-    <mat-form-field  appearance="fill" style="width: 60%;">
+    <mat-form-field appearance="fill" style="width: 60%;">
       <mat-label> Nombre del Requerimiento</mat-label>
       <input matInput formControlName="nombre">
     </mat-form-field>&nbsp;
@@ -11,13 +11,14 @@
     <mat-form-field appearance="fill" style="width: 39%;">
       <mat-label>Financiero</mat-label>
       <mat-select disableRipple formControlName="esFinanciero">
-          <mat-option [value]="true">Si</mat-option>
-          <mat-option [value]="false">No</mat-option>
+        <mat-option [value]="true">Si</mat-option>
+        <mat-option [value]="false">No</mat-option>
       </mat-select>
     </mat-form-field>
 
     <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-    <button (click)="requerimientoForm.reset()" *ngIf="requerimientoForm.value.id" class="cleanButton">Limpiar edición</button>
+    <button (click)="requerimientoForm.reset()" *ngIf="requerimientoForm.value.id" class="cleanButton">Limpiar
+      edición</button>
 
   </form>
 
@@ -29,20 +30,29 @@
           <th class="headerCell">Requerimiento</th>
           <th class="headerCell">Financiero</th>
           <th class="headerCell" style="width: 10%;"></th>
-          <th class="headerCell" style="width: 10%;"></th>
+          <th class="headerCell" style="width: 10%; padding-right: 15px;">
+            <div *ngIf="!requerimientos" class="loader"></div>
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr class="dataRow" *ngFor="let requerimiento of requerimientos"> 
+        <tr class="dataRow" *ngFor="let requerimiento of requerimientos">
           <td class="dataIndiCell">{{requerimiento.nombre}}</td>
           <td class="dataIndiCell" *ngIf="requerimiento.esFinanciero == true; else noFinanciero">SI</td>
-          <ng-template #noFinanciero> <td class="dataIndiCell" >NO</td></ng-template>
+          <ng-template #noFinanciero>
+            <td class="dataIndiCell">NO</td>
+          </ng-template>
 
-          <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueRequerimiento(requerimiento)">edit</mat-icon></td> 
-          <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteRequerimiento(requerimiento.id)">delete</mat-icon></td>
+          <td class="dataIndiCell"><mat-icon class="editIcon"
+              (click)="setValueRequerimiento(requerimiento)">edit</mat-icon></td>
+          <td class="dataIndiCell"><mat-icon class="removeIcon"
+              (click)="deleteRequerimiento(requerimiento.id)">delete</mat-icon></td>
         </tr>
       </tbody>
     </table>
   </div>
-
+  
+  <div class="noData" *ngIf="requerimientos && requerimientos.length == 0">
+    <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
+  </div>
 </div>

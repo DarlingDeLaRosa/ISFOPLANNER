@@ -23,21 +23,21 @@
     <div>
         <form [formGroup]="asignacionPresupuestoForm" (ngSubmit)="saveChanges()">
 
-            <mat-form-field  appearance="fill" style="width: 59%;">
-            <mat-label>Unidad Organizativa</mat-label>
-            <mat-select formControlName="idUnidadOrganizativa" disableRipple>
-              <ng-container *ngIf="unidadesOrgPadres.length > 0; else noUnidadPadre">
-                <mat-option [value]="unidadOrgPadre.id" *ngFor="let unidadOrgPadre of unidadesOrgPadres">
-                  {{unidadOrgPadre.nombre}}
-                </mat-option>
-              </ng-container>
-              <ng-template #noUnidadPadre>
-                <mat-option>No hay campos disponibles</mat-option>
-              </ng-template>
-            </mat-select>
-          </mat-form-field>&nbsp;
+            <mat-form-field appearance="fill" style="width: 59%;">
+                <mat-label>Unidad Organizativa</mat-label>
+                <mat-select formControlName="idUnidadOrganizativa" disableRipple>
+                    <ng-container *ngIf="unidadesOrgPadres.length > 0; else noUnidadPadre">
+                        <mat-option [value]="unidadOrgPadre.id" *ngFor="let unidadOrgPadre of unidadesOrgPadres">
+                            {{unidadOrgPadre.nombre}}
+                        </mat-option>
+                    </ng-container>
+                    <ng-template #noUnidadPadre>
+                        <mat-option>No hay campos disponibles</mat-option>
+                    </ng-template>
+                </mat-select>
+            </mat-form-field>&nbsp;
 
-            <mat-form-field  appearance="fill" style="width: 40%;">
+            <mat-form-field appearance="fill" style="width: 40%;">
                 <mat-label>Presupuesto</mat-label>
                 <input type="number" matInput formControlName="monto">
             </mat-form-field>
@@ -58,20 +58,32 @@
                         <th class="headerCell" style="width: 20%;">Monto Total</th>
                         <th class="headerCell" style="width: 10%;"></th>
                         <th class="headerCell" style="width: 10%;"></th>
-                        <th class="headerCell" style="width: 10%;"></th>
+                        <th class="headerCell" style="width: 10%; padding-right: 15px;">
+                            <div *ngIf="!unidadesOrg" class="loader"></div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="dataRow" *ngFor="let unidadOrg of unidadesOrg">
                         <td class="dataIndiCell">{{unidadOrg.unidadOrganizativa?.nombre}}</td>
-                        <td class="dataIndiCell">{{unidadOrg?.montoEjecutado | currency: 'DOP ': 'symbol': '1.2-2'}} </td>
+                        <td class="dataIndiCell">{{unidadOrg?.montoEjecutado | currency: 'DOP ': 'symbol': '1.2-2'}}
+                        </td>
                         <td class="dataIndiCell">{{unidadOrg?.monto | currency: 'DOP ': 'symbol': '1.2-2'}} </td>
-                        <td class="dataIndiCell"><mat-icon *ngIf="unidadOrg.unidadOrganizativa?.subUnidades != undefined && unidadOrg.unidadOrganizativa?.subUnidades?.length"  (click)="openModal(unidadOrg)" class="detailsIcon">list</mat-icon></td>
-                        <td class="dataIndiCell"><mat-icon (click)="setValueEditUnidadOrg(unidadOrg)" class="editIcon">edit</mat-icon></td>
-                        <td class="dataIndiCell"><mat-icon (click)="deletePresupuestoUnidadOrg(unidadOrg.unidadOrganizativa)" class="removeIcon">delete</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon
+                                *ngIf="unidadOrg.unidadOrganizativa?.subUnidades != undefined && unidadOrg.unidadOrganizativa?.subUnidades?.length"
+                                (click)="openModal(unidadOrg)" class="detailsIcon">list</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon (click)="setValueEditUnidadOrg(unidadOrg)"
+                                class="editIcon">edit</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon
+                                (click)="deletePresupuestoUnidadOrg(unidadOrg.unidadOrganizativa)"
+                                class="removeIcon">delete</mat-icon></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+        
+        <div class="noData" *ngIf="unidadesOrg && unidadesOrg.length == 0">
+            <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
         </div>
     </div>
 

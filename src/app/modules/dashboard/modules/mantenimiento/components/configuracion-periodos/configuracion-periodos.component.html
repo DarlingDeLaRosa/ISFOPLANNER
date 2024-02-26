@@ -2,8 +2,8 @@
     <h2 class="Stitle">Configuración de periodos</h2>
     <div>
         <form [formGroup]="periodosConfigForm" (ngSubmit)="saveChanges()">
-            
-            <mat-form-field  appearance="fill" style="width: 30%;">
+
+            <mat-form-field appearance="fill" style="width: 30%;">
                 <mat-label>Proceso</mat-label>
                 <mat-select disableRipple formControlName="idTipoProceso">
                     <ng-container *ngIf="tipoProcesos.length > 0; else noProceso">
@@ -17,9 +17,9 @@
                         <mat-option>No hay campos disponibles</mat-option>
                     </ng-template>
                 </mat-select>
-            </mat-form-field>&nbsp; 
+            </mat-form-field>&nbsp;
 
-            <mat-form-field  appearance="fill" style="width: 40%;">
+            <mat-form-field appearance="fill" style="width: 40%;">
                 <mat-label>Periodo de tiempo</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Fecha Inicial" formControlName="fechaInicio">
@@ -29,7 +29,7 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>&nbsp;
 
-            <mat-form-field  appearance="fill" style="width: 28%;">
+            <mat-form-field appearance="fill" style="width: 28%;">
                 <mat-label>Prorroga</mat-label>
                 <input matInput [matDatepicker]="date" appearance="fill" formControlName="prorroga">
                 <mat-datepicker-toggle [for]="date" matSuffix></mat-datepicker-toggle>
@@ -37,7 +37,8 @@
             </mat-form-field>
 
             <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-            <button (click)="periodosConfigForm.reset()" *ngIf="periodosConfigForm.value.id" class="cleanButton">Limpiar edición</button>
+            <button (click)="periodosConfigForm.reset()" *ngIf="periodosConfigForm.value.id" class="cleanButton">Limpiar
+                edición</button>
 
         </form>
 
@@ -45,28 +46,35 @@
 
         <div style="border:1px solid  #ccc ;">
 
-            <div>
-                <table>
-                    <thead class="headerTable">
-                        <tr class="headerRow" style="background-color: #95ade93f;">
-                            <th class="headerCell">Proceso</th>
-                            <th class="headerCell">Fecha Inicial</th>
-                            <th class="headerCell">Fecha Final</th>
-                            <th class="headerCell">Prorroga</th>
-                            <th class="headerCell" style="width: 10%;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="dataRow" *ngFor="let periodoConfig of periodosConfig">
-                            <td class="dataIndiCell">{{periodoConfig.tipoProceso.nombre}}</td>
-                            <td class="dataIndiCell">{{periodoConfig.fechaInicio | date:'dd/MM/yyyy'}}</td>
-                            <td class="dataIndiCell">{{periodoConfig.fechaFin | date:'dd/MM/yyyy'}}</td>
-                            <td class="dataIndiCell">{{periodoConfig.prorroga | date:'dd/MM/yyyy'}}</td>
-                            <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueEditEstructuraPro(periodoConfig)">edit</mat-icon></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
+            <table>
+                <thead class="headerTable">
+                    <tr class="headerRow" style="background-color: #95ade93f;">
+                        <th class="headerCell">Proceso</th>
+                        <th class="headerCell">Fecha Inicial</th>
+                        <th class="headerCell">Fecha Final</th>
+                        <th class="headerCell">Prorroga</th>
+                        <th class="headerCell" style="width: 10%; padding-right: 15px;">
+                            <div *ngIf="!periodosConfig" class="loader"></div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow" *ngFor="let periodoConfig of periodosConfig">
+                        <td class="dataIndiCell">{{periodoConfig.tipoProceso.nombre}}</td>
+                        <td class="dataIndiCell">{{periodoConfig.fechaInicio | date:'dd/MM/yyyy'}}</td>
+                        <td class="dataIndiCell">{{periodoConfig.fechaFin | date:'dd/MM/yyyy'}}</td>
+                        <td class="dataIndiCell">{{periodoConfig.prorroga | date:'dd/MM/yyyy'}}</td>
+                        <td class="dataIndiCell"><mat-icon class="editIcon"
+                                (click)="setValueEditEstructuraPro(periodoConfig)">edit</mat-icon></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        
+        <div class="noData" *ngIf="periodosConfig && periodosConfig.length == 0">
+            <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
         </div>
     </div>
 

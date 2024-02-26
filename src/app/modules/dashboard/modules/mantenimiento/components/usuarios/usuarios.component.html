@@ -1,19 +1,19 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" >Usuarios</h2>
+  <h2 class="Stitle">Usuarios</h2>
   <div>
-    <form [formGroup]="usuariosForm" (ngSubmit)="saveChanges()" > 
+    <form [formGroup]="usuariosForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field  appearance="fill" style="width: 33%;">
+      <mat-form-field appearance="fill" style="width: 33%;">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <mat-form-field  appearance="fill" style="width: 33%;">
+      <mat-form-field appearance="fill" style="width: 33%;">
         <mat-label>Apellidos</mat-label>
         <input matInput formControlName="apellidos">
       </mat-form-field>&nbsp;
 
-      <mat-form-field  appearance="fill" style="width: 32%;">
+      <mat-form-field appearance="fill" style="width: 32%;">
         <mat-label>Usuario</mat-label>
         <input matInput formControlName="usuario">
       </mat-form-field><br>
@@ -63,7 +63,7 @@
       <mat-form-field appearance="fill" style="width: 49%;">
         <mat-label>Departamento</mat-label>
         <mat-select formControlName="idDepartamento" disableRipple>
-          <ng-container *ngIf="departamentos.length > 0; else noDepartamento" >
+          <ng-container *ngIf="departamentos.length > 0; else noDepartamento">
             <mat-option [value]="departamento.idDepartamento" *ngFor="let departamento of departamentos">
               {{departamento.nombre}}
             </mat-option>
@@ -77,7 +77,7 @@
       <mat-form-field appearance="fill" style="width: 50%;">
         <mat-label>Division</mat-label>
         <mat-select formControlName="idDivision" disableRipple>
-          <ng-container *ngIf="divisiones.length > 0; else noDivision" >
+          <ng-container *ngIf="divisiones.length > 0; else noDivision">
             <mat-option [value]="division.id" *ngFor="let division of divisiones">
               {{division.nombre}}
             </mat-option>
@@ -90,7 +90,8 @@
       <br>
 
       <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-      <button (click)="usuariosForm.reset()" *ngIf="usuariosForm.value.idUsuario" class="cleanButton">Limpiar edición</button>
+      <button (click)="usuariosForm.reset()" *ngIf="usuariosForm.value.idUsuario" class="cleanButton">Limpiar
+        edición</button>
 
     </form>
 
@@ -98,33 +99,40 @@
 
     <div style="border:1px solid  #ccc ;">
 
-      <div>
-        <table>
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-                <th class="headerCell">Nombre</th>
-                <th class="headerCell">Apellidos</th>
-                <th class="headerCell">Cargo</th>
-                <th class="headerCell">Rol</th>
-                <th class="headerCell">Unidad Organizativa</th>
-                <th class="headerCell" style="width: 10%;"></th>
-                <th class="headerCell" style="width: 10%;"></th>
-            </tr>
+      <table>
+        <thead class="headerTable">
+          <tr class="headerRow" style="background-color: #95ade93f;">
+            <th class="headerCell">Nombre</th>
+            <th class="headerCell">Apellidos</th>
+            <th class="headerCell">Cargo</th>
+            <th class="headerCell">Rol</th>
+            <th class="headerCell">Unidad Organizativa</th>
+            <th class="headerCell" style="width: 10%;"></th>
+            <th class="headerCell" style="width: 10%; padding-right: 15px;">
+              <div *ngIf="!usuarios" class="loader"></div>
+            </th>
+          </tr>
         </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let usuario of usuarios">
-              <td class="dataIndiCell">{{usuario.persona.nombre}}</td>
-              <td class="dataIndiCell">{{usuario.persona.apellidos}}</td>
-              <td class="dataIndiCell">{{usuario.persona.cargo.nombre}}</td>
-              <td class="dataIndiCell">{{usuario.rol.nombre}}</td>
-              <td class="dataIndiCell">{{usuario.persona.departamento.nombre}}</td>
-              <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueEditUsuarios(usuario)">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteUsuarios(usuario.idUsuario)">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+        <tbody>
+          <tr class="dataRow" *ngFor="let usuario of usuarios">
+            <td class="dataIndiCell">{{usuario.persona.nombre}}</td>
+            <td class="dataIndiCell">{{usuario.persona.apellidos}}</td>
+            <td class="dataIndiCell">{{usuario.persona.cargo.nombre}}</td>
+            <td class="dataIndiCell">{{usuario.rol.nombre}}</td>
+            <td class="dataIndiCell">{{usuario.persona.departamento.nombre}}</td>
+            <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueEditUsuarios(usuario)">edit</mat-icon>
+            </td>
+            <td class="dataIndiCell"><mat-icon class="removeIcon"
+                (click)="deleteUsuarios(usuario.idUsuario)">delete</mat-icon></td>
+          </tr>
+        </tbody>
+      </table>
 
+    </div>
+
+    <div class="noData" *ngIf="usuarios && usuarios.length == 0">
+      <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
+    </div>
+
+  </div>
 </div>

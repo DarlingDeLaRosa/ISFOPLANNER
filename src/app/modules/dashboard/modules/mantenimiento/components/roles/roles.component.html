@@ -4,7 +4,7 @@
   <div>
     <form [formGroup]="rolesForm" (ngSubmit)="saveChanges()">
 
-      <mat-form-field  appearance="fill" style="width: 100%;">
+      <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Rol</mat-label>
         <input matInput formControlName="rolName">
       </mat-form-field><br>
@@ -52,17 +52,25 @@
             <th class="headerCell">Rol</th>
             <th class="headerCell">Permisos</th>
             <th class="headerCell" style="width: 10%;"></th>
-            <th class="headerCell" style="width: 10%;"></th>
+            <th class="headerCell" style="width: 10%; padding-right: 15px;">
+              <div *ngIf="!roles" class="loader"></div>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let rol of roles">
             <td class="dataIndiCell">{{rol.nombre}}</td>
             <td class="dataIndiCell"><mat-icon (click)="openModal(rol)" class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon (click)="setValueRolesPermisos(rol)" class="editIcon">edit</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon (click)="deleteRolesPermisos(rol.idRol)" class="removeIcon">delete</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon (click)="setValueRolesPermisos(rol)" class="editIcon">edit</mat-icon>
+            </td>
+            <td class="dataIndiCell"><mat-icon (click)="deleteRolesPermisos(rol.idRol)"
+                class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="noData" *ngIf="roles && roles.length == 0">
+      <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>
   </div>

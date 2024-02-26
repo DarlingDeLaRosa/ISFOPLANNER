@@ -92,16 +92,17 @@ export function alertNoValidForm() {
 }
 
 export function loading(load: boolean) {
-  if(load){
+  if (load) {
     Swal.fire({
       width: '200px',
-      html: '<div class="loader"></div>',
+      padding: 0,
+      html: '<div class="loader"></div><h3 style="margin-bottom:7px">Cargando...</h3>',
       showConfirmButton: false,
       allowOutsideClick: false,
       allowEscapeKey: false,
     })
   }
-  else{
+  else {
     Swal.close();
   }
 }

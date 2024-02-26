@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" >Indicadores de Gestion</h2>
+  <h2 class="Stitle">Indicadores de Gestion</h2>
   <div>
-    <form [formGroup]="indicadoresGestionForm" (ngSubmit)="saveChanges()" >
+    <form [formGroup]="indicadoresGestionForm" (ngSubmit)="saveChanges()">
 
       <mat-form-field appearance="fill" style="width:49%;">
         <mat-label>Producto</mat-label>
@@ -10,7 +10,7 @@
 
             <mat-option [value]="producto.id" *ngFor="let producto of productos">
               {{producto.nombre}}
-          </mat-option>
+            </mat-option>
 
           </ng-container>
           <ng-template #noProductos>
@@ -26,7 +26,7 @@
 
             <mat-option [value]="estructuraPro.id" *ngFor="let estructuraPro of estructurasPro">
               {{estructuraPro.nombre}}
-          </mat-option>
+            </mat-option>
 
           </ng-container>
           <ng-template #noEstructuraPro>
@@ -38,17 +38,19 @@
       <div class="tipoIndicador">
         <h4>Indique el tipo de indicador?</h4>
         <mat-radio-group formControlName="idTipoIndicador">
-          <mat-radio-button [value]="1" color="primary">Indicador de flujo</mat-radio-button> <!--matTooltip="Todos Los productos seran calculados con un 18% de ITBIS." [disabled]="disableItbis" -->
-          <mat-radio-button [value]="2" color="primary">Indicador Acumulativo</mat-radio-button> <!--matTooltip="Los productos tomaran el porcentaje de ITBIS especificado al momento de la creación." [disabled]="disableItbis"-->
+          <mat-radio-button [value]="1" color="primary">Indicador de flujo</mat-radio-button>
+          <!--matTooltip="Todos Los productos seran calculados con un 18% de ITBIS." [disabled]="disableItbis" -->
+          <mat-radio-button [value]="2" color="primary">Indicador Acumulativo</mat-radio-button>
+          <!--matTooltip="Los productos tomaran el porcentaje de ITBIS especificado al momento de la creación." [disabled]="disableItbis"-->
         </mat-radio-group>
       </div><br>
-      
-      <mat-form-field  appearance="fill" style="width: 42%;">
+
+      <mat-form-field appearance="fill" style="width: 42%;">
         <mat-label>Nombre indicador operador</mat-label>
-        <input matInput  formControlName="nombre">
+        <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
-      
-      <mat-form-field  appearance="fill" style="width: 35%;">
+
+      <mat-form-field appearance="fill" style="width: 35%;">
         <mat-label>Medio de verificacion</mat-label>
         <mat-select formControlName="idAlcance" disableRipple>
           <ng-container *ngIf="alcances.length > 0; else noAlcance">
@@ -64,12 +66,12 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field  appearance="fill" style="width: 11.2%;">
+      <mat-form-field appearance="fill" style="width: 11.2%;">
         <mat-label>Linea Base</mat-label>
         <input type="number" formControlName="linaBase" matInput>
       </mat-form-field>&nbsp;
-      
-      <mat-form-field  appearance="fill" style="width: 9.2%;">
+
+      <mat-form-field appearance="fill" style="width: 9.2%;">
         <mat-label>Meta</mat-label>
         <input type="number" formControlName="meta" matInput>
       </mat-form-field><br>
@@ -123,44 +125,50 @@
       </mat-form-field><br>
 
       <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-      <button (click)="indicadoresGestionForm.reset()" *ngIf="indicadoresGestionForm.value.id" class="cleanButton">Limpiar edición</button>
+      <button (click)="indicadoresGestionForm.reset()" *ngIf="indicadoresGestionForm.value.id"
+        class="cleanButton">Limpiar edición</button>
 
     </form>
 
     <h2 style=" margin-top: 15px;" class="Stitle">Listado de Indicadores de Gestion</h2>
 
     <div style="border:1px solid  #ccc ;">
-
-      <div>
-        <table>
-          <thead class="headerTable">
-            <tr class="headerRow" style="background-color: #95ade93f;">
-                <th class="headerCell">Indicador de gestión</th>
-                <th class="headerCell">Producto</th>
-                <th class="headerCell">Alcance</th>
-                <th class="headerCell">Frecuencia</th>
-                <th class="headerCell">Linea Base</th>
-                <th class="headerCell">Meta</th>
-                <th class="headerCell">Responsables</th>
-                <th class="headerCell" style="width: 6%;"></th>
-                <th class="headerCell" style="width: 6%;"></th>
-            </tr>
+      <table>
+        <thead class="headerTable">
+          <tr class="headerRow" style="background-color: #95ade93f;">
+            <th class="headerCell">Indicador de gestión</th>
+            <th class="headerCell">Producto</th>
+            <th class="headerCell">Alcance</th>
+            <th class="headerCell">Frecuencia</th>
+            <th class="headerCell">Linea Base</th>
+            <th class="headerCell">Meta</th>
+            <th class="headerCell">Responsables</th>
+            <th class="headerCell" style="width: 6%;"></th>
+            <th class="headerCell" style="width: 6%; padding-right: 15px;">
+              <div *ngIf="!indicadoresGestion" class="loader"></div>
+            </th>
+          </tr>
         </thead>
-          <tbody>
-            <tr class="dataRow" *ngFor="let indicadorG of indicadoresGestion">
-              <td class="dataIndiCell">{{indicadorG.nombre}}</td>
-              <td class="dataIndiCell">{{indicadorG.producto.nombre}}</td>
-              <td class="dataIndiCell">{{indicadorG.alcance.nombre}}</td>
-              <td class="dataIndiCell">{{indicadorG.frecuencia.nombre}}</td>
-              <td class="dataIndiCell">{{indicadorG.linaBase}}</td>
-              <td class="dataIndiCell">{{indicadorG.meta}}</td>
-              <td class="dataIndiCell">{{indicadorG.responsables[0].nombre}}</td>
-              <td class="dataIndiCell"><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>
-              <td class="dataIndiCell"><mat-icon (click)="deleteIndicadoresGestion(indicadorG.id)" class="removeIcon">delete</mat-icon></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <tbody>
+          <tr class="dataRow" *ngFor="let indicadorG of indicadoresGestion">
+            <td class="dataIndiCell">{{indicadorG.nombre}}</td>
+            <td class="dataIndiCell">{{indicadorG.producto.nombre}}</td>
+            <td class="dataIndiCell">{{indicadorG.alcance.nombre}}</td>
+            <td class="dataIndiCell">{{indicadorG.frecuencia.nombre}}</td>
+            <td class="dataIndiCell">{{indicadorG.linaBase}}</td>
+            <td class="dataIndiCell">{{indicadorG.meta}}</td>
+            <td class="dataIndiCell">{{indicadorG.responsables[0].nombre}}</td>
+            <td class="dataIndiCell"><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)"
+                class="editIcon">edit</mat-icon></td>
+            <td class="dataIndiCell"><mat-icon (click)="deleteIndicadoresGestion(indicadorG.id)"
+                class="removeIcon">delete</mat-icon></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="noData" *ngIf="indicadoresGestion && indicadoresGestion.length == 0">
+      <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>
   </div>
 

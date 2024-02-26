@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EjesService } from '../services/ejes.service';
 import { EjesI } from '../interfaces/ejes.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 })
 export class EjesComponent implements OnInit {
 
-  ejes: Array<EjesI> = [];
+  ejes!: Array<EjesI>;
   ejeForm: FormGroup;
 
   constructor(
@@ -52,6 +52,7 @@ export class EjesComponent implements OnInit {
   async deleteEjes(eje: EjesI) {
     let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este eje?")
     if (remove) {
+      loading(true)
       this.ejesService.DeleteEjes(eje.id!)
         .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllEjes(), this.ejeForm) })
     }

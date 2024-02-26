@@ -14,7 +14,7 @@ import { PresupuestoInstiGetI } from '../../interfaces/mantenimientoPOA.interfac
 export class PresupuestoInstitucionalComponent implements OnInit {
 
   presupuestoInstiForm: FormGroup;
-  presupuestosInst: PresupuestoInstiGetI[] = []
+  presupuestosInst!: PresupuestoInstiGetI[]
 
   constructor(
     public fb: FormBuilder,

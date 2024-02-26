@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuarios.service';
-import { alertNoValidForm, alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertNoValidForm, alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { GetRolesI } from '../mantenimiento-pei/interfaces/RolesPermisos.interface';
@@ -14,7 +14,7 @@ import { GetRolesI } from '../mantenimiento-pei/interfaces/RolesPermisos.interfa
 export class UsuariosComponent implements OnInit {
 
   cargos: any[] = []
-  usuarios: any[] = []
+  usuarios!: any[]
   recintos: any[] = []
   roles: GetRolesI[] = []
   unidadesOrg: any[] = []
@@ -89,6 +89,7 @@ export class UsuariosComponent implements OnInit {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el usuario.")
 
     if (removeDecision) {
+      loading(true)
       this.apiUsuario.removeUsuario(id)
         .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm) })
     }
