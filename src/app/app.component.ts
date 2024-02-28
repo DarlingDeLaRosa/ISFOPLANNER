@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     }
 
     if(this.token != null) {
-      this.userSystemService.setUserToken = this.token 
+      this.userSystemService.setUserToken = this.token
     }
   }
 }

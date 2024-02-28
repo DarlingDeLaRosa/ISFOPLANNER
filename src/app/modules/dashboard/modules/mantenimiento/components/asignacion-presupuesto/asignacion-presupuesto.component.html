@@ -1,6 +1,12 @@
 <div style="padding: 15px;">
+    <div class="title" *ngIf="userUnidadData.unidad != 'DIRECCION DE PLANIFICACION Y DESARROLLO'">
+        <h1>Presupuesto Unidades Organizativas</h1>
+    </div>
+    <br>
     <div class="fuctionContent">
-        <h2 class="Stitle">Presupuesto Unidades Organizativas</h2>
+        <span>
+            <h2 class="Stitle" *ngIf="userUnidadData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO' " >Presupuesto Unidades Organizativas</h2>
+        </span>
         <span style="display: flex;">
             <div class="checkPresupuesto">
                 <div class="titlePresupuesto">

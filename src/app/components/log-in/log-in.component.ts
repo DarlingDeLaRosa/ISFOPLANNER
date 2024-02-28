@@ -1,8 +1,7 @@
-import { Token } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { errorMessageAlert } from 'src/app/alerts/alerts';
+import { errorMessageAlert, loading } from 'src/app/alerts/alerts';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
@@ -34,19 +33,20 @@ export class LogInComponent {
   }
 
   logIn() {
+    loading(true)
     this.authService.postLogIn(this.formUserLogIn.value)
       .subscribe((res: any) => {
-        
-        if (res.data != undefined) {
+        loading(false)
 
-          this.userSystemService.saveDataLocalStorage("userData",res.data)  
+        if (res.data != undefined) {
+          this.userSystemService.saveDataLocalStorage("userData", res.data)
           this.userSystemService.saveDataLocalStorage("token", res.token)
-          
+
           this.userSystemService.setUserToken = res.token
           this.userSystemService.setUserLogged = res.data
 
           this.router.navigate(['/dashboard/panelDeControl'])
-        
+
         } else errorMessageAlert(res.message)
 
       })

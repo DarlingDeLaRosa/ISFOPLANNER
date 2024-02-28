@@ -1,7 +1,7 @@
 <div class="appWrapper">
 
   <mat-sidenav-container>
-    <mat-sidenav mode="side" [(opened)]="sidenavOpened">
+    <mat-sidenav mode="side" [(opened)]="sidenavOpened" style="width: 200px;">
       <div class="logoPlannerContainer">
         <img routerLink="/almacen/inicio" class="logoPlanner" src="../../../assets/Logo-isfo-planner-1-blanco.png"
           alt="Planificación Institucional">
@@ -24,7 +24,7 @@
         <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(10)">
           <mat-icon>chat</mat-icon>Planes Transversales
         </a>
-<!--         
+        <!--         
         <a class="item-menu" [routerLink]="['rendicionDeCuentas']" routerLinkActive="active" >
           <mat-icon>account_balance</mat-icon>Rendicion de Cuentas
         </a>
@@ -37,12 +37,12 @@
           <mat-icon>question_mark</mat-icon>Ayuda
         </a>
         
-        <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(13)">
+        <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active" > <!--*ngIf="permisosCRUD.permisoLeer(13) && unidadOrgData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO'"-->
           <mat-icon>settings</mat-icon>Mantenimiento
         </a>
 
-        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active">
-          <mat-icon>settings</mat-icon>Asignacion de presupuesto
+        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(13) && unidadOrgData.subUnidad && unidadOrgData.unidad != 'DIRECCION DE PLANIFICACION Y DESARROLLO'">
+          <mat-icon>settings</mat-icon>Asignación de presupuesto
         </a>
 
       </div>

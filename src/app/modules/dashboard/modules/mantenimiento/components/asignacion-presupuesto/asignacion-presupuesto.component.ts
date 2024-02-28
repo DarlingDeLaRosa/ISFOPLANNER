@@ -8,6 +8,7 @@ import { DetailViewComponent } from '../../modals/detail-view/detail-view.compon
 import { MatDialog } from '@angular/material/dialog';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { UnidadDataI, UserI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-asignacion-presupuesto',
@@ -17,10 +18,12 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 export class AsignacionPresupuestoComponent implements OnInit {
 
   accion: boolean = false
-  unidadesOrg!: UnidadOrgI[] 
+  unidadesOrg!: UnidadOrgI[]
   unidadesOrgPadres: subUnidadI[] = []
   asignacionPresupuestoForm: FormGroup;
-  presupuestosInst: PresupuestoInstiGetI = {
+  userUnidadData: UnidadDataI = this.userSystemService.isUnidadOrgFather
+  userLogged: UserI = this.userSystemService.getUserLogged
+  presupuestosInst: PresupuestoInstiGetI | any = {
     enUso: false, id: 0, montoTotal: 0, montoRestante: 0, montoEjecutado: 0, justicarModificacion: '', fechaInicio: new Date, fechaFin: new Date, creadoEn: new Date, creadoPor: '', actualizadoEn: new Date, actualizadoPor: ''
   }
 
@@ -47,19 +50,39 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { this.presupuestosInst = res.data[0]; })
+      .subscribe((res: any) => {
+        this.presupuestosInst = res.data[0];
+        // console.log(res.data);
+        // if (this.userUnidadData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO') 
+        
+      })
   }
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
       .subscribe((res: any) => {
-        this.unidadesOrgPadres = res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.unidadPadre == undefined })
+        console.log(res);
+
+        if (this.userUnidadData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO')
+          this.unidadesOrgPadres = res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.unidadPadre == undefined })
+        else {
+          let subUnidades = res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.nombre == this.userUnidadData.unidad })
+          this.unidadesOrgPadres = subUnidades[0].subUnidades
+        }
       })
   }
 
   getUnidadOrganizativaAsignadas() {
     this.apiPresupuestoInstitucional.getUnidadesPresupuestoAsignado()
-      .subscribe((res: any) => { this.unidadesOrg = res.data })
+      .subscribe((res: any) => {
+        // console.log(res);
+        this.unidadesOrg = res.data
+        
+        // if (this.userUnidadData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO') {
+        // }else this.presupuestosInst = res.data.filter((montoUnidad: any)=> montoUnidad.userUnidadData.nombre == this.userUnidadData.unidad );
+
+        // if (this.userUnidadData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO')
+      })
   }
 
   postAsignarPresupuestoUnidadOrg() {
