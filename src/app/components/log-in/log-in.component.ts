@@ -16,10 +16,10 @@ export class LogInComponent {
   seePass: string = 'password'
 
   constructor(
-    public fb: FormBuilder,
-    private userSystemService: UserSystemInformationService,
-    private authService: AuthenticationService,
     private router: Router,
+    public fb: FormBuilder,
+    private authService: AuthenticationService,
+    private userSystemService: UserSystemInformationService,
   ) {
     this.formUserLogIn = this.fb.group({
       username: new FormControl('', Validators.required),

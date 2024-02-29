@@ -13,14 +13,14 @@ import { GetRolesI } from '../mantenimiento-pei/interfaces/RolesPermisos.interfa
 })
 export class UsuariosComponent implements OnInit {
 
-  cargos: any[] = []
   usuarios!: any[]
+  cargos: any[] = []
   recintos: any[] = []
+  divisiones: any[] = []
   roles: GetRolesI[] = []
   unidadesOrg: any[] = []
   usuariosForm: FormGroup;
   departamentos: any[] = []
-  divisiones: any[] = []
 
   constructor(
     public fb: FormBuilder,
@@ -72,7 +72,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   getUsuarios() {
-    this.apiUsuario.getUsuario().subscribe((res: any) => { this.usuarios = res.data; })
+    this.apiUsuario.getUsuario().subscribe((res: any) => { this.usuarios = res.data; console.log(res.data);
+     })
   }
 
   postUsuarios() {

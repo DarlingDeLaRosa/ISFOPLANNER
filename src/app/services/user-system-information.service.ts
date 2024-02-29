@@ -48,7 +48,6 @@ export class UserSystemInformationService {
             default:
                 break;
         }
-
         return dataUnidad
     }
 

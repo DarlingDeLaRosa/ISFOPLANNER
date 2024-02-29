@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { GetRolesI, Getmodulos, modulo } from '../mantenimiento-pei/interfaces/RolesPermisos.interface';
+import { GetRolesI, modulo } from '../mantenimiento-pei/interfaces/RolesPermisos.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { RolesPermisosService } from '../../services/roles.service';

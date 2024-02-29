@@ -1,13 +1,17 @@
 <div style="padding: 15px;">
+    <div class="title">
+        <h1>Presupuesto Unidades Organizativas</h1>
+    </div>
+    <br>
     <div class="fuctionContent">
-            <h2 class="Stitle" >Presupuesto Unidades Organizativas</h2>
+        <span></span>
         <span style="display: flex;">
             <div class="checkPresupuesto">
                 <div class="titlePresupuesto">
                     <h3>Presupuesto total</h3>
                 </div>
                 <div class="amountPresupuesto">
-                    <h3>{{presupuestosInst.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
+                    <h3>{{presupuestosUnidad.monto | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
                 </div>
             </div>
             <div class="checkPresupuesto">
@@ -15,14 +19,13 @@
                     <h3>Presupuesto disponible</h3>
                 </div>
                 <div class="amountPresupuesto">
-                    <h3>{{presupuestosInst.montoRestante | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
+                    <h3>{{presupuestosUnidad.montoRestante | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
                 </div>
             </div>
         </span>
     </div>
     <div>
-        <form [formGroup]="asignacionPresupuestoForm" (ngSubmit)="saveChanges()">
-
+        <form [formGroup]="asignacionPresupuestoForm" (ngSubmit)="saveChanges()" > 
             <mat-form-field appearance="fill" style="width: 59%;">
                 <mat-label>Unidad Organizativa</mat-label>
                 <mat-select formControlName="idUnidadOrganizativa" disableRipple>
@@ -59,30 +62,30 @@
                         <th class="headerCell" style="width: 10%;"></th>
                         <th class="headerCell" style="width: 10%;"></th>
                         <th class="headerCell" style="width: 10%; padding-right: 15px;">
-                            <div *ngIf="!unidadesOrg" class="loader"></div>
+                            <div *ngIf="!subUnidadesOrg" class="loader"></div>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="dataRow" *ngFor="let unidadOrg of unidadesOrg">
-                        <td class="dataIndiCell">{{unidadOrg.unidadOrganizativa?.nombre}}</td>
-                        <td class="dataIndiCell">{{unidadOrg?.montoEjecutado | currency: 'DOP ': 'symbol': '1.2-2'}}
+                    <tr class="dataRow" *ngFor="let subUnidadOrg of subUnidadesOrg">
+                        <td class="dataIndiCell">{{subUnidadOrg.nombre}}</td>
+                        <td class="dataIndiCell">{{subUnidadOrg.presupuesto[0].montoEjecutado| currency: 'DOP ': 'symbol': '1.2-2'}}
                         </td>
-                        <td class="dataIndiCell">{{unidadOrg?.monto | currency: 'DOP ': 'symbol': '1.2-2'}} </td>
+                        <td class="dataIndiCell">{{subUnidadOrg.presupuesto[0].monto | currency: 'DOP ': 'symbol': '1.2-2'}} </td>
                         <td class="dataIndiCell"><mat-icon
-                                *ngIf="unidadOrg.unidadOrganizativa?.subUnidades != undefined && unidadOrg.unidadOrganizativa?.subUnidades?.length"
-                                (click)="openModal(unidadOrg)" class="detailsIcon">list</mat-icon></td>
-                        <td class="dataIndiCell"><mat-icon (click)="setValueEditUnidadOrg(unidadOrg)"
+                                *ngIf="subUnidadOrg.subUnidades != undefined && subUnidadOrg.subUnidades?.length"
+                                (click)="openModal(subUnidadOrg)" class="detailsIcon">list</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon (click)="setValueEditUnidadOrg(subUnidadOrg)"
                                 class="editIcon">edit</mat-icon></td>
                         <td class="dataIndiCell"><mat-icon
-                                (click)="deletePresupuestoUnidadOrg(unidadOrg.unidadOrganizativa)"
+                                (click)="deletePresupuestoUnidadOrg(subUnidadOrg)"
                                 class="removeIcon">delete</mat-icon></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         
-        <div class="noData" *ngIf="unidadesOrg && unidadesOrg.length == 0">
+        <div class="noData" *ngIf="subUnidadesOrg && subUnidadesOrg.length == 0">
             <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
         </div>
     </div>

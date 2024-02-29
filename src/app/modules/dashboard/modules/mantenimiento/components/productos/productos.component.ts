@@ -52,7 +52,8 @@ export class ProductosComponent implements OnInit {
 
   getProducto() {
     this.apiProducto.getProducto()
-      .subscribe((res: any) => { this.productos = res.data })
+      .subscribe((res: any) => { this.productos = res.data; console.log(res.data);
+      })
   }
 
   getUnidadOrganizativa() {

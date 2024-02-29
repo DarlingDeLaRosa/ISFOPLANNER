@@ -11,6 +11,7 @@ import { MantenimientoModule } from './modules/mantenimiento/mantenimiento.modul
 import { ControlPanelModule } from './modules/control-panel/control-panel.module';
 import { MaterialApoyoModule } from './modules/material-apoyo/material-apoyo.module';
 import { AyudaModule } from './modules/ayuda/ayuda.module';
+import { AsignacionSubUnidadesModule } from './modules/asignacion-subunidades/asignacion-subunidades.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AyudaModule } from './modules/ayuda/ayuda.module';
     MaterialApoyoModule,
     AyudaModule,
     MantenimientoModule,
+    AsignacionSubUnidadesModule,
 
     RouterModule,
     FormsModule,

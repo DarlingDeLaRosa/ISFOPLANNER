@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { dashboardComponent } from './dashboard.component';
-import { AsignacionPresupuestoComponent } from './modules/mantenimiento/components/asignacion-presupuesto/asignacion-presupuesto.component';
 
 const routes: Routes = [
   {
@@ -50,9 +49,8 @@ const routes: Routes = [
       },
       {
         path: 'asignacionPresupuesto',
-        component: AsignacionPresupuestoComponent,
-        // loadChildren: ()=>
-        // import('./modules/mantenimiento/mantenimiento.routing.module').then((m)=>m.MantenimientoRoutingModule)
+        loadChildren: ()=>
+        import('./modules/asignacion-subunidades/asignacion-subunidades.routing.module').then((m)=>m.AsignacionSubunidadesRoutingModule)
       },
     ]
   }

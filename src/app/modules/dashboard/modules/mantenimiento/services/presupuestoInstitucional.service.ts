@@ -28,6 +28,10 @@ export class PresupuestoInstitucionalService {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional?enUso=${enUso ?? ''}`, this.header))
   }
 
+  public getPresupuestoUnidad() {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional/unidad-presupuesto`, this.header))
+  }
+
   public postPresupuestoInstitucional(PresupuestoInstitucionalData: PresupuestoInstitucionalI) {
     return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/PresupuestoInstitucional`, PresupuestoInstitucionalData, this.header))
   }
@@ -42,6 +46,10 @@ export class PresupuestoInstitucionalService {
 
   public getUnidadesPresupuestoAsignado() {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional/presupuestos-asignados`, this.header))
+  }
+
+  public getSubUnidadesPresupuestoAsignado() {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional/unidad-presupuestos-asignados`, this.header))
   }
 
   public postAsignarPresupuesto(unidadOrg: asignarUnidadOrgI){
