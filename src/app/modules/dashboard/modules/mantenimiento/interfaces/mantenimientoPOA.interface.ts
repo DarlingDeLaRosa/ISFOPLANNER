@@ -90,7 +90,7 @@ export interface IndicadoresGestionGetI {
     nombre: "Anual"
   },
   producto: ProductoI
-  responsables: ResponsableI[]
+  responsables: ResponsableI
   mediosverificaciones: MedioVerificacionI
 }
 

@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle">Usuarios</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && usuariosForm.value.idUsuario > 0">Usuarios</h2>
   <div>
-    <form [formGroup]="usuariosForm" (ngSubmit)="saveChanges()">
+    <form style=" margin-bottom: 15px;" [formGroup]="usuariosForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && usuariosForm.value.idUsuario > 0">
 
       <mat-form-field appearance="fill" style="width: 33%;">
         <mat-label>Nombre</mat-label>
@@ -90,12 +90,11 @@
       <br>
 
       <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-      <button (click)="usuariosForm.reset()" *ngIf="usuariosForm.value.idUsuario" class="cleanButton">Limpiar
-        edición</button>
+      <button (click)="usuariosForm.reset()" *ngIf="usuariosForm.value.idUsuario" class="cleanButton">Limpiar edición</button>
 
     </form>
 
-    <h2 style=" margin-top: 15px;" class="Stitle">Listado de Usuarios</h2>
+    <h2 class="Stitle">Listado de Usuarios</h2>
 
     <div style="border:1px solid  #ccc ;">
 
@@ -106,11 +105,11 @@
             <th class="headerCell">Apellidos</th>
             <th class="headerCell">Cargo</th>
             <th class="headerCell">Rol</th>
-            <th class="headerCell">Unidad Organizativa</th>
-            <th class="headerCell" style="width: 10%;"></th>
-            <th class="headerCell" style="width: 10%; padding-right: 15px;">
-              <div *ngIf="!usuarios" class="loader"></div>
-            </th>
+            <th class="headerCell">Departamento</th>
+            <th class="headerCell">División</th>
+            <th class="headerCell">Unidad perteneciente</th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!usuarios" class="loader"></div> </th>
           </tr>
         </thead>
         <tbody>
@@ -120,11 +119,10 @@
             <td class="dataIndiCell">{{usuario.persona.cargo.nombre}}</td>
             <td class="dataIndiCell">{{usuario.rol.nombre}}</td>
             <td class="dataIndiCell">{{usuario.persona.departamento.nombre}}</td>
-            <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueEditUsuarios(usuario)">edit</mat-icon>
-            </td>
-            <td class="dataIndiCell"><mat-icon class="removeIcon"
-                (click)="deleteUsuarios(usuario.idUsuario)">delete</mat-icon></td>
-          </tr>
+            <td class="dataIndiCell">{{usuario.persona.division.nombre}}</td>
+            <td class="dataIndiCell">{{usuario.unidad}}</td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueEditUsuarios(usuario)">edit</mat-icon> </td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon class="removeIcon" (click)="deleteUsuarios(usuario.idUsuario)">delete</mat-icon></td> </tr>
         </tbody>
       </table>
 

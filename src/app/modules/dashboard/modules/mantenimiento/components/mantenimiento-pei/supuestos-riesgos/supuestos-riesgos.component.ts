@@ -4,6 +4,7 @@ import { alertRemoveSure, loading} from 'src/app/alerts/alerts';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-resultado-efecto',
@@ -17,8 +18,9 @@ export class SupuestosRiegosComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private supuestosRiesgosService: SupuestosRiesgosService,
-    private helperHandler: HelperService
   ) {
     this.supuestoRiesgoForm = this.fb.group({
       id: 0,

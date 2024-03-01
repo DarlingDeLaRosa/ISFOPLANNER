@@ -4,6 +4,7 @@ import { ConfiguracionPeriodoServive } from '../../services/configuracion-period
 import { TipoProcesosService } from '../../services/tipo-proceso.service';
 import { format } from 'date-fns';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-configuracion-periodos',
@@ -19,9 +20,10 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private apiTipoProceso: TipoProcesosService,
     private apiPeriodosConfig: ConfiguracionPeriodoServive,
-    private helperHandler: HelperService
   ) {
     this.periodosConfigForm = this.fb.group({
       id: 0,

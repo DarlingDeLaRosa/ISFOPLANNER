@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle">Indicadores Estrategicos</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && IndicadorEstrForm.value.id > 0">Indicadores Estrategicos</h2>
   <div>
-    <form [formGroup]="IndicadorEstrForm" (ngSubmit)="saveChanges()">
+    <form style=" margin-bottom: 15px;" [formGroup]="IndicadorEstrForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && IndicadorEstrForm.value.id > 0">
 
       <mat-form-field appearance="fill" style="width: 65.5%;">
         <mat-label>Indicador estrategico</mat-label>
@@ -158,7 +158,7 @@
 
     </form>
 
-    <h2 style=" margin-top: 15px;" class="Stitle">Listado de Indicadores Estrategicos</h2>
+    <h2 class="Stitle">Listado de Indicadores Estrategicos</h2>
 
     <div style="border:1px solid  #ccc ;">
 
@@ -174,8 +174,8 @@
             <th class="headerCell">Responsables</th>
             <th class="headerCell">Supuestos Riesgos</th>
             <th class="headerCell">Medio de verificación</th>
-            <th class="headerCell" style="width: 6%;"></th>
-            <th class="headerCell" style="width: 6%; padding-right: 15px;">
+            <th class="headerCell" style="width: 5%;"></th>
+            <th class="headerCell" style="width: 5%; padding-right: 15px;">
               <div *ngIf="!indicadoresEstrategicos" class="loader"></div>
             </th>
           </tr>
@@ -201,10 +201,8 @@
             <td class="dataIndiCell"><mat-icon
                 (click)="openModal(indicador.mediosverificaciones, 'Resultado Efectos', indicador.nombre)"
                 class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon class="editIcon"
-                (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon class="removeIcon"
-                (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

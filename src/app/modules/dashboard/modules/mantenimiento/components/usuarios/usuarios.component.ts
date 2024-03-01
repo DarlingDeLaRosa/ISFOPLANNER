@@ -5,6 +5,7 @@ import { alertNoValidForm, alertRemoveSure, loading } from 'src/app/alerts/alert
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { GetRolesI } from '../mantenimiento-pei/interfaces/RolesPermisos.interface';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -26,6 +27,7 @@ export class UsuariosComponent implements OnInit {
     public fb: FormBuilder,
     private apiUsuario: UsuarioService,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private userSystemService: UserSystemInformationService,
   ) {
     this.usuariosForm = this.fb.group({

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { preguntasFrecuentesService } from '../../services/preguntas-frecuentes.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert, loading } from 'src/app/alerts/alerts';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { PreguntaI } from '../../interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-pregunta-frecuentes',
@@ -18,8 +19,9 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private apiPreguntas: preguntasFrecuentesService,
-    private helperHandler: HelperService
   ) {
     this.preguntasFrecuentesForm = this.fb.group({
       id: 0,

@@ -6,6 +6,7 @@ import { EstrategiaI } from '../interfaces/estrategias.interface';
 import { ResultadoEfectoService } from '../services/resultadoEfecto.service';
 import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-resultado-efecto',
@@ -21,6 +22,7 @@ export class ResultadoEfectoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private estrategiasService: EstrategiasService,
     private resultadoEfectoService: ResultadoEfectoService,
   ) {

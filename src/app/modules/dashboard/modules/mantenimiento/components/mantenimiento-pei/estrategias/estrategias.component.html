@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle">Estrategias</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && estrategiaForm.value.id > 0">Estrategias</h2>
   <div>
-    <form [formGroup]="estrategiaForm" (ngSubmit)="saveChanges()">
+    <form style=" margin-bottom: 15px;" [formGroup]="estrategiaForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && estrategiaForm.value.id > 0">
       <mat-form-field appearance="fill" style="width: 40%;">
         <mat-label>Eje estrategico</mat-label>
         <mat-select disableRipple formControlName="idEjeEstrategico">
@@ -22,12 +22,11 @@
       </mat-form-field>
 
       <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-      <button (click)="estrategiaForm.reset()" *ngIf="estrategiaForm.value.id" class="cleanButton">Limpiar
-        edición</button>
+      <button (click)="estrategiaForm.reset()" *ngIf="estrategiaForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
 
-    <h2 style=" margin-top: 15px;" class="Stitle">Listado de estrategias</h2>
+    <h2 class="Stitle">Listado de estrategias</h2>
 
     <div style="border:1px solid  #ccc ;">
 
@@ -37,10 +36,8 @@
             <th class="headerCell">Eje</th>
             <th class="headerCell">Estrategia</th>
             <th class="headerCell">Numero Eje</th>
-            <th class="headerCell" style="width: 10%;"></th>
-            <th class="headerCell" style="width: 10%; padding-right: 15px;">
-              <div *ngIf="!estrategias" class="loader"></div>
-            </th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!estrategias" class="loader"></div></th>
           </tr>
         </thead>
         <tbody>
@@ -48,10 +45,8 @@
             <td class="dataIndiCell">{{estrategia.ejeEstrategico.nombre}}</td>
             <td class="dataIndiCell">{{estrategia.nombre}}</td>
             <td class="dataIndiCell">{{estrategia.ejeEstrategico.numeroEje}}</td>
-            <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueEstrategia(estrategia)">edit</mat-icon>
-            </td>
-            <td class="dataIndiCell"><mat-icon class="removeIcon"
-                (click)="deleteEstrategia(estrategia.id)">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueEstrategia(estrategia)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon class="removeIcon" (click)="deleteEstrategia(estrategia.id)">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

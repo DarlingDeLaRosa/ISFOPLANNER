@@ -46,6 +46,8 @@ export class RolesComponent implements OnInit {
   getModulos() {
     this.moduloService.getModulosByIdSistema()
       .subscribe((resp: any) => {
+        console.log(resp);
+        
         resp.data.map((modulo: modulo) => {
 
           const permisoGroup = this.fb.group({
@@ -64,7 +66,8 @@ export class RolesComponent implements OnInit {
   }
 
   getRolesPermisos() {
-    this.rolesPermisosService.getRolesPermisos().subscribe((resp: any) => { this.roles = resp.data; })
+    this.rolesPermisosService.getRolesPermisos().subscribe((resp: any) => { this.roles = resp.data; console.log(resp);
+     })
   }
 
   postRolesPermisos() {

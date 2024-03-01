@@ -18,6 +18,7 @@ import { SupuestosRiesgosService } from '../services/supuestos-riesgos.service';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { EntidadListViewComponent } from '../../../modals/responsible-view/responsible-view.component';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-indicadores-estrategicos',
@@ -39,6 +40,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private involucradoService: involucradoService,
     private responsablesService: ResponsableService,
     private requerimientosService: RequerimientosService,

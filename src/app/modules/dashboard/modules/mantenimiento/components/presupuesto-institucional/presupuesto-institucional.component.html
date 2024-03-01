@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-    <h2 class="Stitle">Presupuesto Institucional</h2>
+    <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && presupuestoInstiForm.value.id > 0">Presupuesto Institucional</h2>
     <div>
-        <form [formGroup]="presupuestoInstiForm" (ngSubmit)="saveChanges()">
+        <form style=" margin-bottom: 15px;" [formGroup]="presupuestoInstiForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && presupuestoInstiForm.value.id > 0">
 
             <mat-form-field appearance="fill" style="width: 40%;">
                 <mat-label>Presupuesto</mat-label>
@@ -24,12 +24,11 @@
             </mat-form-field>
 
             <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-            <button (click)="presupuestoInstiForm.reset()" *ngIf="presupuestoInstiForm.value.id"
-                class="cleanButton">Limpiar edición</button>
+            <button (click)="presupuestoInstiForm.reset()" *ngIf="presupuestoInstiForm.value.id" class="cleanButton">Limpiar edición</button>
 
         </form>
 
-        <h2 style=" margin-top: 15px;" class="Stitle">Listado de unidades organizativas</h2>
+        <h2  class="Stitle">Listado de unidades organizativas</h2>
 
         <div style="border:1px solid  #ccc ;">
 
@@ -48,17 +47,12 @@
                 </thead>
                 <tbody>
                     <tr class="dataRow" *ngFor="let presupuestoInst of presupuestosInst">
-                        <td class="dataIndiCell">{{ presupuestoInst.fechaInicio | date: 'dd/MM/yyyy'}} -
-                            {{presupuestoInst.fechaFin | date: 'dd/MM/yyyy'}}</td><!---->
+                        <td class="dataIndiCell">{{ presupuestoInst.fechaInicio | date: 'dd/MM/yyyy'}} - {{presupuestoInst.fechaFin | date: 'dd/MM/yyyy'}}</td><!---->
                         <td class="dataIndiCell">{{ presupuestoInst.justicarModificacion }}</td>
-                        <td class="dataIndiCell">{{ presupuestoInst.montoEjecutado | currency: 'DOP ':
-                            'symbol':'1.2-2'}}</td>
-                        <td class="dataIndiCell">{{ presupuestoInst.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}
-                        </td>
-                        <td class="dataIndiCell"><mat-slide-toggle color="#004b8d" [(ngModel)]="presupuestoInst.enUso"
-                                (change)="postActivarPresupuesto(presupuestoInst.id)"></mat-slide-toggle></td>
-                        <td class="dataIndiCell"><mat-icon (click)="setValueEditPreInst(presupuestoInst)"
-                                class="editIcon">edit</mat-icon></td>
+                        <td class="dataIndiCell">{{ presupuestoInst.montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                        <td class="dataIndiCell">{{ presupuestoInst.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}} </td>
+                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-slide-toggle color="#004b8d" [(ngModel)]="presupuestoInst.enUso" (change)="postActivarPresupuesto(presupuestoInst.id)"></mat-slide-toggle></td>
+                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon (click)="setValueEditPreInst(presupuestoInst)" class="editIcon">edit</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

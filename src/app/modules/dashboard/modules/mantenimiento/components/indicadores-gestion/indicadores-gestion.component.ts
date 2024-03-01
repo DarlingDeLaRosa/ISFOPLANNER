@@ -11,6 +11,7 @@ import { DetailViewComponent } from '../../modals/detail-view/detail-view.compon
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { EstructuraProgramaticaI, IndicadoresGestionGetI, ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -32,6 +33,7 @@ export class IndicadoresGestionComponent implements OnInit {
     public dialog: MatDialog,
     private apiProducto: ProductoService,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private apiUnidadOrg: UnidadOrganizativaService,
     private apiIndicadoresGestion: IndicadorGestionService,
     private apiEstruturaPro: EstructuraProgramaticaService,
@@ -43,7 +45,7 @@ export class IndicadoresGestionComponent implements OnInit {
       idAlcance: new FormControl('', Validators.required),
       idFrecuencia: new FormControl('', Validators.required),
       idEstructuraProgramatica: new FormControl('', Validators.required),
-      idUnidadOrganizativa: new FormControl('', Validators.required),
+      idResponsable: new FormControl('', Validators.required),
       idTipoIndicador: new FormControl('', Validators.required),
       meta: new FormControl('', Validators.required),
       linaBase: new FormControl('', Validators.required),
@@ -61,7 +63,7 @@ export class IndicadoresGestionComponent implements OnInit {
 
   getProductos() {
     this.apiProducto.getProducto()
-      .subscribe((res: any) => { this.productos = res.data })
+      .subscribe((res: any) => { this.productos = res.data;})
   }
 
   getUnidadOrganizativa() {
@@ -86,7 +88,8 @@ export class IndicadoresGestionComponent implements OnInit {
 
   getIndicadoresGestion() {
     this.apiIndicadoresGestion.getIndicadorGestion()
-      .subscribe((res: any) => { this.indicadoresGestion = res.data })
+      .subscribe((res: any) => { this.indicadoresGestion = res.data; console.log(res);
+      })
   }
 
   postIndicadoresGestion() {
@@ -117,7 +120,7 @@ export class IndicadoresGestionComponent implements OnInit {
       idAlcance: indicadoresGestion.alcance.id,
       idFrecuencia: indicadoresGestion.frecuencia.id,
       idEstructuraProgramatica: indicadoresGestion.estructuraProgramatica.id,
-      idUnidadOrganizativa: indicadoresGestion.responsables[0].id,
+      idResponsable: indicadoresGestion.responsables.id,
       idTipoIndicador: indicadoresGestion.tipoIndicador.id,
       meta: indicadoresGestion.meta,
       linaBase: indicadoresGestion.linaBase
@@ -127,6 +130,8 @@ export class IndicadoresGestionComponent implements OnInit {
   openModal(responsables: ResponsableI[]) { this.dialog.open(DetailViewComponent, { data: responsables })}
 
   saveChanges() {
+    console.log(this.indicadoresGestionForm.value);
+    
     this.helperHandler.saveChanges(() => this.putIndicadoresGestion(), this.indicadoresGestionForm, () => this.postIndicadoresGestion())
   }
 }

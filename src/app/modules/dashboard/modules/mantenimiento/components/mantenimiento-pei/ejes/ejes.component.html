@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle">Ejes Estrategicos</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && ejeForm.value.id > 0">Ejes Estrategicos</h2>
   <div>
-    <form [formGroup]="ejeForm" (ngSubmit)="saveChanges()">
+    <form style=" margin-bottom: 15px;" [formGroup]="ejeForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && ejeForm.value.id > 0">
       <mat-form-field appearance="fill" style="width: 48%;">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
@@ -22,7 +22,7 @@
 
     </form>
 
-    <h2 style=" margin-top: 15px;" class="Stitle">Listado de ejes</h2>
+    <h2 class="Stitle">Listado de ejes</h2>
 
     <div style="border:1px solid  #ccc ;">
 
@@ -31,18 +31,16 @@
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Eje</th>
             <th class="headerCell">Numero</th>
-            <th class="headerCell" style="width: 10%;"></th>
-            <th class="headerCell" style="width: 10%; padding-right: 15px;">
-              <div *ngIf="!ejes" class="loader"></div>
-            </th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%; padding-right: 15px;"><div *ngIf="!ejes" class="loader"></div></th>
           </tr>
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let item of ejes">
             <td class="dataIndiCell">{{item.nombre}}</td>
             <td class="dataIndiCell">{{item.numeroEje}}</td>
-            <td class="dataIndiCell"><mat-icon class="editIcon" (click)="setValueEje(item)">edit</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon class="removeIcon" (click)="deleteEjes(item)">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueEje(item)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)"><mat-icon class="removeIcon" (click)="deleteEjes(item)">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

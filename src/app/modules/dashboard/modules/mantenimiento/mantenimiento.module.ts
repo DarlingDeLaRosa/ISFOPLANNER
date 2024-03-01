@@ -27,7 +27,6 @@ import { SupuestosRiegosComponent } from './components/mantenimiento-pei/supuest
 import { EstructuraProgramaticaComponent } from './components/estructura-programatica/estructura-programatica.component';
 import { MedioVerificacionComponent } from './components/mantenimiento-pei/medio-verificacion/medio-verificacion.component';
 import { IndicadoresEstrategicosComponent } from './components/mantenimiento-pei/indicadores-estrategicos/indicadores-estrategicos.component';
-import { ResponsablesIndicadoresComponent } from './components/mantenimiento-pei/responsables-indicacdores/responsables-indicadores.component';
 import { PresupuestoInstitucionalComponent } from './components/presupuesto-institucional/presupuesto-institucional.component';
 
 @NgModule({
@@ -53,7 +52,6 @@ import { PresupuestoInstitucionalComponent } from './components/presupuesto-inst
     AsignacionPresupuestoComponent,
     EstructuraProgramaticaComponent,
     IndicadoresEstrategicosComponent,
-    ResponsablesIndicadoresComponent,
     PresupuestoInstitucionalComponent,
   ],
 

@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-    <h2 class="Stitle">Configuración de periodos</h2>
+    <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && periodosConfigForm.value.id > 0">Configuración de periodos</h2>
     <div>
-        <form [formGroup]="periodosConfigForm" (ngSubmit)="saveChanges()">
+        <form style=" margin-bottom: 15px;" [formGroup]="periodosConfigForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && periodosConfigForm.value.id > 0">
 
             <mat-form-field appearance="fill" style="width: 30%;">
                 <mat-label>Proceso</mat-label>
@@ -37,15 +37,13 @@
             </mat-form-field>
 
             <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-            <button (click)="periodosConfigForm.reset()" *ngIf="periodosConfigForm.value.id" class="cleanButton">Limpiar
-                edición</button>
+            <button (click)="periodosConfigForm.reset()" *ngIf="periodosConfigForm.value.id" class="cleanButton">Limpiar edición</button>
 
         </form>
 
-        <h2 style=" margin-top: 15px;" class="Stitle">Listado de Estructura Programatica</h2>
+        <h2 class="Stitle">Listado de Estructura Programatica</h2>
 
         <div style="border:1px solid  #ccc ;">
-
 
             <table>
                 <thead class="headerTable">
@@ -54,9 +52,7 @@
                         <th class="headerCell">Fecha Inicial</th>
                         <th class="headerCell">Fecha Final</th>
                         <th class="headerCell">Prorroga</th>
-                        <th class="headerCell" style="width: 10%; padding-right: 15px;">
-                            <div *ngIf="!periodosConfig" class="loader"></div>
-                        </th>
+                        <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!periodosConfig" class="loader"></div></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,8 +61,7 @@
                         <td class="dataIndiCell">{{periodoConfig.fechaInicio | date:'dd/MM/yyyy'}}</td>
                         <td class="dataIndiCell">{{periodoConfig.fechaFin | date:'dd/MM/yyyy'}}</td>
                         <td class="dataIndiCell">{{periodoConfig.prorroga | date:'dd/MM/yyyy'}}</td>
-                        <td class="dataIndiCell"><mat-icon class="editIcon"
-                                (click)="setValueEditEstructuraPro(periodoConfig)">edit</mat-icon></td>
+                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueEditEstructuraPro(periodoConfig)">edit</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle">Medio de verificación</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && medioVerificacionForm.value.id > 0">Medio de verificación</h2>
   <div>
-    <form [formGroup]="medioVerificacionForm" (ngSubmit)=" saveChanges()">
+    <form style=" margin-bottom: 15px;" [formGroup]="medioVerificacionForm" (ngSubmit)=" saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && medioVerificacionForm.value.id > 0">
 
       <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label> Nombre del medio de verificación</mat-label>
@@ -9,29 +9,26 @@
       </mat-form-field>
 
       <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-      <button (click)="medioVerificacionForm.reset()" *ngIf="medioVerificacionForm.value.id" class="cleanButton">Limpiar
-        edición</button>
+      <button (click)="medioVerificacionForm.reset()" *ngIf="medioVerificacionForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
-    <h2 style=" margin-top: 15px;" class="Stitle">Listado</h2>
+
+    <h2 class="Stitle">Listado de medios de verificación </h2>
+
     <div style="border:1px solid  #ccc ;">
       <table>
         <thead class="headerTable">
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Medio de verificación</th>
-            <th class="headerCell" style="width: 10%;"></th>
-            <th class="headerCell" style="width: 10%; padding-right: 15px;">
-              <div *ngIf="!medioVerificacion" class="loader"></div>
-            </th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!medioVerificacion" class="loader"></div> </th>
           </tr>
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let item of medioVerificacion">
             <td class="dataIndiCell">{{item.nombre}}</td>
-            <td class="dataIndiCell"><mat-icon class="editIcon"
-                (click)="setValueMedioVerificacion(item)">edit</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon class="removeIcon"
-                (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueMedioVerificacion(item)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon class="removeIcon" (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

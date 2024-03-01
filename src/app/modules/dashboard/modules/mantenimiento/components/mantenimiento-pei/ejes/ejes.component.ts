@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { EjesService } from '../services/ejes.service';
 import { EjesI } from '../interfaces/ejes.interface';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { EjesService } from '../services/ejes.service';
 import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ejes',
@@ -19,6 +20,7 @@ export class EjesComponent implements OnInit {
     private fb: FormBuilder,
     private ejesService: EjesService,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
   ) {
     this.ejeForm = this.fb.group({
       id: 0,

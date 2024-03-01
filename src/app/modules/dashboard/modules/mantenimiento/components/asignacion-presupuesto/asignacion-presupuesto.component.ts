@@ -7,6 +7,7 @@ import { PresupuestoInstitucionalService } from '../../services/presupuestoInsti
 import { DetailViewComponent } from '../../modals/detail-view/detail-view.component';
 import { MatDialog } from '@angular/material/dialog';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-asignacion-presupuesto',
@@ -27,6 +28,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
     public fb: FormBuilder,
     public dialog: MatDialog,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private apiUnidadOrg: UnidadOrganizativaService,
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {

@@ -5,6 +5,7 @@ import { MedioVerificacionI } from '../interfaces/medio-verificacion.interface';
 import { MedioVerificacionService } from '../services/medio-verificacion.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-mantenimiento-pei',
@@ -20,6 +21,7 @@ export class MedioVerificacionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private medioVerifService: MedioVerificacionService,
   ) {
     this.medioVerificacionForm = this.fb.group({

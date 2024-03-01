@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
-import { RequerimientosService } from '../services/requerimientos.service';
-import { RequerimientoI } from '../interfaces/requerimientos.interface';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { RequerimientoI } from '../interfaces/requerimientos.interface';
+import { RequerimientosService } from '../services/requerimientos.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -18,11 +19,12 @@ export class RequerimientosComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private requerimientoService: RequerimientosService,
-    private helperHandler: HelperService
   ) {
     this.requerimientoForm = this.fb.group({
-      id: new FormControl<number>(0),
+      id: 0,
       nombre: new FormControl('', Validators.required),
       esFinanciero: new FormControl(null, Validators.required),
     })

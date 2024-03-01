@@ -6,6 +6,7 @@ import { EjesI } from '../interfaces/ejes.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-estrategias',
@@ -22,6 +23,7 @@ export class EstrategiasComponent implements OnInit {
     private fb: FormBuilder,
     private ejesService: EjesService,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private estrategiasService: EstrategiasService,
   ) {
     this.estrategiaForm = this.fb.group({

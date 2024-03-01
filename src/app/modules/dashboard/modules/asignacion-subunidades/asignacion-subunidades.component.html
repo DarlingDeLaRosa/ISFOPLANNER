@@ -25,7 +25,7 @@
         </span>
     </div>
     <div>
-        <form [formGroup]="asignacionPresupuestoForm" (ngSubmit)="saveChanges()" > 
+        <form [formGroup]="asignacionPresupuestoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || accion " > 
             <mat-form-field appearance="fill" style="width: 59%;">
                 <mat-label>Unidad Organizativa</mat-label>
                 <mat-select formControlName="idUnidadOrganizativa" disableRipple>
@@ -59,27 +59,19 @@
                         <th class="headerCell">Unidad Organizativa</th>
                         <th class="headerCell" style="width: 20%;">Monto Ejecutado</th>
                         <th class="headerCell" style="width: 20%;">Monto Total</th>
-                        <th class="headerCell" style="width: 10%;"></th>
-                        <th class="headerCell" style="width: 10%;"></th>
-                        <th class="headerCell" style="width: 10%; padding-right: 15px;">
-                            <div *ngIf="!subUnidadesOrg" class="loader"></div>
-                        </th>
+                        <th class="headerCell" style="width: 5%;"></th>
+                        <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+                        <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!subUnidadesOrg" class="loader"></div> </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="dataRow" *ngFor="let subUnidadOrg of subUnidadesOrg">
                         <td class="dataIndiCell">{{subUnidadOrg.nombre}}</td>
-                        <td class="dataIndiCell">{{subUnidadOrg.presupuesto[0].montoEjecutado| currency: 'DOP ': 'symbol': '1.2-2'}}
-                        </td>
+                        <td class="dataIndiCell">{{subUnidadOrg.presupuesto[0].montoEjecutado| currency: 'DOP ': 'symbol': '1.2-2'}} </td>
                         <td class="dataIndiCell">{{subUnidadOrg.presupuesto[0].monto | currency: 'DOP ': 'symbol': '1.2-2'}} </td>
-                        <td class="dataIndiCell"><mat-icon
-                                *ngIf="subUnidadOrg.subUnidades != undefined && subUnidadOrg.subUnidades?.length"
-                                (click)="openModal(subUnidadOrg)" class="detailsIcon">list</mat-icon></td>
-                        <td class="dataIndiCell"><mat-icon (click)="setValueEditUnidadOrg(subUnidadOrg)"
-                                class="editIcon">edit</mat-icon></td>
-                        <td class="dataIndiCell"><mat-icon
-                                (click)="deletePresupuestoUnidadOrg(subUnidadOrg)"
-                                class="removeIcon">delete</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon *ngIf="subUnidadOrg.subUnidades != undefined && subUnidadOrg.subUnidades?.length" (click)="openModal(subUnidadOrg)" class="detailsIcon">list</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon *ngIf="permisosCRUD.permisoEditar(13)" (click)="setValueEditUnidadOrg(subUnidadOrg)" class="editIcon">edit</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon *ngIf="permisosCRUD.permisoEliminar(13)" (click)="deletePresupuestoUnidadOrg(subUnidadOrg)" class="removeIcon">delete</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

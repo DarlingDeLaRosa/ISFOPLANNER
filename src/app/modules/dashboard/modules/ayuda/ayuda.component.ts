@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { preguntasFrecuentesService } from '../mantenimiento/services/preguntas-frecuentes.service';
-import { alertServerDown } from 'src/app/alerts/alerts';
-import { catchError } from 'rxjs';
 import { AsnwerViewComponent } from './modals/asnwer-view/asnwer-view.component';
 import { PreguntaI } from '../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { preguntasFrecuentesService } from '../mantenimiento/services/preguntas-frecuentes.service';
 
 @Component({
   selector: 'ayuda-root',
@@ -13,7 +11,7 @@ import { PreguntaI } from '../mantenimiento/interfaces/mantenimientoPOA.interfac
 })
 export class AyudaComponent implements OnInit {
   
-  getPreguntas: any[] = []
+  getPreguntas!: any[]
   
   constructor(
     public dialog: MatDialog,

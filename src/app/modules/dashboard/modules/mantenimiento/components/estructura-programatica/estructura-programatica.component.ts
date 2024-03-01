@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
+import { HelperService } from 'src/app/services/appHelper.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, alertServerDown, errorMessageAlert, loading } from 'src/app/alerts/alerts';
-import { catchError, throwError } from 'rxjs';
-import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 
 @Component({
@@ -18,8 +18,9 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private apiEstructuraPro: EstructuraProgramaticaService,
-    private helperHandler: HelperService
   ) {
     this.estructuraProgramaticaForm = this.fb.group({
       id: 0,

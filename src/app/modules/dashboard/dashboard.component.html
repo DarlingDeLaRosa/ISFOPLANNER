@@ -41,7 +41,7 @@
           <mat-icon>settings</mat-icon>Mantenimiento
         </a>
 
-        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" > <!--*ngIf="permisosCRUD.permisoLeer(13) && unidadOrgData.subUnidad && unidadOrgData.unidad != 'DIRECCION DE PLANIFICACION Y DESARROLLO'"-->
+        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(14) "> <!--&& unidadOrgData.subUnidad -->
           <mat-icon>settings</mat-icon>Asignación de presupuesto
         </a>
 

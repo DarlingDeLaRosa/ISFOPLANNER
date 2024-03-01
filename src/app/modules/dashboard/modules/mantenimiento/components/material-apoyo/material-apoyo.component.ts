@@ -4,6 +4,7 @@ import { MaterialApoyoService } from '../../services/material-apoyo.service';
 import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, errorMessageAlert } from 'src/app/alerts/alerts';
 import { MaterialApoyoI } from '../../interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-material-apoyo',
@@ -17,8 +18,9 @@ export class MaterialDeApoyoComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private apiMaterial: MaterialApoyoService,
-    private helperHandler: HelperService
   ) {
     this.materialApoyoForm = this.fb.group({
       id: 0,

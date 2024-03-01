@@ -10,6 +10,7 @@ import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indica
 import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { EntidadListViewComponent } from '../../modals/responsible-view/responsible-view.component';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-productos',
@@ -28,6 +29,7 @@ export class ProductosComponent implements OnInit {
     public dialog: MatDialog,
     private helperHandler: HelperService,
     private apiProducto: ProductoService,
+    public permisosCRUD: PermissionService,
     private apiUnidadOrg: UnidadOrganizativaService,
     private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
   ) {
