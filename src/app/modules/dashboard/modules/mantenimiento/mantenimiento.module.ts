@@ -11,7 +11,7 @@ import { RolesViewComponent } from './modals/roles-view/roles-view.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { DetailViewComponent } from './modals/detail-view/detail-view.component';
 import { EjesComponent } from './components/mantenimiento-pei/ejes/ejes.component';
-import { EntidadListViewComponent } from './modals/responsible-view/responsible-view.component';
+import { EntidadListViewComponent } from './modals/entidad-list-view/responsible-view.component';
 import { MaterialDeApoyoComponent } from './components/material-apoyo/material-apoyo.component';
 import { ResponsableService } from './components/mantenimiento-pei/services/reponsable.service';
 import { MantenimientoPeiComponent } from './components/mantenimiento-pei/mantenimiento-pei.component';

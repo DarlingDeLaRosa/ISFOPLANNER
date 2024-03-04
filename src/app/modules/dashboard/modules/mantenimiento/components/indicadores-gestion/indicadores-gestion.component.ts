@@ -12,6 +12,9 @@ import { UnidadOrganizativaService } from '../../services/unidad-organizativa.se
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { EstructuraProgramaticaI, IndicadoresGestionGetI, ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { MedioVerificacionService } from '../mantenimiento-pei/services/medio-verificacion.service';
+import { MedioVerificacionI } from '../mantenimiento-pei/interfaces/medio-verificacion.interface';
+import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -20,13 +23,14 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 })
 export class IndicadoresGestionComponent implements OnInit {
 
-  indicadoresGestionForm: FormGroup;
-  indicadoresGestion!: IndicadoresGestionGetI[]
-  frecuencias: FrecuenciaI[] = []
   alcances: any[] = []
   productos: ProductoI[] = []
-  estructurasPro: EstructuraProgramaticaI[] = []
   unidadesOrg: subUnidadI[] = []
+  frecuencias: FrecuenciaI[] = []
+  indicadoresGestionForm: FormGroup;
+  mediosVerificacion: MedioVerificacionI[] = [];
+  indicadoresGestion!: IndicadoresGestionGetI[]
+  estructurasPro: EstructuraProgramaticaI[] = []
 
   constructor(
     public fb: FormBuilder,
@@ -35,61 +39,61 @@ export class IndicadoresGestionComponent implements OnInit {
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
     private apiUnidadOrg: UnidadOrganizativaService,
+    private medioVerifService: MedioVerificacionService,
     private apiIndicadoresGestion: IndicadorGestionService,
     private apiEstruturaPro: EstructuraProgramaticaService,
   ) {
     this.indicadoresGestionForm = this.fb.group({
       id: 0,
+      meta: new FormControl('', Validators.required),
       nombre: new FormControl('', Validators.required),
-      idProducto: new FormControl('', Validators.required),
+      lineaBase: new FormControl('', Validators.required),
       idAlcance: new FormControl('', Validators.required),
+      idProducto: new FormControl('', Validators.required),
       idFrecuencia: new FormControl('', Validators.required),
-      idEstructuraProgramatica: new FormControl('', Validators.required),
       idResponsable: new FormControl('', Validators.required),
       idTipoIndicador: new FormControl('', Validators.required),
-      meta: new FormControl('', Validators.required),
-      linaBase: new FormControl('', Validators.required),
+      mediosVerificaciones: new FormControl('', Validators.required),
+      idEstructuraProgramatica: new FormControl('', Validators.required),
     })
   }
 
   ngOnInit(): void {
-    this.getIndicadoresGestion()
+    this.getAlcance()
     this.getProductos()
     this.getFrecuencia()
-    this.getAlcance()
     this.getEstructuraPro()
+    this.getMedioVerificacion()
+    this.getIndicadoresGestion()
     this.getUnidadOrganizativa()
   }
 
   getProductos() {
-    this.apiProducto.getProducto()
-      .subscribe((res: any) => { this.productos = res.data;})
+    this.apiProducto.getProducto().subscribe((res: any) => { this.productos = res.data;})
   }
 
   getUnidadOrganizativa() {
-    this.apiUnidadOrg.getUnidadesOrganizativas()
-      .subscribe((res: any) => { this.unidadesOrg = res.data })
+    this.apiUnidadOrg.getUnidadesOrganizativas().subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
   getEstructuraPro() {
-    this.apiEstruturaPro.getEstructurasProgramaticas()
-      .subscribe((res: any) => { this.estructurasPro = res.data })
+    this.apiEstruturaPro.getEstructurasProgramaticas().subscribe((res: any) => { this.estructurasPro = res.data })
   }
 
   getFrecuencia() {
-    this.apiIndicadoresGestion.getFrecuencia()
-      .subscribe((res: any) => { this.frecuencias = res.data })
+    this.apiIndicadoresGestion.getFrecuencia().subscribe((res: any) => { this.frecuencias = res.data })
   }
 
   getAlcance() {
-    this.apiIndicadoresGestion.getAlcance()
-      .subscribe((res: any) => { this.alcances = res.data })
+    this.apiIndicadoresGestion.getAlcance().subscribe((res: any) => { this.alcances = res.data })
   }
 
   getIndicadoresGestion() {
-    this.apiIndicadoresGestion.getIndicadorGestion()
-      .subscribe((res: any) => { this.indicadoresGestion = res.data; console.log(res);
-      })
+    this.apiIndicadoresGestion.getIndicadorGestion().subscribe((res: any) => { this.indicadoresGestion = res.data })
+  }
+
+  getMedioVerificacion() {
+    this.medioVerifService.getMedioVerificacion().subscribe((res: any) => { this.mediosVerificacion = res.data;})
   }
 
   postIndicadoresGestion() {
@@ -115,19 +119,20 @@ export class IndicadoresGestionComponent implements OnInit {
   setValueEditIndicadoresGestion(indicadoresGestion: IndicadoresGestionGetI) {
     this.indicadoresGestionForm.patchValue({
       id: indicadoresGestion.id,
+      meta: indicadoresGestion.meta,
       nombre: indicadoresGestion.nombre,
-      idProducto: indicadoresGestion.producto.id,
+      lineaBase: indicadoresGestion.lineaBase,
       idAlcance: indicadoresGestion.alcance.id,
+      idProducto: indicadoresGestion.producto.id,
       idFrecuencia: indicadoresGestion.frecuencia.id,
-      idEstructuraProgramatica: indicadoresGestion.estructuraProgramatica.id,
       idResponsable: indicadoresGestion.responsables.id,
       idTipoIndicador: indicadoresGestion.tipoIndicador.id,
-      meta: indicadoresGestion.meta,
-      linaBase: indicadoresGestion.linaBase
+      idEstructuraProgramatica: indicadoresGestion.estructuraProgramatica.id,
+      mediosVerificaciones: indicadoresGestion.mediosverificaciones.map((medioVer: MedioVerificacionI)=>{ return medioVer.id}),
     })
   }
 
-  openModal(responsables: ResponsableI[]) { this.dialog.open(DetailViewComponent, { data: responsables })}
+  openDetailModalView(elementoList: any[], nombre: string, entidad: string) { this.dialog.open(EntidadListViewComponent, { data: {elementoList, entidad, nombre} })}
 
   saveChanges() {
     console.log(this.indicadoresGestionForm.value);

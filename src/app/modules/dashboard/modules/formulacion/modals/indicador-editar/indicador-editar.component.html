@@ -3,13 +3,14 @@
   <div style="border:1px solid  #ccc ;">
   </div>
 
-  <span style="display: flex;">
+  <span style="display: flex; margin-top: 10px;">
     <h3 class="Stitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
   </span>
+
   <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
-    
+
     <span>
-      <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3> Hay que hacer incluir esa información 
+      <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3> Hay que hacer incluir esa información
     </span>
 
     <span>
@@ -21,90 +22,93 @@
     </span>
 
     <span>
-      <h3 style="margin: 0;" class="Stitle">Linea Base:</h3> {{indicador.linaBase}}
+      <h3 style="margin: 0;" class="Stitle">Linea Base:</h3> {{indicador.lineaBase}}
     </span>
   </div>
 
   <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent" *ngIf="indicadorRecinto">
 
     <h3 class="Stitle">Indicador por recinto</h3>
+    <div formGroupName="indicadoresRecintos">
 
-    <mat-form-field  appearance="fill" style="width:30%;">
-      <mat-label>Tipo de Indicador</mat-label>
-      <input matInput readonly disabled [value]="indicador.tipoIndicador.nombre">
-    </mat-form-field>&nbsp;
+      <mat-form-field appearance="fill" style="width:30%;">
+        <mat-label>Tipo de Indicador</mat-label>
+        <input matInput readonly disabled [value]="indicador.tipoIndicador.nombre">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field  appearance="fill" style="width:8.5%;">
-      <mat-label>Meta</mat-label>
-      <input matInput readonly disabled type="number" [value]="indicador.meta">
-    </mat-form-field>&nbsp;
+      <mat-form-field appearance="fill" style="width:8.5%;">
+        <mat-label>Meta</mat-label>
+        <input matInput readonly disabled type="number" [value]="indicador.meta">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field  appearance="fill" style="width:8%;">
-      <mat-label>REC</mat-label>
-      <input matInput type="number" formControlName="metaRec">
-    </mat-form-field>&nbsp;
+      <mat-form-field appearance="fill" style="width:8%;">
+        <mat-label>REC</mat-label>
+        <input matInput type="number" formControlName="metaRec">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field  appearance="fill" style="width:8%;">
-      <mat-label>FEM</mat-label>
-      <input matInput type="number" formControlName="metaFem">
-    </mat-form-field>&nbsp;
+      <mat-form-field appearance="fill" style="width:8%;">
+        <mat-label>FEM</mat-label>
+        <input matInput type="number" formControlName="metaFem">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field  appearance="fill" style="width:8%;">
-      <mat-label>JVM</mat-label>
-      <input matInput type="number" formControlName="metaJvm">
-    </mat-form-field>&nbsp;
+      <mat-form-field appearance="fill" style="width:8%;">
+        <mat-label>JVM</mat-label>
+        <input matInput type="number" formControlName="metaJvm">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field  appearance="fill" style="width:8%;">
-      <mat-label>LNNM</mat-label>
-      <input matInput type="number" formControlName="metaLnnm">
-    </mat-form-field>&nbsp;
+      <mat-form-field appearance="fill" style="width:8%;">
+        <mat-label>LNNM</mat-label>
+        <input matInput type="number" formControlName="metaLnnm">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field  appearance="fill" style="width:8%;">
-      <mat-label>EPH</mat-label>
-      <input matInput type="number" formControlName="metaEph">
-    </mat-form-field>&nbsp;
+      <mat-form-field appearance="fill" style="width:8%;">
+        <mat-label>EPH</mat-label>
+        <input matInput type="number" formControlName="metaEph">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field  appearance="fill" style="width:8%;">
-      <mat-label>UM</mat-label>
-      <input matInput type="number" formControlName="metaUm">
-    </mat-form-field>&nbsp;
+      <mat-form-field appearance="fill" style="width:8%;">
+        <mat-label>UM</mat-label>
+        <input matInput type="number" formControlName="metaUm">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field  appearance="fill" style="width:8%;">
-      <mat-label>EMH</mat-label>
-      <input matInput type="number" formControlName="metaEmh">
-    </mat-form-field>
+      <mat-form-field appearance="fill" style="width:8%;">
+        <mat-label>EMH</mat-label>
+        <input matInput type="number" formControlName="metaEmh">
+      </mat-form-field>
+
+    </div>
+    
+    <div formGroupName="resultadoEsperados" class="editarIndicadorFormContent">
+
+      <h3 class="Stitle">Resultado esperado por trimestre.</h3>
+
+      <mat-form-field appearance="fill" style="width:19%;">
+        <mat-label>Meta anual</mat-label>
+        <input matInput readonly disabled type="number" [value]="indicador.meta">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width:19%;">
+        <mat-label>1er Trimestre</mat-label>
+        <input matInput type="number" formControlName="logroEsperadoT1">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width:19%;">
+        <mat-label>2do Trimestre</mat-label>
+        <input matInput type="number" formControlName="logroEsperadoT2">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width:20%;">
+        <mat-label>3er Trimestre</mat-label>
+        <input matInput type="number" formControlName="logroEsperadoT3">
+      </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="fill" style="width:20%;">
+        <mat-label>4to Trimestre</mat-label>
+        <input matInput type="number" formControlName="logroEsperadoT4">
+      </mat-form-field>
+    </div>
 
   </form>
 
-  <div class="editarIndicadorFormContent" *ngIf="true">
-
-    <h3 class="Stitle">Resultado esperado por trimestre.</h3>
-
-    <mat-form-field  appearance="fill" style="width:19%;">
-      <mat-label>Meta anual</mat-label>
-      <input matInput readonly disabled type="number">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field  appearance="fill" style="width:19%;">
-      <mat-label>1er Trimestre</mat-label>
-      <input matInput type="number">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field  appearance="fill" style="width:19%;">
-      <mat-label>2do Trimestre</mat-label>
-      <input matInput type="number">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field  appearance="fill" style="width:20%;">
-      <mat-label>3er Trimestre</mat-label>
-      <input matInput type="number">
-    </mat-form-field>&nbsp;
-    
-    <mat-form-field  appearance="fill" style="width:20%;">
-      <mat-label>4to Trimestre</mat-label>
-      <input matInput type="number">
-    </mat-form-field>
-  </div>
-  
-  <button class="greenButton" (click)="postIndicadorRecinto()">Guardar cambios</button>
+  <button class="greenButton" (click)="postResultadoEsperadoIndicador()">Guardar cambios</button>
 </div>

@@ -120,11 +120,7 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   getRegiones() {
     this.actividadesService.getRegiones()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
+      
       .subscribe((resp: any) => {
         this.regionesList = resp.data;
 
@@ -132,11 +128,6 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
   getProvinvias() {
     this.actividadesService.getProvincias()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.provinciasList = resp.data;
 
@@ -144,66 +135,36 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
   getMunicipios() {
     this.actividadesService.getMunicipios()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.MunicipiosList = resp.data;
       })
   }
   getestados() {
     this.actividadesService.getEstados()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.estadosList = resp.data;
       })
   }
   getFrecuencia() {
     this.actividadesService.getFrecuencias()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.frecuenciaList = resp.data;
       })
   }
   getResponsable() {
     this.responsableService.getResponsable()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.responsableList = resp.data;
       })
   }
   getInvolucrado() {
     this.involucradoService.getInvolucrado()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.involucradoList = resp.data;
       })
   }
   getMeses() {
     this.actividadesService.getMeses()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.mesesList = resp.data;
       })
@@ -274,11 +235,6 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   getUnidadesMedida() {
     this.actividadesService.getUnidadesMedida()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.UnidadesMedidaList = resp.data;
       })
@@ -286,11 +242,6 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   getCategoriaInsumos() {
     this.actividadesService.getCategoriasInsumo()
-      .pipe(
-        catchError((error) => {
-          alertServerDown()
-          return error
-        }))
       .subscribe((resp: any) => {
         this.categoriaInsumoList = resp.data;
       })

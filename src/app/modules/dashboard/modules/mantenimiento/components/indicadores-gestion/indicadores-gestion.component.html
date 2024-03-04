@@ -52,15 +52,15 @@
 
       <mat-form-field appearance="fill" style="width: 35%;">
         <mat-label>Medio de verificacion</mat-label>
-        <mat-select formControlName="idAlcance" disableRipple>
-          <ng-container *ngIf="alcances.length > 0; else noAlcance">
+        <mat-select multiple formControlName="mediosVerificaciones" disableRipple>
+          <ng-container *ngIf="mediosVerificacion.length > 0; else noMedioVer">
 
-            <mat-option [value]="alcance.id" *ngFor="let alcance of alcances">
-              {{alcance.nombre}}
+            <mat-option [value]="medioVerificacion.id" *ngFor="let medioVerificacion of mediosVerificacion">
+              {{medioVerificacion.nombre}}
             </mat-option>
 
           </ng-container>
-          <ng-template #noAlcance>
+          <ng-template #noMedioVer>
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
         </mat-select>
@@ -68,7 +68,7 @@
 
       <mat-form-field appearance="fill" style="width: 11.2%;">
         <mat-label>Linea Base</mat-label>
-        <input type="number" formControlName="linaBase" matInput>
+        <input type="number" formControlName="lineaBase" matInput>
       </mat-form-field>&nbsp;
 
       <mat-form-field appearance="fill" style="width: 9.2%;">
@@ -143,6 +143,7 @@
             <th class="headerCell">Linea Base</th>
             <th class="headerCell">Meta</th>
             <th class="headerCell">Responsables</th>
+            <th class="headerCell">Medio de verificación</th>
             <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!indicadoresGestion" class="loader"></div> </th>
           </tr>
@@ -153,9 +154,10 @@
             <td class="dataIndiCell">{{indicadorG.producto.nombre}}</td>
             <td class="dataIndiCell">{{indicadorG.alcance.nombre}}</td>
             <td class="dataIndiCell">{{indicadorG.frecuencia.nombre}}</td>
-            <td class="dataIndiCell">{{indicadorG.linaBase}}</td>
+            <td class="dataIndiCell">{{indicadorG.lineaBase}}</td>
             <td class="dataIndiCell">{{indicadorG.meta}}</td>
             <td class="dataIndiCell">{{indicadorG.responsables.nombre}}</td>
+            <td class="dataIndiCell"><mat-icon (click)="openDetailModalView(indicadorG.mediosverificaciones , 'Medios de verificación', indicadorG.nombre)" class="detailsIcon">list</mat-icon></td>
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon (click)="deleteIndicadoresGestion(indicadorG.id)" class="removeIcon">delete</mat-icon></td>
           </tr>

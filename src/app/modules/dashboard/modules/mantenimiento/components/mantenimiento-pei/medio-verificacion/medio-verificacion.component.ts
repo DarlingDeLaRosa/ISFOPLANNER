@@ -15,7 +15,7 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 export class MedioVerificacionComponent implements OnInit {
 
   indicadoresEstartegicos: Array<IndicadoresEstrategicosI> = [];
-  medioVerificacion!: Array<MedioVerificacionI>;
+  mediosVerificacion!: Array<MedioVerificacionI>;
   medioVerificacionForm: FormGroup;
 
   constructor(
@@ -36,7 +36,7 @@ export class MedioVerificacionComponent implements OnInit {
 
   getAllMedioVerifiacion() {
     this.medioVerifService.getMedioVerificacion()
-      .subscribe((resp: any) => { this.medioVerificacion = resp.data; console.log(this.medioVerificacion); })
+      .subscribe((resp: any) => { this.mediosVerificacion = resp.data; console.log(this.mediosVerificacion); })
   }
 
   postMedioVerificacion() {
@@ -49,8 +49,8 @@ export class MedioVerificacionComponent implements OnInit {
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllMedioVerifiacion(), this.medioVerificacionForm) })
   }
 
-  setValueMedioVerificacion(medioVerificacion: MedioVerificacionI) {
-    this.medioVerificacionForm.reset(medioVerificacion);
+  setValueMedioVerificacion(mediosVerificacion: MedioVerificacionI) {
+    this.medioVerificacionForm.reset(mediosVerificacion);
   }
 
   async deleteMedioVerificacion(medioVerificaicon: MedioVerificacionI) {

@@ -80,13 +80,13 @@ export class FormulacionComponent implements OnInit {
         console.log(res);
          
         this.productos = res.data;
+        console.log(this.productos);
+        
         this.presupuestoTotal = res.data[0].responsables[0].presupuestoEstimado
 
-        if (ejesEstrategico > 0) [this.selectedEjesEstrategico] = this.ejesEstrategicos.filter((ejeEs: EjesI)=> ejeEs.id == ejesEstrategico) 
-        if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI)=> estrategia.id == estrategias) 
-        if (ejesEstrategico > 0) [this.selectedResultadoE] = this.resultadosEfecto.filter((ejeEs: ResultadoEfectoI )=> ejeEs.id == resultadoEfecto) 
-
-
+        // if (ejesEstrategico > 0) [this.selectedEjesEstrategico] = this.ejesEstrategicos.filter((ejeEs: EjesI)=> ejeEs.id == ejesEstrategico) 
+        // if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI)=> estrategia.id == estrategias) 
+        // if (ejesEstrategico > 0) [this.selectedResultadoE] = this.resultadosEfecto.filter((ejeEs: ResultadoEfectoI )=> ejeEs.id == resultadoEfecto) 
       })
         
         

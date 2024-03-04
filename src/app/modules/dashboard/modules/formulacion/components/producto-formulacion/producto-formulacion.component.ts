@@ -4,6 +4,7 @@ import { IndicadorEditarComponent } from '../../modals/indicador-editar/indicado
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../../mantenimiento/services/producto.service';
 import { IndicadorGestionI, IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { HelperService } from 'src/app/services/appHelper.service';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -16,10 +17,11 @@ export class ProductoFormulacionComponent implements OnInit {
   productoConsult!: ProductoI
 
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private productoApi: ProductoService,
-    private router: Router
+    private helperHandler: HelperService,
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class ProductoFormulacionComponent implements OnInit {
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp); })
+      .subscribe((resp: any) => { this.productoConsult = resp.data; })
   }
 
   openModal(indicador: IndicadoresGestionGetI) { this.dialog.open(IndicadorEditarComponent, {data: indicador}) }

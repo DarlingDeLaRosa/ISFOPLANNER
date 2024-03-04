@@ -70,7 +70,7 @@ export interface IndicadorGestionI {
 export interface IndicadoresGestionGetI {
   id: number,
   nombre: string,
-  linaBase: number,
+  lineaBase: number,
   meta: number,
   logroEsperadoT1: number,
   logroEsperadoT2: number,
@@ -91,7 +91,16 @@ export interface IndicadoresGestionGetI {
   },
   producto: ProductoI
   responsables: ResponsableI
-  mediosverificaciones: MedioVerificacionI
+  mediosverificaciones: MedioVerificacionI[]
+  indicadoresRecinto: {
+    metaFem: number,
+    metaJvm: number,
+    metaLnnm: number,
+    metaEph: number,
+    metaUm: number,
+    metaEmh: number,
+    metaRec: number
+  }
 }
 
 export interface UsuarioI {

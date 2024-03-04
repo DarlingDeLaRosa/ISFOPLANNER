@@ -30,7 +30,8 @@
         <thead class="headerTable">
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Eje</th>
-            <th class="headerCell">Numero</th>
+            <th class="headerCell">Objetivo</th>
+            <th class="headerCell" style="width: 5%;">Numero</th>
             <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;"><div *ngIf="!ejes" class="loader"></div></th>
           </tr>
@@ -38,6 +39,7 @@
         <tbody>
           <tr class="dataRow" *ngFor="let item of ejes">
             <td class="dataIndiCell">{{item.nombre}}</td>
+            <td class="dataIndiCell">{{item.objetivo}}</td>
             <td class="dataIndiCell">{{item.numeroEje}}</td>
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueEje(item)">edit</mat-icon></td>
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)"><mat-icon class="removeIcon" (click)="deleteEjes(item)">delete</mat-icon></td>

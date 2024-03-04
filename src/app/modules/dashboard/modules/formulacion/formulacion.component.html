@@ -13,11 +13,11 @@
     </div>
 
     <div class="EjeFiltrosProductoContainer">
-        <div class="filtrosContainer" [formGroup]="filterForm">
+        <div class="filtrosContainer" [formGroup]="filterForm" >
             <div class="filtrosTitleContainer">
                 <h3>Filtros</h3>
             </div>
-            <div class="filtrosSection">
+            <div class="filtrosSection" *ngIf="ejesEstrategicos.length">
                 <h4>Ejes estratégico</h4>
                 <mat-radio-group formControlName="ejesEstrategico">
                     <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id" color="primary">
@@ -26,7 +26,7 @@
                     <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null" color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
-            <div class="filtrosSection">
+            <div class="filtrosSection" *ngIf="estrategias.length">
                 <h4>Estrategias</h4>
                 <mat-radio-group formControlName="estrategias" >
                     <mat-radio-button *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
@@ -35,7 +35,7 @@
                     <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null" color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
-            <div class="filtrosSection">
+            <div class="filtrosSection" *ngIf="resultadosEfecto.length">
                 <h4>Resultado efecto</h4>
                 <mat-radio-group formControlName="resultadoEfecto">
                     <mat-radio-button *ngFor="let resultadoEfecto of resultadosEfecto" [value]="resultadoEfecto.id"
@@ -44,6 +44,9 @@
                 </mat-radio-button><br>
                 <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null" color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
+            </div>
+            <div class="noData" *ngIf=" ejesEstrategicos.length == 0 && estrategias.length == 0 && resultadosEfecto.length == 0">
+                <img style="width: 100%;" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
             </div>
         </div>
         <div class="ejeProductoContainer" >
@@ -102,9 +105,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="dataRow" *ngFor="let indicador of producto.indicadoresoperativo">
+                                <tr class="dataRow" *ngFor="let indicador of producto.indicadoresGestion">
                                     <td class="dataCell"> {{indicador.nombre}} </td>
-                                    <td class="dataCell"> {{indicador.linaBase}} </td>
+                                    <td class="dataCell"> {{indicador.lineaBase}}%</td>
                                     <td class="dataCell"> {{indicador.meta}}% </td>
                                 </tr>
                             </tbody>

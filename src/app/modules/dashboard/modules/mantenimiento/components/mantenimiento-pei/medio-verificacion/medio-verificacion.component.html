@@ -21,19 +21,19 @@
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Medio de verificación</th>
             <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
-            <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!medioVerificacion" class="loader"></div> </th>
+            <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!mediosVerificacion" class="loader"></div> </th>
           </tr>
         </thead>
         <tbody>
-          <tr class="dataRow" *ngFor="let item of medioVerificacion">
-            <td class="dataIndiCell">{{item.nombre}}</td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueMedioVerificacion(item)">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon class="removeIcon" (click)="deleteMedioVerificacion(item)">delete</mat-icon></td>
+          <tr class="dataRow" *ngFor="let medioVerificacion of mediosVerificacion">
+            <td class="dataIndiCell">{{medioVerificacion.nombre}}</td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueMedioVerificacion(medioVerificacion)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon class="removeIcon" (click)="deleteMedioVerificacion(medioVerificacion)">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="noData" *ngIf="medioVerificacion && medioVerificacion.length == 0">
+    <div class="noData" *ngIf="mediosVerificacion && mediosVerificacion.length == 0">
       <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>
   </div>

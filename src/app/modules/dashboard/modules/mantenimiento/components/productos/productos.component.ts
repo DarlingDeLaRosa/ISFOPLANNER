@@ -9,7 +9,7 @@ import { ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interfa
 import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indicadorEstrategico.interface';
 import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { EntidadListViewComponent } from '../../modals/responsible-view/responsible-view.component';
+import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({

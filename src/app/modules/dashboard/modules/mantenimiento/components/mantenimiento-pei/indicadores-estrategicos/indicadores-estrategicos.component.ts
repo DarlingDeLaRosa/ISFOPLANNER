@@ -17,7 +17,7 @@ import { ResponsableI } from '../interfaces/responsable.interface';
 import { SupuestosRiesgosService } from '../services/supuestos-riesgos.service';
 import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { EntidadListViewComponent } from '../../../modals/responsible-view/responsible-view.component';
+import { EntidadListViewComponent } from '../../../modals/entidad-list-view/responsible-view.component';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
@@ -114,7 +114,6 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   setValueIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {
-    console.log(indicadorEstrategico);
     
     this.IndicadorEstrForm.patchValue({
       id: indicadorEstrategico.id,
@@ -133,8 +132,6 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   postIndicadoresEstrategicos() {
-    console.log(this.IndicadorEstrForm.value);
-    
     this.indicadoresEstraService.postIndicadoresEstrategicos(this.IndicadorEstrForm.value)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
   }

@@ -1,8 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PresupuestoInstitucionalI, asignarUnidadOrgI } from '../interfaces/mantenimientoPOA.interface';
-import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
-import { catchError, throwError } from 'rxjs';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
 
@@ -41,7 +39,7 @@ export class PresupuestoInstitucionalService {
   }
   
   public postActivarPresupuesto(idPresupuesto: number) {
-    return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/activar-presupuesto/${idPresupuesto}`, this.header))
+    return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/activar-presupuesto/${idPresupuesto}`,'',this.header))
   }
 
   public getUnidadesPresupuestoAsignado() {

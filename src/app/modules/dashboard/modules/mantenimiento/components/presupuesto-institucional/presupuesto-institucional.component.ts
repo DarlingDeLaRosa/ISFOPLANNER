@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
-import { alertNoValidForm } from 'src/app/alerts/alerts';
+import { alertNoValidForm, loading } from 'src/app/alerts/alerts';
 import { format } from 'date-fns';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PresupuestoInstiGetI } from '../../interfaces/mantenimientoPOA.interface';
@@ -38,7 +38,7 @@ export class PresupuestoInstitucionalComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional()
-      .subscribe((res: any) => { this.presupuestosInst = res.data; })
+      .subscribe((res: any) => { this.presupuestosInst = res.data; console.log(res);})
   }
 
   putUnidadOrganizativa() {
@@ -52,6 +52,10 @@ export class PresupuestoInstitucionalComponent implements OnInit {
   }
 
   postActivarPresupuesto(presupuesto: number) {
+    console.log("aqui estoy" , presupuesto);
+    
+    loading(true)
+    
     this.apiPresupuestoInstitucional.postActivarPresupuesto(presupuesto)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
   }
