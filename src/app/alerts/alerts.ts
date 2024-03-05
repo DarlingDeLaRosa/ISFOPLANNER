@@ -40,6 +40,15 @@ export function errorMessageAlert(message: string) {
   })
 }
 
+export function warningMessageAlert(message: string) {
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: message,
+    confirmButtonColor: 'red',
+  })
+}
+
 export function successMessageAlert(message: string) {
   Swal.fire({
     position: 'center',

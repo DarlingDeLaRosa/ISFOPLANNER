@@ -43,7 +43,7 @@ export class HelperService {
 
     handleGeneralServiceRequest<T>(request: () => Observable<T>): Observable<T> {
         return request().pipe(
-            catchError((error) => { loading(false);  error.error.message ? errorMessageAlert(error.error.message) : alertServerDown(); return throwError(error) }),
+            catchError((error) => { loading(false); error.error.message ? errorMessageAlert(error.error.message) : alertServerDown(); return throwError(error) }),
         );
     }
 
@@ -53,5 +53,12 @@ export class HelperService {
             if (form.value.id > 0) updateFunction()
             else saveFunction()
         } else alertNoValidForm()
+    }
+
+    calcularSuma(objetoSuma: any): number {
+        let suma = 0;
+        Object.keys(objetoSuma).forEach(key => { if (!isNaN(objetoSuma[key])) { suma += parseFloat(objetoSuma[key]); } });
+
+        return suma - objetoSuma.id
     }
 }

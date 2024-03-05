@@ -9,14 +9,16 @@ import { IndicadorEditarComponent } from './modals/indicador-editar/indicador-ed
 import { ActividadesFormulacionComponent } from './components/actividades-formulacion/actividades-formulacion.component';
 import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.component';
 import { HttpClientModule } from '@angular/common/http';
+import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-recintos/indicador-editar-recintos.component';
 
 @NgModule({
   declarations: [
     FormulacionComponent,
-    ProductoFormulacionComponent,
-    IndicadorEditarComponent,
-    ActividadesFormulacionComponent,
     NuevoInsumoComponent,
+    IndicadorEditarComponent,
+    ProductoFormulacionComponent,
+    ActividadesFormulacionComponent,
+    IndicadorEditarRecintosComponent
   ],
   imports: [
     RouterModule,

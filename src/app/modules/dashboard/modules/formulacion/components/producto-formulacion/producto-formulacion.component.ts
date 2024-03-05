@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../../mantenimiento/services/producto.service';
 import { IndicadorGestionI, IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -15,6 +17,7 @@ export class ProductoFormulacionComponent implements OnInit {
 
   idProducto: number = 0;
   productoConsult!: ProductoI
+  userLogged = this.userSystemService.getUserLogged
 
   constructor(
     private router: Router,
@@ -22,6 +25,7 @@ export class ProductoFormulacionComponent implements OnInit {
     private route: ActivatedRoute,
     private productoApi: ProductoService,
     private helperHandler: HelperService,
+    private userSystemService: UserSystemInformationService,
   ) { }
 
   ngOnInit(): void {
@@ -31,10 +35,18 @@ export class ProductoFormulacionComponent implements OnInit {
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => { this.productoConsult = resp.data; })
+      .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp);})
   }
 
-  openModal(indicador: IndicadoresGestionGetI) { this.dialog.open(IndicadorEditarComponent, {data: indicador}) }
+  openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 
+    let dialogRef = this.dialog.open(IndicadorEditarComponent, {data: indicador}) 
+    dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
+  }
+
+  openModalResultadoEsperado(indicador: IndicadoresGestionGetI) { 
+    let dialogRef = this.dialog.open(IndicadorEditarRecintosComponent, {data: indicador}) 
+    dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
+  }
   
   crearActividad(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} }); }
 }

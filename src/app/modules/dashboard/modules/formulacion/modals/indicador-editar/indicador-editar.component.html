@@ -26,59 +26,7 @@
     </span>
   </div>
 
-  <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent" *ngIf="indicadorRecinto">
-
-    <h3 class="Stitle">Indicador por recinto</h3>
-    <div formGroupName="indicadoresRecintos">
-
-      <mat-form-field appearance="fill" style="width:30%;">
-        <mat-label>Tipo de Indicador</mat-label>
-        <input matInput readonly disabled [value]="indicador.tipoIndicador.nombre">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:8.5%;">
-        <mat-label>Meta</mat-label>
-        <input matInput readonly disabled type="number" [value]="indicador.meta">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:8%;">
-        <mat-label>REC</mat-label>
-        <input matInput type="number" formControlName="metaRec">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:8%;">
-        <mat-label>FEM</mat-label>
-        <input matInput type="number" formControlName="metaFem">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:8%;">
-        <mat-label>JVM</mat-label>
-        <input matInput type="number" formControlName="metaJvm">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:8%;">
-        <mat-label>LNNM</mat-label>
-        <input matInput type="number" formControlName="metaLnnm">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:8%;">
-        <mat-label>EPH</mat-label>
-        <input matInput type="number" formControlName="metaEph">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:8%;">
-        <mat-label>UM</mat-label>
-        <input matInput type="number" formControlName="metaUm">
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill" style="width:8%;">
-        <mat-label>EMH</mat-label>
-        <input matInput type="number" formControlName="metaEmh">
-      </mat-form-field>
-
-    </div>
-    
-    <div formGroupName="resultadoEsperados" class="editarIndicadorFormContent">
+  <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent" (ngSubmit)="saveChanges()">
 
       <h3 class="Stitle">Resultado esperado por trimestre.</h3>
 
@@ -106,9 +54,8 @@
         <mat-label>4to Trimestre</mat-label>
         <input matInput type="number" formControlName="logroEsperadoT4">
       </mat-form-field>
-    </div>
 
+      <button type="submit" class="greenButton" >Guardar cambios</button>
   </form>
 
-  <button class="greenButton" (click)="postResultadoEsperadoIndicador()">Guardar cambios</button>
 </div>

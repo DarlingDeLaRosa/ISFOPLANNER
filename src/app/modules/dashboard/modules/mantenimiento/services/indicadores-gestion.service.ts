@@ -39,16 +39,16 @@ export class IndicadorGestionService {
     return this.helperHandler.handleRequest(() => this.http.delete(`${this.baseURL}/IndicadoresGestion/${id}`, this.header))
   }
 
-  public postIndicadorRecintos(idIndicadorGestion: number | undefined | null, indicadoresRecintos: indicadorRecinto) {
+  public postIndicadorRecintos(idIndicadorGestion: number, indicadoresRecintos: indicadorRecinto) {
     return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/IndicadoresGestion/crear-indicador-recinto/${idIndicadorGestion}` , indicadoresRecintos, this.header))
   }
 
-  public postResultadoEsperadoIndicador( idIndicadorGestion: number | undefined | null, indicadorResultadoEsperado: any ) {
+  public postResultadoEsperadoIndicador( idIndicadorGestion: number, indicadorResultadoEsperado: any ) {
     return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/logros-esperados/${idIndicadorGestion}` , indicadorResultadoEsperado, this.header))
   }
 
   public putIndicadorRecintos(indicadoresGestionData: IndicadoresGestionGetI) {
-    return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/${indicadoresGestionData.id}`, indicadoresGestionData, this.header))
+    return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/indicador-recinto/${indicadoresGestionData.id}`, indicadoresGestionData, this.header))
   }
 
   /// Tipo de alcance

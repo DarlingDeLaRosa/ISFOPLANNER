@@ -357,7 +357,8 @@ table {
 
 .editIcon,
 .removeIcon ,
-.detailsIcon {
+.detailsIcon ,
+.nodesIcon {
     font-size: 25px;
     margin: 0px 20px;
     color: #49aa42;
@@ -370,6 +371,10 @@ table {
 
 .detailsIcon {
     color: #004b8d;
+}
+
+.nodesIcon{
+    color: #35a6b7;
 }
 
 .formularioActividades {

@@ -7,7 +7,7 @@
     <div style="margin-bottom: 5px;">
         <button class="backButton" mat-stroked-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon>Listado de productos</button>
     </div>
-
+    
     <div class="producto">
         <div class="titleProducto">
             <span style="display: flex; margin: 10px 0;">
@@ -25,6 +25,7 @@
                         <th class="headerCell">Responsable</th>
                         <th class="headerCell">Línea Base</th>
                         <th class="headerCell">Meta</th>
+                        <th class="headerCell" *ngIf="userLogged.recinto.siglas === 'REC'"></th>
                         <th class="headerCell"></th>
                     </tr>
                 </thead>
@@ -36,7 +37,8 @@
                         <td class="dataCell">{{indicador.responsables.nombre}}</td>
                         <td class="dataCell">{{indicador.lineaBase}}%</td>
                         <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" (click)="openModal(indicador)">edit</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon *ngIf="indicador.alcance.id === 1 " class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="indicador.indicadoresRecinto" class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit</mat-icon></td>
                     </tr>
                 </tbody>
             </table>
@@ -63,15 +65,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="dataRow" *ngFor="let actividad of productoConsult.actividades">
-                        <td class="dataCell" style="width: 5%;">{{actividad.id}}</td>
+                    <!-- <tr class="dataRow" *ngFor="let actividad of productoConsult.actividades"> -->
+                        <!-- <td class="dataCell" style="width: 5%;">{{actividad.id}}</td>
                         <td class="dataCell"> {{actividad.nombre}}</td>
                         <td class="dataCell">{{actividad.frecuencia.nombre}}</td>
                         <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2' }}</td>
                         <td class="dataCell" style="width: 5%;"><button class="statusButton"></button></td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon">edit</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon">delete</mat-icon></td>
-                    </tr>
+                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon">delete</mat-icon></td> -->
+                    <!-- </tr> -->
                 </tbody>
             </table>
         </div>
