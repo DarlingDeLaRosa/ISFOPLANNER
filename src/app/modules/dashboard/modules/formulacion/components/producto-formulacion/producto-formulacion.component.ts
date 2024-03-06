@@ -18,13 +18,14 @@ export class ProductoFormulacionComponent implements OnInit {
   idProducto: number = 0;
   productoConsult!: ProductoI
   userLogged = this.userSystemService.getUserLogged
+  metaIndicadorRecinto: number = 0
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private productoApi: ProductoService,
-    private helperHandler: HelperService,
+    public helperHandler: HelperService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
@@ -35,7 +36,7 @@ export class ProductoFormulacionComponent implements OnInit {
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp);})
+      .subscribe((resp: any) => { this.productoConsult = resp.data;})
   }
 
   openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 

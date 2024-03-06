@@ -43,7 +43,7 @@ export class IndicadorGestionService {
     return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/IndicadoresGestion/crear-indicador-recinto/${idIndicadorGestion}` , indicadoresRecintos, this.header))
   }
 
-  public postResultadoEsperadoIndicador( idIndicadorGestion: number, indicadorResultadoEsperado: any ) {
+  public putResultadoEsperadoIndicador( idIndicadorGestion: number, indicadorResultadoEsperado: any ) {
     return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/logros-esperados/${idIndicadorGestion}` , indicadorResultadoEsperado, this.header))
   }
 

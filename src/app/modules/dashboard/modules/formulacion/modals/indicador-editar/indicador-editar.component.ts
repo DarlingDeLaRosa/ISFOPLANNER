@@ -1,27 +1,35 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { IndicadoresGestionGetI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IndicadorGestionService } from '../../../mantenimiento/services/indicadores-gestion.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { warningMessageAlert } from 'src/app/alerts/alerts';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IndicadoresGestionGetI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { IndicadorGestionService } from '../../../mantenimiento/services/indicadores-gestion.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { UserI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-indicador-editar',
   templateUrl: './indicador-editar.component.html',
   styleUrls: ['./indicador-editar.component.css']
 })
-export class IndicadorEditarComponent implements OnInit {
+export class IndicadorEditarComponent implements OnInit{
 
   indicadoresGestionForm: FormGroup;
   indicadorRecinto: boolean = false
+  userLogged: UserI = this.userSystemService.getUserLogged
+  metaIndicadorRecinto: number = 0
 
   constructor(
+
     public fb: FormBuilder,
-    private helperHandler: HelperService,
+    public helperHandler: HelperService,
     private apiIndicadoresGestion: IndicadorGestionService,
+    private userSystemService: UserSystemInformationService,
     private dialogRef: MatDialogRef<IndicadorEditarComponent>,
     @Inject(MAT_DIALOG_DATA) public indicador: IndicadoresGestionGetI,
-  ) {
+  
+    ) {
     this.indicadoresGestionForm = this.fb.group({
       logroEsperadoT1: new FormControl(indicador.logroEsperadoT1, Validators.required),
       logroEsperadoT2: new FormControl(indicador.logroEsperadoT2, Validators.required),
@@ -31,20 +39,16 @@ export class IndicadorEditarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.indicador);
-  }
-
-  postResultadoEsperadoIndicador() {
-    this.apiIndicadoresGestion.postIndicadorRecintos(this.indicador.id, this.indicadoresGestionForm.value.resultadoEsperados)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
+    this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
   }
 
   putResultadoEsperadoIndicador() {
-    this.apiIndicadoresGestion.postIndicadorRecintos(this.indicador.id, this.indicadoresGestionForm.value.resultadoEsperados)
+    if (this.metaIndicadorRecinto == this.helperHandler.sumTotal(this.indicadoresGestionForm.value)) {
+      
+      this.apiIndicadoresGestion.putResultadoEsperadoIndicador(this.indicador.id, this.indicadoresGestionForm.value)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
+
+    } else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${this.metaIndicadorRecinto}</b>).`) }
   }
 
-  saveChanges() {
-    this.helperHandler.saveChanges(() => this.putResultadoEsperadoIndicador(), this.indicadoresGestionForm, () => this.postResultadoEsperadoIndicador())
-  }
 }

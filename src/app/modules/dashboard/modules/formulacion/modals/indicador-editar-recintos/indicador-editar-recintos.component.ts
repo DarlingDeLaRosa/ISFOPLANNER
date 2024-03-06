@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IndicadorGestionService } from '../../../mantenimiento/services/indicadores-gestion.service';
 import { IndicadoresGestionGetI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
-import { warningMessageAlert } from 'src/app/alerts/alerts';
 
 @Component({
   selector: 'app-indicador-editar-recintos',
@@ -40,24 +39,28 @@ export class IndicadorEditarRecintosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.indicador.indicadoresRecinto) { this.indicadoresGestionForm.reset(this.indicador.indicadoresRecinto) }
+    if (this.indicador.indicadoresRecinto) this.indicadoresGestionForm.reset(this.indicador.indicadoresRecinto)
   }
 
   postIndicadorRecinto() {
     this.apiIndicadoresGestion.postIndicadorRecintos(this.indicador.id, this.indicadoresGestionForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
+      .subscribe((res: any) => { 
+        this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) 
+        
+        // this.helperHandler.validationGoal()
+      })
   }
 
   putIndicadorRecinto() {
-
     this.apiIndicadoresGestion.putIndicadorRecintos(this.indicadoresGestionForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
-
+      .subscribe((res: any) => { 
+        this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) 
+        console.log(res);
+      })
   }
 
   saveChanges() {
-    if (this.indicador.meta == this.helperHandler.calcularSuma(this.indicadoresGestionForm.value)) { //arreglar esta parte
-      this.helperHandler.saveChanges(() => this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto())
-    } else { warningMessageAlert(`La suma de los indicadores por recinto debe ser igual a la meta (<b>${this.indicador.meta}</b>).`) }
+    this.helperHandler.saveChangesSumValidation(() => 
+    this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value)
   }
 }

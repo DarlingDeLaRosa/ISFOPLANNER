@@ -108,6 +108,7 @@ export interface UnidadesMedidaI {
 }
 
 export interface indicadorRecinto {
+  id?: number
   metaFem: number,
   metaJvm: number,
   metaLnnm: number,

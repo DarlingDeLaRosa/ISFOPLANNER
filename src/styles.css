@@ -129,7 +129,8 @@ body {
     right: 120px ;
 } */
 
-.greenButton, .cleanButton{
+.greenButton,
+.cleanButton {
     color: white;
     background-color: #49aa42;
     border: none;
@@ -139,7 +140,7 @@ body {
     cursor: pointer;
 }
 
-.cleanButton{
+.cleanButton {
     background-color: red;
 }
 
@@ -356,13 +357,18 @@ table {
 
 
 .editIcon,
-.removeIcon ,
-.detailsIcon ,
-.nodesIcon {
+.removeIcon,
+.detailsIcon,
+.nodesIcon,
+.editNotificationIcon {
     font-size: 25px;
     margin: 0px 20px;
     color: #49aa42;
     cursor: pointer;
+}
+
+.editNotificationIcon {
+    animation: colorMovement 700ms infinite alternate;
 }
 
 .removeIcon {
@@ -373,7 +379,7 @@ table {
     color: #004b8d;
 }
 
-.nodesIcon{
+.nodesIcon {
     color: #35a6b7;
 }
 
@@ -689,13 +695,14 @@ table {
     margin: 0;
 }
 
-.noData, .loaderContent {
+.noData,
+.loaderContent {
     display: grid;
     place-items: center;
     width: 100%;
 }
 
-.loaderContent{
+.loaderContent {
     padding: 25px 0;
 }
 
@@ -707,40 +714,70 @@ table {
     loader
 ////////////////////////////////////////////////////////*/
 
-.loader, .loaderModule {
+.loader,
+.loaderModule {
     width: 25px;
     aspect-ratio: 1;
     float: right;
     --c: no-repeat linear-gradient(#004b8d 0 0);
-    background: 
-      var(--c) 0%   100%,
-      var(--c) 50%  100%,
-      var(--c) 100% 100%;
+    background:
+        var(--c) 0% 100%,
+        var(--c) 50% 100%,
+        var(--c) 100% 100%;
     animation: l2 1s infinite linear;
 }
 
-.loaderModule{
+.loaderModule {
     width: 40px;
     margin-bottom: 5px;
 }
 
-.loaderModuleContainer{
-    width: 200px; 
-    display: grid; 
-    place-items: center; 
-    grid-template-columns: 1fr 1fr; 
-    place-self: center; 
+.loaderModuleContainer {
+    width: 200px;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr;
+    place-self: center;
     margin-top: 100px;
 }
 
 
 @keyframes l2 {
-    0%  {background-size: 20% 100%,20% 100%,20% 100%}
-    20% {background-size: 20% 60% ,20% 100%,20% 100%}
-    40% {background-size: 20% 80% ,20% 60% ,20% 100%}
-    60% {background-size: 20% 100%,20% 80% ,20% 60% }
-    80% {background-size: 20% 100%,20% 100%,20% 80% }
-    100%{background-size: 20% 100%,20% 100%,20% 100%}
+    0% {
+        background-size: 20% 100%, 20% 100%, 20% 100%
+    }
+
+    20% {
+        background-size: 20% 60%, 20% 100%, 20% 100%
+    }
+
+    40% {
+        background-size: 20% 80%, 20% 60%, 20% 100%
+    }
+
+    60% {
+        background-size: 20% 100%, 20% 80%, 20% 60%
+    }
+
+    80% {
+        background-size: 20% 100%, 20% 100%, 20% 80%
+    }
+
+    100% {
+        background-size: 20% 100%, 20% 100%, 20% 100%
+    }
+}
+
+
+@keyframes colorMovement {
+    0% { 
+        color: #49aa42;
+    }
+
+
+    100% {
+        color: red;
+    }
 }
 
 /*////////////////////////////////////////////////////////

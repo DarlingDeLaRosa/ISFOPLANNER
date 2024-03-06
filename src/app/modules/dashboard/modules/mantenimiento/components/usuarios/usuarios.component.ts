@@ -33,14 +33,14 @@ export class UsuariosComponent implements OnInit {
     this.usuariosForm = this.fb.group({
       idUsuario: 0,
       idSistema: this.userSystemService.getSistema,
-      idRol: new FormControl('', Validators.required),
+      idRol: new FormControl(0, Validators.required),
       nombre: new FormControl('', Validators.required),
-      idCargo: new FormControl('', Validators.required),
+      idCargo: new FormControl(0, Validators.required),
       usuario: new FormControl('', Validators.required),
       apellidos: new FormControl('', Validators.required),
-      idRecinto: new FormControl('', Validators.required),
-      idDivision: new FormControl('', Validators.required),
-      idDepartamento: new FormControl('', Validators.required),
+      idRecinto: new FormControl(0, Validators.required),
+      idDivision: new FormControl(0, Validators.required),
+      idDepartamento: new FormControl(0, Validators.required),
     })
   }
 

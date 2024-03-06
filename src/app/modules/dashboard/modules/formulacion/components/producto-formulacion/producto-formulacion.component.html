@@ -7,7 +7,7 @@
     <div style="margin-bottom: 5px;">
         <button class="backButton" mat-stroked-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon>Listado de productos</button>
     </div>
-    
+
     <div class="producto">
         <div class="titleProducto">
             <span style="display: flex; margin: 10px 0;">
@@ -38,7 +38,26 @@
                         <td class="dataCell">{{indicador.lineaBase}}%</td>
                         <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td>
                         <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon *ngIf="indicador.alcance.id === 1 " class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="indicador.indicadoresRecinto" class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon 
+                        *ngIf="
+                            indicador.indicadoresRecinto && 
+                            helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto) &&
+                            helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto) , helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})); else needUpdate
+                            " 
+                            class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit</mat-icon>
+                        </td>
+
+                        <ng-template #needUpdate>
+                            <mat-icon 
+                            *ngIf="
+                                indicador.indicadoresRecinto && 
+                                helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto) &&
+                                !helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}))
+                                "
+                                class="editNotificationIcon" (click)="openModalIndicadoresRecinto(indicador)">edit
+                            </mat-icon>
+                        </ng-template>
+                        
                     </tr>
                 </tbody>
             </table>
@@ -48,13 +67,14 @@
     <div class="actividadContainer">
         <span class="titleActividad">
             <h1>Actividades</h1>
-            <button mat-stroked-button class="borderOrangeButton"  (click)="crearActividad()"><mat-icon>add</mat-icon> Añadir actividad</button>
+            <button mat-stroked-button class="borderOrangeButton" (click)="crearActividad()"><mat-icon>add</mat-icon>
+                Añadir actividad</button>
         </span>
 
         <div style="margin-bottom: 15px;">
             <table style="border: 1px solid #ccc;">
-                <thead class="headerTable" >
-                    <tr class="headerRow"  style="background-color: #95ade93f;">
+                <thead class="headerTable">
+                    <tr class="headerRow" style="background-color: #95ade93f;">
                         <th class="headerCell">No.</th>
                         <th class="headerCell">Actividad</th>
                         <th class="headerCell">Frecuencia</th>
@@ -66,7 +86,7 @@
                 </thead>
                 <tbody>
                     <!-- <tr class="dataRow" *ngFor="let actividad of productoConsult.actividades"> -->
-                        <!-- <td class="dataCell" style="width: 5%;">{{actividad.id}}</td>
+                    <!-- <td class="dataCell" style="width: 5%;">{{actividad.id}}</td>
                         <td class="dataCell"> {{actividad.nombre}}</td>
                         <td class="dataCell">{{actividad.frecuencia.nombre}}</td>
                         <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2' }}</td>
