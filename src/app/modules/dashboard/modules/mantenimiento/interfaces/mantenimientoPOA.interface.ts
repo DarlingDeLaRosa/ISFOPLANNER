@@ -78,16 +78,16 @@ export interface IndicadoresGestionGetI {
   logroEsperadoT4: number,
   estructuraProgramatica: EstructuraProgramaticaI
   tipoIndicador: {
-    id: 1,
-    nombre: "Flujo"
+    id: number,
+    nombre: string
   },
   alcance: {
-    id: 1,
-    nombre: "Recinto"
+    id: number,
+    nombre: string
   },
   frecuencia: {
-    id: 1,
-    nombre: "Anual"
+    id: number,
+    nombre: string
   },
   producto: ProductoI
   responsables: ResponsableI

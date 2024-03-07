@@ -7,7 +7,7 @@
         <h3 class="Stitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
     </span>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
 
         <span>
             <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3>Medio verificaciones
@@ -27,57 +27,57 @@
         <span>
             <h3 style="margin: 0;" class="Stitle">Linea Base:</h3> {{indicador.lineaBase}}
         </span>
+
+        <span>
+            <h3 style="margin: 0;" class="Stitle">Tipo de Indicador:</h3> {{indicador.tipoIndicador.nombre}}
+        </span>
     </div>
 
     <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent" (ngSubmit)="saveChanges()">
 
         <h3 class="Stitle">Indicador por recinto</h3>
 
-        <mat-form-field appearance="fill" style="width:30%;">
-            <mat-label>Tipo de Indicador</mat-label>
-            <input matInput readonly disabled [value]="indicador.tipoIndicador.nombre">
-        </mat-form-field>&nbsp;
-
-        <mat-form-field appearance="fill" style="width:8.5%;">
+        <mat-form-field appearance="fill" style="width:11.5%;">
             <mat-label>Meta</mat-label>
             <input matInput readonly disabled type="number" [value]="indicador.meta">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:8%;">
+        <mat-form-field appearance="fill" style="width:12%;">
             <mat-label>REC</mat-label>
             <input matInput type="number" formControlName="metaRec">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:8%;">
+        <mat-form-field appearance="fill" style="width:12%;">
             <mat-label>FEM</mat-label>
             <input matInput type="number" formControlName="metaFem">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:8%;">
+        <mat-form-field appearance="fill" style="width:12%;">
             <mat-label>JVM</mat-label>
             <input matInput type="number" formControlName="metaJvm">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:8%;">
+        <mat-form-field appearance="fill" style="width:12%;">
             <mat-label>LNNM</mat-label>
             <input matInput type="number" formControlName="metaLnnm">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:8%;">
+        <mat-form-field appearance="fill" style="width:12%;">
             <mat-label>EPH</mat-label>
             <input matInput type="number" formControlName="metaEph">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:8%;">
+        <mat-form-field appearance="fill" style="width:12%;">
             <mat-label>UM</mat-label>
             <input matInput type="number" formControlName="metaUm">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:8%;">
+        <mat-form-field appearance="fill" style="width:12%;">
             <mat-label>EMH</mat-label>
             <input matInput type="number" formControlName="metaEmh">
         </mat-form-field>
-
+        <br>
+        
         <button type="submit" class="greenButton">Guardar cambios</button>
     </form>
 

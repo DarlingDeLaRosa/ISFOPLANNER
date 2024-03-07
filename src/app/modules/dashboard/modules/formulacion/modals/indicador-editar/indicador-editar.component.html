@@ -1,7 +1,13 @@
 <div class="modal">
   <span style="display: flex; justify-content: space-between;">
     <h2 class="Stitle">Actualizar indicador</h2>
-    <h3 style="color: red;" *ngIf="!helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}))">La distribución de la meta anual (NO COINCIDE)</h3>
+    <h3 style="color: red;"
+      *ngIf="
+      !helperHandler.validationGoal(
+      helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto),
+      helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) &&
+      helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}) !== 0">
+      La distribución de la meta anual (NO COINCIDE)</h3>
   </span>
   <div style="border:1px solid  #ccc ;">
   </div>
@@ -10,7 +16,7 @@
     <h3 class="Stitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
   </span>
 
-  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
 
     <span>
       <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3> Hay que hacer incluir esa información
@@ -27,6 +33,11 @@
     <span>
       <h3 style="margin: 0;" class="Stitle">Linea Base:</h3> {{indicador.lineaBase}}
     </span>
+
+    <span>
+      <h3 style="margin: 0;" class="Stitle">Tipo de Indicador:</h3> {{indicador.tipoIndicador.nombre}}
+    </span>
+    
   </div>
 
   <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent"
@@ -36,13 +47,14 @@
 
     <mat-form-field appearance="fill" style="width:19%;">
       <mat-label
-        [ngStyle]="{'color': !helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) ? 'red' : '#bbb'}">
+        [ngStyle]="{'color': !helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) &&
+        helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}) !== 0 ? 'red' : '#bbb'}">
         Meta anual
       </mat-label>
 
       <input matInput readonly disabled [value]="metaIndicadorRecinto"
-        [ngStyle]="{'color': !helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) ? 'red' : '#bbb'}">
-
+        [ngStyle]="{'color': !helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) && 
+        helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}) !== 0 ? 'red' : '#bbb'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="fill" style="width:19%;">

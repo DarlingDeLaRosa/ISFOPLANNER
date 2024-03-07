@@ -37,9 +37,10 @@
                         <td class="dataCell">{{indicador.responsables.nombre}}</td>
                         <td class="dataCell">{{indicador.lineaBase}}%</td>
                         <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td>
-                        <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon *ngIf="indicador.alcance.id === 1 " class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon *ngIf="indicador.alcance.id === 3 " class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon></td>
                         <td class="dataCell" style="width: 5%;"><mat-icon 
                         *ngIf="
+                            indicador.alcance.id != 3 ||    
                             indicador.indicadoresRecinto && 
                             helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto) &&
                             helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto) , helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})); else needUpdate

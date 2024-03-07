@@ -27,40 +27,40 @@ export class IndicadorEditarRecintosComponent implements OnInit {
 
     this.indicadoresGestionForm = this.fb.group({
       id: 0,
+      metaUm: new FormControl('', Validators.required),
       metaFem: new FormControl('', Validators.required),
       metaJvm: new FormControl('', Validators.required),
-      metaLnnm: new FormControl('', Validators.required),
       metaEph: new FormControl('', Validators.required),
-      metaUm: new FormControl('', Validators.required),
       metaEmh: new FormControl('', Validators.required),
-      metaRec: new FormControl('', Validators.required)
+      metaRec: new FormControl('', Validators.required),
+      metaLnnm: new FormControl('', Validators.required),
     })
 
   }
 
   ngOnInit(): void {
-    if (this.indicador.indicadoresRecinto) this.indicadoresGestionForm.reset(this.indicador.indicadoresRecinto)
+    console.log(this.indicador);
+    
+    if (this.indicador.indicadoresRecinto ) this.indicadoresGestionForm.reset(this.indicador.indicadoresRecinto)
   }
 
   postIndicadorRecinto() {
     this.apiIndicadoresGestion.postIndicadorRecintos(this.indicador.id, this.indicadoresGestionForm.value)
-      .subscribe((res: any) => { 
-        this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) 
-        
-        // this.helperHandler.validationGoal()
-      })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
   }
 
   putIndicadorRecinto() {
     this.apiIndicadoresGestion.putIndicadorRecintos(this.indicadoresGestionForm.value)
-      .subscribe((res: any) => { 
-        this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) 
-        console.log(res);
-      })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
   }
 
   saveChanges() {
-    this.helperHandler.saveChangesSumValidation(() => 
-    this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value)
+    if (this.indicador.tipoIndicador.id == 1 ) {
+      this.helperHandler.saveChangesFlujoValidation(() => 
+      this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value, `Los indicadores de flujo deben cumplir con la misma meta en los periodos donde aplica.`)
+    }else {
+      this.helperHandler.saveChangesSumValidation(() => 
+      this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value)
+    }
   }
 }

@@ -39,16 +39,18 @@ export class IndicadorEditarComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
+    if (this.indicador.alcance.id == 3) this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
+    else this.metaIndicadorRecinto = this.indicador.meta
   }
 
   putResultadoEsperadoIndicador() {
-    if (this.metaIndicadorRecinto == this.helperHandler.sumTotal(this.indicadoresGestionForm.value)) {
-      
       this.apiIndicadoresGestion.putResultadoEsperadoIndicador(this.indicador.id, this.indicadoresGestionForm.value)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
-
-    } else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${this.metaIndicadorRecinto}</b>).`) }
   }
 
+  saveChanges(){
+    if (this.metaIndicadorRecinto == this.helperHandler.sumTotal(this.indicadoresGestionForm.value)) {
+      this.putResultadoEsperadoIndicador()
+    } else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${this.metaIndicadorRecinto}</b>).`) }
+  }
 }

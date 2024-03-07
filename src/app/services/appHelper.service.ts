@@ -66,12 +66,33 @@ export class HelperService {
         } else alertNoValidForm()
     }
 
+    saveChangesFlujoValidation(updateFunction: () => void, form: FormGroup, saveFunction: () => void, meta: number, entidadSame: any, message: string) {
+        if (form.valid) {
+            if (this.sameGoal(entidadSame, meta)) {
+                loading(true)
+                if (form.value.id > 0) updateFunction()
+                else saveFunction()
+            } else { warningMessageAlert(message) }
+        } else alertNoValidForm()
+    }
+
     sumTotal(objetoSuma: any): number {
         let suma = 0;
         Object.keys(objetoSuma).forEach(key => {
             if (!key.includes('id') && !isNaN(objetoSuma[key])) { suma += parseFloat(objetoSuma[key]); }
         });
         return suma;
+    }
+
+    sameGoal(objetoSame: any,  valor: number): boolean {
+        for (const key in objetoSame) {
+            if (objetoSame.hasOwnProperty(key) && !key.includes('id')) {
+                if (objetoSame[key] !== valor && objetoSame[key] !== 0) {
+                    return false; // Si algún valor no es igual a la variable y tampoco es 0, retorna false
+                }
+            }
+        }
+        return true; // Si todos los valores son iguales a la variable y ninguno es 0, retorna true
     }
 
     validationGoal(meta: number, sumaTotal: number): boolean { return meta === sumaTotal ? true : false; }
