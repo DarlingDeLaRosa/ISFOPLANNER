@@ -2,11 +2,7 @@
   <span style="display: flex; justify-content: space-between;">
     <h2 class="Stitle">Actualizar indicador</h2>
     <h3 style="color: red;"
-      *ngIf="
-      !helperHandler.validationGoal(
-      helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto),
-      helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) &&
-      helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}) !== 0">
+      *ngIf="metaMessageStyles">
       La distribución de la meta anual (NO COINCIDE)</h3>
   </span>
   <div style="border:1px solid  #ccc ;">
@@ -47,14 +43,12 @@
 
     <mat-form-field appearance="fill" style="width:19%;">
       <mat-label
-        [ngStyle]="{'color': !helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) &&
-        helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}) !== 0 ? 'red' : '#bbb'}">
+        [ngStyle]="{'color': metaMessageStyles ? 'red' : '#bbb'}">
         Meta anual
       </mat-label>
 
       <input matInput readonly disabled [value]="metaIndicadorRecinto"
-        [ngStyle]="{'color': !helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) && 
-        helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}) !== 0 ? 'red' : '#bbb'}">
+      [ngStyle]="{'color': metaMessageStyles ? 'red' : '#bbb'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="fill" style="width:19%;">

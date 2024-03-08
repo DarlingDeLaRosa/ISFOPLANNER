@@ -36,10 +36,12 @@ export class ProductoFormulacionComponent implements OnInit {
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => { this.productoConsult = resp.data;})
+      .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data);
+      })
   }
 
   openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 
+    console.log(indicador);
     let dialogRef = this.dialog.open(IndicadorEditarComponent, {data: indicador}) 
     dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
   }

@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { warningMessageAlert } from 'src/app/alerts/alerts';
+import { UserI } from 'src/app/interfaces/Response.interfaces';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { IndicadoresGestionGetI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { IndicadorGestionService } from '../../../mantenimiento/services/indicadores-gestion.service';
-import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
-import { UserI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-indicador-editar',
@@ -15,10 +15,11 @@ import { UserI } from 'src/app/interfaces/Response.interfaces';
 })
 export class IndicadorEditarComponent implements OnInit{
 
-  indicadoresGestionForm: FormGroup;
-  indicadorRecinto: boolean = false
-  userLogged: UserI = this.userSystemService.getUserLogged
   metaIndicadorRecinto: number = 0
+  indicadorRecinto: boolean = false
+  metaMessageStyles: boolean = false
+  indicadoresGestionForm: FormGroup;
+  userLogged: UserI = this.userSystemService.getUserLogged
 
   constructor(
 
@@ -36,10 +37,17 @@ export class IndicadorEditarComponent implements OnInit{
       logroEsperadoT3: new FormControl(indicador.logroEsperadoT3, Validators.required),
       logroEsperadoT4: new FormControl(indicador.logroEsperadoT4, Validators.required),
     })
+    
+    if (indicador.alcance) {
+      
+    }
+    // let suma = helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})
+    // let validacionMeta = helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), suma) 
+
   }
 
   ngOnInit(): void {
-    if (this.indicador.alcance.id == 3) this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
+    if (this.indicador.alcance.id !== 2) this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
     else this.metaIndicadorRecinto = this.indicador.meta
   }
 

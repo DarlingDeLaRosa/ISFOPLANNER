@@ -41,7 +41,7 @@ export class IndicadorEditarRecintosComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.indicador);
     
-    if (this.indicador.indicadoresRecinto ) this.indicadoresGestionForm.reset(this.indicador.indicadoresRecinto)
+    if (this.indicador.indicadoresRecinto) this.indicadoresGestionForm.reset(this.indicador.indicadoresRecinto)
   }
 
   postIndicadorRecinto() {

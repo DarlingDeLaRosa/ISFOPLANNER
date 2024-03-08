@@ -19,8 +19,9 @@
             <table>
                 <thead class="headerTable">
                     <tr class="headerRow">
-                        <th class="headerCell" style="width: 30%;">Indicador</th>
+                        <th class="headerCell">Indicador</th>
                         <th class="headerCell">Tipo de indicador</th>
+                        <th class="headerCell">Alcance</th>
                         <th class="headerCell">Estructura Programática</th>
                         <th class="headerCell">Responsable</th>
                         <th class="headerCell">Línea Base</th>
@@ -33,28 +34,25 @@
                     <tr class="dataRow" *ngFor="let indicador of productoConsult.indicadoresGestion">
                         <td class="dataCell">{{indicador.nombre}}</td>
                         <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
+                        <td class="dataCell">{{indicador.alcance.nombre}}</td>
                         <td class="dataCell">{{indicador.estructuraProgramatica.nombre}}</td>
                         <td class="dataCell">{{indicador.responsables.nombre}}</td>
                         <td class="dataCell">{{indicador.lineaBase}}%</td>
                         <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td>
-                        <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon *ngIf="indicador.alcance.id === 3 " class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon *ngIf="indicador.alcance.id !== 2 " class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon></td>
                         <td class="dataCell" style="width: 5%;"><mat-icon 
                         *ngIf="
-                            indicador.alcance.id != 3 ||    
-                            indicador.indicadoresRecinto && 
-                            helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto) &&
-                            helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto) , helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})); else needUpdate
-                            " 
+                            indicador.alcance.id == 2 ||
+                            indicador.indicadoresRecinto != null && 
+                            helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) || 
+                            indicador.indicadoresRecinto != null && 
+                            helperHandler.sameGoal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}, indicador.meta); else needUpdate
+                            "
                             class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit</mat-icon>
                         </td>
 
                         <ng-template #needUpdate>
-                            <mat-icon 
-                            *ngIf="
-                                indicador.indicadoresRecinto && 
-                                helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto) &&
-                                !helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}))
-                                "
+                            <mat-icon *ngIf="indicador.indicadoresRecinto != null && helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto)"
                                 class="editNotificationIcon" (click)="openModalIndicadoresRecinto(indicador)">edit
                             </mat-icon>
                         </ng-template>
