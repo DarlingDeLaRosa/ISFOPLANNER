@@ -13,13 +13,15 @@ import { IndicadorGestionService } from '../../../mantenimiento/services/indicad
   templateUrl: './indicador-editar.component.html',
   styleUrls: ['./indicador-editar.component.css']
 })
-export class IndicadorEditarComponent implements OnInit{
+export class IndicadorEditarComponent implements OnInit {
 
+  sumaTotalLogros: number = 0
+  validacionMeta: boolean = false
   metaIndicadorRecinto: number = 0
   indicadorRecinto: boolean = false
-  metaMessageStyles: boolean = false
   indicadoresGestionForm: FormGroup;
-  userLogged: UserI = this.userSystemService.getUserLogged
+  metaIndicadorFlujo: boolean = false
+  userLogged: UserI = this.userSystemService.getUserLogged;
 
   constructor(
 
@@ -29,8 +31,8 @@ export class IndicadorEditarComponent implements OnInit{
     private userSystemService: UserSystemInformationService,
     private dialogRef: MatDialogRef<IndicadorEditarComponent>,
     @Inject(MAT_DIALOG_DATA) public indicador: IndicadoresGestionGetI,
-  
-    ) {
+
+  ) {
     this.indicadoresGestionForm = this.fb.group({
       logroEsperadoT1: new FormControl(indicador.logroEsperadoT1, Validators.required),
       logroEsperadoT2: new FormControl(indicador.logroEsperadoT2, Validators.required),
@@ -38,27 +40,36 @@ export class IndicadorEditarComponent implements OnInit{
       logroEsperadoT4: new FormControl(indicador.logroEsperadoT4, Validators.required),
     })
     
-    if (indicador.alcance) {
+    if (this.indicador.alcance.id !== 2) {
+      this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
+      this.sumaTotalLogros = helperHandler.sumTotal({ a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d: indicador.logroEsperadoT4 })
+
+      if (indicador.tipoIndicador.id == 1)  this.metaIndicadorFlujo = helperHandler.sameGoal(this.indicadoresGestionForm.value, indicador.meta) 
+      else this.validacionMeta = helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), this.sumaTotalLogros)
+
+      console.log(this.metaIndicadorFlujo, this.sumaTotalLogros);
       
-    }
-    // let suma = helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})
-    // let validacionMeta = helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), suma) 
-
+    } else this.metaIndicadorRecinto = this.indicador.meta
   }
 
-  ngOnInit(): void {
-    if (this.indicador.alcance.id !== 2) this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
-    else this.metaIndicadorRecinto = this.indicador.meta
-  }
+  ngOnInit(): void { }
 
   putResultadoEsperadoIndicador() {
-      this.apiIndicadoresGestion.putResultadoEsperadoIndicador(this.indicador.id, this.indicadoresGestionForm.value)
+    this.apiIndicadoresGestion.putResultadoEsperadoIndicador(this.indicador.id, this.indicadoresGestionForm.value)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
-  }
+}
 
-  saveChanges(){
-    if (this.metaIndicadorRecinto == this.helperHandler.sumTotal(this.indicadoresGestionForm.value)) {
-      this.putResultadoEsperadoIndicador()
-    } else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${this.metaIndicadorRecinto}</b>).`) }
+saveChanges() {
+  if (this.indicador.tipoIndicador.id == 1) {
+
+    if (this.helperHandler.sameGoal(this.indicadoresGestionForm.value, this.metaIndicadorRecinto)) this.putResultadoEsperadoIndicador()
+    else { warningMessageAlert(`Los indicadores de flujo deben cumplir con la misma meta en los periodos donde aplica.`) }
+  
+  } else {
+  
+    if (this.metaIndicadorRecinto == this.helperHandler.sumTotal(this.indicadoresGestionForm.value)) this.putResultadoEsperadoIndicador()
+    else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${this.metaIndicadorRecinto}</b>).`) }
+  
   }
+}
 }

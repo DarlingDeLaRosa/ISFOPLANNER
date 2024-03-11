@@ -17,8 +17,8 @@ export class ProductoFormulacionComponent implements OnInit {
 
   idProducto: number = 0;
   productoConsult!: ProductoI
-  userLogged = this.userSystemService.getUserLogged
   metaIndicadorRecinto: number = 0
+  userLogged = this.userSystemService.getUserLogged
 
   constructor(
     private router: Router,
@@ -36,8 +36,7 @@ export class ProductoFormulacionComponent implements OnInit {
 
   getByIdProducto() {
     this.productoApi.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data);
-      })
+      .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data);})
   }
 
   openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 

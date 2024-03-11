@@ -14,24 +14,26 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 const materialComponents: any = [
-  MatButtonModule,
-  MatSidenavModule,
   MatIconModule,
-  MatToolbarModule,
-  MatInputModule,
-  MatSelectModule,
-  MatFormFieldModule,
-  MatOptionModule,
-  MatDialogModule,
-  MatDatepickerModule,
   MatCardModule,
   MatMenuModule,
+  MatInputModule,
   MatRadioModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatButtonModule,
+  MatDialogModule,
+  MatTooltipModule,
+  MatToolbarModule,
+  MatSidenavModule,
   MatCheckboxModule,
+  MatFormFieldModule,
   MatNativeDateModule,
-  MatSlideToggleModule
+  MatDatepickerModule,
+  MatSlideToggleModule,
 ]
 
 @NgModule({

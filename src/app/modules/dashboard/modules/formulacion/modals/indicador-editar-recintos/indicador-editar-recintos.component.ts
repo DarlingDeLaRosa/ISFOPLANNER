@@ -12,8 +12,9 @@ import { IndicadoresGestionGetI } from '../../../mantenimiento/interfaces/manten
 })
 export class IndicadorEditarRecintosComponent implements OnInit {
 
-  indicadoresGestionForm: FormGroup;
+  metaRecDisabled: boolean = false
   indicadorRecinto: boolean = false
+  indicadoresGestionForm: FormGroup;
 
   constructor(
 
@@ -24,7 +25,6 @@ export class IndicadorEditarRecintosComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public indicador: IndicadoresGestionGetI,
 
   ) {
-
     this.indicadoresGestionForm = this.fb.group({
       id: 0,
       metaUm: new FormControl('', Validators.required),
@@ -35,13 +35,11 @@ export class IndicadorEditarRecintosComponent implements OnInit {
       metaRec: new FormControl('', Validators.required),
       metaLnnm: new FormControl('', Validators.required),
     })
-
   }
 
   ngOnInit(): void {
-    console.log(this.indicador);
-    
     if (this.indicador.indicadoresRecinto) this.indicadoresGestionForm.reset(this.indicador.indicadoresRecinto)
+    if(this.indicador.alcance.id == 1) { this.indicadoresGestionForm.patchValue({metaRec: this.indicador.meta}); this.metaRecDisabled = true }
   }
 
   postIndicadorRecinto() {

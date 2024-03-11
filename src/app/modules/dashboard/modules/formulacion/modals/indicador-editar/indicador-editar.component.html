@@ -1,9 +1,7 @@
 <div class="modal">
   <span style="display: flex; justify-content: space-between;">
     <h2 class="Stitle">Actualizar indicador</h2>
-    <h3 style="color: red;"
-      *ngIf="metaMessageStyles">
-      La distribución de la meta anual (NO COINCIDE)</h3>
+    <h3 style="color: red;" *ngIf="indicador.alcance.id == 2 && sumaTotalLogros > 0 && validacionMeta || indicador.alcance.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0"> La distribución de la meta anual (NO COINCIDE)</h3>
   </span>
   <div style="border:1px solid  #ccc ;">
   </div>
@@ -13,11 +11,6 @@
   </span>
 
   <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
-
-    <span>
-      <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3> Hay que hacer incluir esa información
-    </span>
-
     <span>
       <h3 style="margin: 0;" class="Stitle">Frecuencia:</h3> {{indicador.frecuencia.nombre}}
     </span>
@@ -34,21 +27,30 @@
       <h3 style="margin: 0;" class="Stitle">Tipo de Indicador:</h3> {{indicador.tipoIndicador.nombre}}
     </span>
     
+    <span>
+      <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3>{{indicador.mediosverificaciones[0].nombre}}
+      <span [matMenuTriggerFor]="menu" class="seeMore">...</span>
+          <mat-menu #menu="matMenu">
+              <ng-container *ngFor="let medioVer of indicador.mediosverificaciones">
+                <h5 style="padding: 5px 15px; margin: 0;">{{medioVer.nombre}}</h5>
+              </ng-container> 
+          </mat-menu>
+    </span>
   </div>
 
   <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent"
-    (ngSubmit)="putResultadoEsperadoIndicador()">
+    (ngSubmit)="saveChanges()">
 
     <h3 class="Stitle">Resultado esperado por trimestre.</h3>
 
     <mat-form-field appearance="fill" style="width:19%;">
       <mat-label
-        [ngStyle]="{'color': metaMessageStyles ? 'red' : '#bbb'}">
+        [ngStyle]="{'color': indicador.alcance.id == 2 && sumaTotalLogros > 0 && validacionMeta || indicador.alcance.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : ''}">
         Meta anual
       </mat-label>
 
       <input matInput readonly disabled [value]="metaIndicadorRecinto"
-      [ngStyle]="{'color': metaMessageStyles ? 'red' : '#bbb'}">
+      [ngStyle]="{'color': indicador.alcance.id == 2 && sumaTotalLogros > 0 && validacionMeta || indicador.alcance.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : '#bbb'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="fill" style="width:19%;">

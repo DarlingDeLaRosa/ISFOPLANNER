@@ -40,9 +40,19 @@
                         <td class="dataCell">{{indicador.lineaBase}}%</td>
                         <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td>
                         <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon *ngIf="indicador.alcance.id !== 2 " class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon 
+                        <td class="dataCell" style="width: 5%;">
+                            <!-- <mat-icon class="editIcon" *ngIf="
+                                (indicador.alcance.id == 2) ||
+                                (this.userLogged.recinto.siglas !== 'REC' && indicador.alcance.id !== 1) || 
+                                (indicador.indicadoresRecinto != null && 
+                                helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})))  || 
+                                (indicador.indicadoresRecinto != null && 
+                                helperHandler.sameGoal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}, indicador.meta)); else needUpdate
+                            
+                            ">edit</mat-icon> -->
+                            <mat-icon  
                         *ngIf="
-                            indicador.alcance.id == 2 ||
+                            indicador.responsables.nombre == userLogged.unidad && indicador.alcance.id == 2 ||
                             indicador.indicadoresRecinto != null && 
                             helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) || 
                             indicador.indicadoresRecinto != null && 
@@ -52,7 +62,7 @@
                         </td>
 
                         <ng-template #needUpdate>
-                            <mat-icon *ngIf="indicador.indicadoresRecinto != null && helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto)"
+                            <mat-icon *ngIf=" indicador.responsables.nombre == userLogged.unidad && indicador.indicadoresRecinto != null && helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto)"
                                 class="editNotificationIcon" (click)="openModalIndicadoresRecinto(indicador)">edit
                             </mat-icon>
                         </ng-template>

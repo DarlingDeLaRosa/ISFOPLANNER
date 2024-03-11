@@ -124,6 +124,4 @@ export class HelperService {
                 return 0
         }
     }
-
-
 }
