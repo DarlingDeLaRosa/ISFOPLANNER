@@ -21,49 +21,75 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class ActividadesFormulacionComponent implements OnInit {
 
+  actividadForm: FormGroup;
+  insumoForm:  FormGroup;
+  cargoList: any[]= [];
+  montoTotal: number = 0;
+  descripcion: string = '';
+  costeo: Array<CosteoI> = [];
+  mesesList: Array<MesesI> = [];
+  idProductorecibido: number = 0;
+  estadosList: Array<EstadoI> = [];
   regionesList: Array<RegionesI> = [];
   provinciasList: Array<ProvinciaI> = [];
   MunicipiosList: Array<MunicipioI> = [];
-  estadosList: Array<EstadoI> = [];
   frecuenciaList: Array<FrecuenciaI> = [];
-  responsableList: Array<ResponsableI> = [];
   involucradoList: Array<InvolucradoI> = [];
-  mesesList: Array<MesesI> = [];
-  idProductorecibido: number = 0;
-  costeo: Array<CosteoI> = [];
-  insumoForm: FormGroup;
-  montoTotal: number = 0;
-  descripcion: string = '';
+  responsableList: Array<ResponsableI> = [];
 
-
-
-  categoriaInsumoList: Array<CategoriaInsumosI> = [];
-  UnidadesMedidaList: Array<UnidadesMedidaI> = [];
   insumoList: Array<InsumosI> = [];
-  insumoListFilter: Array<InsumosI> = [];
   selectionado:Array<InsumosI> = [];
+  insumoListFilter: Array<InsumosI> = [];
   insumoTable: Array<CosteoDetallesI> = [];
+  UnidadesMedidaList: Array<UnidadesMedidaI> = [];
+  categoriaInsumoList: Array<CategoriaInsumosI> = [];
 
   constructor(
+    private router: Router,
+    private fb: FormBuilder,
     public dialog: MatDialog,
+    private route: ActivatedRoute,
     private actividadesService: ActividadesService,
     private responsableService: ResponsableService,
     private involucradoService: involucradoService,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private router: Router
 
   ) {
-    this.insumoForm = this.fb.group({
+    this.actividadForm = this.fb.group({
       id: new FormControl<number>(0),
-      idInsumo: new FormControl<number>(0, [Validators.required]),
-      idCategoria: new FormControl<number>(0, [Validators.required]),
-      descripcion: new FormControl<number>(0, [Validators.required]),
-      costoUnitario: new FormControl<number>(0, [Validators.required]),
-      cantidad: new FormControl<number>(0, [Validators.required]),
+      nombre: new FormControl<string>('', Validators.required),
+      idProducto: new FormControl<number>(this.idProductorecibido),
+      idFrecuencia: new FormControl<number>(0, Validators.required),
+      idEstado: new FormControl<number>(0, Validators.required),
+      idResponsableUnidad: new FormControl<number>(0, Validators.required),
+      idResponsableCargo: new FormControl<number>(0, Validators.required),
+      esPrevista: new FormControl<boolean>(true, Validators.required),
+      avance: new FormControl<number>(0),
+
+      costeo: new FormGroup({
+        montoTotalEstimado: new FormControl<number>(0),
+        costeoDetalles: this.fb.array([])
+      }),
+
+      mesesImpacto: new FormControl(0, Validators.required),
+      involucrados: new FormControl(0, Validators.required),
+
+      resultadoEsperadoCuantitativoT1: new FormControl<number>(0, Validators.required),
+      resultadoEsperadoCuantitativoT2: new FormControl<number>(0, Validators.required),
+      resultadoEsperadoCuantitativoT3: new FormControl<number>(0, Validators.required),
+      resultadoEsperadoCuantitativoT4: new FormControl<number>(0, Validators.required),
+      resultadoEsperadoCualitativoT1: new FormControl<string>('', Validators.required),
+      resultadoEsperadoCualitativoT2: new FormControl<string>('', Validators.required),
+      resultadoEsperadoCualitativoT3: new FormControl<string>('', Validators.required),
+      resultadoEsperadoCualitativoT4: new FormControl<string>('', Validators.required),
+    })
+
+    this.insumoForm = this.fb.group({
+      idInsumo: new FormControl<number>(0, Validators.required),
+      costoUnitario: new FormControl<number>(0, Validators.required),
+      cantidad: new FormControl<number>(0, Validators.required),
       montoTotal: new FormControl<number>(0),
-      fechaRecepcion: new FormControl<string>('', [Validators.required]),
-      idUnidadMedida: new FormControl<number>(0, [Validators.required]),
+      fechaRecepcion: new FormControl<string>('', Validators.required),
+      idUnidadMedida: new FormControl<number>(0, Validators.required),
     })
   }
 
@@ -74,115 +100,58 @@ export class ActividadesFormulacionComponent implements OnInit {
       console.log(this.idProductorecibido);
     });
 
+    this.getMeses()
+    this.getCargos()
+    this.getestados();
+    this.getInsumos();
     this.getRegiones();
     this.getProvinvias();
     this.getMunicipios();
-    this.getestados();
     this.getFrecuencia();
     this.getResponsable();
     this.getInvolucrado();
-    this.getMeses();
-    this.getCategoriaInsumos();
     this.getUnidadesMedida();
-    this.getInsumos();
+    this.getCategoriaInsumos();
   }
-
-  public ActividadForm = new FormGroup({
-    id: new FormControl<number>(0)!,
-    nombre: new FormControl<string>('', [Validators.required]),
-    idProducto: new FormControl<number>(this.idProductorecibido),
-    idRegion: new FormControl<number>(0, [Validators.required]),
-    idPrivincia: new FormControl<number>(0, [Validators.required]),
-    idMunicipio: new FormControl<number>(0, [Validators.required]),
-    idFrecuencia: new FormControl<number>(0, [Validators.required]),
-    esPrevista: new FormControl<boolean>(true, [Validators.required]),
-    idEstado: new FormControl<number>(0, [Validators.required]),
-    avance: new FormControl<number>(0),
-    costeo: new FormGroup({
-      montoTotalEstimado: new FormControl<number>(0),
-      costeoDetalles: new FormControl<any>([])
-    }),
-    mesesImpacto: new FormControl<number>(0, [Validators.required]),
-    responsable: new FormControl<number>(0, [Validators.required]),
-    resultadoEsperadoCuantitativoT1: new FormControl<number>(0),
-    resultadoEsperadoCuantitativoT2: new FormControl<number>(0),
-    resultadoEsperadoCuantitativoT3: new FormControl<number>(0),
-    resultadoEsperadoCuantitativoT4: new FormControl<number>(0),
-    resultadoEsperadoCualitativoT1: new FormControl<string>(''),
-    resultadoEsperadoCualitativoT2: new FormControl<string>(''),
-    resultadoEsperadoCualitativoT3: new FormControl<string>(''),
-    resultadoEsperadoCualitativoT4: new FormControl<string>(''),
-  });
 
   irProductos(){
     this.router.navigate(['dashboard/formulacion/producto'], { queryParams: {numero:this.idProductorecibido} });
   }
 
   getRegiones() {
-    this.actividadesService.getRegiones()
-      
-      .subscribe((resp: any) => {
-        this.regionesList = resp.data;
-
-      })
+    this.actividadesService.getRegiones().subscribe((resp: any) => { this.regionesList = resp.data;})
   }
-  getProvinvias() {
-    this.actividadesService.getProvincias()
-      .subscribe((resp: any) => {
-        this.provinciasList = resp.data;
+  
+  getCargos() {
+    this.actividadesService.getCargos().subscribe((resp: any) => { this.cargoList = resp.data;})
+  }
 
-      })
+  getProvinvias() {
+    this.actividadesService.getProvincias().subscribe((resp: any) => { this.provinciasList = resp.data;})
   }
   getMunicipios() {
-    this.actividadesService.getMunicipios()
-      .subscribe((resp: any) => {
-        this.MunicipiosList = resp.data;
-      })
+    this.actividadesService.getMunicipios().subscribe((resp: any) => { this.MunicipiosList = resp.data;})
   }
   getestados() {
-    this.actividadesService.getEstados()
-      .subscribe((resp: any) => {
-        this.estadosList = resp.data;
-      })
+    this.actividadesService.getEstados().subscribe((resp: any) => { this.estadosList = resp.data;})
   }
   getFrecuencia() {
-    this.actividadesService.getFrecuencias()
-      .subscribe((resp: any) => {
-        this.frecuenciaList = resp.data;
-      })
+    this.actividadesService.getFrecuencias().subscribe((resp: any) => { this.frecuenciaList = resp.data;})
   }
   getResponsable() {
-    this.responsableService.getResponsable()
-      .subscribe((resp: any) => {
-        this.responsableList = resp.data;
-      })
+    this.responsableService.getResponsable().subscribe((resp: any) => { this.responsableList = resp.data;})
   }
   getInvolucrado() {
-    this.involucradoService.getInvolucrado()
-      .subscribe((resp: any) => {
-        this.involucradoList = resp.data;
-      })
+    this.involucradoService.getInvolucrado().subscribe((resp: any) => { this.involucradoList = resp.data; })
   }
   getMeses() {
-    this.actividadesService.getMeses()
-      .subscribe((resp: any) => {
-        this.mesesList = resp.data;
-      })
-  }
-
-  openModal() {
-    // this.dialog.open(NuevoInsumoComponent)
-  }
-
-  get currentActividadForm() {
-    const form = this.ActividadForm.value as ActividadI;
-    return form;
+    this.actividadesService.getMeses().subscribe((resp: any) => { this.mesesList = resp.data; })
   }
 
   postActividades() {
-    this.ActividadForm.get('idProducto')!.setValue(this.idProductorecibido);
-    this.ActividadForm.get('avance')!.setValue(1);
-    this.ActividadForm.get('esPrevista')!.setValue(true);
+    this.actividadForm.get('idProducto')!.setValue(this.idProductorecibido);
+    this.actividadForm.get('avance')!.setValue(1);
+    this.actividadForm.get('esPrevista')!.setValue(true);
 
     // QUITA EL CAMPO ID DEL OBJETO
     const insumoTableCopy = this.insumoTable.map(objeto => {
@@ -192,26 +161,21 @@ export class ActividadesFormulacionComponent implements OnInit {
     console.log(insumoTableCopy);
 
 
-    this.ActividadForm.get('costeo.costeoDetalles')!.patchValue(insumoTableCopy);
-    this.ActividadForm.get('costeo.montoTotalEstimado')!.patchValue(this.montoTotal);
+    this.actividadForm.get('costeo.costeoDetalles')!.patchValue(insumoTableCopy);
+    this.actividadForm.get('costeo.montoTotalEstimado')!.patchValue(this.montoTotal);
 
-    console.log(this.ActividadForm.value);
-    this.actividadesService.postActividades(this.currentActividadForm)
-      // .pipe(
-      //   catchError((error) => {
-      //     alertServerDown()
-      //     return error
-      //   }))
+    console.log(this.actividadForm.value);
+    this.actividadesService.postActividades(this.actividadForm.value)
       .subscribe((resp: any) => {
         successMessageAlert('La actividad fue creada correctamente');
-        this.ActividadForm.reset();
+        this.actividadForm.reset();
         this.insumoTable = [];
         this.insumoForm.reset();
       })
   }
 
   Guardar() {
-    if (this.ActividadForm.valid) {
+    if (this.actividadForm.valid) {
       this.postActividades();
     } else {
       errorMessageAlert('Debe llenar todos lo campos requeridos del formulario')

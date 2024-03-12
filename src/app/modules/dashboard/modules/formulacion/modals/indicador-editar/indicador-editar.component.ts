@@ -47,8 +47,6 @@ export class IndicadorEditarComponent implements OnInit {
       if (indicador.tipoIndicador.id == 1)  this.metaIndicadorFlujo = helperHandler.sameGoal(this.indicadoresGestionForm.value, indicador.meta) 
       else this.validacionMeta = helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), this.sumaTotalLogros)
 
-      console.log(this.metaIndicadorFlujo, this.sumaTotalLogros);
-      
     } else this.metaIndicadorRecinto = this.indicador.meta
   }
 

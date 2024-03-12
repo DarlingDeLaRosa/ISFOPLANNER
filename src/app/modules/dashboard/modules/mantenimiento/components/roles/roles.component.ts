@@ -46,8 +46,6 @@ export class RolesComponent implements OnInit {
   getModulos() {
     this.moduloService.getModulosByIdSistema()
       .subscribe((resp: any) => {
-        console.log(resp);
-        
         resp.data.map((modulo: modulo) => {
 
           const permisoGroup = this.fb.group({

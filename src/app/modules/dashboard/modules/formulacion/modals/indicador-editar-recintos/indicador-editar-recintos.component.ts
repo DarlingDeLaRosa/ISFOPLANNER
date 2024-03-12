@@ -58,7 +58,7 @@ export class IndicadorEditarRecintosComponent implements OnInit {
       this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value, `Los indicadores de flujo deben cumplir con la misma meta en los periodos donde aplica.`)
     }else {
       this.helperHandler.saveChangesSumValidation(() => 
-      this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value)
+      this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value, this.indicador.alcance.id)
     }
   }
 }

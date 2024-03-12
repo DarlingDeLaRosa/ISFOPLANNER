@@ -40,7 +40,6 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 
-    console.log(indicador);
     let dialogRef = this.dialog.open(IndicadorEditarComponent, {data: indicador}) 
     dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
   }

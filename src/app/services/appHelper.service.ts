@@ -56,9 +56,11 @@ export class HelperService {
         } else alertNoValidForm()
     }
 
-    saveChangesSumValidation(updateFunction: () => void, form: FormGroup, saveFunction: () => void, meta: number, entidadSumar: any) {
+    saveChangesSumValidation(updateFunction: () => void, form: FormGroup, saveFunction: () => void, meta: number, entidadSumar: any, alcance: number) {
+        let noRec = 0
         if (form.valid) {
-            if (meta == this.sumTotal(entidadSumar)) {
+            if(alcance == 1) noRec = entidadSumar.metaRec
+            if (meta == this.sumTotal(entidadSumar) - noRec) {
                 loading(true)
                 if (form.value.id > 0) updateFunction()
                 else saveFunction()

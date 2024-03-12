@@ -26,6 +26,10 @@ export class ActividadesService {
       return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Regiones`, this.header))
     }
 
+    getCargos(): Observable<ResponseI> {
+      return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Cargos`, this.header))
+    }
+
     getProvincias(): Observable<ResponseI> {
       return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Provincias`, this.header))
     }
