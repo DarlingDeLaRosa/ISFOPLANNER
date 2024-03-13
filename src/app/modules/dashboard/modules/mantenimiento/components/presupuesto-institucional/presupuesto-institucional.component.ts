@@ -52,10 +52,7 @@ export class PresupuestoInstitucionalComponent implements OnInit {
   }
 
   postActivarPresupuesto(presupuesto: number) {
-    console.log("aqui estoy" , presupuesto);
-    
     loading(true)
-    
     this.apiPresupuestoInstitucional.postActivarPresupuesto(presupuesto)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPresupuestoInstitucional(), this.presupuestoInstiForm) })
   }

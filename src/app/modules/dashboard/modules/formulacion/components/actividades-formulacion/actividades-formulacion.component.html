@@ -59,7 +59,7 @@
 
         <mat-form-field appearance="fill" style="width: 33%;">
           <mat-label>Cargo del Responsable</mat-label>
-          <mat-select disableRipple formControlName="idResponsableUnidad">
+          <mat-select disableRipple formControlName="idResponsableCargo">
             <ng-container *ngIf="cargoList.length> 0; else noCargo">
               <mat-option [value]="cargo.id" *ngFor="let cargo of cargoList">
                 {{cargo.nombre}}
@@ -81,7 +81,7 @@
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width: 33%;">
+        <mat-form-field appearance="fill" style="width: 32.5%;">
           <mat-label>Responsable</mat-label>
           <mat-select disableRipple formControlName="idResponsableUnidad">
             <ng-container *ngIf="responsableList.length> 0; else noResp">
@@ -142,19 +142,18 @@
     <!-- formulario de los insumos -->
     <div class="formularioActividades">
       <h3 class="Stitle">Costeo</h3>
+
       <form [formGroup]="insumoForm">
 
         <mat-form-field appearance="fill" style="width: 15%;">
           <mat-label>Categoría de insumo</mat-label>
           <mat-select disableRipple formControlName="idCategoria" (selectionChange)="onSelectCategoria()">
-            <ng-container>
-              <mat-option *ngFor="let item of categoriaInsumoList" value={{item.id}}>
-                {{item.nombre}}
+            <ng-container *ngIf="categoriaInsumoList.length> 0; else noCatego">
+              <mat-option [value]="categoria.id" *ngFor="let categoria of categoriaInsumoList">
+                {{categoria.nombre}}
               </mat-option>
             </ng-container>
-            <ng-template #noEdificio>
-              <mat-option>No hay campos disponibles</mat-option>
-            </ng-template>
+            <ng-template #noCatego> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
         </mat-form-field>&nbsp;
 
@@ -162,53 +161,59 @@
           <mat-label>Insumos</mat-label>
           <mat-select disableRipple formControlName="idInsumo" (selectionChange)="onSelectInsumo()" [required]="true">
             <ng-container>
-              <mat-option *ngFor="let item of insumoListFilter" value={{item.id}}>
+              <mat-option [value]="item.id" *ngFor="let item of insumoListFilter">
                 {{item.nombre}}
               </mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:52%;">
+        <mat-form-field appearance="fill" style="width:54%;">
           <mat-label>Descripción de insumo</mat-label>
-          <input matInput readonly value={{descripcion}}>
+          <input matInput readonly formControlName="descripcion">
         </mat-form-field>&nbsp;
-
+        <br>
         <mat-form-field appearance="fill" style="width: 20%;">
           <mat-label>Unidad de medida</mat-label>
           <mat-select disableRipple form formControlName="idUnidadMedida">
-            <ng-container>
-              <mat-option *ngFor="let item of UnidadesMedidaList" value={{item.id}}>
-                {{item.nombre}}
+            <ng-container *ngIf="UnidadesMedidaList.length> 0; else noUniMed">
+              <mat-option [value]="unidadMedida.id" *ngFor="let unidadMedida of UnidadesMedidaList">
+                {{unidadMedida.nombre}}
               </mat-option>
             </ng-container>
-            <ng-template #noEdificio>
-              <mat-option>No hay campos disponibles</mat-option>
-            </ng-template>
+            <ng-template #noUniMed> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:20%;">
+        <mat-form-field appearance="fill" style="width:20%;" >
           <mat-label>Costo unitario</mat-label>
-          <input matInput formControlName="costoUnitario" type="number">
+          <input matInput formControlName="costoUnitario" type="number" (input)="calculateMontoTotal()">
         </mat-form-field>&nbsp;
 
         <!--Detallar costeo en periodos -->
         <mat-form-field appearance="fill" style="width:20%;">
           <mat-label>cantidad</mat-label>
-          <input matInput type="number" formControlName="cantidad">
+          <input matInput type="number" formControlName="cantidad" (input)="calculateMontoTotal()">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:25%;">
+        <mat-form-field appearance="fill" style="width:20%;">
           <mat-label>Fecha recepción</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="fechaRecepcion">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>&nbsp;
 
-        <button class="greenButton" (click)="agregarInsumoAlObjeto()">Agregar</button>
+        <mat-form-field appearance="fill" style="width:18%;">
+          <mat-label>Total</mat-label>
+          <input matInput type="number" readonly formControlName="montoTotal">
+        </mat-form-field>&nbsp;
+        
+        <br>
+        <span style="display: flex; justify-content: space-between;">
+          <span></span>
+          <button class="greenButton" (click)="agregarInsumoAlObjeto()">Agregar</button>
+        </span>
       </form>
-
     </div>
 
     <span class="titleInsumos">
@@ -216,7 +221,7 @@
     </span>
 
     <div style="margin-bottom: 15px;">
-      <table style="border: 1px solid #ccc;">
+      <table >
         <thead class="headerTable">
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Insumo</th>
@@ -225,28 +230,41 @@
             <th class="headerCell">Cantidad</th>
             <th class="headerCell">Costo</th>
             <th class="headerCell">Total</th>
-            <th class="headerCell">Eliminar</th>
+            <th class="headerCell" style="width: 5%;"></th>
+            <th class="headerCell" style="width: 5%;"></th>
           </tr>
         </thead>
         <tbody>
-          <tr class="dataRow" *ngFor="let item of insumoTable">
+          <tr class="dataRow" *ngFor="let item of insumosGroup; let i = index">
             <td class="dataCell">{{item.idInsumo}}</td>
             <td class="dataCell">{{item.fechaRecepcion | date}}</td>
             <td class="dataCell">{{item.idUnidadMedida}}</td>
             <td class="dataCell">{{item.cantidad}}</td>
             <td class="dataCell">{{item.costoUnitario}}</td>
             <td class="dataCell">{{item.montoTotal}}</td>
-            <td class="dataCell"><mat-icon class="removeIcon" (click)="eliminarObjeto(item.id)">delete</mat-icon></td>
+            <td class="dataCell"><mat-icon class="removeIcon" (click)="removeInsumo(i)">delete</mat-icon></td>
+            <td class="dataCell"><mat-icon class="editIcon" (click)="removeInsumo(i)">edit</mat-icon></td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr class="footerRow" >
+            <td class="footerCell">Total</td>
+            <td class="footerCell"></td>
+            <td class="footerCell"></td>
+            <td class="footerCell">{{cantidadTotal}}</td>
+            <td class="footerCell"></td>
+            <td class="footerCell">{{showMontoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+            <td class="footerCell"></td>
+            <td class="footerCell"></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
-    <div class="itemderecha">
-      <h2> Monto total {{montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}} </h2>
-      <button class="greenButton item" (click)=" Guardar()">Crear actividad</button>
+    <div style="display: flex; justify-content: space-between;">
+      <span></span>
+      <button class="greenButton" (click)="saveChanges()">Crear actividad</button>
     </div>
   </div>
-
 </div>
 
 

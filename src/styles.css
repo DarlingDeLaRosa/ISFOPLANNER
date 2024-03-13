@@ -144,17 +144,6 @@ body {
     background-color: red;
 }
 
-.itemderecha {
-    display: flex;
-    justify-content: flex-end;
-    text-align: right;
-}
-
-.item {
-    margin-left: auto;
-}
-
-
 .borderOrangeButton {
     color: #EC801E !important;
     border-color: #EC801E !important;
@@ -318,8 +307,7 @@ mat-checkbox {
 }
 
 .dataCell,
-.dataIndiCell {
-    border-top: 1px solid #ccc;
+.dataIndiCell{
     padding-left: 15px;
     max-width: 130px;
     white-space: nowrap;
@@ -337,8 +325,14 @@ mat-checkbox {
     border: none;
 }
 
-.dataRow {
+.dataRow, .footerRow{
     height: 6vh;
+    border-top: 1px solid #ccc;
+}
+
+.footerRow{
+    border-top: 2px solid #004b8d2a;
+    border-bottom: 2px solid #004b8d2a;
 }
 
 table {
