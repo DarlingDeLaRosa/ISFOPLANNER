@@ -5,8 +5,7 @@
   </div>
 
   <div style="margin-bottom: 5px;">
-    <button class="backButton" mat-stroked-button
-      (click)=" irProductos()"><mat-icon>arrow_back</mat-icon>Producto</button>
+    <button class="backButton" mat-stroked-button><mat-icon>arrow_back</mat-icon>Producto</button>
   </div>
 
   <div class="actividadContainer">
@@ -55,6 +54,18 @@
             </ng-container>
             <ng-template #noMeses> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 33%;">
+          <mat-label>Responsable</mat-label>
+          <mat-select disableRipple formControlName="idResponsableUnidad">
+            <ng-container *ngIf="responsableList.length> 0; else noResp">
+              <mat-option [value]="responsable.id" *ngFor="let responsable of responsableList">
+                {{responsable.nombre}}
+              </mat-option>
+            </ng-container>
+            <ng-template #noResp> <mat-option>No hay campos disponibles</mat-option> </ng-template>
+          </mat-select>
         </mat-form-field>&nbsp;
 
         <mat-form-field appearance="fill" style="width: 33%;">
@@ -78,18 +89,6 @@
               </mat-option>
             </ng-container>
             <ng-template #noInvol> <mat-option>No hay campos disponibles</mat-option> </ng-template>
-          </mat-select>
-        </mat-form-field>&nbsp;
-
-        <mat-form-field appearance="fill" style="width: 32.5%;">
-          <mat-label>Responsable</mat-label>
-          <mat-select disableRipple formControlName="idResponsableUnidad">
-            <ng-container *ngIf="responsableList.length> 0; else noResp">
-              <mat-option [value]="responsable.id" *ngFor="let responsable of responsableList">
-                {{responsable.nombre}}
-              </mat-option>
-            </ng-container>
-            <ng-template #noResp> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
         </mat-form-field>&nbsp;
 
@@ -211,7 +210,10 @@
         <br>
         <span style="display: flex; justify-content: space-between;">
           <span></span>
-          <button class="greenButton" (click)="agregarInsumoAlObjeto()">Agregar</button>
+          <span>
+            <button class="cleanInsumoButton" mat-stroked-button (click)="insumoForm.reset()"><mat-icon>clear</mat-icon>Limpiar</button>&nbsp;
+            <button class="downLoadButton" mat-stroked-button (click)="agregarInsumoAlObjeto()"><mat-icon>add</mat-icon>Agregar</button>
+          </span>
         </span>
       </form>
     </div>
@@ -235,15 +237,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="dataRow" *ngFor="let item of insumosGroup; let i = index">
-            <td class="dataCell">{{item.idInsumo}}</td>
-            <td class="dataCell">{{item.fechaRecepcion | date}}</td>
-            <td class="dataCell">{{item.idUnidadMedida}}</td>
-            <td class="dataCell">{{item.cantidad}}</td>
-            <td class="dataCell">{{item.costoUnitario}}</td>
-            <td class="dataCell">{{item.montoTotal}}</td>
+          <tr class="dataRow" *ngFor="let insumo of insumosGroup; let i = index">
+            <td class="dataCell">{{insumo.idInsumo}}</td>
+            <td class="dataCell">{{insumo.fechaRecepcion | date}}</td>
+            <td class="dataCell">{{insumo.idUnidadMedida}}</td>
+            <td class="dataCell">{{insumo.cantidad}}</td>
+            <td class="dataCell">{{insumo.costoUnitario  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+            <td class="dataCell">{{insumo.montoTotal  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+            <td class="dataCell"><mat-icon class="editIcon" (click)="editInsumo(insumo, i)">edit</mat-icon></td>
             <td class="dataCell"><mat-icon class="removeIcon" (click)="removeInsumo(i)">delete</mat-icon></td>
-            <td class="dataCell"><mat-icon class="editIcon" (click)="removeInsumo(i)">edit</mat-icon></td>
           </tr>
         </tbody>
         <tfoot>

@@ -149,6 +149,11 @@ body {
     border-color: #EC801E !important;
 }
 
+.cleanInsumoButton {
+    color: red !important;
+    border-color: red !important;
+}
+
 .downLoadButton {
     color: #004b8d !important;
     border: #004b8d 1px solid !important;

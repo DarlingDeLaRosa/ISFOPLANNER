@@ -23,13 +23,13 @@ import { format } from 'date-fns';
 })
 export class ActividadesFormulacionComponent implements OnInit {
 
-  insumoForm:  FormGroup;
+  insumoForm: FormGroup;
   actividadForm: FormGroup;
   cantidadTotal: number = 0
   showMontoTotal: number = 0
   insumosGroup: Array<CosteoDetallesI> = [];
 
-  cargoList: any[]= [];
+  cargoList: any[] = [];
   mesesList: Array<MesesI> = [];
   insumoList: Array<InsumosI> = [];
   estadosList: Array<EstadoI> = [];
@@ -97,7 +97,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => { this.actividadForm.patchValue({idProducto: parseInt(params['numero']) })});
+    this.route.queryParams.subscribe(params => { this.actividadForm.patchValue({ idProducto: parseInt(params['numero']) }) });
 
     this.getMeses()
     this.getCargos()
@@ -113,36 +113,36 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.getCategoriaInsumos();
   }
 
-  irProductos(){
+  irProductos() {
     // this.router.navigate(['dashboard/formulacion/producto'], { queryParams: {numero:this.idProductorecibido} });
   }
 
   getRegiones() {
-    this.actividadesService.getRegiones().subscribe((resp: any) => { this.regionesList = resp.data;})
+    this.actividadesService.getRegiones().subscribe((resp: any) => { this.regionesList = resp.data; })
   }
-  
+
   getCargos() {
     this.actividadesService.getCargos().subscribe((resp: any) => { this.cargoList = resp.data; })
   }
 
   getProvinvias() {
-    this.actividadesService.getProvincias().subscribe((resp: any) => { this.provinciasList = resp.data;})
+    this.actividadesService.getProvincias().subscribe((resp: any) => { this.provinciasList = resp.data; })
   }
 
   getMunicipios() {
-    this.actividadesService.getMunicipios().subscribe((resp: any) => { this.MunicipiosList = resp.data;})
+    this.actividadesService.getMunicipios().subscribe((resp: any) => { this.MunicipiosList = resp.data; })
   }
 
   getestados() {
-    this.actividadesService.getEstados().subscribe((resp: any) => { this.estadosList = resp.data;})
+    this.actividadesService.getEstados().subscribe((resp: any) => { this.estadosList = resp.data; })
   }
 
   getFrecuencia() {
-    this.actividadesService.getFrecuencias().subscribe((resp: any) => { this.frecuenciaList = resp.data;})
+    this.actividadesService.getFrecuencias().subscribe((resp: any) => { this.frecuenciaList = resp.data; })
   }
 
   getResponsable() {
-    this.responsableService.getResponsable().subscribe((resp: any) => { this.responsableList = resp.data;})
+    this.responsableService.getResponsable().subscribe((resp: any) => { this.responsableList = resp.data; })
   }
 
   getInvolucrado() {
@@ -154,7 +154,8 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   getInsumos() {
-    this.actividadesService.getInsumos().subscribe((resp: any) => { this.insumoList = resp.data; this.insumoListFilter = this.insumoList; })
+    this.actividadesService.getInsumos().subscribe((resp: any) => { this.insumoList = resp.data; this.insumoListFilter = this.insumoList; console.log(resp.data);
+    })
   }
 
   getUnidadesMedida() {
@@ -192,19 +193,15 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   onSelectCategoria() {
-    const selection = this.insumoForm.get('idCategoria')!.value ;
-    this.insumoListFilter = this.insumoList.filter(item => item.categoriaInsumo.id == selection);
+    this.insumoListFilter = this.insumoList.filter(item => item.categoriaInsumo.id ==  this.insumoForm.get('idCategoria')!.value);
   }
 
-  onSelectInsumo(){
-
-    const selection = this.insumoForm.get('idInsumo')!.value ;
-    let selectionado  = this.insumoList.filter(item => item.id == selection);
-      this.insumoForm.patchValue({descripcion:selectionado[0].descripcion})
-
+  onSelectInsumo() {
+    let selectionado = this.insumoList.filter(item => item.id == this.insumoForm.get('idInsumo')!.value);
+    this.insumoForm.patchValue({ descripcion: selectionado[0].descripcion })
   }
-  
-  calculateMontoTotal(){ this.insumoForm.patchValue({montoTotal: this.insumoForm.value.cantidad * this.insumoForm.value.costoUnitario })}
+
+  calculateMontoTotal() { this.insumoForm.patchValue({ montoTotal: this.insumoForm.value.cantidad * this.insumoForm.value.costoUnitario }) }
 
   agregarInsumoAlObjeto() {
     if (this.insumoForm.valid) {
@@ -241,21 +238,26 @@ export class ActividadesFormulacionComponent implements OnInit {
     // }
   }
 
+  editInsumo(insumo:CosteoDetallesI, index: number){
+    this.insumoForm.reset(insumo)
+    this.insumosGroup.splice(index, 1)
+    this.sumaTotal()
+  }
 
-  async removeInsumo(index: number){
+  async removeInsumo(index: number) {
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el insumo?")
 
-    if (removeDecision) { 
+    if (removeDecision) {
       this.insumosGroup.splice(index, 1)
       this.sumaTotal()
     }
   }
 
-  sumaTotal(){ 
+  sumaTotal() {
     this.showMontoTotal = 0
     this.cantidadTotal = 0
-    this.insumosGroup.map((monto: CosteoDetallesI)=> { 
-      this.showMontoTotal += monto.montoTotal 
+    this.insumosGroup.map((monto: CosteoDetallesI) => {
+      this.showMontoTotal += monto.montoTotal
       this.cantidadTotal += monto.cantidad
     })
   }
