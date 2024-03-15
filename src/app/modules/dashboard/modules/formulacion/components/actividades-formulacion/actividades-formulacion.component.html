@@ -158,20 +158,27 @@
 
         <mat-form-field appearance="fill" style="width: 30%;">
           <mat-label>Insumos</mat-label>
-          <mat-select disableRipple formControlName="idInsumo" (selectionChange)="onSelectInsumo()" [required]="true">
+          <mat-select disableRipple formControlName="nombre" (selectionChange)="onSelectInsumo($event.value)">
             <ng-container>
-              <mat-option [value]="item.id" *ngFor="let item of insumoListFilter">
-                {{item.nombre}}
+              <mat-option [value]="insumo.nombre" *ngFor="let insumo of insumoListFilter">
+                {{insumo.nombre}}
               </mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:54%;">
+        <mat-form-field appearance="fill" style="width:20%;">
+          <mat-label>Código</mat-label>
+          <input matInput readonly formControlName="idInsumo">
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width:33.5%;">
           <mat-label>Descripción de insumo</mat-label>
           <input matInput readonly formControlName="descripcion">
         </mat-form-field>&nbsp;
+
         <br>
+        
         <mat-form-field appearance="fill" style="width: 20%;">
           <mat-label>Unidad de medida</mat-label>
           <mat-select disableRipple form formControlName="idUnidadMedida">
@@ -227,6 +234,7 @@
         <thead class="headerTable">
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Insumo</th>
+            <th class="headerCell">codigo</th>
             <th class="headerCell">Fecha recepción</th>
             <th class="headerCell">Unidad de medida</th>
             <th class="headerCell">Cantidad</th>
@@ -238,6 +246,7 @@
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let insumo of insumosGroup; let i = index">
+            <td class="dataCell">{{insumo.idInsumo}}</td>
             <td class="dataCell">{{insumo.idInsumo}}</td>
             <td class="dataCell">{{insumo.fechaRecepcion | date}}</td>
             <td class="dataCell">{{insumo.idUnidadMedida}}</td>

@@ -88,6 +88,8 @@ export class ActividadesFormulacionComponent implements OnInit {
       montoTotal: new FormControl(''),
       idInsumo: new FormControl('', Validators.required),
       cantidad: new FormControl('', Validators.required),
+      nombre: new FormControl('', Validators.required),
+      auxiliar: new FormControl('', Validators.required),
       idCategoria: new FormControl('', Validators.required),
       descripcion: new FormControl('', Validators.required),
       costoUnitario: new FormControl('', Validators.required),
@@ -196,12 +198,19 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.insumoListFilter = this.insumoList.filter(item => item.categoriaInsumo.id ==  this.insumoForm.get('idCategoria')!.value);
   }
 
-  onSelectInsumo() {
+  onSelectInsumo(insumo:any) {
     let selectionado = this.insumoList.filter(item => item.id == this.insumoForm.get('idInsumo')!.value);
-    this.insumoForm.patchValue({ descripcion: selectionado[0].descripcion })
+    console.log(selectionado);
+    console.log(this.insumoList);
+    console.log(insumo);
+    
+    this.insumoForm.patchValue({ 
+      descripcion: selectionado[0].descripcion
+    })
   }
 
-  calculateMontoTotal() { this.insumoForm.patchValue({ montoTotal: this.insumoForm.value.cantidad * this.insumoForm.value.costoUnitario }) }
+  calculateMontoTotal() { 
+    this.insumoForm.patchValue({ montoTotal: this.insumoForm.value.cantidad * this.insumoForm.value.costoUnitario }) }
 
   agregarInsumoAlObjeto() {
     if (this.insumoForm.valid) {
