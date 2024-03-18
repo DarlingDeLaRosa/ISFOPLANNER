@@ -1,18 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { NuevoInsumoComponent } from '../../modals/nuevo-insumo/nuevo-insumo.component';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActividadesService } from '../../services/actividades.service';
-import { catchError } from 'rxjs';
-import { alertRemoveSure, alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
-import { EstadoI, FrecuenciaI, MunicipioI, ProvinciaI, RegionesI, MesesI, ActividadI, CategoriaInsumosI, UnidadesMedidaI, InsumosI, CosteoDetallesI, CosteoI } from '../../interfaces/formulacion.interface';
+import { alertRemoveSure } from 'src/app/alerts/alerts';
+import { EstadoI, FrecuenciaI, MunicipioI, ProvinciaI, RegionesI, MesesI, CategoriaInsumosI, UnidadesMedidaI, InsumosI, CosteoDetallesI, CosteoI, CosteoDetallesGroupI } from '../../interfaces/formulacion.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResponsableService } from '../../../mantenimiento/components/mantenimiento-pei/services/reponsable.service';
 import { ResponsableI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/responsable.interface';
 import { InvolucradoI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/involucrado.interface';
 import { involucradoService } from '../../../mantenimiento/components/mantenimiento-pei/services/involucrado.service';
-import { successMessageAlert } from '../../../../../../alerts/alerts';
-import { v4 as uuidv4 } from 'uuid';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { format } from 'date-fns';
 
@@ -27,7 +23,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   actividadForm: FormGroup;
   cantidadTotal: number = 0
   showMontoTotal: number = 0
-  insumosGroup: Array<CosteoDetallesI> = [];
+  insumosGroup: Array<CosteoDetallesGroupI> = [];
 
   cargoList: any[] = [];
   mesesList: Array<MesesI> = [];
@@ -67,7 +63,7 @@ export class ActividadesFormulacionComponent implements OnInit {
       avance: new FormControl<number>(0),
 
       costeo: this.fb.group({
-        montoTotalEstimado: new FormControl<number>(0),
+        montoTotalEstimado: 0,
         costeoDetalles: this.fb.array([])
       }),
 
@@ -86,15 +82,16 @@ export class ActividadesFormulacionComponent implements OnInit {
 
     this.insumoForm = this.fb.group({
       montoTotal: new FormControl(''),
+      nombre: new FormControl('', Validators.required),
       idInsumo: new FormControl('', Validators.required),
       cantidad: new FormControl('', Validators.required),
-      nombre: new FormControl('', Validators.required),
       auxiliar: new FormControl('', Validators.required),
       idCategoria: new FormControl('', Validators.required),
       descripcion: new FormControl('', Validators.required),
       costoUnitario: new FormControl('', Validators.required),
       idUnidadMedida: new FormControl('', Validators.required),
       fechaRecepcion: new FormControl('', Validators.required),
+      descripcionInsumo: new FormControl('', Validators.required),
     })
   }
 
@@ -169,82 +166,37 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   postActividades() {
-    // this.actividadForm.get('idProducto')!.setValue(this.idProductorecibido);
-    // this.actividadForm.get('avance')!.setValue(1);
-    // this.actividadForm.get('esPrevista')!.setValue(true);
-
-    // QUITA EL CAMPO ID DEL OBJETO
-    // const insumoTableCopy = this.insumoTable.map(objeto => {
-    //   const { id, ...restoDeCampos } = objeto;
-    //   return restoDeCampos;
-    // });
-    // console.log(insumoTableCopy);
-
-
-    // this.actividadForm.get('costeo.costeoDetalles')!.patchValue(insumoTableCopy);
-    // this.actividadForm.get('costeo.montoTotalEstimado')!.patchValue(this.montoTotal);
-
-    // console.log(this.actividadForm.value);
-    // this.actividadesService.postActividades(this.actividadForm.value)
-    //   .subscribe((resp: any) => {
-    //     successMessageAlert('La actividad fue creada correctamente');
-    //     this.actividadForm.reset();
-    //     this.insumoTable = [];
-    //     this.insumoForm.reset();
-    //   })
+    this.actividadForm.value.costeo.costeoDetalles = this.insumosGroup
+    this.actividadForm.value.costeo.montoTotalEstimado = this.showMontoTotal
+    
+    this.actividadesService.postActividades(this.actividadForm.value)
+    .subscribe((res: any) => { 
+      this.helperHandler.handleResponse(res, () => '', this.actividadForm) 
+      if (res.ok) { this.insumosGroup = []}
+    })
   }
 
   onSelectCategoria() {
     this.insumoListFilter = this.insumoList.filter(item => item.categoriaInsumo.id ==  this.insumoForm.get('idCategoria')!.value);
   }
 
-  onSelectInsumo(insumo:any) {
-    let selectionado = this.insumoList.filter(item => item.id == this.insumoForm.get('idInsumo')!.value);
-    console.log(selectionado);
-    console.log(this.insumoList);
-    console.log(insumo);
+  onSelectInsumo(insumo: string) {
+    let selectInsumo = this.insumoList.filter(item => item.nombre == insumo);
     
     this.insumoForm.patchValue({ 
-      descripcion: selectionado[0].descripcion
+      descripcion: selectInsumo[0].descripcion,
+      auxiliar: selectInsumo[0].auxiliar.id,
+      idInsumo:selectInsumo[0].id
     })
   }
 
-  calculateMontoTotal() { 
-    this.insumoForm.patchValue({ montoTotal: this.insumoForm.value.cantidad * this.insumoForm.value.costoUnitario }) }
-
   agregarInsumoAlObjeto() {
     if (this.insumoForm.valid) {
-      // this.actividadForm.value.fechaRecepcion = format(this.actividadForm.value.fechaRecepcion, 'yyyy-MM-dd');
+      this.insumoForm.value.fechaRecepcion = format(this.insumoForm.value.fechaRecepcion, 'yyyy-MM-dd');
       this.insumosGroup.push(this.insumoForm.value)
       this.insumoForm.reset()
       this.sumaTotal()
     }
-
-    // if (this.insumoForm.get('cantidad')!.value == 0 || this.insumoForm.get('costoUnitario')!.value == 0 ||  this.insumoForm.get('idInsumo')!.value == 0 || this.insumoForm.get('idUnidadMedida')!.value == 0  ||this.insumoForm.get('fechaRecepcion')!.value == '' ) {
-    //   errorMessageAlert('Debe llenar todos lo campos requeridos del formulario')
-    //   return
-    // }else{
-    //   const nuevoId = uuidv4();
-    //   this.insumoForm.get('id')!.setValue(nuevoId);
-    //   this.insumoForm.patchValue({ montoTotal: this.insumoForm.get('cantidad')!.value * this.insumoForm.get('costoUnitario')!.value });
-
-
-    //   this.montoTotal += this.insumoForm.get('cantidad')!.value * this.insumoForm.get('costoUnitario')!.value;
-
-    //   // Asumiendo que fechaActual proviene de algún FormControl en tu formulario
-    //   const fechaActual: Date | null = this.insumoForm.get('fechaRecepcion')!.value;
-
-    //   if (fechaActual instanceof Date) {
-    //     // Si fechaActual es una instancia de Date, puedes convertirla a cadena ISO
-    //     const fechaFormateada: string = fechaActual.toISOString();
-
-    //     this.insumoForm.get('fechaRecepcion')!.setValue(fechaFormateada);
-    //     // Resto de tu lógica aquí...
-    //   }
-
-
-    //   this.insumoTable.push(this.insumoForm.value)
-    // }
   }
 
   editInsumo(insumo:CosteoDetallesI, index: number){
@@ -262,6 +214,10 @@ export class ActividadesFormulacionComponent implements OnInit {
     }
   }
 
+  calculateMontoTotal() { 
+    this.insumoForm.patchValue({ montoTotal: this.insumoForm.value.cantidad * this.insumoForm.value.costoUnitario }) 
+  }
+
   sumaTotal() {
     this.showMontoTotal = 0
     this.cantidadTotal = 0
@@ -271,5 +227,7 @@ export class ActividadesFormulacionComponent implements OnInit {
     })
   }
 
-  saveChanges() { this.helperHandler.saveChanges(() => '', this.actividadForm, () => this.postActividades()) }
+  saveChanges() {
+    this.helperHandler.saveChanges(() => '', this.actividadForm, () => this.postActividades()) 
+  }
 }

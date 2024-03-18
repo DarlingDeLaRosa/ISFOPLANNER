@@ -7,6 +7,8 @@ import { IndicadorGestionI, IndicadoresGestionGetI, ProductoI } from '../../../m
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
+import { ActividadesService } from '../../services/actividades.service';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -24,8 +26,9 @@ export class ProductoFormulacionComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private productoApi: ProductoService,
     public helperHandler: HelperService,
+    private productoService: ProductoService,
+    private actividadesService: ActividadesService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
@@ -35,7 +38,7 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   getByIdProducto() {
-    this.productoApi.getByIdProducto(this.idProducto)
+    this.productoService.getByIdProducto(this.idProducto)
       .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data);})
   }
 
@@ -49,7 +52,20 @@ export class ProductoFormulacionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
   }
   
-  crearActividad(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} }); }
+  sendToNewAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} }); }
+
+  async removeActividad(id: number){
+    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el insumo?")
+
+    if (removeDecision) {
+      loading(true)
+      this.actividadesService.removeActividades(id)
+        .subscribe((res: any) => {
+          this.helperHandler.handleResponse(res, () => this.getByIdProducto())
+        })
+      // this.sumaTotal()
+    }
+  }
 }
 
 

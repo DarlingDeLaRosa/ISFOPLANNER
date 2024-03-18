@@ -144,7 +144,7 @@
 
       <form [formGroup]="insumoForm">
 
-        <mat-form-field appearance="fill" style="width: 15%;">
+        <mat-form-field appearance="fill" style="width: 10%;">
           <mat-label>Categoría de insumo</mat-label>
           <mat-select disableRipple formControlName="idCategoria" (selectionChange)="onSelectCategoria()">
             <ng-container *ngIf="categoriaInsumoList.length> 0; else noCatego">
@@ -156,7 +156,7 @@
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width: 30%;">
+        <mat-form-field appearance="fill" style="width: 20%;">
           <mat-label>Insumos</mat-label>
           <mat-select disableRipple formControlName="nombre" (selectionChange)="onSelectInsumo($event.value)">
             <ng-container>
@@ -167,19 +167,22 @@
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:20%;">
+        <mat-form-field appearance="fill" style="width:10%;">
           <mat-label>Código</mat-label>
           <input matInput readonly formControlName="idInsumo">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:33.5%;">
+        <mat-form-field appearance="fill" style="width:10%;">
+          <mat-label>Auxiliar</mat-label>
+          <input matInput readonly formControlName="auxiliar">
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width:30.5%;">
           <mat-label>Descripción de insumo</mat-label>
           <input matInput readonly formControlName="descripcion">
         </mat-form-field>&nbsp;
 
-        <br>
-        
-        <mat-form-field appearance="fill" style="width: 20%;">
+        <mat-form-field appearance="fill" style="width: 17%;">
           <mat-label>Unidad de medida</mat-label>
           <mat-select disableRipple form formControlName="idUnidadMedida">
             <ng-container *ngIf="UnidadesMedidaList.length> 0; else noUniMed">
@@ -191,25 +194,32 @@
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:20%;" >
+        <br>
+        
+        <mat-form-field appearance="fill" style="width:30.5%;">
+          <mat-label>Insumo Especifico de Annely</mat-label>
+          <input matInput formControlName="descripcionInsumo">
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width:15%;" >
           <mat-label>Costo unitario</mat-label>
           <input matInput formControlName="costoUnitario" type="number" (input)="calculateMontoTotal()">
         </mat-form-field>&nbsp;
 
         <!--Detallar costeo en periodos -->
-        <mat-form-field appearance="fill" style="width:20%;">
+        <mat-form-field appearance="fill" style="width:15%;">
           <mat-label>cantidad</mat-label>
           <input matInput type="number" formControlName="cantidad" (input)="calculateMontoTotal()">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:20%;">
+        <mat-form-field appearance="fill" style="width:20.5%;">
           <mat-label>Fecha recepción</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="fechaRecepcion">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:18%;">
+        <mat-form-field appearance="fill" style="width:17%;">
           <mat-label>Total</mat-label>
           <input matInput type="number" readonly formControlName="montoTotal">
         </mat-form-field>&nbsp;
@@ -234,7 +244,9 @@
         <thead class="headerTable">
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Insumo</th>
-            <th class="headerCell">codigo</th>
+            <th class="headerCell">Descripción</th>
+            <th class="headerCell">Auxiliar</th>
+            <th class="headerCell">Codigo</th>
             <th class="headerCell">Fecha recepción</th>
             <th class="headerCell">Unidad de medida</th>
             <th class="headerCell">Cantidad</th>
@@ -246,9 +258,11 @@
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let insumo of insumosGroup; let i = index">
+            <td class="dataCell">{{insumo.nombre}}</td>
+            <td class="dataCell">{{insumo.descripcionInsumo}}</td>
+            <td class="dataCell">{{insumo.auxiliar}}</td>
             <td class="dataCell">{{insumo.idInsumo}}</td>
-            <td class="dataCell">{{insumo.idInsumo}}</td>
-            <td class="dataCell">{{insumo.fechaRecepcion | date}}</td>
+            <td class="dataCell">{{insumo.fechaRecepcion }}</td>
             <td class="dataCell">{{insumo.idUnidadMedida}}</td>
             <td class="dataCell">{{insumo.cantidad}}</td>
             <td class="dataCell">{{insumo.costoUnitario  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
@@ -262,11 +276,14 @@
             <td class="footerCell">Total</td>
             <td class="footerCell"></td>
             <td class="footerCell"></td>
+            <td class="footerCell"></td>
+            <td class="footerCell"></td>
+            <td class="footerCell"></td>
             <td class="footerCell">{{cantidadTotal}}</td>
             <td class="footerCell"></td>
             <td class="footerCell">{{showMontoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
             <td class="footerCell"></td>
-            <td class="footerCell"></td>
+            <td class="footerCell" style="color: grey;">{{insumosGroup.length}} Items</td>
           </tr>
         </tfoot>
       </table>

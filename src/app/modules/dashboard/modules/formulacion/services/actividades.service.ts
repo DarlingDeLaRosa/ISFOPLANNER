@@ -69,4 +69,8 @@ export class ActividadesService {
     getActividades(): Observable<ResponseI> {
       return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades`, this.header))
     }
+
+    removeActividades(id: number): Observable<ResponseI>{
+      return this.helperHandler.handleRequest(() => this.http.delete<ResponseI>(`${this.baseUrl}/Actividades/${id}`, this.header))
+    }
 }

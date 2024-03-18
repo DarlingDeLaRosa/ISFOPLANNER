@@ -52,16 +52,16 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   getUnidadOrganizativa() {
     this.apiUnidadOrg.getUnidadesOrganizativas()
-      .subscribe((res: any) => { this.unidadesOrgPadres = res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.unidadPadre == undefined })})
+      .subscribe((res: any) => { this.unidadesOrgPadres = res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.unidadPadre == undefined }) })
   }
 
   getUnidadOrganizativaAsignadas() {
-      this.apiPresupuestoInstitucional.getUnidadesPresupuestoAsignado().subscribe((res: any) => { this.unidadesOrg = res.data })
+    this.apiPresupuestoInstitucional.getUnidadesPresupuestoAsignado().subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
   postAsignarPresupuestoUnidadOrg() {
     this.apiPresupuestoInstitucional.postAsignarPresupuesto(this.asignacionPresupuestoForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional())})
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getUnidadOrganizativaAsignadas(), this.asignacionPresupuestoForm, () => this.getPresupuestoInstitucional()) })
   }
 
   putAsignarPresupuestoUnidadOrg() {
@@ -78,7 +78,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
     this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.enable()
   }
 
-  openModal(subUnidades: UnidadOrgI ) {
+  openModal(subUnidades: UnidadOrgI) {
     this.dialog.open(DetailViewComponent, { data: subUnidades })
   }
 

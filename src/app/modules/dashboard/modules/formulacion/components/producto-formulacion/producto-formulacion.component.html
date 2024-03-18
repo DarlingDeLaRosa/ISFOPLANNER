@@ -76,7 +76,7 @@
     <div class="actividadContainer">
         <span class="titleActividad">
             <h1>Actividades</h1>
-            <button mat-stroked-button class="borderOrangeButton" (click)="crearActividad()"><mat-icon>add</mat-icon>
+            <button mat-stroked-button class="borderOrangeButton" (click)="sendToNewAct()"><mat-icon>add</mat-icon>
                 Añadir actividad</button>
         </span>
 
@@ -84,9 +84,10 @@
             <table style="border: 1px solid #ccc;">
                 <thead class="headerTable">
                     <tr class="headerRow" style="background-color: #95ade93f;">
-                        <th class="headerCell">No.</th>
                         <th class="headerCell">Actividad</th>
                         <th class="headerCell">Frecuencia</th>
+                        <th class="headerCell">Responsable</th>
+                        <th class="headerCell">Cargo del Responsable</th>
                         <th class="headerCell">Prosupuesto Estimado</th>
                         <th class="headerCell">Estado</th>
                         <th class="headerCell">Editar</th>
@@ -95,13 +96,14 @@
                 </thead>
                 <tbody>
                     <tr class="dataRow" *ngFor="let actividad of productoConsult.actividades">
-                    <td class="dataCell" style="width: 5%;">{{actividad.id}}</td>
-                        <td class="dataCell"> {{actividad.nombre}}</td>
-                        <td class="dataCell">{{"actividad.frecuencia.nombre"}}</td>
-                        <td class="dataCell">{{"actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2' "}}</td>
+                        <td class="dataCell">{{actividad.nombre}}</td>
+                        <td class="dataCell">{{actividad.frecuencia.nombre}}</td>
+                        <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
+                        <td class="dataCell">{{actividad.responsableCargo.nombre}}</td>
+                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo">{{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2'}}</td> <ng-template #noCosteo><td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td></ng-template> 
                         <td class="dataCell" style="width: 5%;"><button class="statusButton"></button></td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon">edit</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon">delete</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon" (click)="removeActividad(actividad.id)">delete</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

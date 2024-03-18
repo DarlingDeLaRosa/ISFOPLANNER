@@ -2,7 +2,7 @@ import { ResponsableI } from "../../mantenimiento/components/mantenimiento-pei/i
 import { ProductoI } from "../../mantenimiento/interfaces/mantenimientoPOA.interface"
 
 export interface ActividadI {
-  id?: number,
+  id: number,
   nombre: string,
   idProducto: 0,
   idFrecuencia: 0,
@@ -15,6 +15,8 @@ export interface ActividadI {
   producto?: ProductoI,
   responsables?: ResponsableI,
   frecuencia: FrecuenciaI,
+  responsableUnidad: {id:number, nombre: string}
+  responsableCargo: {id:number, nombre: string}
   resultadoEsperadoCuantitativoT2?: 0,
   resultadoEsperadoCuantitativoT3?: 0,
   resultadoEsperadoCuantitativoT4?: 0,
@@ -42,6 +44,7 @@ export interface InsumosI {
   id: number,
   nombre: string,
   descripcion: string,
+  auxiliar:{id: number, nombre: string}
   categoriaInsumo: CategoriaInsumoI
 }
 
@@ -64,7 +67,22 @@ export interface CosteoDetallesI {
   montoTotal: number,
   fechaRecepcion: Date
   idUnidadMedida: number
+  descripcionInsumo: string
 }
+
+export interface CosteoDetallesGroupI {
+  id: string,
+  idInsumo: number,
+  costoUnitario: number,
+  cantidad: number,
+  montoTotal: number,
+  fechaRecepcion: Date
+  idUnidadMedida: number
+  auxiliar: string
+  nombre:string
+  descripcionInsumo: string
+}
+
 export interface ProvinciaI {
   id: number,
   nombre: string,
