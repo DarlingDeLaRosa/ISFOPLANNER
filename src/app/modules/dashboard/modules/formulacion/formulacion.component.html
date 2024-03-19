@@ -91,8 +91,7 @@
                         </span>
                         <span style="display: flex; ">
                             <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{producto.totalConsumido | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
-                            <mat-icon class="editIcon" [routerLink]="['producto']"
-                                (click)="enviarProducto(producto.id)">list</mat-icon>
+                            <mat-icon class="editIcon" (click)="enviarProducto(producto.id)">list</mat-icon>
                         </span>
                     </div>
                     <div>

@@ -33,7 +33,7 @@ export class ProductoFormulacionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => { this.idProducto = params['numero']; });
+    this.route.queryParams.subscribe(params => { this.idProducto = params['id']; });
     this.getByIdProducto();
   }
 
@@ -52,7 +52,9 @@ export class ProductoFormulacionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
   }
   
-  sendToNewAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {numero:this.idProducto} }); }
+  sendToNewAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto} }); }
+  sendToEditAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto} }); }
+
 
   async removeActividad(id: number){
     let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el insumo?")

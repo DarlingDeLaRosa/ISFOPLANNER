@@ -54,7 +54,7 @@ export class FormulacionComponent implements OnInit {
   }
 
   enviarProducto(producto: number) {
-    this.router.navigate(['/dashboard/formulacion/producto'], { queryParams: { numero: producto } });
+    this.router.navigate(['/dashboard/formulacion/producto'], { queryParams: { id: producto } });
   }
 
   getAllResultadoEfecto() {

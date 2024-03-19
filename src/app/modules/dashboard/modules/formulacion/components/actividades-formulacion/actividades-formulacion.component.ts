@@ -19,6 +19,8 @@ import { format } from 'date-fns';
 })
 export class ActividadesFormulacionComponent implements OnInit {
 
+  idProducto: number = 0
+
   insumoForm: FormGroup;
   actividadForm: FormGroup;
   cantidadTotal: number = 0
@@ -56,7 +58,7 @@ export class ActividadesFormulacionComponent implements OnInit {
       idProducto: 0,
       nombre: new FormControl<string>('', Validators.required),
       idFrecuencia: new FormControl<number>(0, Validators.required),
-      idEstado: new FormControl<number>(0, Validators.required),
+      idEstado: new FormControl<number>(1, Validators.required),
       idResponsableUnidad: new FormControl<number>(0, Validators.required),
       idResponsableCargo: new FormControl<number>(0, Validators.required),
       esPrevista: new FormControl<boolean>(true, Validators.required),
@@ -96,7 +98,14 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => { this.actividadForm.patchValue({ idProducto: parseInt(params['numero']) }) });
+    
+    this.route.queryParams.subscribe(params => { 
+      this.idProducto = params['id'];
+      this.actividadForm.patchValue({ idProducto: parseInt(params['id']) }) 
+      
+      
+      if (params['']) {}
+    });
 
     this.getMeses()
     this.getCargos()
@@ -112,8 +121,8 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.getCategoriaInsumos();
   }
 
-  irProductos() {
-    // this.router.navigate(['dashboard/formulacion/producto'], { queryParams: {numero:this.idProductorecibido} });
+  backToProucto() {
+    this.router.navigate(['dashboard/formulacion/producto'], { queryParams: { id: this.idProducto }});
   }
 
   getRegiones() {
@@ -168,6 +177,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   postActividades() {
     this.actividadForm.value.costeo.costeoDetalles = this.insumosGroup
     this.actividadForm.value.costeo.montoTotalEstimado = this.showMontoTotal
+    console.log(this.actividadForm.value);
     
     this.actividadesService.postActividades(this.actividadForm.value)
     .subscribe((res: any) => { 
