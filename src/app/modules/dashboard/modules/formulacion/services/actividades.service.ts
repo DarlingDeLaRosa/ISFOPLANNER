@@ -66,8 +66,16 @@ export class ActividadesService {
       return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/Actividades`,actividad, this.header))
     }
 
+    putActividades(actividad:ActividadI): Observable<ResponseI> {
+      return this.helperHandler.handleRequest(() => this.http.put<ResponseI>(`${this.baseUrl}/Actividades/${actividad.id}`,actividad, this.header))
+    }
+
     getActividades(): Observable<ResponseI> {
       return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades`, this.header))
+    }
+
+    getByIdActividades(id: number): Observable<ResponseI> {
+      return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/${id}`, this.header))
     }
 
     removeActividades(id: number): Observable<ResponseI>{

@@ -11,6 +11,7 @@ import { InvolucradoI } from '../../../mantenimiento/components/mantenimiento-pe
 import { involucradoService } from '../../../mantenimiento/components/mantenimiento-pei/services/involucrado.service';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { format } from 'date-fns';
+import { PresupuestoInstitucionalService } from '../../../mantenimiento/services/presupuestoInstitucional.service';
 
 @Component({
   selector: 'app-actividades-formulacion',
@@ -20,6 +21,8 @@ import { format } from 'date-fns';
 export class ActividadesFormulacionComponent implements OnInit {
 
   idProducto: number = 0
+  idActividad: number = 0
+  presupuestosInst: number = 0
 
   insumoForm: FormGroup;
   actividadForm: FormGroup;
@@ -51,11 +54,12 @@ export class ActividadesFormulacionComponent implements OnInit {
     private actividadesService: ActividadesService,
     private responsableService: ResponsableService,
     private involucradoService: involucradoService,
-
+    private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {
     this.actividadForm = this.fb.group({
       id: 0,
       idProducto: 0,
+      idPresupuestoInstitucional: 0,
       nombre: new FormControl<string>('', Validators.required),
       idFrecuencia: new FormControl<number>(0, Validators.required),
       idEstado: new FormControl<number>(1, Validators.required),
@@ -98,13 +102,15 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this.route.queryParams.subscribe(params => { 
-      this.idProducto = params['id'];
-      this.actividadForm.patchValue({ idProducto: parseInt(params['id']) }) 
-      
-      
-      if (params['']) {}
+
+    this.route.queryParams.subscribe(params => {
+      this.idProducto = parseInt(params['id']);
+      this.actividadForm.patchValue({ idProducto: this.idProducto })
+
+      if (params['idAct'] !== undefined) {
+        this.idActividad = parseInt(params['idAct']);
+        this.getByIdActividades()
+      }
     });
 
     this.getMeses()
@@ -119,10 +125,68 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.getInvolucrado();
     this.getUnidadesMedida();
     this.getCategoriaInsumos();
+    this.getPresupuestoInstitucional()
   }
 
   backToProucto() {
-    this.router.navigate(['dashboard/formulacion/producto'], { queryParams: { id: this.idProducto }});
+    this.router.navigate(['dashboard/formulacion/producto'], { queryParams: { id: this.idProducto } });
+  }
+
+  getPresupuestoInstitucional() {
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
+      .subscribe((res: any) => { this.actividadForm.patchValue({ idPresupuestoInstitucional: res.data[0].id })})
+  }
+
+  getByIdActividades() {
+    this.actividadesService.getByIdActividades(this.idActividad)
+      .subscribe((res: any) => {
+        console.log(res);
+        
+        const { data } = res
+
+        this.actividadForm.patchValue({
+          id: data.id,
+          idProducto: data.producto.id,
+          nombre: data.nombre,
+          idFrecuencia: data.frecuencia.id,
+          idEstado: data.estado.id,
+          idResponsableUnidad: data.responsableUnidad.id,
+          idResponsableCargo: data.responsableCargo.id,
+          esPrevista: data.esPrevista,
+
+          mesesImpacto: data.mesesImpacto,
+          involucrados: data.involucrados,
+
+          resultadoEsperadoCuantitativoT1: data.resultadoEsperadoCuantitativoT1,
+          resultadoEsperadoCuantitativoT2: data.resultadoEsperadoCuantitativoT2,
+          resultadoEsperadoCuantitativoT3: data.resultadoEsperadoCuantitativoT3,
+          resultadoEsperadoCuantitativoT4: data.resultadoEsperadoCuantitativoT4,
+          resultadoEsperadoCualitativoT1: data.resultadoEsperadoCualitativoT1,
+          resultadoEsperadoCualitativoT2: data.resultadoEsperadoCualitativoT2,
+          resultadoEsperadoCualitativoT3: data.resultadoEsperadoCualitativoT3,
+          resultadoEsperadoCualitativoT4: data.resultadoEsperadoCualitativoT4,
+        })
+
+        data.costeo.costeoDetalle.map((insumos: any) => {
+          console.log(insumos);
+          
+          this.insumoForm.patchValue({
+            montoTotal: insumos.montoTotal,
+            nombre: insumos.insumo.nombre,
+            idInsumo: insumos.insumo.id,
+            cantidad: insumos.cantidad,
+            auxiliar: insumos.insumo.auxiliar.id,
+            idCategoria: insumos.insumo.categoriaInsumo.id,
+            descripcion: insumos.insumo.descripcion,
+            costoUnitario: insumos.costoUnitario,
+            idUnidadMedida: insumos.unidadMedida.id,
+            fechaRecepcion: insumos.fechaRecepcion,
+            descripcionInsumo: insumos.descripcionInsumo,
+          })
+
+          this.agregarInsumoAlObjeto()
+        })
+      })
   }
 
   getRegiones() {
@@ -162,8 +226,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   getInsumos() {
-    this.actividadesService.getInsumos().subscribe((resp: any) => { this.insumoList = resp.data; this.insumoListFilter = this.insumoList; console.log(resp.data);
-    })
+    this.actividadesService.getInsumos().subscribe((resp: any) => { this.insumoList = resp.data; this.insumoListFilter = this.insumoList; })
   }
 
   getUnidadesMedida() {
@@ -175,28 +238,36 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   postActividades() {
-    this.actividadForm.value.costeo.costeoDetalles = this.insumosGroup
-    this.actividadForm.value.costeo.montoTotalEstimado = this.showMontoTotal
-    console.log(this.actividadForm.value);
-    
     this.actividadesService.postActividades(this.actividadForm.value)
-    .subscribe((res: any) => { 
-      this.helperHandler.handleResponse(res, () => '', this.actividadForm) 
-      if (res.ok) { this.insumosGroup = []}
+      .subscribe((res: any) => {
+        this.helperHandler.handleResponse(res, () => '', this.actividadForm)
+        if (res.ok) { this.insumosGroup = []; this.sumaTotal()}
+      })
+  }
+
+  putActividades(){
+    this.actividadesService.putActividades(this.actividadForm.value)
+    .subscribe((res: any) => {
+      this.helperHandler.handleResponse(res, () => '', this.actividadForm)
+      if (res.ok) { 
+        this.insumosGroup = []; 
+        this.sumaTotal() 
+        this.backToProucto()
+      }
     })
   }
 
   onSelectCategoria() {
-    this.insumoListFilter = this.insumoList.filter(item => item.categoriaInsumo.id ==  this.insumoForm.get('idCategoria')!.value);
+    this.insumoListFilter = this.insumoList.filter(item => item.categoriaInsumo.id == this.insumoForm.get('idCategoria')!.value);
   }
 
   onSelectInsumo(insumo: string) {
     let selectInsumo = this.insumoList.filter(item => item.nombre == insumo);
-    
-    this.insumoForm.patchValue({ 
+
+    this.insumoForm.patchValue({
       descripcion: selectInsumo[0].descripcion,
       auxiliar: selectInsumo[0].auxiliar.id,
-      idInsumo:selectInsumo[0].id
+      idInsumo: selectInsumo[0].id
     })
   }
 
@@ -209,7 +280,7 @@ export class ActividadesFormulacionComponent implements OnInit {
     }
   }
 
-  editInsumo(insumo:CosteoDetallesI, index: number){
+  editInsumo(insumo: CosteoDetallesI, index: number) {
     this.insumoForm.reset(insumo)
     this.insumosGroup.splice(index, 1)
     this.sumaTotal()
@@ -224,8 +295,8 @@ export class ActividadesFormulacionComponent implements OnInit {
     }
   }
 
-  calculateMontoTotal() { 
-    this.insumoForm.patchValue({ montoTotal: this.insumoForm.value.cantidad * this.insumoForm.value.costoUnitario }) 
+  calculateMontoTotal() {
+    this.insumoForm.patchValue({ montoTotal: this.insumoForm.value.cantidad * this.insumoForm.value.costoUnitario })
   }
 
   sumaTotal() {
@@ -238,6 +309,9 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   saveChanges() {
-    this.helperHandler.saveChanges(() => '', this.actividadForm, () => this.postActividades()) 
+    
+    this.actividadForm.value.costeo.costeoDetalles = this.insumosGroup
+    this.actividadForm.value.costeo.montoTotalEstimado = this.showMontoTotal
+    this.helperHandler.saveChanges(() => this.putActividades(), this.actividadForm, () => this.postActividades())
   }
 }

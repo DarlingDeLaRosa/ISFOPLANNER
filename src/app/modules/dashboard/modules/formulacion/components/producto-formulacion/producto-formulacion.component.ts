@@ -39,7 +39,7 @@ export class ProductoFormulacionComponent implements OnInit {
 
   getByIdProducto() {
     this.productoService.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data);})
+      .subscribe((resp: any) => { this.productoConsult = resp.data;})
   }
 
   openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 
@@ -53,7 +53,7 @@ export class ProductoFormulacionComponent implements OnInit {
   }
   
   sendToNewAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto} }); }
-  sendToEditAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto} }); }
+  sendToEditAct(idAct: number){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto, idAct: idAct} }); }
 
 
   async removeActividad(id: number){
@@ -65,7 +65,6 @@ export class ProductoFormulacionComponent implements OnInit {
         .subscribe((res: any) => {
           this.helperHandler.handleResponse(res, () => this.getByIdProducto())
         })
-      // this.sumaTotal()
     }
   }
 }
