@@ -1,0 +1,8 @@
+.checkPresupuesto {
+    display: grid;
+    grid-template-columns: auto auto;
+    place-items: center;
+    border: 1px solid #aaa;
+    margin: 0;
+    margin-left: 5px;
+}
