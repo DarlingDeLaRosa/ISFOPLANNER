@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-estrategias',
@@ -17,7 +18,8 @@ export class EstrategiasComponent implements OnInit {
 
   ejes: Array<EjesI> = [];
   estrategiaForm: FormGroup;
-  estrategias!: Array<EstrategiaI> ;
+  estrategias!: Array<EstrategiaI>;
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +27,7 @@ export class EstrategiasComponent implements OnInit {
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
     private estrategiasService: EstrategiasService,
+    private userSystemService: UserSystemInformationService,
   ) {
     this.estrategiaForm = this.fb.group({
       id: 0,

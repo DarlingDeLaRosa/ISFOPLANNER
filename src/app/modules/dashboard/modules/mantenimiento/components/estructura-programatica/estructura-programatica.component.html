@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && estructuraProgramaticaForm.value.id > 0" >Estructura Programatica</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && estructuraProgramaticaForm.value.id > 0" >Estructura Programatica</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="estructuraProgramaticaForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && estructuraProgramaticaForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="estructuraProgramaticaForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && estructuraProgramaticaForm.value.id > 0">
 
       <mat-form-field appearance="fill" style="width: 69%;">
         <mat-label>Estructura programatica</mat-label>
@@ -29,7 +29,7 @@
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Estructura programatica</th>
             <th class="headerCell" style="width: 20%;">Codigo</th>
-            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!estructurasProgramaticas" class="loader"></div> </th>
           </tr>
         </thead>
@@ -37,8 +37,8 @@
           <tr class="dataRow" *ngFor="let estructura of estructurasProgramaticas">
             <td class="dataIndiCell">{{estructura.nombre}}</td>
             <td class="dataIndiCell">{{estructura.codigo}}</td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon (click)="setValueEditEstructuraPro(estructura)" class="editIcon">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon (click)="deleteEstructuraPro(estructura.id)" class="removeIcon">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon (click)="setValueEditEstructuraPro(estructura)" class="editIcon">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon (click)="deleteEstructuraPro(estructura.id)" class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

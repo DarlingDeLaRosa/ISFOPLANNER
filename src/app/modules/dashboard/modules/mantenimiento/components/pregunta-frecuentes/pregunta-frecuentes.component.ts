@@ -6,6 +6,7 @@ import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { PreguntaI } from '../../interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-pregunta-frecuentes',
@@ -16,12 +17,14 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
   preguntasFrecuentesForm: FormGroup;
   getPreguntas!: PreguntaI[]
-
+  modulo = this.userSystemService.modulosSis
+  
   constructor(
     public fb: FormBuilder,
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
-    private apiPreguntas: preguntasFrecuentesService,
+    private apiPreguntas: preguntasFrecuentesService,    
+    private userSystemService: UserSystemInformationService,
   ) {
     this.preguntasFrecuentesForm = this.fb.group({
       id: 0,

@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && IndicadorEstrForm.value.id > 0">Indicadores Estrategicos</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && IndicadorEstrForm.value.id > 0">Indicadores Estrategicos</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="IndicadorEstrForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && IndicadorEstrForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="IndicadorEstrForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && IndicadorEstrForm.value.id > 0">
 
       <mat-form-field appearance="fill" style="width: 65.5%;">
         <mat-label>Indicador estrategico</mat-label>
@@ -57,7 +57,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 33%;">
+      <!-- <mat-form-field appearance="fill" style="width: 33%;">
         <mat-label>Involucrados</mat-label>
         <mat-select disableRipple formControlName="involucrados" multiple>
           <ng-container *ngIf="involucrados.length > 0; else noInvol">
@@ -68,7 +68,7 @@
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
         </mat-select>
-      </mat-form-field>&nbsp;
+      </mat-form-field>&nbsp; -->
 
       <mat-form-field appearance="fill" style="width: 32%;">
         <mat-label>Responsables</mat-label>
@@ -170,7 +170,7 @@
             <th class="headerCell">Linea Base</th>
             <th class="headerCell">Meta</th>
             <th class="headerCell">Requerimientos</th>
-            <th class="headerCell">Involucrados</th>
+            <!-- <th class="headerCell">Involucrados</th> -->
             <th class="headerCell">Responsables</th>
             <th class="headerCell">Supuestos Riesgos</th>
             <th class="headerCell">Medio de verificación</th>
@@ -189,9 +189,9 @@
             <td class="dataIndiCell"><mat-icon
                 (click)="openModal(indicador.requerimientos, 'Requerimientos', indicador.nombre)"
                 class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell"><mat-icon
+            <!-- <td class="dataIndiCell"><mat-icon
                 (click)="openModal(indicador.involucrados, 'Involucrados', indicador.nombre)"
-                class="detailsIcon">list</mat-icon></td>
+                class="detailsIcon">list</mat-icon></td> -->
             <td class="dataIndiCell"><mat-icon
                 (click)="openModal(indicador.responsables, 'Responsables', indicador.nombre)"
                 class="detailsIcon">list</mat-icon></td>
@@ -201,8 +201,8 @@
             <td class="dataIndiCell"><mat-icon
                 (click)="openModal(indicador.mediosverificaciones, 'Resultado Efectos', indicador.nombre)"
                 class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

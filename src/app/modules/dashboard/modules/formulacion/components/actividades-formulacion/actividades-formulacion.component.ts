@@ -73,8 +73,8 @@ export class ActividadesFormulacionComponent implements OnInit {
         costeoDetalles: this.fb.array([])
       }),
 
-      mesesImpacto: new FormControl(0, Validators.required),
-      involucrados: new FormControl(0, Validators.required),
+      mesesImpacto: new FormControl('', Validators.required),
+      involucrados: new FormControl('', Validators.required),
 
       resultadoEsperadoCuantitativoT1: new FormControl<number>(0, Validators.required),
       resultadoEsperadoCuantitativoT2: new FormControl<number>(0, Validators.required),
@@ -96,12 +96,9 @@ export class ActividadesFormulacionComponent implements OnInit {
       descripcion: new FormControl('', Validators.required),
       costoUnitario: new FormControl('', Validators.required),
       idUnidadMedida: new FormControl('', Validators.required),
-      fechaRecepcion: new FormControl('', Validators.required),
+      fechaRecepcion: new FormControl(0, Validators.required),
       descripcionInsumo: new FormControl('', Validators.required),
     })
-  }
-
-  ngOnInit(): void {
 
     this.route.queryParams.subscribe(params => {
       this.idProducto = parseInt(params['id']);
@@ -112,7 +109,9 @@ export class ActividadesFormulacionComponent implements OnInit {
         this.getByIdActividades()
       }
     });
+  }
 
+  ngOnInit(): void {
     this.getMeses()
     this.getCargos()
     this.getestados();
@@ -140,8 +139,6 @@ export class ActividadesFormulacionComponent implements OnInit {
   getByIdActividades() {
     this.actividadesService.getByIdActividades(this.idActividad)
       .subscribe((res: any) => {
-        console.log(res);
-        
         const { data } = res
 
         this.actividadForm.patchValue({
@@ -154,8 +151,8 @@ export class ActividadesFormulacionComponent implements OnInit {
           idResponsableCargo: data.responsableCargo.id,
           esPrevista: data.esPrevista,
 
-          mesesImpacto: data.mesesImpacto,
-          involucrados: data.involucrados,
+          mesesImpacto: data.mesesImpacto.map((mes:any)=> {return mes.id}), 
+          involucrados: data.involucrados.map((involucrado:any)=> {return involucrado.id}),
 
           resultadoEsperadoCuantitativoT1: data.resultadoEsperadoCuantitativoT1,
           resultadoEsperadoCuantitativoT2: data.resultadoEsperadoCuantitativoT2,
@@ -168,7 +165,6 @@ export class ActividadesFormulacionComponent implements OnInit {
         })
 
         data.costeo.costeoDetalle.map((insumos: any) => {
-          console.log(insumos);
           
           this.insumoForm.patchValue({
             montoTotal: insumos.montoTotal,
@@ -222,7 +218,8 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   getMeses() {
-    this.actividadesService.getMeses().subscribe((resp: any) => { this.mesesList = resp.data; })
+    this.actividadesService.getMeses().subscribe((resp: any) => { this.mesesList = resp.data})
+    
   }
 
   getInsumos() {
@@ -309,7 +306,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   saveChanges() {
-    
+    this.insumosGroup.map((insumo: CosteoDetallesGroupI)=> {insumo.idUnidadMedida = insumo.idUnidadMedida[0]})
     this.actividadForm.value.costeo.costeoDetalles = this.insumosGroup
     this.actividadForm.value.costeo.montoTotalEstimado = this.showMontoTotal
     this.helperHandler.saveChanges(() => this.putActividades(), this.actividadForm, () => this.postActividades())

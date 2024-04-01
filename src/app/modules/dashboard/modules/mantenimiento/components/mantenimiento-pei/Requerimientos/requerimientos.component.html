@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && requerimientoForm.value.id > 0">Requerimientos</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && requerimientoForm.value.id > 0">Requerimientos</h2>
 
-  <form style=" margin-bottom: 15px;" [formGroup]="requerimientoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && requerimientoForm.value.id > 0">
+  <form style=" margin-bottom: 15px;" [formGroup]="requerimientoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && requerimientoForm.value.id > 0">
 
     <mat-form-field appearance="fill" style="width: 60%;">
       <mat-label> Nombre del Requerimiento</mat-label>
@@ -30,7 +30,7 @@
         <tr class="headerRow" style="background-color: #95ade93f;">
           <th class="headerCell">Requerimiento</th>
           <th class="headerCell">Financiero</th>
-          <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+          <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
           <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!requerimientos" class="loader"></div> </th>
         </tr>
       </thead>
@@ -42,8 +42,8 @@
             <td class="dataIndiCell">NO</td>
           </ng-template>
 
-          <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueRequerimiento(requerimiento)">edit</mat-icon></td>
-          <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon class="removeIcon" (click)="deleteRequerimiento(requerimiento.id)">delete</mat-icon></td>
+          <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon class="editIcon" (click)="setValueRequerimiento(requerimiento)">edit</mat-icon></td>
+          <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon class="removeIcon" (click)="deleteRequerimiento(requerimiento.id)">delete</mat-icon></td>
         </tr>
       </tbody>
     </table>

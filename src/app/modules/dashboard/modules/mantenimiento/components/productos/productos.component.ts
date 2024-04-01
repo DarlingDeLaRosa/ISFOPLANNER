@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProductoService } from '../../services/producto.service';
-import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
-import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
-import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
-import { HelperService } from 'src/app/services/appHelper.service';
-import { ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
-import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indicadorEstrategico.interface';
-import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
+import { ProductoService } from '../../services/producto.service';
+import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
+import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
+import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
+import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
+import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indicadorEstrategico.interface';
+import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-productos',
@@ -23,7 +24,7 @@ export class ProductosComponent implements OnInit {
   productos!: ProductoI[];
   indicadoresEstrategicos: IndicadoresEstrategicosI[] = []
   unidadesOrg: subUnidadI[] = []
-
+  modulo = this.userSystemService.modulosSis
   constructor(
     public fb: FormBuilder,
     public dialog: MatDialog,
@@ -31,6 +32,7 @@ export class ProductosComponent implements OnInit {
     private apiProducto: ProductoService,
     public permisosCRUD: PermissionService,
     private apiUnidadOrg: UnidadOrganizativaService,
+    private userSystemService: UserSystemInformationService,
     private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
   ) {
     this.productosForm = this.fb.group({
@@ -65,7 +67,7 @@ export class ProductosComponent implements OnInit {
 
   postProducto() {
     this.apiProducto.postProducto(this.productosForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
+    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
   }
 
   putProducto() {
@@ -88,8 +90,6 @@ export class ProductosComponent implements OnInit {
   }
 
   setValueEditProducto(producto: any) {
-    console.log(producto);
-    
     this.productosForm.patchValue({
       id: producto.id,
       nombre: producto.nombre,

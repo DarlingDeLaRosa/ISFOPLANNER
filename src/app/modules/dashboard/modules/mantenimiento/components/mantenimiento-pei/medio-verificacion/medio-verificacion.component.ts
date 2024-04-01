@@ -6,6 +6,7 @@ import { MedioVerificacionService } from '../services/medio-verificacion.service
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-mantenimiento-pei',
@@ -17,12 +18,14 @@ export class MedioVerificacionComponent implements OnInit {
   indicadoresEstartegicos: Array<IndicadoresEstrategicosI> = [];
   mediosVerificacion!: Array<MedioVerificacionI>;
   medioVerificacionForm: FormGroup;
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     private fb: FormBuilder,
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
     private medioVerifService: MedioVerificacionService,
+    private userSystemService: UserSystemInformationService,
   ) {
     this.medioVerificacionForm = this.fb.group({
       id: 0,

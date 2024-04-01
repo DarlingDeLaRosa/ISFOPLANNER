@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-    <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && periodosConfigForm.value.id > 0">Configuración de periodos</h2>
+    <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && periodosConfigForm.value.id > 0">Configuración de periodos</h2>
     <div>
-        <form style=" margin-bottom: 15px;" [formGroup]="periodosConfigForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && periodosConfigForm.value.id > 0">
+        <form style=" margin-bottom: 15px;" [formGroup]="periodosConfigForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && periodosConfigForm.value.id > 0">
 
             <mat-form-field appearance="fill" style="width: 30%;">
                 <mat-label>Proceso</mat-label>
@@ -61,7 +61,7 @@
                         <td class="dataIndiCell">{{periodoConfig.fechaInicio | date:'dd/MM/yyyy'}}</td>
                         <td class="dataIndiCell">{{periodoConfig.fechaFin | date:'dd/MM/yyyy'}}</td>
                         <td class="dataIndiCell">{{periodoConfig.prorroga | date:'dd/MM/yyyy'}}</td>
-                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon class="editIcon" (click)="setValueEditEstructuraPro(periodoConfig)">edit</mat-icon></td>
+                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon class="editIcon" (click)="setValueEditEstructuraPro(periodoConfig)">edit</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

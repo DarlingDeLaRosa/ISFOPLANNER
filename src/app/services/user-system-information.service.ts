@@ -7,13 +7,24 @@ export class UserSystemInformationService {
 
     private userLogged!: UserI
     private userToken!: string
-    private sistema: number = 2
+    private sistema: number = 80
     private niveles: { [key: string]: number } = {
         "VICERRECTORIA": 4,
         "DIRECCION": 3,
         "DEPARTAMENTO": 2,
         "DIVISION": 1
     };
+
+    public modulosSis = {
+        panel_de_control: 49,
+        formulacion: 50,
+        monitoreo: 51,
+        planes_transversales: 52,
+        material_de_apoyo: 53,
+        ayuda: 54,
+        mantenimiento: 55,
+        asignacion_de_presupuesto: 56
+    }
 
     private URLremoteDesarrollo = "http://isfoplaner.somee.com"
     private URLdesarrollo = "http://172.25.4.24:3000"

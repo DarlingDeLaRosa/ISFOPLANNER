@@ -8,6 +8,7 @@ import { DetailViewComponent } from '../../modals/detail-view/detail-view.compon
 import { MatDialog } from '@angular/material/dialog';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-asignacion-presupuesto',
@@ -20,6 +21,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
   unidadesOrg!: UnidadOrgI[]
   unidadesOrgPadres: subUnidadI[] = []
   asignacionPresupuestoForm: FormGroup;
+  modulo = this.userSystemService.modulosSis
   presupuestosInst: PresupuestoInstiGetI = {
     enUso: false, id: 0, montoTotal: 0, montoRestante: 0, montoEjecutado: 0, justicarModificacion: '', fechaInicio: new Date, fechaFin: new Date, creadoEn: new Date, creadoPor: '', actualizadoEn: new Date, actualizadoPor: ''
   }
@@ -30,6 +32,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
     private apiUnidadOrg: UnidadOrganizativaService,
+    private userSystemService: UserSystemInformationService,
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {
     this.asignacionPresupuestoForm = this.fb.group({

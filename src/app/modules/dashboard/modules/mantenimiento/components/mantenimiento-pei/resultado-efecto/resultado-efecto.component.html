@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && resultadoEfectoForm.value.id > 0">Resultado Efecto</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && resultadoEfectoForm.value.id > 0">Resultado Efecto</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="resultadoEfectoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && resultadoEfectoForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="resultadoEfectoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && resultadoEfectoForm.value.id > 0">
       <mat-form-field appearance="fill" style="width: 40%;">
         <mat-label>Estrategia</mat-label>
         <mat-select disableRipple formControlName="idEstrategia">
@@ -36,7 +36,7 @@
             <th class="headerCell">Eje</th>
             <th class="headerCell">Estrategia</th>
             <th class="headerCell">Resultado efecto</th>
-            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!resultadoefectos" class="loader"></div> </th>
           </tr>
         </thead>
@@ -45,8 +45,8 @@
             <td class="dataIndiCell">{{resultadoefecto.estrategia.ejeEstrategico.numeroEje}}</td>
             <td class="dataIndiCell">{{resultadoefecto.estrategia.nombre}}</td>
             <td class="dataIndiCell">{{resultadoefecto.nombre}}</td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)"><mat-icon class="editIcon" (click)="setValueResultadoEfecto(resultadoefecto)">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)"><mat-icon class="removeIcon" (click)="deleteResultadoEfecto(resultadoefecto.id)">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon class="editIcon" (click)="setValueResultadoEfecto(resultadoefecto)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon class="removeIcon" (click)="deleteResultadoEfecto(resultadoefecto.id)">delete</mat-icon></td>
           </tr>
 
         </tbody>

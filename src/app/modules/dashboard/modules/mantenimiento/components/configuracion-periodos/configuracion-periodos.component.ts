@@ -5,6 +5,9 @@ import { TipoProcesosService } from '../../services/tipo-proceso.service';
 import { format } from 'date-fns';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
+import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-configuracion-periodos',
@@ -17,6 +20,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
   periodosConfigForm: FormGroup;
   periodosConfig!: any[]
   tipoProcesos: any[] = []
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     public fb: FormBuilder,
@@ -24,19 +28,28 @@ export class ConfiguracionPeriodosComponent implements OnInit {
     public permisosCRUD: PermissionService,
     private apiTipoProceso: TipoProcesosService,
     private apiPeriodosConfig: ConfiguracionPeriodoServive,
+    private userSystemService: UserSystemInformationService,
+    private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {
     this.periodosConfigForm = this.fb.group({
       id: 0,
-      idTipoProceso: new FormControl('', Validators.required),
-      fechaInicio: new FormControl('', Validators.required),
+      idPresupuestoInstitucional: 0,
+      prorroga: new FormControl(null),
       fechaFin: new FormControl('', Validators.required),
-      prorroga: new FormControl(null)
+      fechaInicio: new FormControl('', Validators.required),
+      idTipoProceso: new FormControl('', Validators.required),
     })
   }
 
   ngOnInit(): void {
     this.getProceso()
     this.getPeriodoConfig()
+    this.getPresupuestoInstitucional()
+  }
+
+  getPresupuestoInstitucional() {
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
+      .subscribe((res: any) => { this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
   }
 
   getProceso() {
@@ -46,7 +59,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   getPeriodoConfig() {
     this.apiPeriodosConfig.getPeriodoConfig()
-      .subscribe((res: any) => { this.periodosConfig = res.data })
+      .subscribe((res: any) => { this.periodosConfig = res.data; console.log(res); })
   }
 
   postPeriodoConfig() {
@@ -61,7 +74,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   setValueEditEstructuraPro(estructuraPro: any) {
     this.periodosConfigForm.reset(estructuraPro)
-    this.periodosConfigForm.patchValue({ idTipoProceso: estructuraPro.tipoProceso.id})
+    this.periodosConfigForm.patchValue({ idTipoProceso: estructuraPro.tipoProceso.id })
   }
 
   saveChanges() {
@@ -70,5 +83,6 @@ export class ConfiguracionPeriodosComponent implements OnInit {
     if (this.periodosConfigForm.value.prorroga != null) this.periodosConfigForm.value.prorroga = format(this.periodosConfigForm.value.prorroga, 'yyyy-MM-dd');
 
     this.helperHandler.saveChanges(() => this.putPeriodoConfig(), this.periodosConfigForm, () => this.postPeriodoConfig())
+    this.getPresupuestoInstitucional()
   }
 }

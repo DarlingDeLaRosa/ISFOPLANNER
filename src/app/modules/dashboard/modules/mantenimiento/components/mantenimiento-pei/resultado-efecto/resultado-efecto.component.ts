@@ -7,6 +7,7 @@ import { ResultadoEfectoService } from '../services/resultadoEfecto.service';
 import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-resultado-efecto',
@@ -18,6 +19,7 @@ export class ResultadoEfectoComponent implements OnInit {
   resultadoEfectoForm: FormGroup;
   estrategia: Array<EstrategiaI> = [];
   resultadoefectos!: Array<ResultadoEfectoI>;
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +27,7 @@ export class ResultadoEfectoComponent implements OnInit {
     public permisosCRUD: PermissionService,
     private estrategiasService: EstrategiasService,
     private resultadoEfectoService: ResultadoEfectoService,
+    private userSystemService: UserSystemInformationService,
   ) {
     this.resultadoEfectoForm = this.fb.group({
       id: 0,

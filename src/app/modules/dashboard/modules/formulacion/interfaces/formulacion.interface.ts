@@ -78,7 +78,7 @@ export interface CosteoDetallesGroupI {
   cantidad: number,
   montoTotal: number,
   fechaRecepcion: Date
-  idUnidadMedida: number
+  idUnidadMedida: any
   auxiliar: string
   nombre:string
   descripcionInsumo: string

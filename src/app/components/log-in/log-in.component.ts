@@ -37,7 +37,7 @@ export class LogInComponent {
     this.authService.postLogIn(this.formUserLogIn.value)
       .subscribe((res: any) => {
         loading(false)
-
+        
         if (res.data != undefined) {
           this.userSystemService.saveDataLocalStorage("userData", res.data)
           this.userSystemService.saveDataLocalStorage("token", res.token)

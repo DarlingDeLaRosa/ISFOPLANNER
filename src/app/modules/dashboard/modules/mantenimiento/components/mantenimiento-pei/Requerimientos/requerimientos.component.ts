@@ -5,6 +5,7 @@ import { RequerimientoI } from '../interfaces/requerimientos.interface';
 import { RequerimientosService } from '../services/requerimientos.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 
 @Component({
@@ -16,12 +17,14 @@ export class RequerimientosComponent implements OnInit {
 
   requerimientoForm: FormGroup;
   requerimientos!: Array<RequerimientoI>;
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     private fb: FormBuilder,
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
     private requerimientoService: RequerimientosService,
+    private userSystemService: UserSystemInformationService,
   ) {
     this.requerimientoForm = this.fb.group({
       id: 0,
@@ -36,7 +39,7 @@ export class RequerimientosComponent implements OnInit {
 
   getAllRequerimientos() {
     this.requerimientoService.getRequerimientos()
-      .subscribe((resp: any) => { this.requerimientos = resp.data; console.log(resp); })
+      .subscribe((resp: any) => { this.requerimientos = resp.data; })
   }
 
   postRequerimiento() {

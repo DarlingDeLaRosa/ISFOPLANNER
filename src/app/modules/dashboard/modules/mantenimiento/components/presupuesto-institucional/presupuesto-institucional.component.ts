@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PresupuestoInstiGetI } from '../../interfaces/mantenimientoPOA.interface';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-presupuesto-institucional',
@@ -16,12 +17,14 @@ export class PresupuestoInstitucionalComponent implements OnInit {
 
   presupuestoInstiForm: FormGroup;
   presupuestosInst!: PresupuestoInstiGetI[]
-
+  modulo = this.userSystemService.modulosSis
+  
   constructor(
     public fb: FormBuilder,
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
+    private userSystemService: UserSystemInformationService,
   ) {
     this.presupuestoInstiForm = this.fb.group({
       id: 0,

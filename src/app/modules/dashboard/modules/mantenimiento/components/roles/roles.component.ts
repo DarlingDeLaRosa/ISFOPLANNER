@@ -19,7 +19,7 @@ export class RolesComponent implements OnInit {
   modulos: modulo[] = [];;
   rolesForm: FormGroup;
   roles!: Array<GetRolesI>;
-
+  
   constructor(
     public fb: FormBuilder,
     public dialog: MatDialog,

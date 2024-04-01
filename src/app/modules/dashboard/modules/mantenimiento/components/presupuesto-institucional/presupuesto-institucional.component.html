@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-    <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && presupuestoInstiForm.value.id > 0">Presupuesto Institucional</h2>
+    <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && presupuestoInstiForm.value.id > 0">Presupuesto Institucional</h2>
     <div>
-        <form style=" margin-bottom: 15px;" [formGroup]="presupuestoInstiForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && presupuestoInstiForm.value.id > 0">
+        <form style=" margin-bottom: 15px;" [formGroup]="presupuestoInstiForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && presupuestoInstiForm.value.id > 0">
 
             <mat-form-field appearance="fill" style="width: 40%;">
                 <mat-label>Presupuesto</mat-label>
@@ -51,8 +51,8 @@
                         <td class="dataIndiCell">{{ presupuestoInst.justicarModificacion }}</td>
                         <td class="dataIndiCell">{{ presupuestoInst.montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                         <td class="dataIndiCell">{{ presupuestoInst.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}} </td>
-                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-slide-toggle color="#004b8d" [(ngModel)]="presupuestoInst.enUso" (change)="postActivarPresupuesto(presupuestoInst.id)"></mat-slide-toggle></td>
-                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon (click)="setValueEditPreInst(presupuestoInst)" class="editIcon">edit</mat-icon></td>
+                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-slide-toggle color="#004b8d" [(ngModel)]="presupuestoInst.enUso" (change)="postActivarPresupuesto(presupuestoInst.id)"></mat-slide-toggle></td>
+                        <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon (click)="setValueEditPreInst(presupuestoInst)" class="editIcon">edit</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

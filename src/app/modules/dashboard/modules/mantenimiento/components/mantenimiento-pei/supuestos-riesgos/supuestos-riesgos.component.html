@@ -1,8 +1,8 @@
 <div style="padding: 15px;">
 
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && supuestoRiesgoForm.value.id > 0">Supuestos riesgos</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && supuestoRiesgoForm.value.id > 0">Supuestos riesgos</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="supuestoRiesgoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && supuestoRiesgoForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="supuestoRiesgoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && supuestoRiesgoForm.value.id > 0">
 
       <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label> Nombre del riesgo</mat-label>
@@ -23,15 +23,15 @@
         <thead class="headerTable">
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Riesgo</th>
-            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!supuestosRiesgos" class="loader"></div> </th>
           </tr>
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let supuestoRiesgo of supuestosRiesgos">
             <td class="dataIndiCell">{{supuestoRiesgo.nombre}}</td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)"><mat-icon (click)="setValueEditSupuestoRiesgo(supuestoRiesgo)" class="editIcon">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)"><mat-icon (click)="deleteSupuestoRiesgo(supuestoRiesgo.id)" class="removeIcon">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon (click)="setValueEditSupuestoRiesgo(supuestoRiesgo)" class="editIcon">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon (click)="deleteSupuestoRiesgo(supuestoRiesgo.id)" class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

@@ -87,7 +87,7 @@
                                 <h3>Presupuesto total</h3>
                             </div>
                             <div class="amountPresupuesto">
-                                <h3>{{presupuestosUnidad.monto | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
+                                <h3>{{presupuestosUnidad?.monto ?? 0 | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
                             </div>
                         </div>
                         <div class="checkPresupuesto">
@@ -95,7 +95,7 @@
                                 <h3>Presupuesto disponible</h3>
                             </div>
                             <div class="amountPresupuesto">
-                                <h3>{{presupuestosUnidad.montoRestante | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
+                                <h3>{{presupuestosUnidad?.montoRestante ?? 0 | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
                             </div>
                         </div>
                     </span>

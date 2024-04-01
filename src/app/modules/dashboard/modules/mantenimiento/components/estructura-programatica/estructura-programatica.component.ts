@@ -4,6 +4,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 
 @Component({
@@ -14,12 +15,14 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 export class EstructuraProgramaticaComponent implements OnInit {
 
   estructuraProgramaticaForm: FormGroup;
-  estructurasProgramaticas!: any[] 
+  estructurasProgramaticas!: any[]
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     public fb: FormBuilder,
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
+    private userSystemService: UserSystemInformationService,
     private apiEstructuraPro: EstructuraProgramaticaService,
   ) {
     this.estructuraProgramaticaForm = this.fb.group({
@@ -40,12 +43,12 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
   postEstructuraPro() {
     this.apiEstructuraPro.postEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
-    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
   }
 
   putEstructuraPro() {
     this.apiEstructuraPro.putEstructurasProgramaticas(this.estructuraProgramaticaForm.value)
-    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
   }
 
   async deleteEstructuraPro(id: number) {
@@ -54,7 +57,7 @@ export class EstructuraProgramaticaComponent implements OnInit {
     if (removeDecision) {
       loading(true)
       this.apiEstructuraPro.removeEstructurasProgramaticas(id)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getEstructuraPro(), this.estructuraProgramaticaForm) })
     }
   }
 

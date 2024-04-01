@@ -25,7 +25,7 @@ export class FormulacionComponent implements OnInit {
   selectedResultadoE: ResultadoEfectoI = { estrategia: { id: 0, nombre: '', ejeEstrategico: { id: 0, nombre: '', objetivo: '', numeroEje: 0, }, resultadosEfectos: [] }, id: 0, nombre: "" }
   productos: any[] = [];
   filterForm: FormGroup;
-  presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
+  presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } | null = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
 
   constructor(
     public fb: FormBuilder,

@@ -10,8 +10,8 @@ import { MedioVerificacionService } from '../services/medio-verificacion.service
 import { MedioVerificacionI } from '../interfaces/medio-verificacion.interface';
 import { RequerimientosService } from '../services/requerimientos.service';
 import { RequerimientoI } from '../interfaces/requerimientos.interface';
-import { involucradoService } from '../services/involucrado.service';
-import { InvolucradoI } from '../interfaces/involucrado.interface';
+// import { involucradoService } from '../services/involucrado.service';
+// import { InvolucradoI } from '../interfaces/involucrado.interface';
 import { ResponsableService } from '../services/reponsable.service';
 import { ResponsableI } from '../interfaces/responsable.interface';
 import { SupuestosRiesgosService } from '../services/supuestos-riesgos.service';
@@ -19,6 +19,7 @@ import { SupuestosRiesgosI } from '../interfaces/supuestos-riesgos.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { EntidadListViewComponent } from '../../../modals/entidad-list-view/responsible-view.component';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-indicadores-estrategicos',
@@ -28,24 +29,26 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 export class IndicadoresEstrategicosComponent implements OnInit {
 
   IndicadorEstrForm: FormGroup;
-  involucrados: Array<InvolucradoI> = [];
+  // involucrados: Array<InvolucradoI> = [];
   responsables: Array<ResponsableI> = [];
   requerimientos: Array<RequerimientoI> = [];
   resultadosEfecto: Array<ResultadoEfectoI> = [];
   supuestosRiesgos: Array<SupuestosRiesgosI> = [];
   mediosVerificacion: Array<MedioVerificacionI> = [];
   indicadoresEstrategicos!: Array<IndicadoresEstrategicosI>;
-
+  modulo = this.userSystemService.modulosSis
+  
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
-    private involucradoService: involucradoService,
+    // private involucradoService: involucradoService,
     private responsablesService: ResponsableService,
     private requerimientosService: RequerimientosService,
     private resultadoEfectoService: ResultadoEfectoService,
     private supuestoRiesgoService: SupuestosRiesgosService,
+    private userSystemService: UserSystemInformationService,
     private medioVerificacionService: MedioVerificacionService,
     private indicadoresEstraService: IndicadorEstrategicoService,
   ) {
@@ -58,7 +61,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       supuestosRiesgos: new FormControl('', Validators.required),
       mediosVerificaciones: new FormControl('', Validators.required),
       idResultadoefecto: new FormControl<number>(0, Validators.required),
-      involucrados: new FormControl('', Validators.required),
+      // involucrados: new FormControl('', Validators.required),
       responsables: new FormControl('', Validators.required),
 
       cronograma: this.fb.group({
@@ -77,7 +80,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllResponsables()
-    this.getAllInvolucrados()
+    // this.getAllInvolucrados()
     this.getAllRequerimientos()
     this.getAllSupuestoRiesgos()
     this.getAllResultadoEfecto()
@@ -101,9 +104,9 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     this.requerimientosService.getRequerimientos().subscribe((resp: any) => { this.requerimientos = resp.data; })
   }
 
-  getAllInvolucrados() {
-    this.involucradoService.getInvolucrado().subscribe((resp: any) => { this.involucrados = resp.data; })
-  }
+  // getAllInvolucrados() {
+  //   this.involucradoService.getInvolucrado().subscribe((resp: any) => { this.involucrados = resp.data; })
+  // }
 
   getAllResponsables() {
     this.responsablesService.getResponsable().subscribe((resp: any) => { this.responsables = resp.data; })
@@ -124,7 +127,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       supuestosRiesgos: indicadorEstrategico.supuestosRiesgos.map((supuestosRiesgo: SupuestosRiesgosI)=>{ return supuestosRiesgo.id}),
       mediosVerificaciones: indicadorEstrategico.mediosverificaciones.map((mediosverificacione: MedioVerificacionI)=>{ return mediosverificacione.id}),
       idResultadoefecto: indicadorEstrategico.resultadoEfecto.id,
-      involucrados: indicadorEstrategico.involucrados.map((involucrado: InvolucradoI)=>{ return involucrado.id}),
+      // involucrados: indicadorEstrategico.involucrados.map((involucrado: InvolucradoI)=>{ return involucrado.id}),
       responsables: indicadorEstrategico.responsables.map((responsable: ResponsableI)=>{ return responsable.id}),
     });
 

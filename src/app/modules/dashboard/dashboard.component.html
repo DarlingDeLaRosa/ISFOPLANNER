@@ -9,19 +9,19 @@
 
       <div class="plannerOptions" *ngIf="userLogged.rol.modulos">
 
-        <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(7)">
+        <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.panel_de_control)">
           <mat-icon>dashboard</mat-icon>Panel de Control
         </a>
         
-        <a class="item-menu" [routerLink]="['formulacion']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(8)">
+        <a class="item-menu" [routerLink]="['formulacion']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.formulacion)">
           <mat-icon>calendar_month</mat-icon>Formulación POA
         </a>
         
-        <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(9)">
+        <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.monitoreo)">
           <mat-icon>traffic</mat-icon>Monitoreo
         </a>
         
-        <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(10)">
+        <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.planes_transversales)">
           <mat-icon>chat</mat-icon>Planes Transversales
         </a>
         <!--         
@@ -29,19 +29,19 @@
           <mat-icon>account_balance</mat-icon>Rendicion de Cuentas
         </a>
          -->
-        <a class="item-menu" [routerLink]="['materialDeApoyo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(11)">
+        <a class="item-menu" [routerLink]="['materialDeApoyo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.material_de_apoyo)">
           <mat-icon>library_books</mat-icon>Material de Apoyo
         </a>
 
-        <a class="item-menu" [routerLink]="['ayuda']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(12)">
+        <a class="item-menu" [routerLink]="['ayuda']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.ayuda)">
           <mat-icon>question_mark</mat-icon>Ayuda
         </a>
         
-        <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active" > <!--*ngIf="permisosCRUD.permisoLeer(13) && unidadOrgData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO'"-->
+        <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active" > <!--*ngIf="permisosCRUD.permisoLeer(modulo.mantenimiento) && unidadOrgData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO'"-->
           <mat-icon>settings</mat-icon>Mantenimiento
         </a>
 
-        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(14) "> <!--&& unidadOrgData.subUnidad -->
+        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.asignacion_de_presupuesto) "> <!--&& unidadOrgData.subUnidad -->
           <mat-icon>settings</mat-icon>Asignación de presupuesto
         </a>
 

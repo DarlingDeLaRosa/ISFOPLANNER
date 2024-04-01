@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && indicadoresGestionForm.value.id > 0">Indicadores de Gestion</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && indicadoresGestionForm.value.id > 0">Indicadores de Gestion</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="indicadoresGestionForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && indicadoresGestionForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="indicadoresGestionForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && indicadoresGestionForm.value.id > 0">
 
       <mat-form-field appearance="fill" style="width:49%;">
         <mat-label>Producto</mat-label>
@@ -144,7 +144,7 @@
             <th class="headerCell">Meta</th>
             <th class="headerCell">Responsables</th>
             <th class="headerCell">Medio de verificación</th>
-            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!indicadoresGestion" class="loader"></div> </th>
           </tr>
         </thead>
@@ -158,8 +158,8 @@
             <td class="dataIndiCell">{{indicadorG.meta}}</td>
             <td class="dataIndiCell">{{indicadorG.responsables.nombre}}</td>
             <td class="dataIndiCell"><mat-icon (click)="openDetailModalView(indicadorG.mediosverificaciones , 'Medios de verificación', indicadorG.nombre)" class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon (click)="deleteIndicadoresGestion(indicadorG.id)" class="removeIcon">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon (click)="deleteIndicadoresGestion(indicadorG.id)" class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

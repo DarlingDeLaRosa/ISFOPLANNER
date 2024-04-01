@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
-import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserLogInI } from '../interfaces/Response.interfaces';
 import { UserSystemInformationService } from './user-system-information.service';
 import { HelperService } from './appHelper.service';

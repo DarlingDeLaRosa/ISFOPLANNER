@@ -25,6 +25,7 @@ export class AsignacionSubunidadesComponent {
   userUnidadData: UnidadDataI = this.userSystemService.isUnidadOrgFather
   presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
   presupuestosInst: number = 0
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     public fb: FormBuilder,

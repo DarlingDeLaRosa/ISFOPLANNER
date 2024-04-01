@@ -5,6 +5,7 @@ import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-ejes',
@@ -15,12 +16,14 @@ export class EjesComponent implements OnInit {
 
   ejes!: Array<EjesI>;
   ejeForm: FormGroup;
-
+  modulo = this.userSystemService.modulosSis
+  
   constructor(
     private fb: FormBuilder,
     private ejesService: EjesService,
     private helperHandler: HelperService,
-    public permisosCRUD: PermissionService,
+    public permisosCRUD: PermissionService,    
+    private userSystemService: UserSystemInformationService,
   ) {
     this.ejeForm = this.fb.group({
       id: 0,

@@ -13,6 +13,7 @@ export class dashboardComponent {
   sidenavOpened: boolean = false;
   userLogged: UserI = this.userSystemService.getUserLogged
   unidadOrgData: UnidadDataI = this.userSystemService.isUnidadOrgFather
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     public permisosCRUD: PermissionService,

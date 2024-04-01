@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
     <div class="fuctionContent">
         <span>
-            <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || accion " >Presupuesto Unidades Organizativas</h2>
+            <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || accion " >Presupuesto Unidades Organizativas</h2>
         </span>
         <span style="display: flex;">
             <div class="checkPresupuesto">
@@ -23,7 +23,7 @@
         </span>
     </div>
     <div>
-        <form style=" margin-bottom: 15px;" [formGroup]="asignacionPresupuestoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || accion ">
+        <form style=" margin-bottom: 15px;" [formGroup]="asignacionPresupuestoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || accion ">
 
             <mat-form-field appearance="fill" style="width: 59%;">
                 <mat-label>Unidad Organizativa</mat-label>
@@ -59,7 +59,7 @@
                         <th class="headerCell" style="width: 20%;">Monto Ejecutado</th>
                         <th class="headerCell" style="width: 20%;">Monto Total</th>
                         <th class="headerCell" style="width: 5%;"></th>
-                        <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)" ></th>
+                        <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ></th>
                         <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!unidadesOrg" class="loader"></div> </th>
                     </tr>
                 </thead>
@@ -70,8 +70,8 @@
                         </td>
                         <td class="dataIndiCell">{{unidadOrg?.monto | currency: 'DOP ': 'symbol': '1.2-2'}} </td>
                         <td class="dataIndiCell"><mat-icon *ngIf="unidadOrg.unidadOrganizativa?.subUnidades != undefined && unidadOrg.unidadOrganizativa?.subUnidades?.length" (click)="openModal(unidadOrg)" class="detailsIcon">list</mat-icon></td>
-                        <td class="dataIndiCell"><mat-icon *ngIf="permisosCRUD.permisoEditar(13)" (click)="setValueEditUnidadOrg(unidadOrg)" class="editIcon">edit</mat-icon></td>
-                        <td class="dataIndiCell"><mat-icon *ngIf="permisosCRUD.permisoEliminar(13)" (click)="deletePresupuestoUnidadOrg(unidadOrg.unidadOrganizativa)" class="removeIcon">delete</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" (click)="setValueEditUnidadOrg(unidadOrg)" class="editIcon">edit</mat-icon></td>
+                        <td class="dataIndiCell"><mat-icon *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" (click)="deletePresupuestoUnidadOrg(unidadOrg.unidadOrganizativa)" class="removeIcon">delete</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

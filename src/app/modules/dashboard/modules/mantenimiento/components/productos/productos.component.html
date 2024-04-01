@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && productosForm.value.id > 0">Productos</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && productosForm.value.id > 0">Productos</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="productosForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && productosForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="productosForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && productosForm.value.id > 0">
 
       <mat-form-field appearance="fill" style="width: 39%;">
         <mat-label>Indicador estrategico</mat-label>
@@ -54,7 +54,7 @@
             <th class="headerCell">Indicador Estrategicos</th>
             <th class="headerCell">Producto</th>
             <th class="headerCell">Responsables</th>
-            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;">
               <div *ngIf="!productos" class="loader"></div>
             </th>
@@ -65,8 +65,8 @@
             <td class="dataIndiCell">{{producto.indicadorEstrategico.nombre}}</td>
             <td class="dataIndiCell">{{producto.nombre}}</td>
             <td class="dataIndiCell"><mat-icon (click)="openModal(producto.responsables , 'Responsables', producto.nombre)" class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon (click)="setValueEditProducto(producto)" class="editIcon">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon (click)="deleteProducto(producto.id)" class="removeIcon">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon (click)="setValueEditProducto(producto)" class="editIcon">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon (click)="deleteProducto(producto.id)" class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

@@ -1,7 +1,7 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && materialApoyoForm.value.id > 0">Material de Apoyo</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && materialApoyoForm.value.id > 0">Material de Apoyo</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="materialApoyoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(13) || permisosCRUD.permisoEditar(13) && materialApoyoForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="materialApoyoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && materialApoyoForm.value.id > 0">
 
       <mat-form-field appearance="fill" style="width: 59%;">
         <mat-label>Titulo del documento</mat-label>
@@ -40,7 +40,7 @@
             <th class="headerCell">Titulo</th>
             <th class="headerCell">Version</th>
             <th class="headerCell">Enlace</th>
-            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(13)"></th>
+            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!materialesApoyo" class="loader"></div></th>
           </tr>
         </thead>
@@ -49,8 +49,8 @@
             <td class="dataIndiCell">{{material.titulo}}</td>
             <td class="dataIndiCell">{{material.versionDocumento}}</td>
             <td class="dataIndiCell">{{material.enlace}}</td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(13)" ><mat-icon (click)="setValueEditMaterial(material)" class="editIcon">edit</mat-icon> </td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(13)" ><mat-icon (click)="deleteMaterial(material.id)" class="removeIcon">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon (click)="setValueEditMaterial(material)" class="editIcon">edit</mat-icon> </td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon (click)="deleteMaterial(material.id)" class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>

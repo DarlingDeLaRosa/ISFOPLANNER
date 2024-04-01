@@ -22,6 +22,7 @@ export class UsuariosComponent implements OnInit {
   unidadesOrg: any[] = []
   usuariosForm: FormGroup;
   departamentos: any[] = []
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     public fb: FormBuilder,

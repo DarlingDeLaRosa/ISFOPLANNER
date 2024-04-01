@@ -5,6 +5,7 @@ import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, 
 import { MaterialApoyoI } from '../../interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-material-apoyo',
@@ -15,12 +16,14 @@ export class MaterialDeApoyoComponent implements OnInit {
 
   materialApoyoForm: FormGroup;
   materialesApoyo!: MaterialApoyoI[]
-
+  modulo = this.userSystemService.modulosSis
+  
   constructor(
     public fb: FormBuilder,
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
-    private apiMaterial: MaterialApoyoService,
+    private apiMaterial: MaterialApoyoService,    
+    private userSystemService: UserSystemInformationService,
   ) {
     this.materialApoyoForm = this.fb.group({
       id: 0,

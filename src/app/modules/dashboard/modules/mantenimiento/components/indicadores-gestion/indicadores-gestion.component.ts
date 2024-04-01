@@ -15,6 +15,7 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { MedioVerificacionService } from '../mantenimiento-pei/services/medio-verificacion.service';
 import { MedioVerificacionI } from '../mantenimiento-pei/interfaces/medio-verificacion.interface';
 import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -31,6 +32,7 @@ export class IndicadoresGestionComponent implements OnInit {
   mediosVerificacion: MedioVerificacionI[] = [];
   indicadoresGestion!: IndicadoresGestionGetI[]
   estructurasPro: EstructuraProgramaticaI[] = []
+  modulo = this.userSystemService.modulosSis
 
   constructor(
     public fb: FormBuilder,
@@ -40,7 +42,8 @@ export class IndicadoresGestionComponent implements OnInit {
     public permisosCRUD: PermissionService,
     private apiUnidadOrg: UnidadOrganizativaService,
     private medioVerifService: MedioVerificacionService,
-    private apiIndicadoresGestion: IndicadorGestionService,
+    private apiIndicadoresGestion: IndicadorGestionService,    
+    private userSystemService: UserSystemInformationService,
     private apiEstruturaPro: EstructuraProgramaticaService,
   ) {
     this.indicadoresGestionForm = this.fb.group({
