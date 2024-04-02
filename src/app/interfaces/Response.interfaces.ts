@@ -105,5 +105,10 @@ export interface UserI {
 export interface UnidadDataI {
     unidad: string,
     userLevel: number,
-    subUnidad: boolean
+    subUnidad: subUnit[]
+}
+
+export interface subUnit {
+    id: number
+    nombre: string
 }

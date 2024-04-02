@@ -39,6 +39,7 @@
 
 .btnMenuContainer {
     display: flex;
+    align-items: center;
 }
 
 .btnMenuContainer .btnMenu {

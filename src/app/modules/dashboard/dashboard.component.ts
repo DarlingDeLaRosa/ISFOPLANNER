@@ -14,12 +14,19 @@ export class dashboardComponent {
   userLogged: UserI = this.userSystemService.getUserLogged
   unidadOrgData: UnidadDataI = this.userSystemService.isUnidadOrgFather
   modulo = this.userSystemService.modulosSis
+  exactUnit = this.unidadOrgData.subUnidad[this.unidadOrgData.subUnidad.length - 1].nombre
 
   constructor(
     public permisosCRUD: PermissionService,
     private userSystemService: UserSystemInformationService,
   ){
     console.log(this.userLogged);
+    console.log(this.exactUnit);
     console.log(this.unidadOrgData);
+  }
+
+  changeUnitOrg(unitOrg: any){
+    this.exactUnit = unitOrg
+    
   }
 }

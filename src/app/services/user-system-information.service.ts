@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UnidadDataI, UserI } from '../interfaces/Response.interfaces';
+import { UnidadDataI, UserI, subUnit } from '../interfaces/Response.interfaces';
 
 @Injectable({ providedIn: 'root' })
 
@@ -8,6 +8,7 @@ export class UserSystemInformationService {
     private userLogged!: UserI
     private userToken!: string
     private sistema: number = 80
+    private exatUnitOrg!: subUnit  
     private niveles: { [key: string]: number } = {
         "VICERRECTORIA": 4,
         "DIRECCION": 3,
@@ -42,18 +43,24 @@ export class UserSystemInformationService {
         let exactUnit: string = this.userLogged.unidad.split(" ")[0]
 
         userLevel = exactUnit in this.niveles ? this.niveles[exactUnit] : 0;
-        let dataUnidad: UnidadDataI = { userLevel, unidad: this.userLogged.unidad, subUnidad: false }
+        let dataUnidad: UnidadDataI = { userLevel, unidad: this.userLogged.unidad, subUnidad: [] }
 
         switch (userLevel) {
             case 2:
-                dataUnidad.subUnidad = !!this.userLogged.departamento.divisiones
+                this.exatUnitOrg = {id: this.userLogged.departamento.idDepartamento, nombre: this.userLogged.departamento.nombre}
+                dataUnidad.subUnidad = this.userLogged.departamento.divisiones
+                dataUnidad.subUnidad.push(this.exatUnitOrg)
                 break;
             case 3:
-                dataUnidad.subUnidad = !!this.userLogged.direccion.departamentos
+                this.exatUnitOrg = {id: this.userLogged.direccion.idDireccion, nombre: this.userLogged.direccion.nombre}
+                dataUnidad.subUnidad = this.userLogged.direccion.departamentos
+                dataUnidad.subUnidad.push(this.exatUnitOrg)
                 break;
 
             case 4:
-                dataUnidad.subUnidad = !!this.userLogged.viceRectoria.direcciones
+                this.exatUnitOrg = {id: this.userLogged.viceRectoria.idViceRectoria, nombre: this.userLogged.viceRectoria.nombre}
+                dataUnidad.subUnidad = this.userLogged.viceRectoria.direcciones
+                dataUnidad.subUnidad.push(this.exatUnitOrg)
                 break;
 
             default:

@@ -54,7 +54,17 @@
 
           <div class="btnMenuContainer">
             <button class="btnMenu" (click)="sidenavOpened = !sidenavOpened"><mat-icon>menu</mat-icon></button>&nbsp;
-            <h2 class="departamento">{{userLogged.unidad}}</h2> <!--Validar las demas unidades organizticas-->
+            <h2 class="departamento">{{exactUnit}}</h2>
+            
+            <button mat-icon-button [matMenuTriggerFor]="units" style="margin: 0 2px;" *ngIf="unidadOrgData.subUnidad.length > 1">
+              <mat-icon>expand_more</mat-icon>
+            </button>
+
+            <mat-menu class="menuPanel" #units="matMenu" yPosition="below">
+              <ng-container *ngFor="let unit of unidadOrgData.subUnidad">
+                <button mat-menu-item style="padding: 10px;" (click)="changeUnitOrg(unit.nombre)"> {{unit.nombre}} </button>
+              </ng-container>
+            </mat-menu>
           </div>
 
           <div class="logout">
