@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UnidadDataI } from 'src/app/interfaces/Response.interfaces';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { alertNoValidForm, alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { subUnidadI } from '../mantenimiento/interfaces/mantenimientoPOA.interface';
@@ -9,7 +10,6 @@ import { DetailViewComponent } from '../mantenimiento/modals/detail-view/detail-
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { UnidadOrganizativaService } from '../mantenimiento/services/unidad-organizativa.service';
 import { PresupuestoInstitucionalService } from '../mantenimiento/services/presupuestoInstitucional.service';
-import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'app-asignacion-subunidades',
@@ -19,13 +19,13 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 export class AsignacionSubunidadesComponent {
 
   accion: boolean = false
+  presupuestosInst: number = 0
   subUnidadesOrg!: subUnidadI[]
   unidadesOrgPadres: subUnidadI[] = []
   asignacionPresupuestoForm: FormGroup;
+  modulo = this.userSystemService.modulosSis
   userUnidadData: UnidadDataI = this.userSystemService.isUnidadOrgFather
   presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
-  presupuestosInst: number = 0
-  modulo = this.userSystemService.modulosSis
 
   constructor(
     public fb: FormBuilder,
@@ -55,7 +55,7 @@ export class AsignacionSubunidadesComponent {
   }
 
   getPresupuestoUnidad() {
-    this.apiPresupuestoInstitucional.getPresupuestoUnidad().subscribe((res: any) => { this.presupuestosUnidad = res.data })
+    this.apiPresupuestoInstitucional.getPresupuestoUnidad(this.userSystemService.getUnitOrg.nombre).subscribe((res: any) => { this.presupuestosUnidad = res.data })
   }
 
   getUnidadOrganizativa() {

@@ -54,7 +54,7 @@
 
           <div class="btnMenuContainer">
             <button class="btnMenu" (click)="sidenavOpened = !sidenavOpened"><mat-icon>menu</mat-icon></button>&nbsp;
-            <h2 class="departamento">{{exactUnit}}</h2>
+            <h2 class="departamento">{{userSystemService.getUnitOrg.nombre}}</h2>
             
             <button mat-icon-button [matMenuTriggerFor]="units" style="margin: 0 2px;" *ngIf="unidadOrgData.subUnidad.length > 1">
               <mat-icon>expand_more</mat-icon>
@@ -62,7 +62,7 @@
 
             <mat-menu class="menuPanel" #units="matMenu" yPosition="below">
               <ng-container *ngFor="let unit of unidadOrgData.subUnidad">
-                <button mat-menu-item style="padding: 10px;" (click)="changeUnitOrg(unit.nombre)"> {{unit.nombre}} </button>
+                <button mat-menu-item style="padding: 10px;" (click)="changeUnitOrg({id: unit.id, nombre: unit.nombre})"> {{unit.nombre}} </button>
               </ng-container>
             </mat-menu>
           </div>

@@ -12,6 +12,7 @@ import { EntidadListViewComponent } from '../../modals/entidad-list-view/respons
 import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indicadorEstrategico.interface';
 import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { subUnit } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-productos',
@@ -22,9 +23,10 @@ export class ProductosComponent implements OnInit {
 
   productosForm: FormGroup
   productos!: ProductoI[];
-  indicadoresEstrategicos: IndicadoresEstrategicosI[] = []
   unidadesOrg: subUnidadI[] = []
   modulo = this.userSystemService.modulosSis
+  indicadoresEstrategicos: IndicadoresEstrategicosI[] = []
+
   constructor(
     public fb: FormBuilder,
     public dialog: MatDialog,
@@ -55,9 +57,7 @@ export class ProductosComponent implements OnInit {
   }
 
   getProducto() {
-    this.apiProducto.getProducto()
-      .subscribe((res: any) => { this.productos = res.data; console.log(res.data);
-      })
+    this.apiProducto.getProducto().subscribe((res: any) => { this.productos = res.data;})
   }
 
   getUnidadOrganizativa() {

@@ -16,6 +16,7 @@ import { MedioVerificacionService } from '../mantenimiento-pei/services/medio-ve
 import { MedioVerificacionI } from '../mantenimiento-pei/interfaces/medio-verificacion.interface';
 import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { subUnit } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -33,6 +34,7 @@ export class IndicadoresGestionComponent implements OnInit {
   indicadoresGestion!: IndicadoresGestionGetI[]
   estructurasPro: EstructuraProgramaticaI[] = []
   modulo = this.userSystemService.modulosSis
+  exactUnit: subUnit = this.userSystemService.getUnitOrg
 
   constructor(
     public fb: FormBuilder,
@@ -72,7 +74,7 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   getProductos() {
-    this.apiProducto.getProducto().subscribe((res: any) => { this.productos = res.data;})
+    this.apiProducto.getProducto(this.exactUnit.nombre).subscribe((res: any) => { this.productos = res.data;})
   }
 
   getUnidadOrganizativa() {

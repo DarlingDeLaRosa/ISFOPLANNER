@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { EjesService } from '../mantenimiento/components/mantenimiento-pei/services/ejes.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { EstrategiasService } from '../mantenimiento/components/mantenimiento-pei/services/estrategias.service';
-import { EstrategiaI } from '../mantenimiento/components/mantenimiento-pei/interfaces/estrategias.interface';
-import { ResultadoEfectoI } from '../mantenimiento/components/mantenimiento-pei/interfaces/resultadoEfecto';
-import { ResultadoEfectoService } from '../mantenimiento/components/mantenimiento-pei/services/resultadoEfecto.service';
-import { ProductoService } from '../mantenimiento/services/producto.service';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ProductoService } from '../mantenimiento/services/producto.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { EjesI } from '../mantenimiento/components/mantenimiento-pei/interfaces/ejes.interface';
+import { EjesService } from '../mantenimiento/components/mantenimiento-pei/services/ejes.service';
+import { ResultadoEfectoI } from '../mantenimiento/components/mantenimiento-pei/interfaces/resultadoEfecto';
 import { PresupuestoInstitucionalService } from '../mantenimiento/services/presupuestoInstitucional.service';
+import { EstrategiaI } from '../mantenimiento/components/mantenimiento-pei/interfaces/estrategias.interface';
+import { EstrategiasService } from '../mantenimiento/components/mantenimiento-pei/services/estrategias.service';
+import { ResultadoEfectoService } from '../mantenimiento/components/mantenimiento-pei/services/resultadoEfecto.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'formulacion-root',
@@ -17,13 +19,14 @@ import { PresupuestoInstitucionalService } from '../mantenimiento/services/presu
 })
 export class FormulacionComponent implements OnInit {
 
-  estrategias: Array<EstrategiaI> = [];
+  productos: any[] = [];
+  private unitListener!: Subscription
   ejesEstrategicos: Array<EjesI> = [];
+  estrategias: Array<EstrategiaI> = [];
   resultadosEfecto: Array<ResultadoEfectoI> = [];
   selectedEjesEstrategico: EjesI = { estrategias: {}, id: 0, nombre: "", numeroEje: 0, objetivo: "" };
   selectedEstrategia: EstrategiaI = { ejeEstrategico: { id: 0, nombre: '', objetivo: '', numeroEje: 0, }, id: 0, nombre: "", resultadosEfectos: [] };
   selectedResultadoE: ResultadoEfectoI = { estrategia: { id: 0, nombre: '', ejeEstrategico: { id: 0, nombre: '', objetivo: '', numeroEje: 0, }, resultadosEfectos: [] }, id: 0, nombre: "" }
-  productos: any[] = [];
   filterForm: FormGroup;
   presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } | null = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
 
@@ -34,8 +37,14 @@ export class FormulacionComponent implements OnInit {
     private apiProducto: ProductoService,
     private estrategiasService: EstrategiasService,
     private resultadoEfectoService: ResultadoEfectoService,
+    private userSystemService: UserSystemInformationService,
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {
+
+    this.unitListener = this.userSystemService.unitChange.subscribe(() => {
+      this.getProducto();
+      this.getPresupuestoUnidad()
+    });
 
     this.filterForm = this.fb.group({
       estrategias: new FormControl(''),
@@ -55,7 +64,7 @@ export class FormulacionComponent implements OnInit {
   }
 
   getPresupuestoUnidad() {
-    this.apiPresupuestoInstitucional.getPresupuestoUnidad().subscribe((res: any) => 
+    this.apiPresupuestoInstitucional.getPresupuestoUnidad(this.userSystemService.getUnitOrg.nombre).subscribe((res: any) => 
     { this.presupuestosUnidad = res.data })
   }
 
@@ -79,8 +88,10 @@ export class FormulacionComponent implements OnInit {
   }
 
   getProducto() {
+    console.log("Tu te imaginas");
+    
     const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
-    this.apiProducto.getProducto(ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => { 
+    this.apiProducto.getProducto(this.userSystemService.getUnitOrg.nombre ,ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => { 
       this.productos = res.data; 
 
       if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI)=> estrategia.id == estrategias) 

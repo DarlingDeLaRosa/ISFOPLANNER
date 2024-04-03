@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { UnidadDataI, UserI, subUnit } from '../interfaces/Response.interfaces';
 
 @Injectable({ providedIn: 'root' })
 
 export class UserSystemInformationService {
 
+    unitChange = new EventEmitter<any>();
     private userLogged!: UserI
     private userToken!: string
     private sistema: number = 80
-    private exatUnitOrg!: subUnit  
+    private exatUnitOrg!: subUnit
     private niveles: { [key: string]: number } = {
         "VICERRECTORIA": 4,
         "DIRECCION": 3,
@@ -43,22 +44,22 @@ export class UserSystemInformationService {
         let exactUnit: string = this.userLogged.unidad.split(" ")[0]
 
         userLevel = exactUnit in this.niveles ? this.niveles[exactUnit] : 0;
-        let dataUnidad: UnidadDataI = { userLevel, unidad: this.userLogged.unidad, subUnidad: [] }
+        let dataUnidad: UnidadDataI = { userLevel, unidad: this.userLogged.unidad, subUnidad: []}
 
         switch (userLevel) {
             case 2:
-                this.exatUnitOrg = {id: this.userLogged.departamento.idDepartamento, nombre: this.userLogged.departamento.nombre}
+                this.exatUnitOrg = { id: this.userLogged.departamento.idDepartamento, nombre: this.userLogged.departamento.nombre }
                 dataUnidad.subUnidad = this.userLogged.departamento.divisiones
                 dataUnidad.subUnidad.push(this.exatUnitOrg)
                 break;
             case 3:
-                this.exatUnitOrg = {id: this.userLogged.direccion.idDireccion, nombre: this.userLogged.direccion.nombre}
+                this.exatUnitOrg = { id: this.userLogged.direccion.idDireccion, nombre: this.userLogged.direccion.nombre }
                 dataUnidad.subUnidad = this.userLogged.direccion.departamentos
                 dataUnidad.subUnidad.push(this.exatUnitOrg)
                 break;
 
             case 4:
-                this.exatUnitOrg = {id: this.userLogged.viceRectoria.idViceRectoria, nombre: this.userLogged.viceRectoria.nombre}
+                this.exatUnitOrg = { id: this.userLogged.viceRectoria.idViceRectoria, nombre: this.userLogged.viceRectoria.nombre}
                 dataUnidad.subUnidad = this.userLogged.viceRectoria.direcciones
                 dataUnidad.subUnidad.push(this.exatUnitOrg)
                 break;
@@ -66,10 +67,22 @@ export class UserSystemInformationService {
             default:
                 break;
         }
+
         return dataUnidad
     }
 
+    get getUnitOrg(): subUnit { 
+        let unitData = localStorage.getItem('unidadOrganizativa') 
+
+        if ( unitData == null) { return this.exatUnitOrg }
+        else{ this.exatUnitOrg = JSON.parse(unitData) ; return this.exatUnitOrg }
+    }
+
     set setUserLogged(user: UserI) { this.userLogged = user }
+    set setUnitOrg(unit: subUnit ) { 
+        this.exatUnitOrg = unit
+        this.saveDataLocalStorage('unidadOrganizativa', unit)
+    }
 
     set setUserToken(token: string) {
         let tokenT: string = token.replace(/^"(.*)"$/, '$1');

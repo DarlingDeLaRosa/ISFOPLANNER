@@ -26,8 +26,8 @@ export class PresupuestoInstitucionalService {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional?enUso=${enUso ?? ''}`, this.header))
   }
 
-  public getPresupuestoUnidad() {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional/unidad-presupuesto`, this.header))
+  public getPresupuestoUnidad(unit: string) {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional/unidad-presupuesto?unidad=${unit}`, this.header))
   }
 
   public postPresupuestoInstitucional(PresupuestoInstitucionalData: PresupuestoInstitucionalI) {

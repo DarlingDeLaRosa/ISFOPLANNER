@@ -1,8 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductoI } from '../interfaces/mantenimientoPOA.interface';
-import { catchError, throwError } from 'rxjs';
-import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
 
@@ -24,8 +22,8 @@ export class ProductoService {
   headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
-  public getProducto(eje?: number, estrategia?: number, resultadoEfecto?: number) {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos?eje=${eje ?? ''}&estrategia=${estrategia ?? ''}&resultadoEfecto=${resultadoEfecto ?? ''}`, this.header))
+  public getProducto(unidad?: string, eje?: number, estrategia?: number, resultadoEfecto?: number,) {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos?unidad=${unidad ?? ''}&eje=${eje ?? ''}&estrategia=${estrategia ?? ''}&resultadoEfecto=${resultadoEfecto ?? ''}`, this.header))
   }
 
   public getByIdProducto(id: number) {
