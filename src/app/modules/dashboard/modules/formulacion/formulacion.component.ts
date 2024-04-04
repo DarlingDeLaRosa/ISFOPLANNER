@@ -21,9 +21,9 @@ export class FormulacionComponent implements OnInit {
 
   productos: any[] = [];
   private unitListener!: Subscription
-  ejesEstrategicos: Array<EjesI> = [];
-  estrategias: Array<EstrategiaI> = [];
-  resultadosEfecto: Array<ResultadoEfectoI> = [];
+  ejesEstrategicos!: Array<EjesI> 
+  estrategias!: Array<EstrategiaI>
+  resultadosEfecto!: Array<ResultadoEfectoI>;
   selectedEjesEstrategico: EjesI = { estrategias: {}, id: 0, nombre: "", numeroEje: 0, objetivo: "" };
   selectedEstrategia: EstrategiaI = { ejeEstrategico: { id: 0, nombre: '', objetivo: '', numeroEje: 0, }, id: 0, nombre: "", resultadosEfectos: [] };
   selectedResultadoE: ResultadoEfectoI = { estrategia: { id: 0, nombre: '', ejeEstrategico: { id: 0, nombre: '', objetivo: '', numeroEje: 0, }, resultadosEfectos: [] }, id: 0, nombre: "" }

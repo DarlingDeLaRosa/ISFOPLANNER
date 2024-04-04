@@ -3,6 +3,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 import { PermissionService } from '../../services/applyPermissions.service';
 import { UnidadDataI, UserI, subUnit } from 'src/app/interfaces/Response.interfaces';
 import { ProductoService } from './modules/mantenimiento/services/producto.service';
+import { Router } from '@angular/router';
+import { unitActive } from 'src/app/alerts/alerts';
 
 @Component({
   selector: 'dash-root',
@@ -18,7 +20,9 @@ export class dashboardComponent {
 
   constructor(
     public permisosCRUD: PermissionService,
-    private serviceProducto: ProductoService,
+    // private serviceProducto: ProductoService,
+    private router: Router,
+
     public userSystemService: UserSystemInformationService,
   ) {
     console.log(this.userLogged);
@@ -28,5 +32,7 @@ export class dashboardComponent {
   changeUnitOrg(unitOrg: subUnit) {
     this.userSystemService.setUnitOrg = unitOrg
     this.userSystemService.unitChange.emit()
+    this.router.navigate(['dashboard/panelDeControl']);
+    unitActive(unitOrg.nombre)
   }
 }

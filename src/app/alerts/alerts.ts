@@ -100,6 +100,15 @@ export function alertNoValidForm() {
   })
 }
 
+export function unitActive(unit: string) {
+  Swal.fire({
+    icon: 'success',
+    title: `Ahora actualizando el POA \n ${unit}`,
+    showConfirmButton: false,
+    timer: 3250
+  })
+}
+
 export function loading(load: boolean) {
   if (load) {
     Swal.fire({

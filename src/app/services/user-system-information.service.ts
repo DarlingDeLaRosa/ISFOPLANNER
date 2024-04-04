@@ -28,7 +28,7 @@ export class UserSystemInformationService {
         asignacion_de_presupuesto: 56
     }
 
-    private URLremoteDesarrollo = "http://isfoplaner.somee.com"
+    // private URLremoteDesarrollo = "http://isfoplaner.somee.com"
     private URLdesarrollo = "http://172.25.4.24:3000"
     private URLgeneralServerURL = "http://172.25.4.24"
 
@@ -67,7 +67,6 @@ export class UserSystemInformationService {
             default:
                 break;
         }
-
         return dataUnidad
     }
 

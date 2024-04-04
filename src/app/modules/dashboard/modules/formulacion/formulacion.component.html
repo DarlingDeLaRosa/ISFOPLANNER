@@ -18,6 +18,7 @@
         <div class="filtrosContainer" [formGroup]="filterForm">
             <div class="filtrosTitleContainer">
                 <h3>Filtros</h3>
+                <div *ngIf="!ejesEstrategicos && !estrategias && !resultadosEfecto" class="loader"></div>
             </div>
             <div class="filtrosSection" *ngIf="ejesEstrategicos.length">
                 <h4>Ejes estratégico</h4>
@@ -104,9 +105,6 @@
 
             <div class="ProductoContainer">
                 <h1>Productos</h1>
-                <div>
-
-                </div>
                 <div class="producto" *ngFor="let producto of productos">
                     <div class="titleProducto">
                         <span>
@@ -138,7 +136,24 @@
                         </table>
                     </div>
                 </div>
-                <div class="noData" *ngIf="productos.length == 0">
+                
+                <div class="producto" *ngIf="!productos">
+                    <div class="titleProducto" style="align-items: center; height: 50px;">
+                        <h3>Buscando...</h3>
+                        <div class="loader"></div>
+                    </div>
+                    <div>
+                        <table>
+                            <thead class="headerTable"> 
+                                <tr class="headerRow">
+                                    <th class="headerCell"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="noData" *ngIf="productos && productos.length == 0">
                     <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
                 </div>
             </div>

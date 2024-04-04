@@ -183,7 +183,8 @@ body {
 .filtrosTitleContainer {
     display: flex;
     align-items: center;
-    padding-left: 15px;
+    justify-content: space-between;
+    padding: 0 15px;
     color: #004b8d;
     background-color: #ddd;
 }
@@ -266,7 +267,7 @@ mat-checkbox {
 
 .titleProducto {
     background-color: #ddd;
-    padding-left: 15px;
+    padding: 0 15px;
 }
 
 .titleProducto h3,
