@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { alertIsSuccess, alertNoValidForm, alertServerDown, errorMessageAlert, loading, warningMessageAlert } from '../alerts/alerts';
+import { alertIsSuccess, alertNoValidForm, alertServerDown, errorMessageAlert, infoMessageAlert, loading, warningMessageAlert } from '../alerts/alerts';
 import { FormGroup } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
 import { indicadorRecinto } from '../modules/dashboard/modules/formulacion/interfaces/formulacion.interface';
@@ -53,6 +53,16 @@ export class HelperService {
             loading(true)
             if (form.value.id > 0) updateFunction()
             else saveFunction()
+        } else alertNoValidForm()
+    }
+
+    saveChangesIndicadores(updateFunction: () => void, form: FormGroup, saveFunction: () => void, lineaBase: number, meta: number) {
+        if (form.valid) {
+            if (lineaBase <= meta) {
+                loading(true)
+                if (form.value.id > 0) updateFunction()
+                else saveFunction()
+            }else infoMessageAlert(`Linea base debe ser mayor a la meta (${meta})`)
         } else alertNoValidForm()
     }
 

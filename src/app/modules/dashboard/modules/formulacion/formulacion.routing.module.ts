@@ -4,6 +4,8 @@ import { FormulacionComponent } from './formulacion.component';
 import { ProductoFormulacionComponent } from './components/producto-formulacion/producto-formulacion.component';
 import { ActividadesFormulacionComponent } from './components/actividades-formulacion/actividades-formulacion.component';
 import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.component';
+import { ActividadesInvolucradosComponent } from './components/actividades-involucrados/actividades-involucrados.component';
+import { IndicadoresFormulacionComponent } from './components/indicadores-formulacion/indicadores-formulacion.component';
 
 const routes: Routes = [
     {
@@ -19,8 +21,12 @@ const routes: Routes = [
         component: ActividadesFormulacionComponent
     },
     {
-        path: 'nuevoInsumo',
-        component: NuevoInsumoComponent
+        path: 'indicadores',
+        component: IndicadoresFormulacionComponent
+    },
+    {
+        path: 'actividades-involucradas',
+        component: ActividadesInvolucradosComponent
     },
 ]
 

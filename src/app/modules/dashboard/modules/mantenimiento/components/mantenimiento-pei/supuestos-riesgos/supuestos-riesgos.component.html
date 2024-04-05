@@ -1,6 +1,6 @@
 <div style="padding: 15px;">
 
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && supuestoRiesgoForm.value.id > 0">Supuestos riesgos</h2>
+  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && supuestoRiesgoForm.value.id > 0">Supuestos y riesgos</h2>
   <div>
     <form style=" margin-bottom: 15px;" [formGroup]="supuestoRiesgoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && supuestoRiesgoForm.value.id > 0">
 
@@ -14,7 +14,7 @@
 
     </form>
 
-    <h2 class="Stitle">Listado de requerimientos</h2>
+    <h2 class="Stitle">Listado de supuestos y riesgos</h2>
 
     <div style="border:1px solid  #ccc ;">
 

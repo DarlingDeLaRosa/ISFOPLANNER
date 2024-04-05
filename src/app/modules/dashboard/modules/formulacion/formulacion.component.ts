@@ -19,8 +19,8 @@ import { Subscription } from 'rxjs';
 })
 export class FormulacionComponent implements OnInit {
 
-  productos: any[] = [];
-  private unitListener!: Subscription
+  productos!: any[];
+  unitListener!: Subscription
   ejesEstrategicos!: Array<EjesI> 
   estrategias!: Array<EstrategiaI>
   resultadosEfecto!: Array<ResultadoEfectoI>;
@@ -88,8 +88,6 @@ export class FormulacionComponent implements OnInit {
   }
 
   getProducto() {
-    console.log("Tu te imaginas");
-    
     const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
     this.apiProducto.getProducto(this.userSystemService.getUnitOrg.nombre ,ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => { 
       this.productos = res.data; 

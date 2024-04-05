@@ -12,6 +12,7 @@ export interface IndicadoresEstrategicosI {
   lineaBase: number,
   meta: number,
   creadoPor?: number,
+  tipoIndicador: {id: number, nombre: string}
   // idResultadoefecto: number
   resultadoEfecto: ResultadoEfectoI,
   productos: ProductoI[],
@@ -20,16 +21,16 @@ export interface IndicadoresEstrategicosI {
   requerimientos: RequerimientoI[],
   cronograma: CronogramaI,
   responsables: ResponsableI[];
-  involucrados: InvolucradoI[];
+  // involucrados: InvolucradoI[];
 }
 
 export interface CronogramaI {
   anio1: number,
-  metaAnio1: number,
   anio2: number,
-  metaAnio2: number,
   anio3: number,
-  metaAnio3: number,
   anio4: number,
+  metaAnio3: number,
+  metaAnio2: number,
+  metaAnio1: number,
   metaAnio4: number
 }

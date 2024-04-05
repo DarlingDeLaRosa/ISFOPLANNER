@@ -10,6 +10,7 @@ import { ActividadesFormulacionComponent } from './components/actividades-formul
 import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-recintos/indicador-editar-recintos.component';
+import { IndicadoresFormulacionComponent } from './components/indicadores-formulacion/indicadores-formulacion.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-reci
     IndicadorEditarComponent,
     ProductoFormulacionComponent,
     ActividadesFormulacionComponent,
-    IndicadorEditarRecintosComponent
+    IndicadorEditarRecintosComponent,
+    IndicadoresFormulacionComponent
   ],
   imports: [
     RouterModule,
@@ -27,7 +29,6 @@ import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-reci
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-
   ]
 })
 export class FormulacionModule { }
