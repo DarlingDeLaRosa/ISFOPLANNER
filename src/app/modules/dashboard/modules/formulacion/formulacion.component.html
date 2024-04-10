@@ -5,8 +5,7 @@
 
     <div class="fuctionContent">
         <span>
-            <button mat-stroked-button [routerLink]="['/dashboard/formulacion/actividades-involucradas']"><mat-icon>groups</mat-icon>Actividades Involucradas / Compartidas</button>
-            &nbsp; <button mat-stroked-button [routerLink]="['/dashboard/formulacion/indicadores']"><mat-icon>groups</mat-icon>Indicadores</button>
+            <button mat-stroked-button [routerLink]="['/dashboard/formulacion/actividades-involucradas']"><mat-icon>groups</mat-icon>Actividades Compartidas</button>
         </span>
         <span>
             <button class="downLoadButton" mat-stroked-button><mat-icon>arrow_downward</mat-icon>Planificación
@@ -23,7 +22,10 @@
                 <h3>Filtros</h3>
                 <div *ngIf="!ejesEstrategicos && !estrategias && !resultadosEfecto" class="loader"></div>
             </div>
-            <div class="filtrosSection" *ngIf="ejesEstrategicos.length">
+            <div class="noData" *ngIf=" ejesEstrategicos && estrategias && resultadosEfecto && ejesEstrategicos.length == 0 && estrategias.length == 0 && resultadosEfecto.length == 0">
+                <img *ngIf="" style="width: 100%;" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
+            </div>
+            <div class="filtrosSection" *ngIf="ejesEstrategicos">
                 <h4>Ejes estratégico</h4>
                 <mat-radio-group formControlName="ejesEstrategico">
                     <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id"
@@ -34,7 +36,7 @@
                         color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
-            <div class="filtrosSection" *ngIf="estrategias.length">
+            <div class="filtrosSection" *ngIf="estrategias">
                 <h4>Estrategias</h4>
                 <mat-radio-group formControlName="estrategias">
                     <mat-radio-button *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
@@ -44,7 +46,7 @@
                         color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
-            <div class="filtrosSection" *ngIf="resultadosEfecto.length">
+            <div class="filtrosSection" *ngIf="resultadosEfecto">
                 <h4>Resultado efecto</h4>
                 <mat-radio-group formControlName="resultadoEfecto">
                     <mat-radio-button *ngFor="let resultadoEfecto of resultadosEfecto" [value]="resultadoEfecto.id"
@@ -54,10 +56,6 @@
                     <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null"
                         color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
-            </div>
-            <div class="noData"
-                *ngIf=" ejesEstrategicos.length == 0 && estrategias.length == 0 && resultadosEfecto.length == 0">
-                <img style="width: 100%;" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
             </div>
         </div>
         <div class="ejeProductoContainer">
@@ -139,22 +137,8 @@
                         </table>
                     </div>
                 </div>
-                
-                <div class="producto" *ngIf="!productos">
-                    <div class="titleProducto" style="align-items: center; height: 50px;">
-                        <h3>Buscando...</h3>
-                        <div class="loader"></div>
-                    </div>
-                    <div>
-                        <table>
-                            <thead class="headerTable"> 
-                                <tr class="headerRow">
-                                    <th class="headerCell"></th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
+
+                <charging-box *ngIf="!productos" ></charging-box>
 
                 <div class="noData" *ngIf="productos && productos.length == 0">
                     <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">

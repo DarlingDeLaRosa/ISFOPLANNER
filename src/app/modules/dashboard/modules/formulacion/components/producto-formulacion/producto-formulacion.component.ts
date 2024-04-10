@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IndicadorEditarComponent } from '../../modals/indicador-editar/indicador-editar.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../../mantenimiento/services/producto.service';
-import { IndicadorGestionI, IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
@@ -38,8 +38,7 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   getByIdProducto() {
-    this.productoService.getByIdProducto(this.idProducto)
-      .subscribe((resp: any) => { this.productoConsult = resp.data;})
+    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { this.productoConsult = resp.data;})
   }
 
   openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 
@@ -52,21 +51,24 @@ export class ProductoFormulacionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
   }
   
-  sendToNewAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto} }); }
-  sendToEditAct(idAct: number){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto, idAct: idAct} }); }
-
-
-  async removeActividad(id: number){
-    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el insumo?")
-
-    if (removeDecision) {
-      loading(true)
-      this.actividadesService.removeActividades(id)
-        .subscribe((res: any) => {
-          this.helperHandler.handleResponse(res, () => this.getByIdProducto())
-        })
-    }
+  sendToIndicador(idIndicador: number) {
+    this.router.navigate(['/dashboard/formulacion/indicadores'], { queryParams: { id: idIndicador } });
   }
+  // sendToNewAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto} }); }
+  // sendToEditAct(idAct: number){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto, idAct: idAct} }); }
+
+
+  // async removeActividad(id: number){
+  //   let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el insumo?")
+
+  //   if (removeDecision) {
+  //     loading(true)
+  //     this.actividadesService.removeActividades(id)
+  //       .subscribe((res: any) => {
+  //         this.helperHandler.handleResponse(res, () => this.getByIdProducto())
+  //       })
+  //   }
+  // }
 }
 
 

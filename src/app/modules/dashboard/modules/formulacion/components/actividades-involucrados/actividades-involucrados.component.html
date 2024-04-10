@@ -1,1 +1,41 @@
-<p>actividades-involucrados works!</p>
+<div class="routerComponent">
+
+    <div class="title">
+        <h1>Formulación POA</h1>
+    </div>
+
+    <div style="margin-bottom: 5px;">
+        <button class="backButton" [routerLink]="['/dashboard/formulacion']" mat-stroked-button ><mat-icon>arrow_back</mat-icon>Listado de producto</button> <!--(click)="backToProucto()"-->
+      </div>
+
+    <div class="titleSeguimiento">
+        <h2>Actividades Involucradas / Compartidas</h2>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <table style="border: 1px solid #ccc;">
+            <thead class="headerTable" >
+                <tr class="headerRow" style="background-color: #95ade93f;">
+                    <th class="headerCell">Actividad</th>
+                    <th class="headerCell">Insumo</th>
+                    <th class="headerCell">Responsable</th>
+                    <th class="headerCell">Costo unitario</th>
+                    <th class="headerCell">Monto total estimado</th>
+                    <th class="headerCell">Fecha recepción</th>
+                    <th class="headerCell"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="dataRow">
+                    <td class="dataCell">Implementar modelo pedagógico para la formación de docentes</td>
+                    <td class="dataCell">Monitor 24 pulg</td>
+                    <td class="dataCell">Vicerrectoría Académica</td>
+                    <td class="dataCell">RD$20,000.00</td>
+                    <td class="dataCell">48,000.00</td>
+                    <td class="dataCell">12/10/2285</td>
+                    <td class="dataCell" style="width: 8%;"><mat-icon class="editIcon" [routerLink]="['detallePlanTransversal']">edit</mat-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

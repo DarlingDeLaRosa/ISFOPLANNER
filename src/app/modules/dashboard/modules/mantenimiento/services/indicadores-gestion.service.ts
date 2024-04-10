@@ -27,6 +27,10 @@ export class IndicadorGestionService {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/IndicadoresGestion`, this.header))
   }
 
+  public getIndicadorByIdGestion(id: number) {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/IndicadoresGestion/${id}`, this.header))
+  }
+
   public postIndicadorGestion(indicadoresGestionData: IndicadorGestionI | string) {
     return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/IndicadoresGestion` , indicadoresGestionData, this.header))
   }

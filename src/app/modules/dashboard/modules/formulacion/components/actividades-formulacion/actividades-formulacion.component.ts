@@ -116,9 +116,9 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.getCargos()
     this.getestados();
     this.getInsumos();
-    this.getRegiones();
-    this.getProvinvias();
-    this.getMunicipios();
+    // this.getRegiones();
+    // this.getProvinvias();
+    // this.getMunicipios();
     this.getFrecuencia();
     this.getResponsable();
     this.getInvolucrado();
@@ -127,7 +127,7 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.getPresupuestoInstitucional()
   }
 
-  backToProucto() {
+  backToProducto() {
     this.router.navigate(['dashboard/formulacion/producto'], { queryParams: { id: this.idProducto } });
   }
 
@@ -185,21 +185,21 @@ export class ActividadesFormulacionComponent implements OnInit {
       })
   }
 
-  getRegiones() {
-    this.actividadesService.getRegiones().subscribe((resp: any) => { this.regionesList = resp.data; })
-  }
+  // getRegiones() {
+  //   this.actividadesService.getRegiones().subscribe((resp: any) => { this.regionesList = resp.data; })
+  // }
 
   getCargos() {
     this.actividadesService.getCargos().subscribe((resp: any) => { this.cargoList = resp.data; })
   }
 
-  getProvinvias() {
-    this.actividadesService.getProvincias().subscribe((resp: any) => { this.provinciasList = resp.data; })
-  }
+  // getProvinvias() {
+  //   this.actividadesService.getProvincias().subscribe((resp: any) => { this.provinciasList = resp.data; })
+  // }
 
-  getMunicipios() {
-    this.actividadesService.getMunicipios().subscribe((resp: any) => { this.MunicipiosList = resp.data; })
-  }
+  // getMunicipios() {
+  //   this.actividadesService.getMunicipios().subscribe((resp: any) => { this.MunicipiosList = resp.data; })
+  // }
 
   getestados() {
     this.actividadesService.getEstados().subscribe((resp: any) => { this.estadosList = resp.data; })
@@ -249,7 +249,7 @@ export class ActividadesFormulacionComponent implements OnInit {
       if (res.ok) { 
         this.insumosGroup = []; 
         this.sumaTotal() 
-        this.backToProucto()
+        this.backToProducto()
       }
     })
   }

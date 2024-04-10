@@ -26,7 +26,7 @@ import { AsignacionSubUnidadesModule } from './modules/asignacion-subunidades/as
     AyudaModule,
     MantenimientoModule,
     AsignacionSubUnidadesModule,
-
+    
     RouterModule,
     FormsModule,
     CommonModule,

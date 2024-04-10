@@ -11,6 +11,8 @@ import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.compone
 import { HttpClientModule } from '@angular/common/http';
 import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-recintos/indicador-editar-recintos.component';
 import { IndicadoresFormulacionComponent } from './components/indicadores-formulacion/indicadores-formulacion.component';
+import { ActividadesInvolucradosComponent } from './components/actividades-involucrados/actividades-involucrados.component';
+import { ChargingBoxComponent } from '../../components/charging-box/charging-box.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { IndicadoresFormulacionComponent } from './components/indicadores-formul
     ProductoFormulacionComponent,
     ActividadesFormulacionComponent,
     IndicadorEditarRecintosComponent,
-    IndicadoresFormulacionComponent
+    IndicadoresFormulacionComponent,
+    ActividadesInvolucradosComponent,
+    ChargingBoxComponent
   ],
   imports: [
     RouterModule,

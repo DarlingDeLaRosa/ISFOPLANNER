@@ -176,8 +176,10 @@ body {
 .filtrosContainer {
     display: grid;
     border-radius: 5px;
+    border: 1px solid #ccc;
     grid-template-rows: 5vh auto auto auto;
-    max-height: 75vh;
+    max-height: 77vh;
+    padding-bottom: 2px;
 }
 
 .filtrosTitleContainer {
@@ -282,8 +284,7 @@ mat-checkbox {
 
 .filtrosSection {
     padding: 15px 10px 10px 15px;
-    border: 1px solid #ccc;
-    border-bottom: none;
+    border-top: 1px solid #ccc;
     background-color: white;
     box-sizing: border-box;
 }
@@ -291,10 +292,6 @@ mat-checkbox {
 .filtrosSection h4 {
     margin: 0;
     font-weight: 500;
-}
-
-.filtrosSection:last-child {
-    border-bottom: 1px solid #ccc;
 }
 
 .headerTable {
@@ -359,6 +356,7 @@ table {
 .removeIcon,
 .detailsIcon,
 .nodesIcon,
+.listIcon,
 .editNotificationIcon {
     font-size: 25px;
     margin: 0px 20px;
@@ -380,6 +378,10 @@ table {
 
 .nodesIcon {
     color: #35a6b7;
+}
+
+.listIcon{
+    color: black;
 }
 
 .formularioActividades {

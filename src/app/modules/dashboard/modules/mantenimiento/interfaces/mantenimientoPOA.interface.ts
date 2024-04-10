@@ -72,10 +72,12 @@ export interface IndicadoresGestionGetI {
   nombre: string,
   lineaBase: number,
   meta: number,
+  montoConsumido:number
   logroEsperadoT1: number,
   logroEsperadoT2: number,
   logroEsperadoT3: number,
   logroEsperadoT4: number,
+  actividades: ActividadI[]
   estructuraProgramatica: EstructuraProgramaticaI
   tipoIndicador: {
     id: number,

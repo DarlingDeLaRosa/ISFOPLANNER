@@ -11,6 +11,7 @@ import { EstrategiaI } from '../mantenimiento/components/mantenimiento-pei/inter
 import { EstrategiasService } from '../mantenimiento/components/mantenimiento-pei/services/estrategias.service';
 import { ResultadoEfectoService } from '../mantenimiento/components/mantenimiento-pei/services/resultadoEfecto.service';
 import { Subscription } from 'rxjs';
+import { ProductoI } from '../mantenimiento/interfaces/mantenimientoPOA.interface';
 
 @Component({
   selector: 'formulacion-root',
@@ -19,7 +20,7 @@ import { Subscription } from 'rxjs';
 })
 export class FormulacionComponent implements OnInit {
 
-  productos!: any[];
+  productos!: ProductoI[];
   unitListener!: Subscription
   ejesEstrategicos!: Array<EjesI> 
   estrategias!: Array<EstrategiaI>
@@ -56,11 +57,17 @@ export class FormulacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPresupuestoUnidad();
-    this.getAllEjes()
-    this.getProducto()
-    this.getAllEstrategia();
-    this.getAllResultadoEfecto();
+    console.log(this.productos);
+    console.log(this.ejesEstrategicos);
+    
+    setTimeout(() => {
+      
+      this.getPresupuestoUnidad();
+      this.getAllEjes()
+      this.getProducto()
+      this.getAllEstrategia();
+      this.getAllResultadoEfecto();
+    }, 2000);
   }
 
   getPresupuestoUnidad() {

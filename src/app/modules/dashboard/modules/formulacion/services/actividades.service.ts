@@ -12,6 +12,7 @@ export class ActividadesService {
 
   private token = this.userSystemService.getToken
   private baseUrl = this.userSystemService.getURL
+  private activeUnit =  this.userSystemService.getUnitOrg
 
   headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
@@ -22,21 +23,21 @@ export class ActividadesService {
     private userSystemService: UserSystemInformationService,
     ){}
 
-    getRegiones(): Observable<ResponseI> {
-      return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Regiones`, this.header))
-    }
+    // getRegiones(): Observable<ResponseI> {
+    //   return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Regiones`, this.header))
+    // }
 
     getCargos(): Observable<ResponseI> {
       return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Cargos`, this.header))
     }
 
-    getProvincias(): Observable<ResponseI> {
-      return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Provincias`, this.header))
-    }
+    // getProvincias(): Observable<ResponseI> {
+    //   return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Provincias`, this.header))
+    // }
 
-    getMunicipios(): Observable<ResponseI> {
-      return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Municipios`, this.header))
-    }
+    // getMunicipios(): Observable<ResponseI> {
+    //   return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Municipios`, this.header))
+    // }
 
     getEstados(): Observable<ResponseI> {
       return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Estados`, this.header))
@@ -80,5 +81,9 @@ export class ActividadesService {
 
     removeActividades(id: number): Observable<ResponseI>{
       return this.helperHandler.handleRequest(() => this.http.delete<ResponseI>(`${this.baseUrl}/Actividades/${id}`, this.header))
+    }
+    
+    getActividadesInvolucradas(): Observable<ResponseI> {
+      return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/por-involucrados?unidad=${this.activeUnit}`, this.header))
     }
 }
