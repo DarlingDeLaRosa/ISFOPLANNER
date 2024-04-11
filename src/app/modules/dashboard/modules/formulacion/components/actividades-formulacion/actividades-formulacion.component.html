@@ -5,7 +5,7 @@
   </div>
 
   <div style="margin-bottom: 5px;">
-    <button class="backButton" mat-stroked-button (click)="backToProducto()"><mat-icon>arrow_back</mat-icon>Producto</button>
+    <button class="backButton" mat-stroked-button (click)="backToProducto()"><mat-icon>arrow_back</mat-icon>Indicador</button>
   </div>
 
   <div class="actividadContainer">
@@ -15,12 +15,12 @@
 
       <form [formGroup]="actividadForm">
 
-        <mat-form-field appearance="fill" style="width: 40%;">
+        <mat-form-field appearance="fill" style="width: 35%;">
           <mat-label>Actividad</mat-label>
           <input matInput required formControlName="nombre">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width: 15%;">
+        <!-- <mat-form-field appearance="fill" style="width: 15%;">
           <mat-label>Frecuencia</mat-label>
           <mat-select disableRipple formControlName="idFrecuencia">
             <ng-container *ngIf="frecuenciaList.length> 0; else noFre">
@@ -30,7 +30,7 @@
             </ng-container>
             <ng-template #noFre> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
-        </mat-form-field>&nbsp;
+        </mat-form-field>&nbsp; -->
 
         <!-- <mat-form-field appearance="fill" style="width: 19.5%;">
           <mat-label>Estado</mat-label>
@@ -44,7 +44,7 @@
           </mat-select>
         </mat-form-field>&nbsp; -->
 
-        <mat-form-field appearance="fill" style="width: 15%;">
+        <mat-form-field appearance="fill" style="width: 12%;">
           <mat-label>Meses de impacto</mat-label>
           <mat-select disableRipple multiple formControlName="mesesImpacto">
             <ng-container *ngIf="mesesList.length> 0; else noMeses">
@@ -66,9 +66,9 @@
             </ng-container>
             <ng-template #noResp> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
-        </mat-form-field><br>
+        </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width: 30%;">
+        <mat-form-field appearance="fill" style="width: 23%;">
           <mat-label>Cargo del Responsable</mat-label>
           <mat-select disableRipple formControlName="idResponsableCargo">
             <ng-container *ngIf="cargoList.length> 0; else noCargo">
@@ -78,7 +78,7 @@
             </ng-container>
             <ng-template #noCargo> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
-        </mat-form-field>&nbsp;
+        </mat-form-field>
 
         <mat-form-field appearance="fill" style="width: 30%;">
           <mat-label>Involucrados</mat-label>
@@ -92,7 +92,7 @@
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <h3 class="Stitle">Resultado esperado cualitativo</h3>
+        <!-- <h3 class="Stitle">Resultado esperado cualitativo</h3>
 
         <mat-form-field appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 1</mat-label>
@@ -134,7 +134,7 @@
         <mat-form-field appearance="fill" style="width: 24%;">
           <mat-label>Trimestre 4</mat-label>
           <input matInput type="number" formControlName="resultadoEsperadoCuantitativoT4">
-        </mat-form-field>&nbsp;
+        </mat-form-field>&nbsp; -->
       </form>
     </div>
 
@@ -144,7 +144,7 @@
 
       <form [formGroup]="insumoForm" (ngSubmit)="agregarInsumoAlObjeto()">
 
-        <mat-form-field appearance="fill" style="width: 10%;">
+        <mat-form-field appearance="fill" style="width: 13%;">
           <mat-label>Categoría de insumo</mat-label>
           <mat-select disableRipple formControlName="idCategoria" (selectionChange)="onSelectCategoria()">
             <ng-container *ngIf="categoriaInsumoList.length> 0; else noCatego">
@@ -153,6 +153,18 @@
               </mat-option>
             </ng-container>
             <ng-template #noCatego> <mat-option>No hay campos disponibles</mat-option> </ng-template>
+          </mat-select>
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width: 30%;">
+          <mat-label>Gestor transversal</mat-label>
+          <mat-select disableRipple formControlName="idPerito">
+            <ng-container>
+              <mat-option [value]="[perito.id, perito.nombre]" *ngFor="let perito of peritoList">
+                {{perito.nombre}}
+              </mat-option>
+              <mat-option [value]="[0, 'NO APLICA']">NO APLICA</mat-option>
+            </ng-container>
           </mat-select>
         </mat-form-field>&nbsp;
 
@@ -167,22 +179,22 @@
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:10%;">
-          <mat-label>Código</mat-label>
-          <input matInput readonly formControlName="idInsumo">
-        </mat-form-field>&nbsp;
-
-        <mat-form-field appearance="fill" style="width:10%;">
-          <mat-label>Auxiliar</mat-label>
-          <input matInput readonly formControlName="auxiliar">
-        </mat-form-field>&nbsp;
-
-        <mat-form-field appearance="fill" style="width:30.5%;">
+        <mat-form-field appearance="fill" style="width:35%;">
           <mat-label>Descripción de insumo</mat-label>
           <input matInput readonly formControlName="descripcion">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width: 17%;">
+        <mat-form-field appearance="fill" style="width:13%;">
+          <mat-label>Código</mat-label>
+          <input matInput readonly formControlName="idInsumo">
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width:13%;">
+          <mat-label>Auxiliar</mat-label>
+          <input matInput readonly formControlName="auxiliar">
+        </mat-form-field>&nbsp;
+
+        <mat-form-field appearance="fill" style="width: 16.5%;">
           <mat-label>Unidad de medida</mat-label>
           <mat-select disableRipple form formControlName="idUnidadMedida">
             <ng-container *ngIf="UnidadesMedidaList.length> 0; else noUniMed">
@@ -193,21 +205,19 @@
             <ng-template #noUniMed> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
         </mat-form-field>&nbsp;
-
-        <br>
         
-        <mat-form-field appearance="fill" style="width:30.5%;">
+        <mat-form-field appearance="fill" style="width:27%;">
           <mat-label>Insumo Especifico</mat-label>
           <input matInput formControlName="descripcionInsumo">
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width:15%;" >
+        <mat-form-field appearance="fill" style="width:14%;" >
           <mat-label>Costo unitario</mat-label>
           <input matInput formControlName="costoUnitario" type="number" (input)="calculateMontoTotal()">
         </mat-form-field>&nbsp;
 
         <!--Detallar costeo en periodos -->
-        <mat-form-field appearance="fill" style="width:15%;">
+        <mat-form-field appearance="fill" style="width:13.7%;">
           <mat-label>cantidad</mat-label>
           <input matInput type="number" formControlName="cantidad" (input)="calculateMontoTotal()">
         </mat-form-field>&nbsp;

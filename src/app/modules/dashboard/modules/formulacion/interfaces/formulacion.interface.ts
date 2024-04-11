@@ -18,13 +18,13 @@ export interface ActividadI {
   frecuencia: FrecuenciaI,
   responsableUnidad: {id:number, nombre: string}
   responsableCargo: {id:number, nombre: string}
-  resultadoEsperadoCuantitativoT2?: number,
-  resultadoEsperadoCuantitativoT3?: number,
-  resultadoEsperadoCuantitativoT4?: number,
-  resultadoEsperadoCualitativoT1?: string,
-  resultadoEsperadoCualitativoT2?: string,
-  resultadoEsperadoCualitativoT3?: string,
-  resultadoEsperadoCualitativoT4?: string,
+  // resultadoEsperadoCuantitativoT2?: number,
+  // resultadoEsperadoCuantitativoT3?: number,
+  // resultadoEsperadoCuantitativoT4?: number,
+  // resultadoEsperadoCualitativoT1?: string,
+  // resultadoEsperadoCualitativoT2?: string,
+  // resultadoEsperadoCualitativoT3?: string,
+  // resultadoEsperadoCualitativoT4?: string,
   // resultadoObtenidoCuantitativoT1?: number,
   // resultadoObtenidoCuantitativoT2?: number,
   // resultadoObtenidoCuantitativoT3?: number,
@@ -64,6 +64,7 @@ export interface CosteoDetallesI {
   id: string,
   idInsumo: number,
   costoUnitario: number,
+  idPerito: number,
   cantidad: number,
   montoTotal: number,
   fechaRecepcion: Date
@@ -76,6 +77,7 @@ export interface CosteoDetallesGroupI {
   idInsumo: number,
   costoUnitario: number,
   cantidad: number,
+  idPerito: number,
   montoTotal: number,
   fechaRecepcion: Date
   idUnidadMedida: any

@@ -31,7 +31,6 @@
                 <thead class="headerTable">
                     <tr class="headerRow">
                         <th class="headerCell">Actividad</th>
-                        <!-- <th class="headerCell">Frecuencia</th> -->
                         <th class="headerCell">Responsable</th>
                         <th class="headerCell">Cargo del Responsable</th>
                         <th class="headerCell">Prosupuesto Estimado</th>
@@ -42,7 +41,6 @@
                 <tbody>
                     <tr class="dataRow" *ngFor="let actividad of indicador.actividades">
                         <td class="dataCell">{{actividad.nombre}}</td>
-                        <!-- <td class="dataCell">{{actividad.frecuencia.nombre}}</td> -->
                         <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
                         <td class="dataCell">{{actividad.responsableCargo.nombre}}</td>
                         <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo">
