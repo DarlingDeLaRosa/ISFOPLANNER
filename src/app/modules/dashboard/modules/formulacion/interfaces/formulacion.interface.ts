@@ -77,7 +77,7 @@ export interface CosteoDetallesGroupI {
   idInsumo: number,
   costoUnitario: number,
   cantidad: number,
-  idPerito: number,
+  idPerito: any,
   montoTotal: number,
   fechaRecepcion: Date
   idUnidadMedida: any

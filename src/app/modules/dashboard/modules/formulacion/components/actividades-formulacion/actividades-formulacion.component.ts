@@ -321,7 +321,10 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   saveChanges() {
-    this.insumosGroup.map((insumo: CosteoDetallesGroupI)=> {insumo.idUnidadMedida = insumo.idUnidadMedida[0]})
+    this.insumosGroup.map((insumo: CosteoDetallesGroupI)=> {
+      insumo.idUnidadMedida = insumo.idUnidadMedida[0]
+      insumo.idPerito = insumo.idPerito[0]
+    })
     this.actividadForm.value.costeo.costeoDetalles = this.insumosGroup
     this.actividadForm.value.costeo.montoTotalEstimado = this.showMontoTotal
     this.helperHandler.saveChanges(() => this.putActividades(), this.actividadForm, () => this.postActividades())
