@@ -57,11 +57,12 @@
                     <table>
                         <thead class="headerTable">
                             <tr class="headerRow">
-                                <th class="headerCell">Actividad</th>
                                 <!-- <th class="headerCell">Frecuencia</th> -->
+                                <th class="headerCell">Actividad</th>
                                 <th class="headerCell">Responsable</th>
                                 <th class="headerCell">Prosupuesto Estimado</th>
                                 <th class="headerCell">Cargo del Responsable</th>
+                                <th class="headerCell">Prioridad</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,8 +70,8 @@
                                 <td class="dataCell">{{actividad.nombre}}</td>
                                 <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
                                 <td class="dataCell">{{actividad.responsableCargo.nombre}}</td>
-                                <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP ':
-                                    'symbol':'1.2-2'}}</td>
+                                <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP ':'symbol':'1.2-2'}}</td>
+                                <td class="dataCell">{{actividad.prioridad}}</td>
                                 <!-- <td class="dataCell">{{actividad.alcance.nombre}}</td> -->
                                 <!-- <td class="dataCell">{{indicador.lineaBase}}%</td> -->
                                 <!-- <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td> -->

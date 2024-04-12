@@ -15,7 +15,7 @@
 
       <form [formGroup]="actividadForm">
 
-        <mat-form-field appearance="fill" style="width: 35%;">
+        <mat-form-field appearance="fill" style="width: 32%;">
           <mat-label>Actividad</mat-label>
           <input matInput required formControlName="nombre">
         </mat-form-field>&nbsp;
@@ -44,7 +44,7 @@
           </mat-select>
         </mat-form-field>&nbsp; -->
 
-        <mat-form-field appearance="fill" style="width: 12%;">
+        <mat-form-field appearance="fill" style="width: 15%;">
           <mat-label>Meses de impacto</mat-label>
           <mat-select disableRipple multiple formControlName="mesesImpacto">
             <ng-container *ngIf="mesesList.length> 0; else noMeses">
@@ -56,7 +56,7 @@
           </mat-select>
         </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width: 28.5%;">
+        <!-- <mat-form-field appearance="fill" style="width: 28.5%;">
           <mat-label>Responsable</mat-label>
           <mat-select disableRipple formControlName="idResponsableUnidad">
             <ng-container *ngIf="responsableList.length> 0; else noResp">
@@ -66,7 +66,7 @@
             </ng-container>
             <ng-template #noResp> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
-        </mat-form-field>&nbsp;
+        </mat-form-field>&nbsp; -->
 
         <mat-form-field appearance="fill" style="width: 23%;">
           <mat-label>Cargo del Responsable</mat-label>
@@ -78,9 +78,9 @@
             </ng-container>
             <ng-template #noCargo> <mat-option>No hay campos disponibles</mat-option> </ng-template>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field>&nbsp;
 
-        <mat-form-field appearance="fill" style="width: 30%;">
+        <mat-form-field appearance="fill" style="width: 28.5%;">
           <mat-label>Involucrados</mat-label>
           <mat-select disableRipple multiple formControlName="involucrados">
             <ng-container *ngIf="involucradoList.length> 0; else noInvol">
@@ -89,6 +89,17 @@
               </mat-option>
             </ng-container>
             <ng-template #noInvol> <mat-option>No hay campos disponibles</mat-option> </ng-template>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 15%;">
+          <mat-label>Prioridad</mat-label>
+          <mat-select disableRipple formControlName="prioridad">
+            <ng-container>
+              <mat-option value="alta">Alta</mat-option>
+              <mat-option value="media">Media</mat-option>
+              <mat-option value="baja">Baja</mat-option>
+            </ng-container>
           </mat-select>
         </mat-form-field>&nbsp;
 
@@ -139,6 +150,7 @@
     </div>
 
     <!-- formulario de los insumos -->
+
     <div class="formularioActividades">
       <h3 class="Stitle">Costeo</h3>
 
@@ -158,12 +170,11 @@
 
         <mat-form-field appearance="fill" style="width: 30%;">
           <mat-label>Gestor transversal</mat-label>
-          <mat-select disableRipple formControlName="idPerito">
+          <mat-select disableRipple formControlName="idPerito" (selectionChange)="onSelectPerito($event.value)">
             <ng-container>
-              <mat-option [value]="[perito.id, perito.nombre]" *ngFor="let perito of peritoList">
+              <mat-option [value]="perito.id" *ngFor="let perito of peritoList">
                 {{perito.nombre}}
               </mat-option>
-              <mat-option [value]="[0, 'NO APLICA']">NO APLICA</mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>&nbsp;
@@ -196,9 +207,9 @@
 
         <mat-form-field appearance="fill" style="width: 16.5%;">
           <mat-label>Unidad de medida</mat-label>
-          <mat-select disableRipple form formControlName="idUnidadMedida">
+          <mat-select disableRipple form formControlName="idUnidadMedida" (selectionChange)="onSelectUnidadMedida($event.value)">
             <ng-container *ngIf="UnidadesMedidaList.length> 0; else noUniMed">
-              <mat-option [value]="[unidadMedida.id, unidadMedida.nombre]" *ngFor="let unidadMedida of UnidadesMedidaList">
+              <mat-option [value]="unidadMedida.id" *ngFor="let unidadMedida of UnidadesMedidaList">
                 {{unidadMedida.nombre}}
               </mat-option>
             </ng-container>
@@ -257,6 +268,7 @@
             <th class="headerCell">Descripción</th>
             <th class="headerCell">Auxiliar</th>
             <th class="headerCell">Codigo</th>
+            <th class="headerCell">Gestor transversal</th>
             <th class="headerCell">Fecha recepción</th>
             <th class="headerCell">Unidad de medida</th>
             <th class="headerCell">Cantidad</th>
@@ -272,8 +284,9 @@
             <td class="dataCell">{{insumo.descripcionInsumo}}</td>
             <td class="dataCell">{{insumo.auxiliar}}</td>
             <td class="dataCell">{{insumo.idInsumo}}</td>
+            <td class="dataCell">{{insumo.nombrePerito}}</td>
             <td class="dataCell">{{insumo.fechaRecepcion }}</td>
-            <td class="dataCell">{{insumo.idUnidadMedida[1]}}</td>
+            <td class="dataCell">{{insumo.nombreUnidadMedida}}</td>
             <td class="dataCell">{{insumo.cantidad}}</td>
             <td class="dataCell">{{insumo.costoUnitario  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
             <td class="dataCell">{{insumo.montoTotal  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
@@ -284,6 +297,7 @@
         <tfoot>
           <tr class="footerRow" >
             <td class="footerCell">Total</td>
+            <td class="footerCell"></td>
             <td class="footerCell"></td>
             <td class="footerCell"></td>
             <td class="footerCell"></td>

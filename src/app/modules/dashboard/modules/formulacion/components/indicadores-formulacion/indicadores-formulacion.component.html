@@ -34,6 +34,7 @@
                         <th class="headerCell">Responsable</th>
                         <th class="headerCell">Cargo del Responsable</th>
                         <th class="headerCell">Prosupuesto Estimado</th>
+                        <th class="headerCell">Prioridad</th>
                         <th class="headerCell"></th>
                         <th class="headerCell"></th>
                     </tr>
@@ -48,6 +49,7 @@
                         <ng-template #noCosteo>
                             <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                         </ng-template>
+                        <td class="dataCell">{{actividad.prioridad}}</td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon"
                                 (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon"

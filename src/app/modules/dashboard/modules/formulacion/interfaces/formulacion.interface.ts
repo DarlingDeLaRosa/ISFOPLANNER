@@ -6,6 +6,7 @@ export interface ActividadI {
   nombre: string,
   idProducto: number,
   idFrecuencia: number,
+  prioridad: string
   idPresupuestoInstitucional: number
   idEstado: number,
   idEstructuraProgramatica: number,
@@ -36,11 +37,12 @@ export interface ActividadI {
 }
 
 
-export interface RegionesI {
-  id: number,
-  nombre: string,
-  provincia: ProvinciaI[]
-}
+// export interface RegionesI {
+//   id: number,
+//   nombre: string,
+//   provincia: ProvinciaI[]
+// }
+
 export interface InsumosI {
   id: number,
   nombre: string,
@@ -77,25 +79,27 @@ export interface CosteoDetallesGroupI {
   idInsumo: number,
   costoUnitario: number,
   cantidad: number,
-  idPerito: any,
+  idPerito: number,
   montoTotal: number,
+  nombrePerito: string
   fechaRecepcion: Date
-  idUnidadMedida: any
+  idUnidadMedida: number
   auxiliar: string
   nombre:string
+  nombreUnidadMedida: string
   descripcionInsumo: string
 }
 
-export interface ProvinciaI {
-  id: number,
-  nombre: string,
-  region: string
-}
-export interface MunicipioI {
-  id: number,
-  nombre: string,
-  provincia: ProvinciaI
-}
+// export interface ProvinciaI {
+//   id: number,
+//   nombre: string,
+//   region: string
+// }
+// export interface MunicipioI {
+//   id: number,
+//   nombre: string,
+//   provincia: ProvinciaI
+// }
 
 export interface EstadoI {
   id: number,
@@ -104,10 +108,6 @@ export interface EstadoI {
 }
 
 export interface FrecuenciaI {
-  id: number,
-  nombre: string,
-}
-export interface UnidadesMedidaI {
   id: number,
   nombre: string,
 }
