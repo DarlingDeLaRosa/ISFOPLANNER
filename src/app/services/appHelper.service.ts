@@ -62,14 +62,14 @@ export class HelperService {
                 loading(true)
                 if (form.value.id > 0) updateFunction()
                 else saveFunction()
-            }else infoMessageAlert(`Linea base debe ser mayor a la meta (${meta})`)
+            } else infoMessageAlert(`Linea base debe ser mayor a la meta (${meta})`)
         } else alertNoValidForm()
     }
 
     saveChangesSumValidation(updateFunction: () => void, form: FormGroup, saveFunction: () => void, meta: number, entidadSumar: any, alcance: number) {
         let noRec = 0
         if (form.valid) {
-            if(alcance == 1) noRec = entidadSumar.metaRec
+            if (alcance == 1) noRec = entidadSumar.metaRec
             if (meta == this.sumTotal(entidadSumar) - noRec) {
                 loading(true)
                 if (form.value.id > 0) updateFunction()
@@ -96,15 +96,17 @@ export class HelperService {
         return suma;
     }
 
-    sameGoal(objetoSame: any,  valor: number): boolean {
-        for (const key in objetoSame) {
-            if (objetoSame.hasOwnProperty(key) && !key.includes('id')) {
-                if (objetoSame[key] !== valor && objetoSame[key] !== 0) {
-                    return false; // Si algún valor no es igual a la variable y tampoco es 0, retorna false
+    sameGoal(objetSame: any, valor: number): boolean {
+        let found: boolean = false; // Variable para indicar si se encontró al menos una vez el valor de la meta
+        for (const key in objetSame) {
+            if (objetSame.hasOwnProperty(key) && !key.includes('id')) {
+                if (objetSame[key] === valor) {
+                    found = true; // Si se encuentra el valor de la meta, cambia el estado de 'found' a true
+                    break; // Termina la iteración, ya que se encontró el valor de la meta al menos una vez
                 }
             }
         }
-        return true; // Si todos los valores son iguales a la variable y ninguno es 0, retorna true
+        return found;
     }
 
     validationGoal(meta: number, sumaTotal: number): boolean { return meta === sumaTotal ? true : false; }

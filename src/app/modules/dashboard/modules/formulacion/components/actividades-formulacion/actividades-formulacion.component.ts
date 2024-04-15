@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActividadesService } from '../../services/actividades.service';
-import { alertNoValidForm, alertRemoveSure } from 'src/app/alerts/alerts';
+import { alertNoValidForm, alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { EstadoI, FrecuenciaI, MesesI, CategoriaInsumosI, UnidadesMedidaI, InsumosI, CosteoDetallesI, CosteoI, CosteoDetallesGroupI } from '../../interfaces/formulacion.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { PresupuestoInstitucionalService } from '../../../mantenimiento/services
 import { format } from 'date-fns';
 import { UnidadOrganizativaService } from '../../../mantenimiento/services/unidad-organizativa.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-actividades-formulacion',
@@ -62,15 +63,15 @@ export class ActividadesFormulacionComponent implements OnInit {
   ) {
     this.actividadForm = this.fb.group({
       // idFrecuencia: new FormControl<number>(0, Validators.required),
+      // avance: new FormControl<number>(0),
       id: 0,
       idIndicadorGestion: 0,
       idPresupuestoInstitucional: 0,
       nombre: new FormControl<string>('', Validators.required),
       idEstado: new FormControl<number>(1, Validators.required),
-      idResponsableUnidad: new FormControl<number>(0, Validators.required),
+      responsableUnidad: new FormControl<number>(0, Validators.required),
       idResponsableCargo: new FormControl<number>(0, Validators.required),
       esPrevista: new FormControl<boolean>(true, Validators.required),
-      // avance: new FormControl<number>(0),
       prioridad: new FormControl('', Validators.required),
 
       costeo: this.fb.group({
@@ -79,7 +80,7 @@ export class ActividadesFormulacionComponent implements OnInit {
       }),
 
       mesesImpacto: new FormControl('', Validators.required),
-      involucrados: new FormControl('', Validators.required),
+      involucrados: new FormControl('',),
 
       // resultadoEsperadoCuantitativoT1: new FormControl<number>(0, Validators.required),
       // resultadoEsperadoCuantitativoT2: new FormControl<number>(0, Validators.required),
@@ -92,6 +93,7 @@ export class ActividadesFormulacionComponent implements OnInit {
     })
 
     this.insumoForm = this.fb.group({
+      id: 0,
       montoTotal: new FormControl(''),
       nombre: new FormControl('', Validators.required),
       cantidad: new FormControl('', Validators.required),
@@ -108,7 +110,6 @@ export class ActividadesFormulacionComponent implements OnInit {
       nombreUnidadMedida: new FormControl('', Validators.required),
     })
 
-
     this.route.queryParams.subscribe(params => {
       this.idIndicadorGestion = parseInt(params['id']);
       this.actividadForm.patchValue({ idIndicadorGestion: this.idIndicadorGestion })
@@ -120,8 +121,8 @@ export class ActividadesFormulacionComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.actividadForm.patchValue({ idResponsableUnidad: this.userSystemService.getUnitOrg.id })
+  async ngOnInit() {
+    this.actividadForm.patchValue({ responsableUnidad: this.userSystemService.getUnitOrg.nombre })
 
     // this.getProvinvias();
     // this.getMunicipios();
@@ -130,13 +131,13 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.getCargos()
     this.getestados();
     this.getInsumos();
-    this.getPeritos()
     this.getMeses()
     this.getResponsable();
     this.getInvolucrado();
-    this.getUnidadesMedida();
     this.getCategoriaInsumos();
-    this.getPresupuestoInstitucional()
+    this.getPresupuestoInstitucional();
+    this.getPeritos();
+    this.getUnidadesMedida()
   }
 
   backToProducto() {
@@ -148,20 +149,19 @@ export class ActividadesFormulacionComponent implements OnInit {
       .subscribe((res: any) => { this.actividadForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
   }
 
-  getByIdActividades() {
+  async getByIdActividades() {
     this.actividadesService.getByIdActividades(this.idActividad)
       .subscribe((res: any) => {
-        console.log(res);
-        
+        loading(true)
+
         const { data } = res
 
         this.actividadForm.patchValue({
-          // idFrecuencia: data.frecuencia.id,
           id: data.id,
-          idIndicadorGestion: data.producto.id,
+          idIndicadorGestion: data.indicadorGestion.id,
           nombre: data.nombre,
           idEstado: data.estado.id,
-          idResponsableUnidad: data.responsableUnidad.id,
+          responsableUnidad: data.responsableUnidad.nombre,
           idResponsableCargo: data.responsableCargo.id,
           esPrevista: data.esPrevista,
           prioridad: data.prioridad,
@@ -169,6 +169,7 @@ export class ActividadesFormulacionComponent implements OnInit {
           mesesImpacto: data.mesesImpacto.map((mes: any) => { return mes.id }),
           involucrados: data.involucrados.map((involucrado: any) => { return involucrado.id }),
 
+          // idFrecuencia: data.frecuencia.id,
           // resultadoEsperadoCuantitativoT1: data.resultadoEsperadoCuantitativoT1,
           // resultadoEsperadoCuantitativoT2: data.resultadoEsperadoCuantitativoT2,
           // resultadoEsperadoCuantitativoT3: data.resultadoEsperadoCuantitativoT3,
@@ -183,10 +184,11 @@ export class ActividadesFormulacionComponent implements OnInit {
         data.costeo.costeoDetalle.map((insumos: any) => {
 
           this.insumoForm.patchValue({
+            id: insumos.id,
             montoTotal: insumos.montoTotal,
             nombre: insumos.insumo.nombre,
             idInsumo: insumos.insumo.id,
-            idPerito: insumos.insumo.perito.id,
+            idPerito: insumos.perito.id,
             cantidad: insumos.cantidad,
             auxiliar: insumos.insumo.auxiliar.id,
             idCategoria: insumos.insumo.categoriaInsumo.id,
@@ -195,11 +197,16 @@ export class ActividadesFormulacionComponent implements OnInit {
             idUnidadMedida: insumos.unidadMedida.id,
             fechaRecepcion: insumos.fechaRecepcion,
             descripcionInsumo: insumos.descripcionInsumo,
+            nombrePerito: insumos.perito.nombre,
+            nombreUnidadMedida: insumos.unidadMedida.nombre,
           })
 
           this.agregarInsumoAlObjeto()
         })
+        loading(false)
+
       })
+
   }
 
   // getRegiones() {
@@ -299,7 +306,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   agregarInsumoAlObjeto() {
-    
+
     if (this.insumoForm.valid) {
       this.insumoForm.value.fechaRecepcion = format(this.insumoForm.value.fechaRecepcion, 'yyyy-MM-dd');
       this.insumosGroup.push(this.insumoForm.value)
@@ -339,7 +346,7 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   saveChanges() {
     console.log(this.actividadForm.value);
-    
+
     // this.insumosGroup.map((insumo: CosteoDetallesGroupI) => {
     //   insumo.idUnidadMedida = insumo.idUnidadMedida[0]
     //   insumo.idPerito = insumo.idPerito[0]

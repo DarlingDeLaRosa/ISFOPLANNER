@@ -84,6 +84,6 @@ export class ActividadesService {
     }
     
     getActividadesInvolucradas(): Observable<ResponseI> {
-      return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/por-involucrados?unidad=${this.activeUnit}`, this.header))
+      return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/por-involucrados?unidad=${this.activeUnit.nombre}`, this.header))
     }
 }

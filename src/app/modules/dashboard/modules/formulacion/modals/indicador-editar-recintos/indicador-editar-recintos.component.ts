@@ -55,7 +55,7 @@ export class IndicadorEditarRecintosComponent implements OnInit {
   saveChanges() {
     if (this.indicador.tipoIndicador.id == 1 ) {
       this.helperHandler.saveChangesFlujoValidation(() => 
-      this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value, `Los indicadores de flujo deben cumplir con la misma meta en los periodos donde aplica.`)
+      this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value, `La Meta de los indicadores de flujo deben cumplirse por lo menos en uno de los trimestres.`)
     }else {
       this.helperHandler.saveChangesSumValidation(() => 
       this.putIndicadorRecinto(), this.indicadoresGestionForm, () => this.postIndicadorRecinto(), this.indicador.meta, this.indicadoresGestionForm.value, this.indicador.alcance.id)

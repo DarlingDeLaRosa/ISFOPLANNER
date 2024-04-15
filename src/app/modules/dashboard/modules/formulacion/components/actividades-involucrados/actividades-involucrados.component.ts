@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActividadesService } from '../../services/actividades.service';
+import { ActividadI } from '../../interfaces/formulacion.interface';
 
 @Component({
   selector: 'app-actividades-involucrados',
@@ -8,6 +9,7 @@ import { ActividadesService } from '../../services/actividades.service';
 })
 export class ActividadesInvolucradosComponent implements OnInit{
 
+  sharedAct!: ActividadI[]
 
   constructor(
     private actividadService: ActividadesService
@@ -19,7 +21,8 @@ export class ActividadesInvolucradosComponent implements OnInit{
 
   getActividadesInvolucradas(){
     this.actividadService.getActividadesInvolucradas().subscribe(
-      (res: any) => { console.log(res);}
+      (res: any) => { this.sharedAct = res.data ; console.log(res.data);
+      }
     )
   }
 }

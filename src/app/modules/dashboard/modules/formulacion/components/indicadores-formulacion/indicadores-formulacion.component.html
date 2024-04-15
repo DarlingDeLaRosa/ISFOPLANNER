@@ -26,10 +26,10 @@
                     currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
             </span>
         </div>
-        <div>
+        <div >
             <table>
                 <thead class="headerTable">
-                    <tr class="headerRow">
+                    <tr class="headerRow" *ngIf="indicador.actividades.length > 0">
                         <th class="headerCell">Actividad</th>
                         <th class="headerCell">Responsable</th>
                         <th class="headerCell">Cargo del Responsable</th>
@@ -37,6 +37,9 @@
                         <th class="headerCell">Prioridad</th>
                         <th class="headerCell"></th>
                         <th class="headerCell"></th>
+                    </tr>
+                    <tr class="headerRow" *ngIf="indicador.actividades.length == 0">
+                        <th class="headerCell">No se encontraron actividades</th>
                     </tr>
                 </thead>
                 <tbody>
