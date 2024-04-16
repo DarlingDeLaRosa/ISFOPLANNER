@@ -14,9 +14,9 @@
         <h2 style="margin: 0;">Actividades Involucradas / Compartidas</h2>
     </div>
 
-    <ng-container *ngIf="sharedAct" >
-    <div class="producto" style="margin-top: 16px;" *ngFor="let insumo of sharedAct">
-            <div class="titleProducto">
+    <div *ngFor="let insumo of sharedAct">
+        <div class="producto" style="margin-top: 16px;" >
+            <div class="titleProducto" style="background-color: #49aa4244;">
                 <span style="display: flex; margin: 10px 0;">
                     <h3>Indicador:</h3> &nbsp;
                     <h3 style="font-weight: 400;">{{insumo.nombre}}</h3>
@@ -33,36 +33,39 @@
             </div>
             <div>
                 <table>
-                    <thead class="headerTable">
-                        <tr class="headerRow" *ngIf="insumo.costeo">
-                            <th class="headerCell">Actividad</th>
-                            <th class="headerCell">Responsable</th>
-                            <th class="headerCell">Cargo del Responsable</th>
+                    <thead class="headerTable" >
+                        <tr class="headerRow" *ngIf="insumo.costeo.costeoDetalle.length > 0; else noInsumo">
+                            <th class="headerCell">Insumo</th>
+                            <th class="headerCell">Categoria</th>
+                            <th class="headerCell">Auxiliar</th>
                             <th class="headerCell">Prosupuesto Estimado</th>
-                            <th class="headerCell">Prioridad</th>
+                            <th class="headerCell">Unidad Medida</th>
                             <th class="headerCell"></th>
                             <th class="headerCell"></th>
                         </tr>
-                        <tr class="headerRow" *ngIf="insumo.costeo.costeoDetalles.length == 0">
-                            <th class="headerCell">Esta actividad no contiene Insumo</th>
-                        </tr>
+                        <ng-template #noInsumo>
+                            <tr class="headerRow">
+                                <th class="headerCell">Esta actividad no contiene Insumo</th>
+                            </tr>
+                        </ng-template>
                     </thead>
-                    <tbody>
-                        <tr class="dataRow" *ngFor="let insumos of insumo.costeo.costeoDetalles">
+                    <tbody *ngIf="insumo.costeo.costeoDetalle.length > 0    ">
+                        <tr class="dataRow" *ngFor="let insumos of insumo.costeo.costeoDetalle">
                             <td class="dataCell">{{insumos.insumo.nombre}}</td>
                             <td class="dataCell">{{insumos.insumo.categoriaInsumo.nombre}}</td>
                             <td class="dataCell">{{insumos.insumo.auxiliar.id}}</td>
-                            <td class="dataCell" *ngIf="insumos.insumo.montoTotal != null; else noCosteo">
-                                {{insumos.insumo.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                            <td class="dataCell" *ngIf="insumos.montoTotal > 0; else noCosteo">
+                                {{insumos.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <ng-template #noCosteo>
                                 <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             </ng-template>
-                            <td class="dataCell">{{insumos.insumo.unidadMedida.nombre}}</td>
+                            <td class="dataCell">{{insumos.unidadMedida!.nombre}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    </ng-container>
+    </div>
+
     <charging-box *ngIf="!sharedAct"></charging-box>
 </div>

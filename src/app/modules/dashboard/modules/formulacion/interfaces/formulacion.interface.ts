@@ -58,8 +58,9 @@ export interface CategoriaInsumoI {
 
 
 export interface CosteoI {
+  id:number
   montoTotalEstimado: number,
-  costeoDetalles: CosteoDetallesI[],
+  costeoDetalle: CosteoDetallesI[],
 }
 
 export interface CosteoDetallesI {
@@ -72,9 +73,28 @@ export interface CosteoDetallesI {
   montoTotal: number,
   fechaRecepcion: Date
   idUnidadMedida: number
+  unidadMedida?: any
   descripcionInsumo: string
 }
 
+// export interface CosteoDetallesGetI {
+//       id: number,
+//       costoUnitario: number,
+//       cantidad: number,
+//       montoTotal: number,
+//       fechaRecepcion: Date,
+//       insumo: {
+//         id: number,
+//         nombre: string,
+//         descripcion: string,
+//         categoriaInsumo: { id: number, nombre: string },
+//         auxiliar: { id: number, nombre: string }
+//       },
+//       descripcionInsumo: string,
+//       perito: { id: number, nombre: string },
+//       unidadMedida: { id: number, nombre: string }
+// }
+    
 export interface CosteoDetallesGroupI {
   id: string,
   idInsumo: number,
