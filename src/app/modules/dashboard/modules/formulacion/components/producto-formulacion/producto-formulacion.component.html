@@ -60,8 +60,8 @@
                                 <!-- <th class="headerCell">Frecuencia</th> -->
                                 <th class="headerCell">Actividad</th>
                                 <th class="headerCell">Responsable</th>
-                                <th class="headerCell">Prosupuesto Estimado</th>
                                 <th class="headerCell">Cargo del Responsable</th>
+                                <th class="headerCell">Prosupuesto Estimado</th>
                                 <th class="headerCell">Prioridad</th>
                             </tr>
                         </thead>
@@ -108,7 +108,9 @@
                 </div>
             </div>
         </ng-container>
-        <charging-box *ngIf="!productoConsult" ></charging-box>
+        <charging-box *ngIf="! productoConsult" ></charging-box>
+        <no-data-found *ngIf=" productoConsult.indicadoresGestion &&  productoConsult.indicadoresGestion.length == 0"></no-data-found>
+
     </div>
 
     <!-- <div class="producto">

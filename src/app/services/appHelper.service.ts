@@ -62,7 +62,7 @@ export class HelperService {
                 loading(true)
                 if (form.value.id > 0) updateFunction()
                 else saveFunction()
-            } else infoMessageAlert(`Linea base debe ser mayor a la meta (${meta})`)
+            } else infoMessageAlert(`Linea base no debe ser mayor a la meta (${meta})`)
         } else alertNoValidForm()
     }
 
@@ -109,7 +109,7 @@ export class HelperService {
         return found;
     }
 
-    validationGoal(meta: number, sumaTotal: number): boolean { return meta === sumaTotal ? true : false; }
+    validationGoal(meta: number, sumaTotal: number): boolean { return meta === sumaTotal && meta > 0 ? true : false; }
 
     indicadorMetaRecinto(recinto: string, indicadorRecintos: indicadorRecinto): number {
         switch (recinto) {

@@ -150,10 +150,11 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   async getByIdActividades() {
+    loading(true)
     this.actividadesService.getByIdActividades(this.idActividad)
       .subscribe((res: any) => {
-        loading(true)
-
+        console.log(res);
+        
         const { data } = res
 
         this.actividadForm.patchValue({
@@ -203,8 +204,8 @@ export class ActividadesFormulacionComponent implements OnInit {
 
           this.agregarInsumoAlObjeto()
         })
+        
         loading(false)
-
       })
 
   }
@@ -286,8 +287,12 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   onSelectPerito(idPerito: number) {
-    let peritoNombre = this.peritoList.find(item => item.id == idPerito);
-    this.insumoForm.patchValue({ nombrePerito: peritoNombre.nombre })
+    if (idPerito == 0) {
+      this.insumoForm.patchValue({ nombrePerito: 'NO APLICA' })
+    }else{
+      let peritoNombre = this.peritoList.find(item => item.id == idPerito);
+      this.insumoForm.patchValue({ nombrePerito: peritoNombre.nombre })
+    }
   }
 
   onSelectUnidadMedida(idUnidadM: number) {
@@ -347,10 +352,9 @@ export class ActividadesFormulacionComponent implements OnInit {
   saveChanges() {
     console.log(this.actividadForm.value);
 
-    // this.insumosGroup.map((insumo: CosteoDetallesGroupI) => {
-    //   insumo.idUnidadMedida = insumo.idUnidadMedida[0]
-    //   insumo.idPerito = insumo.idPerito[0]
-    // })
+    this.insumosGroup.map((insumo: CosteoDetallesGroupI) => {
+      if (insumo.idPerito == 0) { insumo.idPerito = null }
+    })
     this.actividadForm.value.costeo.costeoDetalles = this.insumosGroup
     this.actividadForm.value.costeo.montoTotalEstimado = this.showMontoTotal
     this.helperHandler.saveChanges(() => this.putActividades(), this.actividadForm, () => this.postActividades())

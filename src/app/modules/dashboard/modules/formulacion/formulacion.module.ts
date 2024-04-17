@@ -13,6 +13,7 @@ import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-reci
 import { IndicadoresFormulacionComponent } from './components/indicadores-formulacion/indicadores-formulacion.component';
 import { ActividadesInvolucradosComponent } from './components/actividades-involucrados/actividades-involucrados.component';
 import { ChargingBoxComponent } from '../../components/charging-box/charging-box.component';
+import { NoDataFoundComponent } from '../../components/no-data-found/no-data-found.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ChargingBoxComponent } from '../../components/charging-box/charging-box
     IndicadorEditarRecintosComponent,
     IndicadoresFormulacionComponent,
     ActividadesInvolucradosComponent,
-    ChargingBoxComponent
+    ChargingBoxComponent,
+    NoDataFoundComponent
   ],
   imports: [
     RouterModule,

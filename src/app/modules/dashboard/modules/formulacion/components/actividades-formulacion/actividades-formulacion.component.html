@@ -173,6 +173,7 @@
           <mat-label>Gestor transversal</mat-label>
           <mat-select disableRipple formControlName="idPerito" (selectionChange)="onSelectPerito($event.value)">
             <ng-container>
+              <mat-option [value]="0">NO APLICA</mat-option>
               <mat-option [value]="perito.id" *ngFor="let perito of peritoList">
                 {{perito.nombre}}
               </mat-option>
@@ -286,7 +287,7 @@
             <td class="dataCell">{{insumo.descripcionInsumo}}</td>
             <td class="dataCell">{{insumo.auxiliar}}</td>
             <td class="dataCell">{{insumo.idInsumo}}</td>
-            <td class="dataCell">{{insumo.nombrePerito}}</td>
+            <td class="dataCell">{{insumo.nombrePerito }}</td>
             <td class="dataCell">{{insumo.fechaRecepcion }}</td>
             <td class="dataCell">{{insumo.nombreUnidadMedida}}</td>
             <td class="dataCell">{{insumo.cantidad}}</td>

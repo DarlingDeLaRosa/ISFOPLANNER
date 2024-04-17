@@ -11,14 +11,14 @@
     </div>
 
     <div class="titleSeguimiento">
-        <h2 style="margin: 0;">Actividades Involucradas / Compartidas</h2>
+        <h2 style="margin: 0; font-weight: 400;">Actividades compartidas</h2>
     </div>
 
     <div *ngFor="let insumo of sharedAct">
         <div class="producto" style="margin-top: 16px;" >
             <div class="titleProducto" style="background-color: #49aa4244;">
                 <span style="display: flex; margin: 10px 0;">
-                    <h3>Indicador:</h3> &nbsp;
+                    <h3>Actividad:</h3> &nbsp;
                     <h3 style="font-weight: 400;">{{insumo.nombre}}</h3>
 
                     <h3 style="margin-left: 40px;">Prioridad:</h3> &nbsp;
@@ -68,4 +68,6 @@
     </div>
 
     <charging-box *ngIf="!sharedAct"></charging-box>
+    <no-data-found *ngIf="sharedAct && sharedAct.length == 0"></no-data-found>
+
 </div>

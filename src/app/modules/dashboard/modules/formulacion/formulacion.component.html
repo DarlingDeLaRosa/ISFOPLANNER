@@ -139,10 +139,8 @@
                 </div>
 
                 <charging-box *ngIf="!productos" ></charging-box>
+                <no-data-found *ngIf="productos && productos.length == 0"></no-data-found>
 
-                <div class="noData" *ngIf="productos && productos.length == 0">
-                    <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
-                </div>
             </div>
         </div>
     </div>

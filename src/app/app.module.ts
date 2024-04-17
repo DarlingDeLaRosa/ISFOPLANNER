@@ -10,11 +10,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
-
 @NgModule({
   declarations: [
     AppComponent,
-    LogInComponent
+    LogInComponent,
   ],
   imports: [
     BrowserModule,
