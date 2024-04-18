@@ -72,7 +72,7 @@ export interface IndicadoresGestionGetI {
   nombre: string,
   lineaBase: number,
   meta: number,
-  montoConsumido:number
+  // montoConsumido:number
   logroEsperadoT1: number,
   logroEsperadoT2: number,
   logroEsperadoT3: number,
@@ -103,6 +103,15 @@ export interface IndicadoresGestionGetI {
     metaEmh: number,
     metaRec: number
   }
+  historial: [
+    {
+      montoEjecutado: number,
+      montoEjecutadoTransversal: number,
+      lineaBase: number,
+      meta: number,
+      avance: number
+    }
+  ],
 }
 
 export interface UsuarioI {

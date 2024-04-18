@@ -123,15 +123,21 @@
                             <thead class="headerTable">
                                 <tr class="headerRow">
                                     <th class="headerCell">Indicador</th>
-                                    <th class="headerCell" style="width: 15%;">Línea Base</th>
-                                    <th class="headerCell" style="width: 15%;">Meta</th>
+                                    <th class="headerCell">Responsable</th>
+                                    <th class="headerCell" style="width: 11%;">Tipo indicador</th>
+                                    <th class="headerCell" style="width: 15%;">Presupuesto estimado</th>
+                                    <th class="headerCell" style="width: 8%;">Línea Base</th>
+                                    <th class="headerCell" style="width: 8%;">Meta</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="dataRow" *ngFor="let indicador of producto.indicadoresGestion">
-                                    <td class="dataCell"> {{indicador.nombre}} </td>
-                                    <td class="dataCell"> {{indicador.lineaBase}}%</td>
-                                    <td class="dataCell"> {{indicador.meta}}% </td>
+                                    <td class="dataCell">{{indicador.nombre}}</td>
+                                    <td class="dataCell">{{indicador.responsables.nombre}}</td>
+                                    <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
+                                    <td class="dataCell">{{indicador.historial[0].montoEjecutado | currency: 'DOP ':'symbol':'1.2-2'}}</td>
+                                    <td class="dataCell">{{indicador.historial[0].lineaBase}}</td>
+                                    <td class="dataCell">{{indicador.historial[0].meta}}</td>
                                 </tr>
                             </tbody>
                         </table>

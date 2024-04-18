@@ -184,12 +184,14 @@ export class ActividadesFormulacionComponent implements OnInit {
 
         data.costeo.costeoDetalle.map((insumos: any) => {
 
+          if (insumos.perito == null) this.insumoForm.patchValue({ idPerito: 0, nombrePerito: 'NO APLICA' })
+          else this.insumoForm.patchValue({ idPerito: insumos.perito.id, nombrePerito: insumos.perito.nombre })
+          
           this.insumoForm.patchValue({
             id: insumos.id,
             montoTotal: insumos.montoTotal,
             nombre: insumos.insumo.nombre,
             idInsumo: insumos.insumo.id,
-            idPerito: insumos.perito.id,
             cantidad: insumos.cantidad,
             auxiliar: insumos.insumo.auxiliar.id,
             idCategoria: insumos.insumo.categoriaInsumo.id,
@@ -198,13 +200,15 @@ export class ActividadesFormulacionComponent implements OnInit {
             idUnidadMedida: insumos.unidadMedida.id,
             fechaRecepcion: insumos.fechaRecepcion,
             descripcionInsumo: insumos.descripcionInsumo,
-            nombrePerito: insumos.perito.nombre,
             nombreUnidadMedida: insumos.unidadMedida.nombre,
           })
+          console.log(insumos.perito);
+          
+          
 
           this.agregarInsumoAlObjeto()
         })
-        
+
         loading(false)
       })
 
@@ -289,7 +293,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   onSelectPerito(idPerito: number) {
     if (idPerito == 0) {
       this.insumoForm.patchValue({ nombrePerito: 'NO APLICA' })
-    }else{
+    } else {
       let peritoNombre = this.peritoList.find(item => item.id == idPerito);
       this.insumoForm.patchValue({ nombrePerito: peritoNombre.nombre })
     }

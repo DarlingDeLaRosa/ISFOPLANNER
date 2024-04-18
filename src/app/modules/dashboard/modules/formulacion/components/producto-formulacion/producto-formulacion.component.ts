@@ -38,7 +38,8 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   getByIdProducto() {
-    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { this.productoConsult = resp.data;})
+    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data);
+    })
   }
 
   openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 

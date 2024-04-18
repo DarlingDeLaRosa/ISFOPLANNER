@@ -17,6 +17,7 @@ export interface ActividadI {
   producto?: ProductoI,
   responsables?: ResponsableI,
   frecuencia: FrecuenciaI,
+  mesesImpacto: {id: number, nombre: string}[]
   responsableUnidad: {id:number, nombre: string}
   responsableCargo: {id:number, nombre: string}
   // resultadoEsperadoCuantitativoT2?: number,
@@ -60,6 +61,7 @@ export interface CategoriaInsumoI {
 export interface CosteoI {
   id:number
   montoTotalEstimado: number,
+  montoTotalTransversal: number
   costeoDetalle: CosteoDetallesI[],
 }
 

@@ -17,6 +17,7 @@ import { MedioVerificacionI } from '../mantenimiento-pei/interfaces/medio-verifi
 import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { subUnit } from 'src/app/interfaces/Response.interfaces';
+import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -45,11 +46,13 @@ export class IndicadoresGestionComponent implements OnInit {
     private apiUnidadOrg: UnidadOrganizativaService,
     private medioVerifService: MedioVerificacionService,
     private apiIndicadoresGestion: IndicadorGestionService,    
-    private userSystemService: UserSystemInformationService,
+    private userSystemService: UserSystemInformationService,  
     private apiEstruturaPro: EstructuraProgramaticaService,
+    private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {
     this.indicadoresGestionForm = this.fb.group({
       id: 0,
+      idPresupuesto: 0,
       meta: new FormControl('', Validators.required),
       nombre: new FormControl('', Validators.required),
       lineaBase: new FormControl('', Validators.required),
@@ -71,6 +74,12 @@ export class IndicadoresGestionComponent implements OnInit {
     this.getMedioVerificacion()
     this.getIndicadoresGestion()
     this.getUnidadOrganizativa()
+    this.getPresupuestoInstitucional()
+  }
+
+  getPresupuestoInstitucional() {
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
+      .subscribe((res: any) => { this.indicadoresGestionForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
   }
 
   getProductos() {

@@ -33,7 +33,7 @@
       <table>
         <thead class="headerTable">
           <tr class="headerRow" style="background-color: #95ade93f;">
-            <th class="headerCell">Eje</th>
+            <!-- <th class="headerCell">Eje</th> -->
             <th class="headerCell">Estrategia</th>
             <th class="headerCell">Resultado efecto</th>
             <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
@@ -42,7 +42,7 @@
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let resultadoefecto of resultadoefectos">
-            <td class="dataIndiCell">{{resultadoefecto.estrategia.ejeEstrategico.numeroEje}}</td>
+            <!-- <td class="dataIndiCell">{{resultadoefecto.estrategia.ejeEstrategico.numeroEje}}</td> -->
             <td class="dataIndiCell">{{resultadoefecto.estrategia.nombre}}</td>
             <td class="dataIndiCell">{{resultadoefecto.nombre}}</td>
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon class="editIcon" (click)="setValueResultadoEfecto(resultadoefecto)">edit</mat-icon></td>

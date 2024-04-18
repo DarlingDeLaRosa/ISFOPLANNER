@@ -5,8 +5,10 @@
     </div>
 
     <div style="margin-bottom: 5px;" class="titleActividad">
-        <button class="backButton" mat-stroked-button (click)="backToProducto()"><mat-icon>arrow_back</mat-icon>Listado de Indicadores</button>
-        <button mat-stroked-button class="borderOrangeButton" (click)="sendToNewAct()"><mat-icon>add</mat-icon>Añadir actividad</button>
+        <button class="backButton" mat-stroked-button (click)="backToProducto()"><mat-icon>arrow_back</mat-icon>Listado
+            de Indicadores</button>
+        <button mat-stroked-button class="borderOrangeButton" (click)="sendToNewAct()"><mat-icon>add</mat-icon>Añadir
+            actividad</button>
     </div>
 
     <div class="producto" style="margin-top: 16px;" *ngIf="indicador">
@@ -22,19 +24,20 @@
                 <h3 style="font-weight: 400;">{{indicador.meta}}</h3>
             </span>
             <span style="display: flex; ">
-                <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.montoConsumido |
-                    currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
+                <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.historial[0].montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</h4> &nbsp;
+                <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span> {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
             </span>
         </div>
-        <div >
+        <div>
             <table>
                 <thead class="headerTable">
                     <tr class="headerRow" *ngIf="indicador.actividades.length > 0">
                         <th class="headerCell">Actividad</th>
                         <th class="headerCell">Responsable</th>
-                        <th class="headerCell">Cargo del Responsable</th>
-                        <th class="headerCell">Prosupuesto Estimado</th>
+                        <th class="headerCell">Meses de Impacto</th>
                         <th class="headerCell">Prioridad</th>
+                        <th class="headerCell">Prosupuesto Estimado</th>
+                        <th class="headerCell">Prosupuesto Transversal</th>
                         <th class="headerCell"></th>
                         <th class="headerCell"></th>
                     </tr>
@@ -46,13 +49,24 @@
                     <tr class="dataRow" *ngFor="let actividad of indicador.actividades">
                         <td class="dataCell">{{actividad.nombre}}</td>
                         <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
-                        <td class="dataCell">{{actividad.responsableCargo.nombre}}</td>
-                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo">
-                            {{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                        <td class="dataCell">
+                            <span>
+                                {{actividad.mesesImpacto[0].nombre}}
+                                <span *ngIf="actividad.mesesImpacto.length > 1" [matMenuTriggerFor]="menu"
+                                    class="seeMore">...</span>
+                                <mat-menu #menu="matMenu">
+                                    <ng-container *ngFor="let mes of actividad.mesesImpacto">
+                                        <h5 style="padding: 5px 15px; margin: 0;">{{mes.nombre}}</h5>
+                                    </ng-container>
+                                </mat-menu>
+                            </span>
+                        </td>
+                        <td class="dataCell">{{actividad.prioridad}}</td>
+                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo"> {{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo"> {{actividad.costeo.montoTotalTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                         <ng-template #noCosteo>
                             <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                         </ng-template>
-                        <td class="dataCell">{{actividad.prioridad}}</td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon"
                                 (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
                         <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon"
@@ -62,7 +76,7 @@
             </table>
         </div>
     </div>
-    <charging-box *ngIf="!indicador" ></charging-box>
+    <charging-box *ngIf="!indicador"></charging-box>
     <!-- <no-data-found *ngIf=" indicador &&  indicador.actividades.length == 0"></no-data-found> -->
-    
+
 </div>
