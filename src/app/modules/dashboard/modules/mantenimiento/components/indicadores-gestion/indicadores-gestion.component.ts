@@ -35,7 +35,7 @@ export class IndicadoresGestionComponent implements OnInit {
   indicadoresGestion!: IndicadoresGestionGetI[]
   estructurasPro: EstructuraProgramaticaI[] = []
   modulo = this.userSystemService.modulosSis
-  exactUnit: subUnit = this.userSystemService.getUnitOrg
+  // exactUnit: subUnit = this.userSystemService.getUnitOrg
 
   constructor(
     public fb: FormBuilder,
@@ -46,8 +46,8 @@ export class IndicadoresGestionComponent implements OnInit {
     private apiUnidadOrg: UnidadOrganizativaService,
     private medioVerifService: MedioVerificacionService,
     private apiIndicadoresGestion: IndicadorGestionService,    
-    private userSystemService: UserSystemInformationService,  
     private apiEstruturaPro: EstructuraProgramaticaService,
+    private userSystemService: UserSystemInformationService,  
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {
     this.indicadoresGestionForm = this.fb.group({
@@ -79,11 +79,11 @@ export class IndicadoresGestionComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { this.indicadoresGestionForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
+      .subscribe((res: any) => { this.indicadoresGestionForm.patchValue({ idPresupuesto: res.data[0].id }) })
   }
 
   getProductos() {
-    this.apiProducto.getProducto(this.exactUnit.nombre).subscribe((res: any) => { this.productos = res.data;})
+    this.apiProducto.getProducto().subscribe((res: any) => { this.productos = res.data; console.log(res);})
   }
 
   getUnidadOrganizativa() {

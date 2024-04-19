@@ -45,6 +45,16 @@
         </mat-radio-group>    
       </div><br>
 
+      <div class="tipoIndicador">
+        <h4>Meta y Linea Base seran medidos por?</h4>
+        <mat-radio-group formControlName="idTipoIndicador">
+          <mat-radio-button [value]="1" color="primary">Valor unitario</mat-radio-button>
+          <!--matTooltip="Todos Los productos seran calculados con un 18% de ITBIS." [disabled]="disableItbis" -->
+          <mat-radio-button [value]="2" color="primary">Porcentaje</mat-radio-button>
+          <!--matTooltip="Los productos tomaran el porcentaje de ITBIS especificado al momento de la creación." [disabled]="disableItbis"-->
+        </mat-radio-group>    
+      </div><br>
+
       <mat-form-field appearance="fill" style="width: 42%;">
         <mat-label>Nombre indicador operativo</mat-label>
         <input matInput formControlName="nombre">

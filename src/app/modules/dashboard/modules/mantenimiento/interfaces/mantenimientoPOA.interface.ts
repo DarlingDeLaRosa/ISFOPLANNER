@@ -28,9 +28,12 @@ export interface EstructuraProgramaticaI {
 }
 
 export interface ProductoI {
+  historial:[{
+    montoEjecutado: number, 
+    montoEjecutadoTransversal: number
+  }]
   id: number
   nombre: string,
-  totalConsumido: number,
   indicadorEstrategico: IndicadoresEstrategicosI
   actividades: ActividadI[]
   indicadoresGestion: IndicadoresGestionGetI[]

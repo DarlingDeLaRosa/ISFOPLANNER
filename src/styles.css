@@ -688,8 +688,8 @@ table {
 .tipoIndicador {
     display: grid;
     align-items: center;
-    grid-template-columns: 250px auto;
-    width: 600px;
+    grid-template-columns: 310px auto;
+    width: 800px;
 }
 
 .tipoIndicador h4 {

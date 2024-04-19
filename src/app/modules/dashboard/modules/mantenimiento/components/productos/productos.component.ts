@@ -13,6 +13,7 @@ import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indica
 import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { subUnit } from 'src/app/interfaces/Response.interfaces';
+import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 
 @Component({
   selector: 'app-productos',
@@ -36,9 +37,11 @@ export class ProductosComponent implements OnInit {
     private apiUnidadOrg: UnidadOrganizativaService,
     private userSystemService: UserSystemInformationService,
     private apiIndicadoresEstrategicos: IndicadorEstrategicoService,
+    private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
   ) {
     this.productosForm = this.fb.group({
       id: 0,
+      idPresupuesto: 0,
       nombre: new FormControl('', Validators.required),
       responsables: new FormControl('', Validators.required),
       idIndicadorEstrategico: new FormControl('', Validators.required),
@@ -47,8 +50,14 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducto()
-    this.getIndicadoresEstrategicos()
     this.getUnidadOrganizativa()
+    this.getIndicadoresEstrategicos()
+    this.getPresupuestoInstitucional()
+  }
+
+  getPresupuestoInstitucional() {
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
+      .subscribe((res: any) => { this.productosForm.patchValue({ idPresupuesto: res.data[0].id }) })
   }
 
   getIndicadoresEstrategicos() {
@@ -99,6 +108,7 @@ export class ProductosComponent implements OnInit {
   }
 
   saveChanges() {
+    console.log(this.productosForm.value);
     this.helperHandler.saveChanges(() => this.putProducto(), this.productosForm, () => this.postProducto())
   }
 }

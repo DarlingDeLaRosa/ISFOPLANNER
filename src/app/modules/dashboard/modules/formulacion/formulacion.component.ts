@@ -57,10 +57,10 @@ export class FormulacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPresupuestoUnidad();
     this.getAllEjes()
     this.getProducto()
     this.getAllEstrategia();
+    this.getPresupuestoUnidad();
     this.getAllResultadoEfecto();
   }
   
@@ -88,6 +88,7 @@ export class FormulacionComponent implements OnInit {
   }
 
   getProducto() {
+    
     const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
     this.apiProducto.getProducto(this.userSystemService.getUnitOrg.nombre, ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => {
       console.log(res);
