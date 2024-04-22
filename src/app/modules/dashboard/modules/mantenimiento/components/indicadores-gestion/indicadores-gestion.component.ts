@@ -35,6 +35,7 @@ export class IndicadoresGestionComponent implements OnInit {
   indicadoresGestion!: IndicadoresGestionGetI[]
   estructurasPro: EstructuraProgramaticaI[] = []
   modulo = this.userSystemService.modulosSis
+  idPresupuesto: number = 0
   // exactUnit: subUnit = this.userSystemService.getUnitOrg
 
   constructor(
@@ -59,6 +60,7 @@ export class IndicadoresGestionComponent implements OnInit {
       idAlcance: new FormControl('', Validators.required),
       idProducto: new FormControl('', Validators.required),
       idFrecuencia: new FormControl('', Validators.required),
+      esPorcentual: new FormControl('', Validators.required),
       idResponsable: new FormControl('', Validators.required),
       idTipoIndicador: new FormControl('', Validators.required),
       mediosVerificaciones: new FormControl('', Validators.required),
@@ -79,11 +81,14 @@ export class IndicadoresGestionComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { this.indicadoresGestionForm.patchValue({ idPresupuesto: res.data[0].id }) })
+      .subscribe((res: any) => { 
+        this.idPresupuesto =  res.data[0].id
+        this.indicadoresGestionForm.patchValue({ idPresupuesto: this.idPresupuesto }) 
+      })
   }
 
   getProductos() {
-    this.apiProducto.getProducto().subscribe((res: any) => { this.productos = res.data; console.log(res);})
+    this.apiProducto.getProducto().subscribe((res: any) => { this.productos = res.data;})
   }
 
   getUnidadOrganizativa() {
@@ -103,7 +108,7 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   getIndicadoresGestion() {
-    this.apiIndicadoresGestion.getIndicadorGestion().subscribe((res: any) => { this.indicadoresGestion = res.data })
+    this.apiIndicadoresGestion.getIndicadorGestion().subscribe((res: any) => { this.indicadoresGestion = res.data; console.log(res); })
   }
 
   getMedioVerificacion() {
@@ -135,9 +140,11 @@ export class IndicadoresGestionComponent implements OnInit {
       id: indicadoresGestion.id,
       meta: indicadoresGestion.meta,
       nombre: indicadoresGestion.nombre,
+      idPresupuesto: this.idPresupuesto,
       lineaBase: indicadoresGestion.lineaBase,
       idAlcance: indicadoresGestion.alcance.id,
       idProducto: indicadoresGestion.producto.id,
+      esPorcentual: indicadoresGestion.esPorcentual,
       idFrecuencia: indicadoresGestion.frecuencia.id,
       idResponsable: indicadoresGestion.responsables.id,
       idTipoIndicador: indicadoresGestion.tipoIndicador.id,

@@ -17,10 +17,11 @@ import { ActividadesService } from '../../services/actividades.service';
 })
 export class ProductoFormulacionComponent implements OnInit {
 
-  idProducto: number = 0;
   productoConsult!: ProductoI
+  idProducto: number = 0;
   metaIndicadorRecinto: number = 0
   userLogged = this.userSystemService.getUserLogged
+  curretUnit: string = this.userSystemService.getUnitOrg.nombre
 
   constructor(
     private router: Router,
@@ -38,20 +39,19 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   getByIdProducto() {
-    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data);
-    })
+    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data); })
   }
 
-  openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) { 
-    let dialogRef = this.dialog.open(IndicadorEditarComponent, {data: indicador}) 
-    dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
+  openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) {
+    let dialogRef = this.dialog.open(IndicadorEditarComponent, { data: indicador })
+    dialogRef.afterClosed().subscribe(() => { this.getByIdProducto() })
   }
 
-  openModalResultadoEsperado(indicador: IndicadoresGestionGetI) { 
-    let dialogRef = this.dialog.open(IndicadorEditarRecintosComponent, {data: indicador}) 
-    dialogRef.afterClosed().subscribe(()=> { this.getByIdProducto() })
+  openModalResultadoEsperado(indicador: IndicadoresGestionGetI) {
+    let dialogRef = this.dialog.open(IndicadorEditarRecintosComponent, { data: indicador })
+    dialogRef.afterClosed().subscribe(() => { this.getByIdProducto() })
   }
-  
+
   sendToIndicador(idIndicador: number) {
     this.router.navigate(['/dashboard/formulacion/indicadores'], { queryParams: { id: idIndicador } });
   }

@@ -28,6 +28,14 @@
         </mat-radio-group>    
       </div><br>
 
+      <div class="tipoIndicador">
+        <h4>Meta y Linea Base seran medidos por?</h4>
+        <mat-radio-group formControlName="esPorcentual">
+          <mat-radio-button [value]="false" color="primary">Valor unitario</mat-radio-button>
+          <mat-radio-button [value]="true" color="primary">Porcentajes</mat-radio-button>
+        </mat-radio-group>    
+      </div><br>
+
       <mat-form-field appearance="fill" style="width: 33%;">
         <mat-label>Resultado Efecto</mat-label>
         <mat-select formControlName="idResultadoefecto">
@@ -194,8 +202,8 @@
           <tr class="dataRow" *ngFor="let indicador of indicadoresEstrategicos">
             <td class="dataIndiCell">{{indicador.nombre}}</td>
             <td class="dataIndiCell">{{indicador.resultadoEfecto.nombre}}</td>
-            <td class="dataIndiCell">{{indicador.lineaBase}}</td>
-            <td class="dataIndiCell">{{indicador.meta}}</td>
+            <td class="dataIndiCell">{{indicador.lineaBase}}<span *ngIf="indicador.esPorcentual">%</span></td>
+            <td class="dataIndiCell">{{indicador.meta}}<span *ngIf="indicador.esPorcentual">%</span></td>
             <td class="dataIndiCell"><mat-icon
                 (click)="openModal(indicador.requerimientos, 'Requerimientos', indicador.nombre)"
                 class="detailsIcon">list</mat-icon></td>

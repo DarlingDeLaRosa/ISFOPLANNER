@@ -47,11 +47,9 @@
 
       <div class="tipoIndicador">
         <h4>Meta y Linea Base seran medidos por?</h4>
-        <mat-radio-group formControlName="idTipoIndicador">
-          <mat-radio-button [value]="1" color="primary">Valor unitario</mat-radio-button>
-          <!--matTooltip="Todos Los productos seran calculados con un 18% de ITBIS." [disabled]="disableItbis" -->
-          <mat-radio-button [value]="2" color="primary">Porcentaje</mat-radio-button>
-          <!--matTooltip="Los productos tomaran el porcentaje de ITBIS especificado al momento de la creación." [disabled]="disableItbis"-->
+        <mat-radio-group formControlName="esPorcentual">
+          <mat-radio-button [value]="false" color="primary">Valor unitario</mat-radio-button>
+          <mat-radio-button [value]="true" color="primary">Porcentajes</mat-radio-button>
         </mat-radio-group>    
       </div><br>
 
@@ -164,8 +162,8 @@
             <td class="dataIndiCell">{{indicadorG.producto.nombre}}</td>
             <td class="dataIndiCell">{{indicadorG.alcance.nombre}}</td>
             <td class="dataIndiCell">{{indicadorG.frecuencia.nombre}}</td>
-            <td class="dataIndiCell">{{indicadorG.lineaBase}}</td>
-            <td class="dataIndiCell">{{indicadorG.meta}}</td>
+            <td class="dataIndiCell">{{indicadorG.lineaBase}}<span *ngIf="indicadorG.esPorcentual">%</span></td>
+            <td class="dataIndiCell">{{indicadorG.meta}}<span *ngIf="indicadorG.esPorcentual">%</span></td>
             <td class="dataIndiCell">{{indicadorG.responsables.nombre}}</td>
             <td class="dataIndiCell"><mat-icon (click)="openDetailModalView(indicadorG.mediosverificaciones , 'Medios de verificación', indicadorG.nombre)" class="detailsIcon">list</mat-icon></td>
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>

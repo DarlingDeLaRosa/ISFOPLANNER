@@ -11,6 +11,7 @@ export interface IndicadoresEstrategicosI {
   nombre: string,
   lineaBase: number,
   meta: number,
+  esPorcentual: boolean
   creadoPor?: number,
   tipoIndicador: {id: number, nombre: string}
   // idResultadoefecto: number

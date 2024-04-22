@@ -57,6 +57,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       supuestosRiesgos: new FormControl('', Validators.required),
       mediosVerificaciones: new FormControl('', Validators.required),
       idTipoIndicador: new FormControl('', Validators.required),
+      esPorcentual: new FormControl('', Validators.required),
       idResultadoefecto: new FormControl<number>(0, Validators.required),
       responsables: new FormControl('', Validators.required),
 
@@ -115,6 +116,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       nombre: indicadorEstrategico.nombre,
       lineaBase: indicadorEstrategico.lineaBase,
       meta: indicadorEstrategico.meta,
+      esPorcentual: indicadorEstrategico.esPorcentual,
       requerimientos: indicadorEstrategico.requerimientos.map((requerimiento: RequerimientoI)=>{ return requerimiento.id}),
       supuestosRiesgos: indicadorEstrategico.supuestosRiesgos.map((supuestosRiesgo: SupuestosRiesgosI)=>{ return supuestosRiesgo.id}),
       mediosVerificaciones: indicadorEstrategico.mediosverificaciones.map((mediosverificacione: MedioVerificacionI)=>{ return mediosverificacione.id}),

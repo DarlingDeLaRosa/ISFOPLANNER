@@ -75,6 +75,7 @@ export interface IndicadoresGestionGetI {
   nombre: string,
   lineaBase: number,
   meta: number,
+  esPorcentual: boolean
   // montoConsumido:number
   logroEsperadoT1: number,
   logroEsperadoT2: number,
