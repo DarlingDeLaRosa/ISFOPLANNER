@@ -293,8 +293,11 @@
             <td class="dataCell">{{insumo.cantidad}}</td>
             <td class="dataCell">{{insumo.costoUnitario  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
             <td class="dataCell">{{insumo.montoTotal  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
-            <td class="dataCell"><mat-icon class="editIcon" (click)="editInsumo(insumo, i)">edit</mat-icon></td>
-            <td class="dataCell"><mat-icon class="removeIcon" (click)="removeInsumo(i)">delete</mat-icon></td>
+            <td class="dataCell"><mat-icon *ngIf="insumo.peritoAceptacion != true" class="editIcon" (click)="editInsumo(insumo, i)">edit</mat-icon></td>
+            <td class="dataCell">
+              <mat-icon *ngIf="insumo.peritoAceptacion != true; else gestorWorking" class="removeIcon" (click)="removeInsumo(i)">delete</mat-icon>
+              <ng-template #gestorWorking ><mat-icon matTooltip="El Insumo esta siendo procesado por el gestor transversal.">block</mat-icon></ng-template>
+            </td>
           </tr>
         </tbody>
         <tfoot>
@@ -317,7 +320,7 @@
     </div>
     <div style="display: flex; justify-content: space-between;">
       <span></span>
-      <button class="greenButton" (click)="saveChanges()">Crear actividad</button>
+      <button class="greenButton" (click)="saveChanges()">Aplicar cambios</button>
     </div>
   </div>
 </div>

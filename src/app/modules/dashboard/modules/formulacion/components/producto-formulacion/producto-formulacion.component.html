@@ -21,13 +21,12 @@
                     <span style="display: flex; margin: 10px 0;">
                         <h3>Indicador:</h3>&nbsp;
                         <h3 style="font-weight: 400;">{{indicador.nombre}}</h3>
-                        
                     </span>
                     <span style="display: flex; ">
                         <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.historial[0].montoEjecutado| currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
                         <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span> {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
                         
-                        <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit " class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon>
+                        <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit" class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon>
                         <!-- <mat-icon
                             *ngIf="
                         userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&
@@ -50,7 +49,7 @@
                             </mat-icon>
                         </ng-template> -->
 
-                        <mat-icon *ngIf="indicador.responsables.nombre == curretUnit " class="listIcon" (click)="sendToIndicador(indicador.id)">list</mat-icon>
+                        <mat-icon *ngIf="indicador.responsables.nombre == curretUnit" class="listIcon" (click)="sendToIndicador(indicador.id)">list</mat-icon>
                         <!--(click)="enviarProducto(producto.id)"-->
                     </span>
                 </div>
@@ -63,8 +62,8 @@
                                 <th class="headerCell">Responsable</th>
                                 <!-- <th class="headerCell" style="width: 10%;">Meses de Impacto</th> -->
                                 <!-- <th class="headerCell">Prioridad</th> -->
-                                <th class="headerCell" style="width: 15%;">Prosupuesto Estimado</th>
-                                <th class="headerCell" style="width: 15%;">Prosupuesto Transversal</th>
+                                <th class="headerCell" style="width: 15%;">Presupuesto Estimado</th>
+                                <th class="headerCell" style="width: 15%;">Presupuesto Transversal</th>
                             </tr>
                             <tr class="headerRow" *ngIf="indicador.actividades.length == 0">
                                 <th class="headerCell">No se encontraron actividades</th>
@@ -207,7 +206,7 @@
                         <th class="headerCell">Frecuencia</th>
                         <th class="headerCell">Responsable</th>
                         <th class="headerCell">Cargo del Responsable</th>
-                        <th class="headerCell">Prosupuesto Estimado</th>
+                        <th class="headerCell">Presupuesto Estimado</th>
                         <th class="headerCell">Editar</th>
                         <th class="headerCell">Eliminar</th>
                     </tr>

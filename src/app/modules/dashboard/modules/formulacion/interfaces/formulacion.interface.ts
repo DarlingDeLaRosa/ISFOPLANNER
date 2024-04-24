@@ -70,6 +70,7 @@ export interface CosteoDetallesI {
   idInsumo: number,
   costoUnitario: number,
   idPerito: number,
+  peritoAceptacion?: boolean 
   insumo: any
   cantidad: number,
   montoTotal: number,
@@ -104,6 +105,7 @@ export interface CosteoDetallesGroupI {
   cantidad: number,
   idPerito: any,
   montoTotal: number,
+  peritoAceptacion?: boolean 
   nombrePerito: string
   fechaRecepcion: Date
   idUnidadMedida: number

@@ -7,7 +7,6 @@ import { IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interf
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
-import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { ActividadesService } from '../../services/actividades.service';
 
 @Component({
