@@ -8,6 +8,7 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { periodoConfig } from '../../interfaces/mantenimientoPOA.interface';
 
 @Component({
   selector: 'app-configuracion-periodos',
@@ -18,7 +19,7 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 export class ConfiguracionPeriodosComponent implements OnInit {
 
   periodosConfigForm: FormGroup;
-  periodosConfig!: any[]
+  periodosConfig!: periodoConfig[]
   tipoProcesos: any[] = []
   modulo = this.userSystemService.modulosSis
 
@@ -49,7 +50,11 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
+      .subscribe((res: any) => { 
+        this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id })
+        this.userSystemService.setConfigPeriodFormulacion = res.data.find((period: periodoConfig) => { return period.tipoProceso.nombre == 'Formulación' })
+        this.userSystemService.setConfigPeriodMonitoreo = res.data.find((period: periodoConfig) => { return period.tipoProceso.nombre == 'Monitoreo' })
+      })
   }
 
   getProceso() {

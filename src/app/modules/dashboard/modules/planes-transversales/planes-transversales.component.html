@@ -20,8 +20,8 @@
         </mat-form-field>
     </div>
 
-    <div style="margin-bottom: 15px;" *ngIf="actividadesPerito">
-        <div class="producto" style="margin-top: 16px;" *ngFor="let actividad of actividadesPerito">
+    <div *ngIf="actividadesPerito">
+        <div class="producto" style="margin-top: 10px;" *ngFor="let actividad of actividadesPerito">
             <div class="titleProducto">
                 <span style="display: flex; margin: 10px 0;">
                     <h3>Actividad:</h3> &nbsp;
@@ -62,15 +62,15 @@
                             <td class="dataCell" *ngIf="insumos.costoUnitario != null; else noCosteo"> {{insumos.costoUnitario | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <td class="dataCell" *ngIf="insumos.montoTotal != null; else noCosteo"> {{insumos.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <ng-template #noCosteo><td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td></ng-template>
-                            <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" >edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
-                            <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon" >delete</mat-icon></td> <!--(click)="removeActividad(actividad.id)"-->
+                            <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
+                            <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon">thumb_up</mat-icon></td> <!--(click)="removeActividad(actividad.id)"-->
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <!-- <charging-box *ngIf="!actividadesPerito"></charging-box> -->
-        <!-- <no-data-found *ngIf=" indicador &&  indicador.actividades.length == 0"></no-data-found> -->
     </div>
+    <charging-box *ngIf="!actividadesPerito"></charging-box>
+    <no-data-found *ngIf=" actividadesPerito && actividadesPerito.length == 0"></no-data-found>
 
 </div>

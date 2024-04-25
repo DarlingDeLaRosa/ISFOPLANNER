@@ -101,6 +101,27 @@ export function alertServerDown() {
   })
 }
 
+
+export function alertPeriod(title: string, text: string) {
+  Swal.fire({
+    icon: 'warning',
+    title: title,
+    text: text,
+    showConfirmButton: true,
+    confirmButtonColor: 'red',
+  })
+}
+
+export function alertPeriodDone(title: string, text: string) {
+  Swal.fire({
+    icon: 'error',
+    title: title,
+    text: text,
+    showConfirmButton: true,
+    confirmButtonColor: 'red',
+  })
+}
+
 export function alertNoValidForm() {
   Swal.fire({
     icon: 'info',

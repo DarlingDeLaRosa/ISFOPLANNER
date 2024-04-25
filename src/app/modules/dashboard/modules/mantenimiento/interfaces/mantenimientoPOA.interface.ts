@@ -28,8 +28,8 @@ export interface EstructuraProgramaticaI {
 }
 
 export interface ProductoI {
-  historial:[{
-    montoEjecutado: number, 
+  historial: [{
+    montoEjecutado: number,
     montoEjecutadoTransversal: number
   }]
   id: number
@@ -192,4 +192,14 @@ export interface PresupuestoInstiGetI {
   creadoPor: string,
   actualizadoEn: Date,
   actualizadoPor: string
+}
+
+export interface periodoConfig {
+  fechaFin: Date
+  fechaInicio: Date
+  id: number
+  presupuestoInstitucional: PresupuestoInstiGetI 
+  prorroga?: Date 
+  tipoProceso: {id:number , nombre: string}
+
 }

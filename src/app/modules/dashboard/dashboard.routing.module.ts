@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { dashboardComponent } from './dashboard.component';
+import { formulacionPeriodoGuard } from './guards/fomulacion-periodo.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'formulacion',
+        canActivate: [formulacionPeriodoGuard], 
         loadChildren: ()=>
         import('./modules/formulacion/formulacion.routing.module').then((m)=>m.FormulacionRoutingModule)
       },

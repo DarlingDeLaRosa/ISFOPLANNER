@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { UnidadDataI, UserI, subUnit } from '../interfaces/Response.interfaces';
+import { periodoConfig } from '../modules/dashboard/modules/mantenimiento/interfaces/mantenimientoPOA.interface';
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,6 +17,8 @@ export class UserSystemInformationService {
         "DEPARTAMENTO": 2,
         "DIVISION": 1
     };
+    private peridoMonitoreo!: periodoConfig
+    private peridoFormulacion!: periodoConfig
 
     public modulosSis = {
         panel_de_control: 49,
@@ -77,6 +80,10 @@ export class UserSystemInformationService {
         else{ this.exatUnitOrg = JSON.parse(unitData) ; return this.exatUnitOrg }
     }
 
+    get getPeriod(): {formulacion: periodoConfig, monitoreo: periodoConfig}{
+        return {formulacion: this.peridoFormulacion, monitoreo: this.peridoMonitoreo }
+    }
+
     set setUserLogged(user: UserI) { this.userLogged = user }
     set setUnitOrg(unit: subUnit ) { 
         this.exatUnitOrg = unit
@@ -87,6 +94,14 @@ export class UserSystemInformationService {
         let tokenT: string = token.replace(/^"(.*)"$/, '$1');
         this.userToken = `Bearer ${tokenT}`
     };
+
+    set setConfigPeriodFormulacion(periodFormulacion: periodoConfig){
+        this.peridoFormulacion = periodFormulacion 
+    }
+    
+    set setConfigPeriodMonitoreo(periodMonitoreo: periodoConfig){
+        this.peridoMonitoreo =  periodMonitoreo
+    }
 
     saveDataLocalStorage(key: string, data: any): void {
         const authUserData = JSON.stringify(data);

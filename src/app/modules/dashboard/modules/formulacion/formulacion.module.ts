@@ -12,8 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-recintos/indicador-editar-recintos.component';
 import { IndicadoresFormulacionComponent } from './components/indicadores-formulacion/indicadores-formulacion.component';
 import { ActividadesInvolucradosComponent } from './components/actividades-involucrados/actividades-involucrados.component';
-import { ChargingBoxComponent } from '../../components/charging-box/charging-box.component';
-import { NoDataFoundComponent } from '../../components/no-data-found/no-data-found.component';
+import { ChargingBoxModule } from '../../components/charging-box/charging-box.module';
 
 @NgModule({
   declarations: [
@@ -25,10 +24,9 @@ import { NoDataFoundComponent } from '../../components/no-data-found/no-data-fou
     IndicadorEditarRecintosComponent,
     IndicadoresFormulacionComponent,
     ActividadesInvolucradosComponent,
-    ChargingBoxComponent,
-    NoDataFoundComponent
   ],
   imports: [
+    ChargingBoxModule,
     RouterModule,
     FormsModule,
     CommonModule,

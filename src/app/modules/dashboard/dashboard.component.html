@@ -9,17 +9,17 @@
 
       <div class="plannerOptions" *ngIf="userLogged.rol.modulos">
 
-        <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.panel_de_control)">
+        <!-- <a class="item-menu" [routerLink]="['panelDeControl']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.panel_de_control)">
           <mat-icon>dashboard</mat-icon>Panel de Control
-        </a>
+        </a> -->
         
         <a class="item-menu" [routerLink]="['formulacion']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.formulacion)">
           <mat-icon>calendar_month</mat-icon>Formulación POA
         </a>
         
-        <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.monitoreo)">
+        <!-- <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.monitoreo)">
           <mat-icon>traffic</mat-icon>Monitoreo
-        </a>
+        </a> -->
         
         <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.planes_transversales)">
           <mat-icon>chat</mat-icon>Planes Transversales

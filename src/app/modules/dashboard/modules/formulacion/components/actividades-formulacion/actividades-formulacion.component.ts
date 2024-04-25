@@ -275,6 +275,8 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   putActividades() {
+    this.insumosGroup = this.insumosGroup.filter((insumo: CosteoDetallesGroupI) => { return insumo.peritoAceptacion != true })
+    
     this.actividadesService.putActividades(this.actividadForm.value)
       .subscribe((res: any) => {
         this.helperHandler.handleResponse(res, () => '', this.actividadForm)

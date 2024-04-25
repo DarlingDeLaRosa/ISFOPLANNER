@@ -5,7 +5,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DetallePlanesTransversalesComponent } from './components/detalle-planes-transversales/detalle-planes-transversales.component';
-import { ChargingBoxComponent } from '../../components/charging-box/charging-box.component';
+import { ChargingBoxModule } from '../../components/charging-box/charging-box.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +13,7 @@ import { ChargingBoxComponent } from '../../components/charging-box/charging-box
     DetallePlanesTransversalesComponent,
   ],
   imports: [
+    ChargingBoxModule,
     CommonModule,
     RouterModule,
     FormsModule,
