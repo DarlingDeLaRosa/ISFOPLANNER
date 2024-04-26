@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { PermissionService } from '../../services/applyPermissions.service';
 import { UnidadDataI, UserI, subUnit } from 'src/app/interfaces/Response.interfaces';
-import { ProductoService } from './modules/mantenimiento/services/producto.service';
 import { Router } from '@angular/router';
 import { unitActive } from 'src/app/alerts/alerts';
 import { ConfiguracionPeriodoServive } from './modules/mantenimiento/services/configuracion-periodos.service';
@@ -25,7 +24,6 @@ export class dashboardComponent implements OnInit {
     public permisosCRUD: PermissionService,
     private periodoService: ConfiguracionPeriodoServive,
     public userSystemService: UserSystemInformationService,
-    // private serviceProducto: ProductoService,
   ) {
     console.log(this.userLogged);
     console.log(this.unidadOrgData);

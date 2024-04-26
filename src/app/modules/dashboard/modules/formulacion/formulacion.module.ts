@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IndicadorEditarComponent } from './modals/indicador-editar/indicador-editar.component';
 import { ActividadesFormulacionComponent } from './components/actividades-formulacion/actividades-formulacion.component';
-import { NuevoInsumoComponent } from './modals/nuevo-insumo/nuevo-insumo.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-recintos/indicador-editar-recintos.component';
 import { IndicadoresFormulacionComponent } from './components/indicadores-formulacion/indicadores-formulacion.component';
@@ -17,7 +16,6 @@ import { ChargingBoxModule } from '../../components/charging-box/charging-box.mo
 @NgModule({
   declarations: [
     FormulacionComponent,
-    NuevoInsumoComponent,
     IndicadorEditarComponent,
     ProductoFormulacionComponent,
     ActividadesFormulacionComponent,

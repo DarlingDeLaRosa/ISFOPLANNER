@@ -96,10 +96,12 @@ export class UserSystemInformationService {
     };
 
     set setConfigPeriodFormulacion(periodFormulacion: periodoConfig){
+        // this.saveDataLocalStorage('periodoFor', periodFormulacion)
         this.peridoFormulacion = periodFormulacion 
     }
     
     set setConfigPeriodMonitoreo(periodMonitoreo: periodoConfig){
+        // this.saveDataLocalStorage('periodoMon', periodMonitoreo)
         this.peridoMonitoreo =  periodMonitoreo
     }
 

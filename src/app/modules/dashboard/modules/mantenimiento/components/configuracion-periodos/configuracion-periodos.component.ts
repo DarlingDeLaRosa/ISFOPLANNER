@@ -5,7 +5,6 @@ import { TipoProcesosService } from '../../services/tipo-proceso.service';
 import { format } from 'date-fns';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
-import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { periodoConfig } from '../../interfaces/mantenimientoPOA.interface';
@@ -50,11 +49,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { 
-        this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id })
-        this.userSystemService.setConfigPeriodFormulacion = res.data.find((period: periodoConfig) => { return period.tipoProceso.nombre == 'Formulación' })
-        this.userSystemService.setConfigPeriodMonitoreo = res.data.find((period: periodoConfig) => { return period.tipoProceso.nombre == 'Monitoreo' })
-      })
+      .subscribe((res: any) => { this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id })})
   }
 
   getProceso() {
@@ -69,12 +64,24 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   postPeriodoConfig() {
     this.apiPeriodosConfig.postPeriodoConfig(this.periodosConfigForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPeriodoConfig(), this.periodosConfigForm) })
+      .subscribe((res: any) => { 
+
+        if (res.data.tipoProceso.id == 1) this.userSystemService.setConfigPeriodFormulacion = res.data
+        else this.userSystemService.setConfigPeriodMonitoreo = res.data
+
+        this.helperHandler.handleResponse(res, () => this.getPeriodoConfig(), this.periodosConfigForm) 
+      })
   }
 
   putPeriodoConfig() {
     this.apiPeriodosConfig.putPeriodoConfig(this.periodosConfigForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getPeriodoConfig(), this.periodosConfigForm) })
+      .subscribe((res: any) => {
+        
+        if (res.data.tipoProceso.id == 1) this.userSystemService.setConfigPeriodFormulacion = res.data
+        else this.userSystemService.setConfigPeriodMonitoreo = res.data
+        
+        this.helperHandler.handleResponse(res, () => this.getPeriodoConfig(), this.periodosConfigForm)
+      })
   }
 
   setValueEditEstructuraPro(estructuraPro: any) {

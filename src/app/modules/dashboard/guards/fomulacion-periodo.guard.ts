@@ -9,15 +9,17 @@ export const formulacionPeriodoGuard: CanActivateFn = (route, state) => {
   const sistemInformation = inject(UserSystemInformationService)
 
   const {fechaFin, fechaInicio, prorroga} = sistemInformation.getPeriod.formulacion
-  const currentDate = new Date()
-  
-  console.log(fechaFin, fechaInicio, prorroga);
-  console.log(currentDate);
-  
-  if (new Date(fechaInicio) >= currentDate && new Date(fechaFin) <= currentDate) {
-    return true;
+  const currentDate = new Date() 
 
-  }else if(prorroga != null && new Date(prorroga) >= currentDate){
+  if (fechaInicio == undefined) {
+    alertPeriod("El administrador aun no establece periodo de formulación",`Para mas información comuniquese con el Departamento de Formulación, Monitoreo y Evaluación de Planes, Programas y Proyectos `)
+  }
+
+  if (currentDate > new Date(fechaInicio) && currentDate < new Date(fechaFin)){
+    return true
+  }
+  
+  if(prorroga != null && currentDate <= new Date(prorroga)){
     alertPeriod("Periodo de Prórroga",`Finaliza ${prorroga}`)
     return true
 
@@ -27,6 +29,5 @@ export const formulacionPeriodoGuard: CanActivateFn = (route, state) => {
     return false
   }
 };
-
 
 // const monitoreo = sistemInformation.getPeriod.monitoreo

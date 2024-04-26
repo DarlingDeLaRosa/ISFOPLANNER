@@ -66,7 +66,7 @@ export interface CosteoI {
 }
 
 export interface CosteoDetallesI {
-  id: string,
+  id: number,
   idInsumo: number,
   costoUnitario: number,
   idPerito: number,
@@ -99,7 +99,7 @@ export interface CosteoDetallesI {
 // }
     
 export interface CosteoDetallesGroupI {
-  id: string,
+  id: number,
   idInsumo: number,
   costoUnitario: number,
   cantidad: number,

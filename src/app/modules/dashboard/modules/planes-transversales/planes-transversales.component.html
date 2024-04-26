@@ -1,7 +1,7 @@
 <div class="routerComponent">
 
     <div class="title">
-        <h1>Monitoreo y evaluación</h1>
+        <h1>Planes transversales</h1>
     </div>
 
     <div class="titleSeguimiento">
@@ -62,8 +62,12 @@
                             <td class="dataCell" *ngIf="insumos.costoUnitario != null; else noCosteo"> {{insumos.costoUnitario | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <td class="dataCell" *ngIf="insumos.montoTotal != null; else noCosteo"> {{insumos.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <ng-template #noCosteo><td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td></ng-template>
-                            <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
-                            <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon">thumb_up</mat-icon></td> <!--(click)="removeActividad(actividad.id)"-->
+                            <td class="dataCell" style="width: 5%;">
+                                <button mat-stroked-button>
+                                    <mat-icon class="editIcon">thumb_up</mat-icon> Aceptar
+                                </button>
+                            </td> <!--(click)="removeActividad(actividad.id)"-->
+                            <td class="dataCell" style="width: 5%;"><mat-icon (click)="sendDetailInsumo(insumos.id)" class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
                         </tr>
                     </tbody>
                 </table>
