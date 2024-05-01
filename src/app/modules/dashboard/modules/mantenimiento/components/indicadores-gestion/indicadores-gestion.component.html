@@ -86,7 +86,7 @@
 
       <mat-form-field appearance="fill" style="width: 19.2%;">
         <mat-label>Alcance</mat-label>
-        <mat-select formControlName="idAlcance" disableRipple>
+        <mat-select formControlName="idAlcance" disableRipple (selectionChange)="setPossiblesResp($event.value)">
           <ng-container *ngIf="alcances.length > 0; else noAlcance">
 
             <mat-option [value]="alcance.id" *ngFor="let alcance of alcances">

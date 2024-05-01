@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'formulacion',
-        canActivate: [formulacionPeriodoGuard], 
+        // canActivate: [formulacionPeriodoGuard], 
         loadChildren: ()=>
         import('./modules/formulacion/formulacion.routing.module').then((m)=>m.FormulacionRoutingModule)
       },

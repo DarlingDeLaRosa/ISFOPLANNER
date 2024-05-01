@@ -41,11 +41,11 @@ export class IndicadorEditarComponent implements OnInit {
     })
     
     if (this.indicador.alcance.id !== 2) {
-      this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
+      // this.metaIndicadorRecinto = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
       this.sumaTotalLogros = helperHandler.sumTotal({ a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d: indicador.logroEsperadoT4 })
 
       if (indicador.tipoIndicador.id == 1)  this.metaIndicadorFlujo = helperHandler.sameGoal(this.indicadoresGestionForm.value, indicador.meta) 
-      else this.validacionMeta = helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), this.sumaTotalLogros)
+      // else this.validacionMeta = helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), this.sumaTotalLogros)
 
     } else this.metaIndicadorRecinto = this.indicador.meta
   }

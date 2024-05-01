@@ -29,4 +29,12 @@ export class UnidadOrganizativaService {
   public getUnidadesOrganizativasPeritos() {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas/peritos`, this.header))
   }
+
+  public getUnidadesOrganizativasRecintos() {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas/recintos`, this.header))
+  }
+
+  public getUnidadesOrganizativasRecintosById(id: number) {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas/recintos/${id}`, this.header))
+  }
 }

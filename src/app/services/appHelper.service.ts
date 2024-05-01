@@ -69,7 +69,7 @@ export class HelperService {
     saveChangesSumValidation(updateFunction: () => void, form: FormGroup, saveFunction: () => void, meta: number, entidadSumar: any, alcance: number) {
         let noRec = 0
         if (form.valid) {
-            if (alcance == 1) noRec = entidadSumar.metaRec
+            if (alcance == 1) noRec = entidadSumar.REC
             if (meta == this.sumTotal(entidadSumar) - noRec) {
                 loading(true)
                 if (form.value.id > 0) updateFunction()

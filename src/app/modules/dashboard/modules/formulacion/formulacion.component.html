@@ -136,8 +136,8 @@
                                     <td class="dataCell">{{indicador.responsables.nombre}}</td>
                                     <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
                                     <td class="dataCell">{{indicador.historial[0].montoEjecutado | currency: 'DOP ':'symbol':'1.2-2'}}</td>
-                                    <td class="dataCell">{{indicador.historial[0].lineaBase }}<span *ngIf="indicador.esPorcentual">%</span></td>
-                                    <td class="dataCell">{{indicador.historial[0].meta}}<span *ngIf="indicador.esPorcentual">%</span></td>
+                                    <td class="dataCell">{{indicador.lineaBase }}<span *ngIf="indicador.esPorcentual">%</span></td>
+                                    <td class="dataCell">{{indicador.meta}}<span *ngIf="indicador.esPorcentual">%</span></td>
                                 </tr>
                             </tbody>
                         </table>

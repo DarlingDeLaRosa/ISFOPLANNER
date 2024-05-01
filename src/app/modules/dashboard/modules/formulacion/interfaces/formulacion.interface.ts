@@ -17,9 +17,9 @@ export interface ActividadI {
   producto?: ProductoI,
   responsables?: ResponsableI,
   frecuencia: FrecuenciaI,
-  mesesImpacto: {id: number, nombre: string}[]
-  responsableUnidad: {id:number, nombre: string}
-  responsableCargo: {id:number, nombre: string}
+  mesesImpacto: { id: number, nombre: string }[]
+  responsableUnidad: { id: number, nombre: string }
+  responsableCargo: { id: number, nombre: string }
   // resultadoEsperadoCuantitativoT2?: number,
   // resultadoEsperadoCuantitativoT3?: number,
   // resultadoEsperadoCuantitativoT4?: number,
@@ -48,7 +48,7 @@ export interface InsumosI {
   id: number,
   nombre: string,
   descripcion: string,
-  auxiliar:{id: number, nombre: string}
+  auxiliar: { id: number, nombre: string }
   categoriaInsumo: CategoriaInsumoI
 }
 
@@ -59,7 +59,7 @@ export interface CategoriaInsumoI {
 
 
 export interface CosteoI {
-  id:number
+  id: number
   montoTotalEstimado: number,
   montoTotalTransversal: number
   costeoDetalle: CosteoDetallesI[],
@@ -70,7 +70,7 @@ export interface CosteoDetallesI {
   idInsumo: number,
   costoUnitario: number,
   idPerito: number,
-  peritoAceptacion?: boolean 
+  peritoAceptacion?: boolean
   insumo: any
   cantidad: number,
   montoTotal: number,
@@ -97,7 +97,7 @@ export interface CosteoDetallesI {
 //       perito: { id: number, nombre: string },
 //       unidadMedida: { id: number, nombre: string }
 // }
-    
+
 export interface CosteoDetallesGroupI {
   id: number,
   idInsumo: number,
@@ -105,13 +105,13 @@ export interface CosteoDetallesGroupI {
   cantidad: number,
   idPerito: any,
   montoTotal: number,
-  peritoAceptacion?: boolean 
+  peritoAceptacion?: boolean
   nombrePerito: string
   fechaRecepcion: Date
   idUnidadMedida: number
   auxiliar: string
   insumo: any
-  nombre:string
+  nombre: string
   nombreUnidadMedida: string
   descripcionInsumo: string
 }
@@ -164,3 +164,13 @@ export interface indicadorRecinto {
   metaEmh: number,
   metaRec: number
 }
+
+export interface indicadorMetaRecintos {
+  meta: number,
+  logroEsperadoT1: number,
+  logroEsperadoT2: number,
+  logroEsperadoT3: number,
+  logroEsperadoT4: number,
+  idResponsable: number
+}
+

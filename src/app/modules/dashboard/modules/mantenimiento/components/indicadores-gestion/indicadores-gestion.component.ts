@@ -5,9 +5,7 @@ import { ProductoService } from '../../services/producto.service';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FrecuenciaI } from '../../../formulacion/interfaces/formulacion.interface';
-import { ResponsableI } from '../mantenimiento-pei/interfaces/responsable.interface';
 import { IndicadorGestionService } from '../../services/indicadores-gestion.service';
-import { DetailViewComponent } from '../../modals/detail-view/detail-view.component';
 import { UnidadOrganizativaService } from '../../services/unidad-organizativa.service';
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { EstructuraProgramaticaI, IndicadoresGestionGetI, ProductoI, subUnidadI } from '../../interfaces/mantenimientoPOA.interface';
@@ -16,7 +14,6 @@ import { MedioVerificacionService } from '../mantenimiento-pei/services/medio-ve
 import { MedioVerificacionI } from '../mantenimiento-pei/interfaces/medio-verificacion.interface';
 import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
-import { subUnit } from 'src/app/interfaces/Response.interfaces';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 
 @Component({
@@ -95,6 +92,10 @@ export class IndicadoresGestionComponent implements OnInit {
     this.apiUnidadOrg.getUnidadesOrganizativas().subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
+  getUnidadOrganizativaRecintos() {
+    this.apiUnidadOrg.getUnidadesOrganizativasRecintos().subscribe((res: any) => { this.unidadesOrg = res.data })
+  }
+
   getEstructuraPro() {
     this.apiEstruturaPro.getEstructurasProgramaticas().subscribe((res: any) => { this.estructurasPro = res.data })
   }
@@ -135,7 +136,15 @@ export class IndicadoresGestionComponent implements OnInit {
     }
   }
 
-  setValueEditIndicadoresGestion(indicadoresGestion: IndicadoresGestionGetI) {
+  setPossiblesResp(idAlcance: number){
+    if (idAlcance != 2) this.getUnidadOrganizativaRecintos()
+    else this.getUnidadOrganizativa()
+  }
+
+  async setValueEditIndicadoresGestion(indicadoresGestion: IndicadoresGestionGetI) {
+
+    await this.setPossiblesResp(indicadoresGestion.alcance.id)
+
     this.indicadoresGestionForm.patchValue({
       id: indicadoresGestion.id,
       meta: indicadoresGestion.meta,

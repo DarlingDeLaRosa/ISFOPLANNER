@@ -54,21 +54,18 @@ export interface IndicadorGestionI {
   idProducto: number,
   idAlcance: number,
   idFrecuencia: number,
-  mediosVerificaciones: [
-    number
-  ],
-  responsables: number[],
-  indicadoresRecinto: {
-    metaFem: number,
-    metaJvm: number,
-    metaLnnm: number,
-    metaEph: number,
-    metaUm: number,
-    metaEmh: number,
-    metaRec: number
-  }
+  mediosVerificaciones: [number],
+  indicadoresRecinto: indicadorRecinto[]
 }
 
+export interface indicadorRecinto {
+  meta: number,
+  logroEsperadoT1: number,
+  logroEsperadoT2: number,
+  logroEsperadoT3: number,
+  logroEsperadoT4: number,
+  idResponsable: number
+}
 
 export interface IndicadoresGestionGetI {
   id: number,
@@ -98,21 +95,12 @@ export interface IndicadoresGestionGetI {
   producto: ProductoI
   responsables: ResponsableI
   mediosverificaciones: MedioVerificacionI[]
-  indicadoresRecinto: {
-    metaFem: number,
-    metaJvm: number,
-    metaLnnm: number,
-    metaEph: number,
-    metaUm: number,
-    metaEmh: number,
-    metaRec: number
-  }
+  indicadoresRecinto: indicadorRecinto[]
+
   historial: [
     {
       montoEjecutado: number,
       montoEjecutadoTransversal: number,
-      lineaBase: number,
-      meta: number,
       avance: number
     }
   ],
@@ -198,8 +186,8 @@ export interface periodoConfig {
   fechaFin: Date
   fechaInicio: Date
   id: number
-  presupuestoInstitucional: PresupuestoInstiGetI 
-  prorroga?: Date 
-  tipoProceso: {id:number , nombre: string}
+  presupuestoInstitucional: PresupuestoInstiGetI
+  prorroga?: Date
+  tipoProceso: { id: number, nombre: string }
 
 }
