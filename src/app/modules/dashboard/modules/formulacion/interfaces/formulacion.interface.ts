@@ -166,11 +166,22 @@ export interface indicadorRecinto {
 }
 
 export interface indicadorMetaRecintos {
+  id?: number
+  meta: number,
+  logroEsperadoT1?: number,
+  logroEsperadoT2?: number,
+  logroEsperadoT3?: number,
+  logroEsperadoT4?: number,
+  idResponsable: number
+}
+
+export interface indicadorMetaRecintosGet {
   meta: number,
   logroEsperadoT1: number,
   logroEsperadoT2: number,
   logroEsperadoT3: number,
   logroEsperadoT4: number,
-  idResponsable: number
+  responsable: {id:number, nombre: string}
 }
+
 

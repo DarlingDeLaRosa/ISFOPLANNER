@@ -26,7 +26,7 @@
                         <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.historial[0].montoEjecutado| currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
                         <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span> {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
                         
-                        <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit" class="nodesIcon" (click)="openModalResultadoEsperado(indicador)">lan</mat-icon>
+                        <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit" class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)">lan</mat-icon>
                         <!-- <mat-icon
                             *ngIf="
                         userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&
@@ -38,7 +38,7 @@
                         helperHandler.sameGoal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}, indicador.meta)); else needUpdate"
                             class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit
                         </mat-icon> -->
-                        <mat-icon class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit</mat-icon>
+                        <mat-icon class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)">edit</mat-icon>
                         <!-- <ng-template #needUpdate>
                             <mat-icon *ngIf=" 
                             userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&

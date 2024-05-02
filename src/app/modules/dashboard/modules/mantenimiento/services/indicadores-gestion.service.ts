@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IndicadorGestionI, IndicadoresGestionGetI } from '../interfaces/mantenimientoPOA.interface';
-import { indicadorRecinto } from '../../formulacion/interfaces/formulacion.interface';
+import { indicadorMetaRecintos} from '../../formulacion/interfaces/formulacion.interface';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
 
@@ -43,8 +43,8 @@ export class IndicadorGestionService {
     return this.helperHandler.handleRequest(() => this.http.delete(`${this.baseURL}/IndicadoresGestion/${id}`, this.header))
   }
 
-  public postIndicadorRecintos(idIndicadorGestion: number, indicadoresRecintos: indicadorRecinto) {
-    return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/IndicadoresGestion/crear-indicador-recinto/${idIndicadorGestion}` , indicadoresRecintos, this.header))
+  public postIndicadorRecintos(idIndicadorGestion: number, indicadoresRecintos: indicadorMetaRecintos[]) {
+    return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/IndicadoresGestion/crear-indicadores-recintos/${idIndicadorGestion}` , indicadoresRecintos, this.header))
   }
 
   public putResultadoEsperadoIndicador( idIndicadorGestion: number, indicadorResultadoEsperado: any ) {

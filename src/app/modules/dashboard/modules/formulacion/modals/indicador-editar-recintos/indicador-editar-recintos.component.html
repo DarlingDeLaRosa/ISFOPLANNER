@@ -1,13 +1,12 @@
 <div class="modal">
     <h2 class="Stitle">Actualizar indicador</h2>
-    <div style="border:1px solid  #ccc ;">
-    </div>
+    <div style="border:1px solid  #ccc ;"> </div>
 
-    <span style="display: flex; margin-top: 10px;">
+    <span style="display: flex; margin-top: 10px;" *ngIf="indicador">
         <h3 class="Stitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
     </span>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;" *ngIf="indicador">
         <span>
             <h3 style="margin: 0;" class="Stitle">Frecuencia:</h3> {{indicador.frecuencia.nombre}}
         </span>
@@ -26,7 +25,7 @@
 
         <span>
             <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3>{{indicador.mediosverificaciones[0].nombre}}
-            <span [matMenuTriggerFor]="menu" class="seeMore">...</span>
+            <span [matMenuTriggerFor]="menu" class="seeMore" *ngIf="indicador.mediosverificaciones.length > 1">...</span>
             <mat-menu #menu="matMenu">
                 <ng-container *ngFor="let medioVer of indicador.mediosverificaciones">
                     <h5 style="padding: 5px 15px; margin: 0;">{{medioVer.nombre}}</h5>
@@ -35,7 +34,7 @@
         </span>
     </div>
 
-    <form [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent" (ngSubmit)="saveChanges()">
+    <form *ngIf="indicador" [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent" (ngSubmit)="saveChanges()">
 
         <h3 class="Stitle">Indicador por recinto</h3>
         

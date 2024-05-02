@@ -41,12 +41,12 @@ export class ProductoFormulacionComponent implements OnInit {
     this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data); })
   }
 
-  openModalIndicadoresRecinto(indicador: IndicadoresGestionGetI) {
+  openModalIndicadoresRecinto(indicador: number) {
     let dialogRef = this.dialog.open(IndicadorEditarComponent, { data: indicador })
     dialogRef.afterClosed().subscribe(() => { this.getByIdProducto() })
   }
 
-  openModalResultadoEsperado(indicador: IndicadoresGestionGetI) {
+  openModalResultadoEsperado(indicador: number) {
     let dialogRef = this.dialog.open(IndicadorEditarRecintosComponent, { data: indicador })
     dialogRef.afterClosed().subscribe(() => { this.getByIdProducto() })
   }

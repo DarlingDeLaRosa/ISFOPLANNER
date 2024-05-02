@@ -22,7 +22,7 @@ export class IndicadorEditarComponent implements OnInit {
   indicadoresGestionForm: FormGroup;
   metaIndicadorFlujo: boolean = false
   userLogged: UserI = this.userSystemService.getUserLogged;
-
+  
   constructor(
 
     public fb: FormBuilder,
