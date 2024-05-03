@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { alertIsSuccess, alertNoValidForm, alertServerDown, errorMessageAlert, infoMessageAlert, loading, warningMessageAlert } from '../alerts/alerts';
 import { FormGroup } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
-import { indicadorRecinto } from '../modules/dashboard/modules/formulacion/interfaces/formulacion.interface';
+import { indicadorMetaRecintosGet } from '../modules/dashboard/modules/formulacion/interfaces/formulacion.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class HelperService {
-
+    
+    //Manejar las respuestas del servidor
     handleResponse(response: any, onSuccess: () => void, formToReset?: FormGroup, onSecondSuccess?: () => void) {
         if (response.ok) {
             loading(false)
@@ -35,7 +36,8 @@ export class HelperService {
             alertIsSuccess(false);
         }
     }
-
+    
+    //Manejar la peticion y los errores
     handleRequest<T>(request: () => Observable<T>): Observable<T> {
         return request().pipe(
             catchError((error) => { loading(false); error.error.detail ? errorMessageAlert(error.error.detail) : alertServerDown(); return throwError(error) }),
@@ -48,6 +50,7 @@ export class HelperService {
         );
     }
 
+    // Funcion para disparar las funciones de crear o editar 
     saveChanges(updateFunction: () => void, form: FormGroup, saveFunction: () => void) {
         if (form.valid) {
             loading(true)
@@ -88,6 +91,9 @@ export class HelperService {
         } else alertNoValidForm()
     }
 
+    // Validaciones para indicadores 
+
+    //valida la suma total del objeto que se le envie
     sumTotal(objetoSuma: any): number {
         let suma = 0;
         Object.keys(objetoSuma).forEach(key => {
@@ -96,6 +102,7 @@ export class HelperService {
         return suma;
     }
 
+    //Valida que la meta exista al menos una vez
     sameGoal(objetSame: any, valor: number): boolean {
         let found: boolean = false; // Variable para indicar si se encontró al menos una vez el valor de la meta
         for (const key in objetSame) {
@@ -109,33 +116,41 @@ export class HelperService {
         return found;
     }
 
+    //Valida que la suma de un objeto sea igual a la suma de un objeto 
     validationGoal(meta: number, sumaTotal: number): boolean { return meta === sumaTotal && meta > 0 ? true : false; }
 
-    indicadorMetaRecinto(recinto: string, indicadorRecintos: indicadorRecinto): number {
-        switch (recinto) {
-            case 'FEM':
-                return indicadorRecintos.metaFem
+    //Valida que la unidad este dentro del array de responsables de los diferentes recintos
+    validationResRecintos(unit: string, recintosResponsablesUnits: indicadorMetaRecintosGet[]): boolean {
+        let unitRes = recintosResponsablesUnits.some((unidad: indicadorMetaRecintosGet ) => { unit == unidad.responsable.nombre })
+        return unitRes
+    }  
 
-            case 'LNNM':
-                return indicadorRecintos.metaLnnm
 
-            case 'REC':
-                return indicadorRecintos.metaRec
+    // indicadorMetaRecinto(recinto: string, indicadorRecintos: indicadorRecinto): number {
+    //     switch (recinto) {
+    //         case 'FEM':
+    //             return indicadorRecintos.metaFem
 
-            case 'JVM':
-                return indicadorRecintos.metaJvm
+    //         case 'LNNM':
+    //             return indicadorRecintos.metaLnnm
 
-            case 'UM':
-                return indicadorRecintos.metaUm
+    //         case 'REC':
+    //             return indicadorRecintos.metaRec
 
-            case 'EPH':
-                return indicadorRecintos.metaEph
+    //         case 'JVM':
+    //             return indicadorRecintos.metaJvm
+ 
+    //         case 'UM':
+    //             return indicadorRecintos.metaUm
 
-            case 'EMH':
-                return indicadorRecintos.metaEmh
+    //         case 'EPH':
+    //             return indicadorRecintos.metaEph
 
-            default:
-                return 0
-        }
-    }
+    //         case 'EMH':
+    //             return indicadorRecintos.metaEmh
+
+    //         default:
+    //             return 0
+    //     }
+    // }
 }

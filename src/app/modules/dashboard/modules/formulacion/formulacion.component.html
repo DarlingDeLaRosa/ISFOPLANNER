@@ -121,13 +121,16 @@
                     <div>
                         <table>
                             <thead class="headerTable">
-                                <tr class="headerRow">
+                                <tr class="headerRow" *ngIf="producto.indicadoresGestion.length > 0">
                                     <th class="headerCell">Indicador</th>
                                     <th class="headerCell">Responsable</th>
                                     <th class="headerCell" style="width: 11%;">Tipo indicador</th>
                                     <th class="headerCell" style="width: 15%;">Presupuesto estimado</th>
                                     <th class="headerCell" style="width: 8%;">Línea Base</th>
                                     <th class="headerCell" style="width: 8%;">Meta</th>
+                                </tr>
+                                <tr class="headerRow" *ngIf="producto.indicadoresGestion.length == 0">
+                                    <th class="headerCell">No se encontraron indicadores</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -1,4 +1,4 @@
-import { ActividadI } from "../../formulacion/interfaces/formulacion.interface"
+import { ActividadI, indicadorMetaRecintos, indicadorMetaRecintosGet } from "../../formulacion/interfaces/formulacion.interface"
 import { IndicadoresEstrategicosI } from "../components/mantenimiento-pei/interfaces/indicadorEstrategico.interface"
 import { MedioVerificacionI } from "../components/mantenimiento-pei/interfaces/medio-verificacion.interface";
 import { ResponsableI } from '../components/mantenimiento-pei/interfaces/responsable.interface';
@@ -95,7 +95,7 @@ export interface IndicadoresGestionGetI {
   producto: ProductoI
   responsables: ResponsableI
   mediosverificaciones: MedioVerificacionI[]
-  indicadoresRecinto: indicadorRecinto[]
+  indicadoresRecinto: indicadorMetaRecintosGet[]
 
   historial: [
     {

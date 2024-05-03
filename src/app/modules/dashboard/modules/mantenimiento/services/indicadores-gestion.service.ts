@@ -51,8 +51,8 @@ export class IndicadorGestionService {
     return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/logros-esperados/${idIndicadorGestion}` , indicadorResultadoEsperado, this.header))
   }
 
-  public putIndicadorRecintos(indicadoresGestionData: IndicadoresGestionGetI) {
-    return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/indicador-recinto/${indicadoresGestionData.id}`, indicadoresGestionData, this.header))
+  public putIndicadorRecintos(indicadoresGestionData: indicadorMetaRecintos[]) {
+    return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/indicador-recinto`, indicadoresGestionData, this.header))
   }
 
   /// Tipo de alcance

@@ -25,43 +25,17 @@
                     <span style="display: flex; ">
                         <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.historial[0].montoEjecutado| currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
                         <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span> {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
-                        
                         <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit" class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)">lan</mat-icon>
-                        <!-- <mat-icon
-                            *ngIf="
-                        userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&
-                        (indicador.responsables.nombre == userLogged.unidad && indicador.alcance.id == 2 ||
-                        indicador.indicadoresRecinto != null && 
-                        helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) || 
-                    
-                        indicador.indicadoresRecinto != null && 
-                        helperHandler.sameGoal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}, indicador.meta)); else needUpdate"
-                            class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit
-                        </mat-icon> -->
-                        <mat-icon class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)">edit</mat-icon>
-                        <!-- <ng-template #needUpdate>
-                            <mat-icon *ngIf=" 
-                            userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&
-                            indicador.responsables.nombre == userLogged.unidad && 
-                            indicador.indicadoresRecinto != null && 
-                            helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto)
-                        " class="editNotificationIcon" (click)="openModalIndicadoresRecinto(indicador)">edit
-                            </mat-icon>
-                        </ng-template> -->
-
-                        <mat-icon *ngIf="indicador.responsables.nombre == curretUnit" class="listIcon" (click)="sendToIndicador(indicador.id)">list</mat-icon>
-                        <!--(click)="enviarProducto(producto.id)"-->
+                        <mat-icon *ngIf="indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)" class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)">edit</mat-icon>
+                        <mat-icon *ngIf="indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)" class="listIcon" (click)="sendToIndicador(indicador.id)">list</mat-icon>
                     </span>
                 </div>
                 <div>
                     <table>
                         <thead class="headerTable">
                             <tr class="headerRow" *ngIf="indicador.actividades.length > 0">
-                                <!-- <th class="headerCell">Frecuencia</th> -->
                                 <th class="headerCell">Actividad</th>
                                 <th class="headerCell">Responsable</th>
-                                <!-- <th class="headerCell" style="width: 10%;">Meses de Impacto</th> -->
-                                <!-- <th class="headerCell">Prioridad</th> -->
                                 <th class="headerCell" style="width: 15%;">Presupuesto Estimado</th>
                                 <th class="headerCell" style="width: 15%;">Presupuesto Transversal</th>
                             </tr>
@@ -73,51 +47,8 @@
                             <tr class="dataRow" *ngFor="let actividad of indicador.actividades">
                                 <td class="dataCell">{{actividad.nombre}}</td>
                                 <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
-                                <!-- <td class="dataCell">
-                                    <span>
-                                        {{actividad.mesesImpacto[0].nombre}}
-                                        <span *ngIf="actividad.mesesImpacto.length > 1" [matMenuTriggerFor]="menu"
-                                            class="seeMore">...</span>
-                                        <mat-menu #menu="matMenu">
-                                            <ng-container *ngFor="let mes of actividad.mesesImpacto">
-                                                <h5 style="padding: 5px 15px; margin: 0;">{{mes.nombre}}</h5>
-                                            </ng-container>
-                                        </mat-menu>
-                                    </span>
-                                </td> -->
-                                <!-- <td class="dataCell">{{actividad.prioridad}}</td> -->
                                 <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP ':'symbol':'1.2-2'}}</td>
                                 <td class="dataCell">{{actividad.costeo.montoTotalTransversal | currency: 'DOP ':'symbol':'1.2-2'}}</td>
-                                <!-- <td class="dataCell">{{actividad.alcance.nombre}}</td> -->
-                                <!-- <td class="dataCell">{{indicador.lineaBase}}%</td> -->
-                                <!-- <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td> -->
-                                <!-- <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon
-                                    *ngIf="indicador.alcance.id !== 2 " class="nodesIcon"
-                                    (click)="openModalResultadoEsperado(indicador)">lan</mat-icon>
-                            </td>
-                            <td class="dataCell" style="width: 5%;">
-                                <mat-icon *ngIf="
-                                userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&
-                                (indicador.responsables.nombre == userLogged.unidad && indicador.alcance.id == 2 ||
-    
-                                indicador.indicadoresRecinto != null && 
-                                helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) || 
-                                
-                                indicador.indicadoresRecinto != null && 
-                                helperHandler.sameGoal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}, indicador.meta)); else needUpdate
-                                " class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit</mat-icon>
-                            </td>
-    
-                            <ng-template #needUpdate>
-                                <mat-icon *ngIf=" 
-                                    userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&
-                                    indicador.responsables.nombre == userLogged.unidad && 
-                                    indicador.indicadoresRecinto != null && 
-                                    helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto)
-                                " class="editNotificationIcon" (click)="openModalIndicadoresRecinto(indicador)">edit
-                                </mat-icon>
-                            </ng-template> -->
-
                             </tr>
                         </tbody>
                     </table>
@@ -127,112 +58,5 @@
         <no-data-found *ngIf="productoConsult.indicadoresGestion &&  productoConsult.indicadoresGestion.length == 0"></no-data-found>
     </div>
     <charging-box *ngIf="!productoConsult"></charging-box>
-    
-    <!-- <div class="producto">
-        <div class="titleProducto">
-            <span style="display: flex; margin: 10px 0;">
-                <h3>Producto:</h3> &nbsp;
-                <h3 style="font-weight: 400;">{{productoConsult.nombre}}</h3>
-            </span>
-        </div>
-        <div>
-            <table>
-                <thead class="headerTable">
-                    <tr class="headerRow">
-                        <th class="headerCell">Indicador</th>
-                        <th class="headerCell">Tipo de indicador</th>
-                        <th class="headerCell">Alcance</th>
-                        <th class="headerCell">Estructura Programática</th>
-                        <th class="headerCell">Responsable</th>
-                        <th class="headerCell">Línea Base</th>
-                        <th class="headerCell">Meta</th>
-                        <th class="headerCell" *ngIf="userLogged.recinto.siglas === 'REC'"></th>
-                        <th class="headerCell"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="dataRow" *ngFor="let indicador of productoConsult.indicadoresGestion">
-                        <td class="dataCell">{{indicador.nombre}}</td>
-                        <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
-                        <td class="dataCell">{{indicador.alcance.nombre}}</td>
-                        <td class="dataCell">{{indicador.estructuraProgramatica.nombre}}</td>
-                        <td class="dataCell">{{indicador.responsables.nombre}}</td>
-                        <td class="dataCell">{{indicador.lineaBase}}%</td>
-                        <td class="dataCell" style="width: 5%;">{{indicador.meta}}%</td>
-                        <td class="dataCell" style="width: 5%;" *ngIf="userLogged.recinto.siglas === 'REC'"><mat-icon
-                                *ngIf="indicador.alcance.id !== 2 " class="nodesIcon"
-                                (click)="openModalResultadoEsperado(indicador)">lan</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;">
-                            <mat-icon *ngIf="
-                            userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&
-                            (indicador.responsables.nombre == userLogged.unidad && indicador.alcance.id == 2 ||
-
-                            indicador.indicadoresRecinto != null && 
-                            helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), helperHandler.sumTotal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4})) || 
-                            
-                            indicador.indicadoresRecinto != null && 
-                            helperHandler.sameGoal({a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d:indicador.logroEsperadoT4}, indicador.meta)); else needUpdate
-                            " class="editIcon" (click)="openModalIndicadoresRecinto(indicador)">edit</mat-icon>
-                        </td>
-
-                        <ng-template #needUpdate>
-                            <mat-icon *ngIf=" 
-                                userLogged.recinto.siglas == 'REC' &&  indicador.alcance.id !== 1 &&
-                                indicador.responsables.nombre == userLogged.unidad && 
-                                indicador.indicadoresRecinto != null && 
-                                helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto)
-                            " class="editNotificationIcon" (click)="openModalIndicadoresRecinto(indicador)">edit
-                            </mat-icon>
-                        </ng-template>
-
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div> -->
-
-    <!-- <span class="titleActividad">
-        <h1>Actividades</h1>
-        <button mat-stroked-button class="borderOrangeButton" (click)="sendToNewAct()"><mat-icon>add</mat-icon>
-            Añadir actividad</button>
-    </span> -->
-    <!-- <div class="actividadContainer">
-        
-        <div style="margin-bottom: 15px;">
-            <table style="border: 1px solid #ccc;">
-                <thead class="headerTable">
-                    <tr class="headerRow" style="background-color: #95ade93f;">
-                        <th class="headerCell">Actividad</th>
-                        <th class="headerCell">Frecuencia</th>
-                        <th class="headerCell">Responsable</th>
-                        <th class="headerCell">Cargo del Responsable</th>
-                        <th class="headerCell">Presupuesto Estimado</th>
-                        <th class="headerCell">Editar</th>
-                        <th class="headerCell">Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="dataRow" *ngFor="let actividad of productoConsult.actividades">
-                        <td class="dataCell">{{actividad.nombre}}</td>
-                        <td class="dataCell">{{actividad.frecuencia.nombre}}</td>
-                        <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
-                        <td class="dataCell">{{actividad.responsableCargo.nombre}}</td>
-                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo">
-                            {{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
-                        <ng-template #noCosteo>
-                            <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
-                        </ng-template>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon"
-                                (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon"
-                                (click)="removeActividad(actividad.id)">delete</mat-icon></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-    </div> -->
-    <!-- <td class="dataCell" style="width: 5%;"><button class="statusButton"></button></td> -->
-    <!-- <th class="headerCell">Estado</th> -->
-    <!-- <button class="greenButton">Crear POA</button> -->
+   
 </div>

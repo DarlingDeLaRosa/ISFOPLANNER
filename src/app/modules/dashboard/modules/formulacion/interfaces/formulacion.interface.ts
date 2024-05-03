@@ -176,6 +176,7 @@ export interface indicadorMetaRecintos {
 }
 
 export interface indicadorMetaRecintosGet {
+  id?: number
   meta: number,
   logroEsperadoT1: number,
   logroEsperadoT2: number,

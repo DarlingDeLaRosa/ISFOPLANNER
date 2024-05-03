@@ -1,6 +1,11 @@
 <div class="modal">
-    <h2 class="Stitle">Actualizar indicador</h2>
-    <div style="border:1px solid  #ccc ;"> </div>
+    
+    <div style="display: flex; justify-content: space-between;">
+        <h2 class="Stitle" style="margin: 0;">Actualizar indicador</h2>
+        <div *ngIf="!indicador" class="loader"></div>
+    </div>
+
+    <hr>
 
     <span style="display: flex; margin-top: 10px;" *ngIf="indicador">
         <h3 class="Stitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
