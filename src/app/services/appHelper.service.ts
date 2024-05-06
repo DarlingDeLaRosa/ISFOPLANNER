@@ -116,6 +116,11 @@ export class HelperService {
         return found;
     }
 
+    sameLastGoal(metaT4: number = 0 , valor: number): boolean {
+        if(metaT4 == valor) return true
+        else return false
+    }
+
     //Valida que la suma de un objeto sea igual a la suma de un objeto 
     validationGoal(meta: number, sumaTotal: number): boolean { return meta === sumaTotal && meta > 0 ? true : false; }
 

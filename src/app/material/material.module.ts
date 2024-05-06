@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatStepperModule} from '@angular/material/stepper';
 
 const materialComponents: any = [
   MatIconModule,
@@ -26,6 +27,7 @@ const materialComponents: any = [
   MatSelectModule,
   MatButtonModule,
   MatDialogModule,
+  MatStepperModule,
   MatTooltipModule,
   MatToolbarModule,
   MatSidenavModule,

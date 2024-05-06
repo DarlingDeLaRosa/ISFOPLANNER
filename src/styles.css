@@ -656,6 +656,7 @@ table {
 .modal {
     width: 1200px;
     padding: 25px;
+    padding-bottom: 15px;
 }
 
 .checkPresupuesto {

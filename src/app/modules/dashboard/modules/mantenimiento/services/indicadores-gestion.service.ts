@@ -47,6 +47,10 @@ export class IndicadorGestionService {
     return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/IndicadoresGestion/crear-indicadores-recintos/${idIndicadorGestion}` , indicadoresRecintos, this.header))
   }
 
+  public putResultadoEsperadoIndicadorRecintos( idIndicadorGestion: number, indicadorResultadoEsperado: any ) {
+    return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/logros-esperados-recintos/${idIndicadorGestion}` , indicadorResultadoEsperado, this.header))
+  }
+
   public putResultadoEsperadoIndicador( idIndicadorGestion: number, indicadorResultadoEsperado: any ) {
     return this.helperHandler.handleRequest(() => this.http.put(`${this.baseURL}/IndicadoresGestion/logros-esperados/${idIndicadorGestion}` , indicadorResultadoEsperado, this.header))
   }
