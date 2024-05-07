@@ -1,8 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UsuarioI } from '../interfaces/mantenimientoPOA.interface';
-import { catchError, throwError } from 'rxjs';
-import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
 

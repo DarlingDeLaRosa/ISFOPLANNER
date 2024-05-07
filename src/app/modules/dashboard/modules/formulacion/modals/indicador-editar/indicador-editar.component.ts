@@ -20,12 +20,15 @@ export class IndicadorEditarComponent implements OnInit {
   sumaTotalLogros: number = 0
   validacionMeta: boolean = false
   indicadorRecinto: boolean = false
-  indicadoresGestionForm: FormGroup;
+  indicadoresGestionForm: FormGroup
   indicador!: IndicadoresGestionGetI
+  indTypeValidation: boolean = false
   metaIndicadorFlujo: boolean = false
   indicadoresGestionRecintosForm: FormGroup;
   userLogged: UserI = this.userSystemService.getUserLogged;
-  indTypeValidation: boolean = false
+
+  metaRecintos: number = 0
+  metaRectoria: number = 0
 
   constructor(
 
@@ -52,12 +55,14 @@ export class IndicadorEditarComponent implements OnInit {
       logroEsperadoT4: new FormControl('', Validators.required),
     })
 
-    this.indicadoresGestionForm.valueChanges.subscribe(()=>{
+    this.indicadoresGestionForm.valueChanges.subscribe(() => {
       if (this.indicador.tipoIndicador.id == 1) {
-        if (helperHandler.sameLastGoal(this.indicadoresGestionForm.value.logroEsperadoT4,this.indicador.meta)) this.indTypeValidation = true
-      }else{
+        if (helperHandler.sameLastGoal(this.indicadoresGestionForm.value.logroEsperadoT4, this.indicador.meta)) this.indTypeValidation = true
+        else this.indTypeValidation = false
+      } else {
         if (this.indicador.meta == helperHandler.sumTotal(this.indicadoresGestionForm.value)) this.indTypeValidation = true
-      }      
+        else this.indTypeValidation = false
+      }
     })
 
 
@@ -81,12 +86,27 @@ export class IndicadorEditarComponent implements OnInit {
         this.indicador = resp.data;
         this.validationDefined()
 
-        this.indicador.indicadoresRecinto.find((logroEsperadoRecinto: indicadorMetaRecintosGet)=>{
+        let logroRecinto = this.indicador.indicadoresRecinto.find((logroEsperadoRecinto: indicadorMetaRecintosGet) => {
           let recintoSiglas = logroEsperadoRecinto.responsable.nombre.split(' ')
-          if (recintoSiglas[recintoSiglas.length - 1] == this.userLogged.recinto.siglas) this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
-          if (recintoSiglas[recintoSiglas.length - 1].length > 4 && this.userLogged.recinto.siglas == 'REC') this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
+          
+          if (recintoSiglas[recintoSiglas.length - 1] == this.userLogged.recinto.siglas) {
+            this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
+            return logroEsperadoRecinto
+          }
+          if (recintoSiglas[recintoSiglas.length - 1].length > 4 && this.userLogged.recinto.siglas == 'REC'){
+            this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
+            return logroEsperadoRecinto
+          } 
+          return
         })
-        console.log(resp);
+        
+        if (this.userLogged.recinto.siglas == 'REC') {
+          if (this.indicador.alcance.id !== 3) this.metaRecintos = this.indicador.meta
+          else {
+            this.metaRectoria = this.indicador.meta            
+            this.metaRecintos = logroRecinto!.meta 
+          }
+        } else this.metaRecintos = logroRecinto!.meta
       })
   }
 
@@ -104,30 +124,38 @@ export class IndicadorEditarComponent implements OnInit {
       this.dialogRef.close()
     }
 
-    if (suma > 0) { this.indicadoresGestionForm.reset(this.indicador)}
+    if (suma > 0) { this.indicadoresGestionForm.reset(this.indicador) }
   }
 
-  putResultadoEsperadoIndicador() {
-    this.indicadorService.putResultadoEsperadoIndicador(this.indicador.id, this.indicadoresGestionForm.value)
+  putResultadoEsperadoIndicador(form: FormGroup) {
+    this.indicadorService.putResultadoEsperadoIndicador(this.indicador.id, form)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
   }
 
-  putResultadoEsperadoIndicadorRecintos() {
-    this.indicadorService.putResultadoEsperadoIndicadorRecintos(this.indicador.id, this.indicadoresGestionForm.value)
+  putResultadoEsperadoIndicadorRecintos(form: FormGroup) {
+    this.indicadorService.putResultadoEsperadoIndicadorRecintos(this.indicador.id, form)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
+  }
+
+  emptyFuction(){}
+  validationTypeInd(sendData: () => void) {
+    if (this.indicador.tipoIndicador.id == 1) {
+      if (this.helperHandler.sameLastGoal(this.indicadoresGestionForm.value.logroEsperadoT4, this.indicador.meta)) sendData()
+      else { warningMessageAlert(`Los indicadores de flujo deben cumplir con la misma meta en los periodos donde aplica.`) }
+    }
+    else {
+      if (this.indicador.meta == this.helperHandler.sumTotal(this.indicadoresGestionForm.value)) sendData()
+      else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${this.indicador.meta}</b>).`) }
+    }
   }
 
   saveChanges() {
-    if (this.indicador.tipoIndicador.id == 1) {
-
-      if (this.helperHandler.sameLastGoal(this.indicadoresGestionForm.value.logroEsperadoT4, this.indicador.meta)) this.putResultadoEsperadoIndicador()
-      else { warningMessageAlert(`Los indicadores de flujo deben cumplir con la misma meta en los periodos donde aplica.`) }
-
-    } else {
-
-      if (this.indicador.meta == this.helperHandler.sumTotal(this.indicadoresGestionForm.value)) this.putResultadoEsperadoIndicador()
-      else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${this.indicador.meta}</b>).`) }
-
-    }
+    if (this.userLogged.recinto.siglas === 'REC') {
+      if (this.indicador.alcance.id !== 3) this.validationTypeInd(() => this.putResultadoEsperadoIndicador(this.indicadoresGestionRecintosForm.value));
+      else {
+        this.validationTypeInd(() => this.putResultadoEsperadoIndicador(this.indicadoresGestionForm.value));
+        this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value));
+      }
+    } else this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value));
   }
 }

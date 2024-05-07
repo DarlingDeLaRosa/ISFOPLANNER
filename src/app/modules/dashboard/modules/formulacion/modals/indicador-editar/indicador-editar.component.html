@@ -45,7 +45,7 @@
 
 
   <mat-stepper linear #stepper
-    *ngIf="indicador.indicadoresRecinto.length > 0 && this.userLogged.recinto.siglas == 'REC' && indicador.alcance.id == 3" 
+    *ngIf="indicador && indicador.indicadoresRecinto.length > 0 && this.userLogged.recinto.siglas == 'REC' && indicador.alcance.id == 3; else noForaLL" 
     style="margin-top: 15px;">
     <mat-step label="Meta esperada general" [completed]="indTypeValidation && indicadoresGestionForm.valid">
 
@@ -55,7 +55,7 @@
 
         <mat-form-field appearance="fill" style="width:19%;">
           <mat-label>Meta anual </mat-label>
-          <input matInput readonly disabled [value]="indicador.meta">
+          <input matInput readonly disabled [value]="metaRectoria">
         </mat-form-field>&nbsp;
         <!-- [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : ''}" -->
         <!-- [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : '#bbb'}" -->
@@ -83,7 +83,7 @@
 
       <span style="display: flex; justify-content: space-between;">
         <span></span>
-        <button class="borderOrangeButton" mat-stroked-button matStepperNext>Siguiente</button>
+        <button class="borderOrangeButton" mat-stroked-button matStepperNext (click)="validationTypeInd(emptyFuction)">Siguiente</button>
       </span>
     </mat-step>
 
@@ -94,13 +94,10 @@
         <h3 class="Stitle">Resultado esperado por trimestre.</h3>
 
         <mat-form-field appearance="fill" style="width:19%;">
-          <mat-label
-            [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : ''}">
-            Meta anual
-          </mat-label>
-
-          <input matInput readonly disabled [value]="indicador.meta"
-            [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : '#bbb'}">
+          <mat-label>Meta anual </mat-label>
+          <input matInput readonly disabled [value]="metaRecintos">
+          <!-- [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : ''}" -->
+          <!-- [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : '#bbb'}" -->
         </mat-form-field>&nbsp;
 
         <mat-form-field appearance="fill" style="width:19%;">
@@ -131,20 +128,18 @@
     </mat-step>
   </mat-stepper>
 
-  <!-- <div *ngIf="this.userLogged.recinto.siglas !== 'REC' ">
-    <form *ngIf="indicador" [formGroup]="indicadoresGestionForm" class="editarIndicadorFormContent"
+  <ng-template #noForaLL> <!--*ngIf="this.userLogged.recinto.siglas !== 'REC' "-->
+    <form *ngIf="indicador" [formGroup]="indicadoresGestionRecintosForm" class="editarIndicadorFormContent"
       (ngSubmit)="saveChanges()">
 
+      <h3 class="Stitle">Resultado esperado por trimestre (Meta general).</h3>
       <h3 class="Stitle">Resultado esperado por trimestre.</h3>
 
       <mat-form-field appearance="fill" style="width:19%;">
-        <mat-label
-          [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : ''}">
-          Meta anual
-        </mat-label>
-
-        <input matInput readonly disabled [value]="metaIndicadorRecinto"
-          [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : '#bbb'}">
+        <mat-label>Meta anual </mat-label>
+        <input matInput readonly disabled [value]="metaRecintos">
+        <!-- [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : ''}" -->
+        <!-- [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : '#bbb'}" -->
       </mat-form-field>&nbsp;
 
       <mat-form-field appearance="fill" style="width:19%;">
@@ -169,6 +164,6 @@
 
       <button type="submit" class="greenButton">Guardar cambios</button>
     </form>
-  </div> -->
+  </ng-template>
 
 </div>
