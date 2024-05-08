@@ -1,0 +1,44 @@
+<div class="modal">
+
+    <div style="display: flex; justify-content: space-between;">
+        <h2 class="Stitle" style="margin: 0;">Actualizar indicador</h2>
+        <div *ngIf="!indicador" class="loader"></div>
+    </div>
+
+    <hr>
+
+    <span style="display: flex; margin-top: 10px;"><!--*ngIf="indicador"-->
+        <h3 class="Stitle">Indicador:</h3> &nbsp; <h3> {{indicador.nombre}}</h3>
+    </span>
+
+    <div>
+        <table>
+            <thead class="headerTable">
+                <tr class="headerRow">
+                    <th class="headerCell"></th>
+                    <th class="headerCell">Logro T1</th>
+                    <th class="headerCell">Logro T2</th>
+                    <th class="headerCell">Logro T3</th>
+                    <th class="headerCell">Logro T4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="dataRow">
+                    <td class="dataCell">{{indicador.responsables.nombre.split(' ').pop()}}</td>
+                    <td class="dataCell">{{indicador.logroEsperadoT1}}</td>
+                    <td class="dataCell">{{indicador.logroEsperadoT2}}</td>
+                    <td class="dataCell">{{indicador.logroEsperadoT3}}</td>
+                    <td class="dataCell">{{indicador.logroEsperadoT4}}</td>
+                </tr>
+                <tr class="dataRow" *ngFor="let metaRecintos of indicador.indicadoresRecinto">
+                    <td class="dataCell">{{metaRecintos.responsable.nombre.split(' ').pop()}}</td>
+                    <td class="dataCell">{{metaRecintos.logroEsperadoT1}}</td>
+                    <td class="dataCell">{{metaRecintos.logroEsperadoT2}}</td>
+                    <td class="dataCell">{{metaRecintos.logroEsperadoT3}}</td>
+                    <td class="dataCell">{{metaRecintos.logroEsperadoT4}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

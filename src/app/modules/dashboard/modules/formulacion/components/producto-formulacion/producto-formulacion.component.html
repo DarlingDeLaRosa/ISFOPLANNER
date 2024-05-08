@@ -25,6 +25,7 @@
                     <span style="display: flex; ">
                         <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.historial[0].montoEjecutado| currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
                         <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span> {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
+                        <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit" class="nodesIcon" (click)="openModalVistaIndicadoresRecinto(indicador.id)">topic</mat-icon>
                         <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit" class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)">lan</mat-icon>
                         <mat-icon *ngIf="indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)" class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)">edit</mat-icon>
                         <mat-icon *ngIf="indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)" class="listIcon" (click)="sendToIndicador(indicador.id)">list</mat-icon>

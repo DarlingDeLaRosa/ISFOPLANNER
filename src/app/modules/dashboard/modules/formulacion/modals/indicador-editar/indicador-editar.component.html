@@ -54,7 +54,7 @@
         <h3 class="Stitle">Resultado esperado por trimestre (Meta general).</h3>
 
         <mat-form-field appearance="fill" style="width:19%;">
-          <mat-label>Meta anual </mat-label>
+          <mat-label>Meta anual</mat-label>
           <input matInput readonly disabled [value]="metaRectoria">
         </mat-form-field>&nbsp;
         <!-- [ngStyle]="{'color': indicador.tipoIndicador.id == 2 && sumaTotalLogros > 0 && !validacionMeta || indicador.tipoIndicador.id == 1 && !metaIndicadorFlujo && sumaTotalLogros > 0  ? 'red' : ''}" -->
@@ -83,7 +83,9 @@
 
       <span style="display: flex; justify-content: space-between;">
         <span></span>
-        <button class="borderOrangeButton" mat-stroked-button matStepperNext (click)="validationTypeInd(emptyFuction)">Siguiente</button>
+        <button class="borderOrangeButton" mat-stroked-button matStepperNext
+        (click)="validationTypeInd(emptyFuction, indicador.meta, indicadoresGestionForm.value.logroEsperadoT4, indicadoresGestionForm.value)"
+        >Siguiente</button>
       </span>
     </mat-step>
 
@@ -132,7 +134,7 @@
     <form *ngIf="indicador" [formGroup]="indicadoresGestionRecintosForm" class="editarIndicadorFormContent"
       (ngSubmit)="saveChanges()">
 
-      <h3 class="Stitle">Resultado esperado por trimestre (Meta general).</h3>
+      <!-- <h3 class="Stitle">Resultado esperado por trimestre (Meta general).</h3> -->
       <h3 class="Stitle">Resultado esperado por trimestre.</h3>
 
       <mat-form-field appearance="fill" style="width:19%;">
@@ -162,7 +164,10 @@
         <input matInput type="number" formControlName="logroEsperadoT4">
       </mat-form-field>
 
-      <button type="submit" class="greenButton">Guardar cambios</button>
+      <span style="display: flex; justify-content: space-between;">
+        <span></span>
+        <button type="submit" class="greenButton">Guardar cambios</button>
+      </span>
     </form>
   </ng-template>
 

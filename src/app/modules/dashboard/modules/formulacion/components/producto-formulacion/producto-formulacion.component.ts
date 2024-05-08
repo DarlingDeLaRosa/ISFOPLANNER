@@ -3,11 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { IndicadorEditarComponent } from '../../modals/indicador-editar/indicador-editar.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../../mantenimiento/services/producto.service';
-import { IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
 import { ActividadesService } from '../../services/actividades.service';
+import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/indicador-vista-meta.component';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -46,6 +47,11 @@ export class ProductoFormulacionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => { this.getByIdProducto() })
   }
 
+  openModalVistaIndicadoresRecinto(indicador: number) {
+    let dialogRef = this.dialog.open(IndicadorVistaMetaComponent, { data: indicador })
+    dialogRef.afterClosed().subscribe(() => { this.getByIdProducto() })
+  }
+
   openModalResultadoEsperado(indicador: number) {
     let dialogRef = this.dialog.open(IndicadorEditarRecintosComponent, { data: indicador })
     dialogRef.afterClosed().subscribe(() => { this.getByIdProducto() })
@@ -54,21 +60,6 @@ export class ProductoFormulacionComponent implements OnInit {
   sendToIndicador(idIndicador: number) {
     this.router.navigate(['/dashboard/formulacion/indicadores'], { queryParams: { id: idIndicador } });
   }
-  // sendToNewAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto} }); }
-  // sendToEditAct(idAct: number){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idProducto, idAct: idAct} }); }
-
-
-  // async removeActividad(id: number){
-  //   let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el insumo?")
-
-  //   if (removeDecision) {
-  //     loading(true)
-  //     this.actividadesService.removeActividades(id)
-  //       .subscribe((res: any) => {
-  //         this.helperHandler.handleResponse(res, () => this.getByIdProducto())
-  //       })
-  //   }
-  // }
 }
 
 

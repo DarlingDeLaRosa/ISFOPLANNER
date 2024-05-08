@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { errorMessageAlert, warningMessageAlert } from 'src/app/alerts/alerts';
+import { errorMessageAlert, loading, warningMessageAlert } from 'src/app/alerts/alerts';
 import { UserI } from 'src/app/interfaces/Response.interfaces';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -16,7 +16,6 @@ import { indicadorMetaRecintosGet } from '../../interfaces/formulacion.interface
 })
 export class IndicadorEditarComponent implements OnInit {
 
-  // metaIndicadorRecinto: number = 0
   sumaTotalLogros: number = 0
   validacionMeta: boolean = false
   indicadorRecinto: boolean = false
@@ -27,6 +26,7 @@ export class IndicadorEditarComponent implements OnInit {
   indicadoresGestionRecintosForm: FormGroup;
   userLogged: UserI = this.userSystemService.getUserLogged;
 
+  idMetaRecintos: number = 0
   metaRecintos: number = 0
   metaRectoria: number = 0
 
@@ -65,15 +65,6 @@ export class IndicadorEditarComponent implements OnInit {
       }
     })
 
-
-    // if (this.indicador.alcance.id !== 2) {
-    // this.indicador.meta = this.helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, this.indicador.indicadoresRecinto)
-    // this.sumaTotalLogros = helperHandler.sumTotal({ a: indicador.logroEsperadoT1, b: indicador.logroEsperadoT2, c: indicador.logroEsperadoT3, d: indicador.logroEsperadoT4 })
-
-    // if (indicador.tipoIndicador.id == 1)  this.metaIndicadorFlujo = helperHandler.sameGoal(this.indicadoresGestionForm.value, indicador.meta) 
-    // else this.validacionMeta = helperHandler.validationGoal(helperHandler.indicadorMetaRecinto(this.userLogged.recinto.siglas, indicador.indicadoresRecinto), this.sumaTotalLogros)
-
-    // } else this.indicador.meta = this.indicador.meta
   }
 
   ngOnInit(): void {
@@ -84,29 +75,40 @@ export class IndicadorEditarComponent implements OnInit {
     this.indicadorService.getIndicadorByIdGestion(this.idIndicador)
       .subscribe((resp: any) => {
         this.indicador = resp.data;
+        const { logroEsperadoT1, logroEsperadoT2, logroEsperadoT3, logroEsperadoT4 } = this.indicador
+        console.log(this.indicador);
+
         this.validationDefined()
 
-        let logroRecinto = this.indicador.indicadoresRecinto.find((logroEsperadoRecinto: indicadorMetaRecintosGet) => {
-          let recintoSiglas = logroEsperadoRecinto.responsable.nombre.split(' ')
-          
-          if (recintoSiglas[recintoSiglas.length - 1] == this.userLogged.recinto.siglas) {
-            this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
-            return logroEsperadoRecinto
-          }
-          if (recintoSiglas[recintoSiglas.length - 1].length > 4 && this.userLogged.recinto.siglas == 'REC'){
-            this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
-            return logroEsperadoRecinto
-          } 
-          return
-        })
-        
-        if (this.userLogged.recinto.siglas == 'REC') {
-          if (this.indicador.alcance.id !== 3) this.metaRecintos = this.indicador.meta
-          else {
-            this.metaRectoria = this.indicador.meta            
-            this.metaRecintos = logroRecinto!.meta 
-          }
-        } else this.metaRecintos = logroRecinto!.meta
+        if (this.indicador.alcance.id !== 3) {
+          this.indicadoresGestionRecintosForm.reset({ logroEsperadoT1, logroEsperadoT2, logroEsperadoT3, logroEsperadoT4 })
+          this.metaRecintos = this.indicador.meta
+        }
+        else {
+          let logroRecinto = this.indicador.indicadoresRecinto.find((logroEsperadoRecinto: indicadorMetaRecintosGet) => {
+            let recintoSiglas = logroEsperadoRecinto.responsable.nombre.split(' ')
+
+            if (recintoSiglas[recintoSiglas.length - 1] == this.userLogged.recinto.siglas) {
+              this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
+              return logroEsperadoRecinto
+            }
+            if (recintoSiglas[recintoSiglas.length - 1].length > 4 && this.userLogged.recinto.siglas == 'REC') {
+              this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
+              return logroEsperadoRecinto
+            }
+            return
+          })
+
+          if (this.userLogged.recinto.siglas == 'REC') {
+            if (this.indicador.alcance.id !== 3) this.metaRecintos = this.indicador.meta
+            else {
+              this.metaRectoria = this.indicador.meta
+              this.metaRecintos = logroRecinto!.meta
+            }
+          } else this.metaRecintos = logroRecinto!.meta
+
+          if (logroRecinto) this.idMetaRecintos = logroRecinto.id
+        }
       })
   }
 
@@ -132,30 +134,34 @@ export class IndicadorEditarComponent implements OnInit {
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
   }
 
-  putResultadoEsperadoIndicadorRecintos(form: FormGroup) {
-    this.indicadorService.putResultadoEsperadoIndicadorRecintos(this.indicador.id, form)
+  putResultadoEsperadoIndicadorRecintos(form: FormGroup, id: number) {
+    this.indicadorService.putResultadoEsperadoIndicadorRecintos(id, form)
       .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.dialogRef.close(), this.indicadoresGestionForm) })
   }
 
-  emptyFuction(){}
-  validationTypeInd(sendData: () => void) {
+  emptyFuction() { }
+  validationTypeInd(sendData: () => void, meta: number, logroT4: number, form: FormGroup) {
     if (this.indicador.tipoIndicador.id == 1) {
-      if (this.helperHandler.sameLastGoal(this.indicadoresGestionForm.value.logroEsperadoT4, this.indicador.meta)) sendData()
+      if (this.helperHandler.sameLastGoal(logroT4, meta)) sendData()
       else { warningMessageAlert(`Los indicadores de flujo deben cumplir con la misma meta en los periodos donde aplica.`) }
     }
     else {
-      if (this.indicador.meta == this.helperHandler.sumTotal(this.indicadoresGestionForm.value)) sendData()
-      else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${this.indicador.meta}</b>).`) }
+      if (meta == this.helperHandler.sumTotal(form)) sendData()
+      else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${meta}</b>).`) }
     }
   }
 
   saveChanges() {
     if (this.userLogged.recinto.siglas === 'REC') {
-      if (this.indicador.alcance.id !== 3) this.validationTypeInd(() => this.putResultadoEsperadoIndicador(this.indicadoresGestionRecintosForm.value));
+      if (this.indicador.alcance.id !== 3) this.validationTypeInd(() => this.putResultadoEsperadoIndicador(this.indicadoresGestionRecintosForm.value), this.metaRecintos, this.indicadoresGestionRecintosForm.value.logroEsperadoT4, this.indicadoresGestionRecintosForm.value);
       else {
-        this.validationTypeInd(() => this.putResultadoEsperadoIndicador(this.indicadoresGestionForm.value));
-        this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value));
+        this.validationTypeInd(() => {
+          loading(true)
+          this.indicadorService.putResultadoEsperadoIndicador(this.indicador.id, this.indicadoresGestionForm.value).subscribe()
+        },
+          this.metaRectoria, this.indicadoresGestionForm.value.logroEsperadoT4, this.indicadoresGestionForm.value);
+        this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value, this.idMetaRecintos), this.metaRecintos, this.indicadoresGestionRecintosForm.value.logroEsperadoT4, this.indicadoresGestionRecintosForm.value);
       }
-    } else this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value));
+    } else this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value, this.idMetaRecintos), this.metaRecintos, this.indicadoresGestionRecintosForm.value.logroEsperadoT4, this.indicadoresGestionRecintosForm.value);
   }
 }

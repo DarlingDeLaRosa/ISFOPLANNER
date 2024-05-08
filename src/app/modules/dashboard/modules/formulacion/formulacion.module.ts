@@ -12,6 +12,7 @@ import { IndicadorEditarRecintosComponent } from './modals/indicador-editar-reci
 import { IndicadoresFormulacionComponent } from './components/indicadores-formulacion/indicadores-formulacion.component';
 import { ActividadesInvolucradosComponent } from './components/actividades-involucrados/actividades-involucrados.component';
 import { ChargingBoxModule } from '../../components/charging-box/charging-box.module';
+import { IndicadorVistaMetaComponent } from './modals/indicador-vista-meta/indicador-vista-meta.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ChargingBoxModule } from '../../components/charging-box/charging-box.mo
     IndicadorEditarRecintosComponent,
     IndicadoresFormulacionComponent,
     ActividadesInvolucradosComponent,
+    IndicadorVistaMetaComponent
   ],
   imports: [
     ChargingBoxModule,
