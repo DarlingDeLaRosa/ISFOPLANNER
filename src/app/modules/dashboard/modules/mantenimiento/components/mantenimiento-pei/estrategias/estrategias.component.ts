@@ -70,7 +70,7 @@ export class EstrategiasComponent implements OnInit {
   }
 
   async deleteEstrategia(estrategiaId: number) {
-    let removeDesicion: boolean = await alertRemoveSure("Estas seguro de eliminar esta estrategia?")
+    let removeDesicion: boolean = await alertRemoveSure("¿Estas seguro de eliminar esta estrategia?")
 
     if (removeDesicion) {
       loading(true)

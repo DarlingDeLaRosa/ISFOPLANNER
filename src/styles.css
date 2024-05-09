@@ -302,10 +302,15 @@ mat-checkbox {
     background-color: #eee;
 }
 
-.headerCell {
+.headerCell, .headerCellArrows {
     text-align: start;
     font-weight: 500;
     padding-left: 15px;
+}
+
+.headerCellArrows{
+    padding-left: 0;
+    padding-right: 5px
 }
 
 .dataCell,
@@ -356,6 +361,7 @@ table {
 .removeIcon,
 .detailsIcon,
 .nodesIcon,
+.fileIcon,
 .listIcon,
 .editNotificationIcon {
     font-size: 25px;
@@ -377,11 +383,19 @@ table {
 }
 
 .nodesIcon {
-    color: #35a6b7;
+    color: #EC801E;
 }
 
 .listIcon{
     color: black;
+}
+
+.fileIcon{
+    color: #35a6b7;
+}
+
+.rowIcon{
+    cursor: pointer;
 }
 
 .formularioActividades {

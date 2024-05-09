@@ -70,7 +70,7 @@ export class ResultadoEfectoComponent implements OnInit {
   }
 
   async deleteResultadoEfecto(resultadoefectoId: number) {
-    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar esta estrategia?")
+    let removeDecision: boolean = await alertRemoveSure("¿Estas seguro de eliminar esta estrategia?")
 
     if (removeDecision) {
       loading(true)

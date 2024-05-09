@@ -45,14 +45,12 @@ export class IndicadoresFormulacionComponent implements OnInit {
   backToProducto() { this.router.navigate(['dashboard/formulacion/producto'], { queryParams: { id: this.indicador.producto.id } });}
 
   async removeActividad(id: number){
-    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el insumo?")
+    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar la actividad ?")
 
     if (removeDecision) {
       loading(true)
       this.actividadesService.removeActividades(id)
-        .subscribe((res: any) => {
-          this.helperHandler.handleResponse(res, () => this.getByIdIndicador())
-        })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getByIdIndicador())})
     }
   }
 }

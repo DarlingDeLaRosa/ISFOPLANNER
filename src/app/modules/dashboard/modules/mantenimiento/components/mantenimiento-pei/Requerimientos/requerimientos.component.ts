@@ -53,7 +53,7 @@ export class RequerimientosComponent implements OnInit {
   }
 
   async deleteRequerimiento(requerimientos: number) {
-    let removeDesicion: boolean = await alertRemoveSure("Estas seguro de eliminar este requerimiento?")
+    let removeDesicion: boolean = await alertRemoveSure("¿Estas seguro de eliminar este requerimiento?")
 
     if (removeDesicion) {
       loading(true)

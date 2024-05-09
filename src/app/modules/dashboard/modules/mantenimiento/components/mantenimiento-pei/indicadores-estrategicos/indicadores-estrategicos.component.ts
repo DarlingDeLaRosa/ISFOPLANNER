@@ -139,7 +139,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   async deleteIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {
-    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este indicador estrategico?")
+    let remove: boolean = await alertRemoveSure("¿Estas seguro de eliminar este indicador estrategico?")
 
     if (remove) {
       loading(true)

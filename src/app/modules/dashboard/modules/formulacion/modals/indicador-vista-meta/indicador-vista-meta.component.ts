@@ -23,9 +23,6 @@ export class IndicadorVistaMetaComponent implements OnInit {
 
   getByIdIndicador() {
     this.indicadorService.getIndicadorByIdGestion(this.idIndicador)
-      .subscribe((resp: any) => {
-        this.indicador = resp.data;
-        console.log(this.indicador.indicadoresRecinto);
-      })
+      .subscribe((resp: any) => { this.indicador = resp.data })
   }
 }

@@ -334,7 +334,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   async removeInsumo(index: number) {
-    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar el insumo?")
+    let removeDecision: boolean = await alertRemoveSure("¿Estas seguro de eliminar el insumo?")
 
     if (removeDecision) {
       this.insumosGroup.splice(index, 1)

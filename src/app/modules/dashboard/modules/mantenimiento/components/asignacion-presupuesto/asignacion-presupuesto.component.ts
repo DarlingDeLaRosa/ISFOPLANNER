@@ -98,7 +98,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
     const montoPresupuesto = unidad?.presupuesto[0].monto;
     const montoFormateado = montoPresupuesto?.toLocaleString('es-ES', { style: 'currency', currency: 'DOP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    let removeDecision: boolean = await alertRemoveSure(`Estas seguro de eliminar el presupuesto de ${unidad?.nombre} (${montoFormateado})`)
+    let removeDecision: boolean = await alertRemoveSure(`¿Estas seguro de eliminar el presupuesto de ${unidad?.nombre} (${montoFormateado})`)
 
     if (removeDecision) {
       loading(true)

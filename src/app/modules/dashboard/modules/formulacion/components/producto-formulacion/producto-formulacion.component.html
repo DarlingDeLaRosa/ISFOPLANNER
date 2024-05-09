@@ -18,17 +18,28 @@
         <ng-container *ngIf="productoConsult.indicadoresGestion">
             <div class="producto" *ngFor="let indicador of productoConsult.indicadoresGestion">
                 <div class="titleProducto">
-                    <span style="display: flex; margin: 10px 0;">
+                    <span style="display: flex; margin: 15px 0;">
                         <h3>Indicador:</h3>&nbsp;
                         <h3 style="font-weight: 400;">{{indicador.nombre}}</h3>
                     </span>
                     <span style="display: flex; ">
-                        <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.historial[0].montoEjecutado| currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
-                        <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span> {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
-                        <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit" class="nodesIcon" (click)="openModalVistaIndicadoresRecinto(indicador.id)">topic</mat-icon>
-                        <mat-icon *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit" class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)">lan</mat-icon>
-                        <mat-icon *ngIf="indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)" class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)">edit</mat-icon>
-                        <mat-icon *ngIf="indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)" class="listIcon" (click)="sendToIndicador(indicador.id)">list</mat-icon>
+                        <h4><span style="font-weight: 500;">Presupuesto total estimado:</span>
+                            {{indicador.historial[0].montoEjecutado| currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
+                        <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span>
+                            {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}
+                        </h4>
+                        <mat-icon
+                            *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
+                            class="fileIcon" (click)="openModalVistaIndicadoresRecinto(indicador.id)">topic</mat-icon>
+                        <mat-icon
+                            *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
+                            class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)">lan</mat-icon>
+                        <mat-icon
+                            *ngIf="indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)"
+                            class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)">edit</mat-icon>
+                        <mat-icon
+                            *ngIf="indicador.alcance.id != 1 && userLogged.recinto.siglas == 'REC' && indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)"
+                            class="listIcon" (click)="sendToIndicador(indicador.id)">list</mat-icon>
                     </span>
                 </div>
                 <div>
@@ -39,24 +50,41 @@
                                 <th class="headerCell">Responsable</th>
                                 <th class="headerCell" style="width: 15%;">Presupuesto Estimado</th>
                                 <th class="headerCell" style="width: 15%;">Presupuesto Transversal</th>
+                                <th *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'" class="headerCellArrows" style="width: 50px; padding-right: 20px;">
+                                    <span>
+                                        <mat-icon *ngIf="true" class="rowIcon" (click)="''">navigate_before</mat-icon>
+                                        <mat-icon *ngIf="true" class="rowIcon" (click)="''">navigate_next</mat-icon>
+                                    </span>
+                                    <span style="display: grid; padding-left: 14px; ">
+                                        <h6 style="margin: 0;">FEM</h6>
+                                    </span>
+                                </th>
                             </tr>
                             <tr class="headerRow" *ngIf="indicador.actividades.length == 0">
                                 <th class="headerCell">No se encontraron actividades</th>
+                                <th class="headerCell"></th>
+                                <th class="headerCell"></th>
+                                <th class="headerCell"></th>
+                                <th *ngIf="indicador.alcance.id !== 2" class="headerCellArrows" style="width: 50px; ">
+                                    <mat-icon *ngIf="true" class="rowIcon" (click)="''">navigate_before</mat-icon>
+                                    <mat-icon *ngIf="true" class="rowIcon" (click)="''">navigate_next</mat-icon>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="dataRow" *ngFor="let actividad of indicador.actividades">
                                 <td class="dataCell">{{actividad.nombre}}</td>
                                 <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
-                                <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP ':'symbol':'1.2-2'}}</td>
-                                <td class="dataCell">{{actividad.costeo.montoTotalTransversal | currency: 'DOP ':'symbol':'1.2-2'}}</td>
+                                <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP':'symbol':'1.2-2'}}</td>
+                                <td class="dataCell">{{actividad.costeo.montoTotalTransversal | currency: 'DOP':'symbol':'1.2-2'}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </ng-container>
-        <no-data-found *ngIf="productoConsult.indicadoresGestion &&  productoConsult.indicadoresGestion.length == 0"></no-data-found>
+        <no-data-found
+            *ngIf="productoConsult.indicadoresGestion &&  productoConsult.indicadoresGestion.length == 0"></no-data-found>
     </div>
     <charging-box *ngIf="!productoConsult"></charging-box>
 </div>

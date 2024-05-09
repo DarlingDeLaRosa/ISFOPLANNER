@@ -17,11 +17,20 @@ export class PlanesTransversalesComponent implements OnInit {
     private actividadesService: ActividadesService
   ) { }
 
-  ngOnInit(): void { this.getActividadesPerito() }
+  ngOnInit(): void {
+    this.getActividadesPerito()
+  }
 
-  sendDetailInsumo(idInsumo: number){ this.router.navigate(['dashboard/planesTransversales/detallePlanTransversal'], { queryParams: {id: idInsumo} }); }
+  sendDetailInsumo(idInsumo: number) { this.router.navigate(['dashboard/planesTransversales/detallePlanTransversal'], { queryParams: { id: idInsumo } }); }
 
   getActividadesPerito() {
-    this.actividadesService.getActividadesPerito().subscribe((res: any) => { this.actividadesPerito = res.data })
+    this.actividadesService.getActividadesPerito().subscribe((res: any) => {
+      this.actividadesPerito = res.data
+      console.log(res.data);
+    })
+  }
+
+  sendToIndicador(idIndicador: number) {
+    this.router.navigate(['/dashboard/formulacion/indicadores'], { queryParams: { id: idIndicador } });
   }
 }

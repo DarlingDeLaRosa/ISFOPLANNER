@@ -9,6 +9,7 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
 import { ActividadesService } from '../../services/actividades.service';
 import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/indicador-vista-meta.component';
+import { ActividadI, indicadorMetaRecintosGet } from '../../interfaces/formulacion.interface';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -17,8 +18,9 @@ import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/i
 })
 export class ProductoFormulacionComponent implements OnInit {
 
-  productoConsult!: ProductoI
   idProducto: number = 0;
+  listOfAct!: ActividadI[]
+  productoConsult!: ProductoI
   metaIndicadorRecinto: number = 0
   userLogged = this.userSystemService.getUserLogged
   curretUnit: string = this.userSystemService.getUnitOrg.nombre
@@ -39,7 +41,9 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   getByIdProducto() {
-    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { this.productoConsult = resp.data; console.log(resp.data); })
+    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { 
+      this.productoConsult = resp.data; console.log(resp.data);
+    })
   }
 
   openModalIndicadoresRecinto(indicador: number) {
@@ -59,6 +63,10 @@ export class ProductoFormulacionComponent implements OnInit {
 
   sendToIndicador(idIndicador: number) {
     this.router.navigate(['/dashboard/formulacion/indicadores'], { queryParams: { id: idIndicador } });
+  }
+
+  changeArrayAct(){
+    
   }
 }
 

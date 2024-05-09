@@ -55,7 +55,7 @@ export class EjesComponent implements OnInit {
   }
 
   async deleteEjes(eje: EjesI) {
-    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este eje?")
+    let remove: boolean = await alertRemoveSure("¿Estas seguro de eliminar este eje?")
     if (remove) {
       loading(true)
       this.ejesService.DeleteEjes(eje.id!)

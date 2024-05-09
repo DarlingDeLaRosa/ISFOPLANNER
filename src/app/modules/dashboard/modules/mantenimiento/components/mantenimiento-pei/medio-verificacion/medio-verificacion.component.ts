@@ -57,7 +57,7 @@ export class MedioVerificacionComponent implements OnInit {
   }
 
   async deleteMedioVerificacion(medioVerificaicon: MedioVerificacionI) {
-    let remove: boolean = await alertRemoveSure("Estas seguro de eliminar este medio de verificacion?")
+    let remove: boolean = await alertRemoveSure("¿Estas seguro de eliminar este medio de verificacion?")
     
     if (remove) {
       loading(true)
