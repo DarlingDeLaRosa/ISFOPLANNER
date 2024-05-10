@@ -3,13 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { IndicadorEditarComponent } from '../../modals/indicador-editar/indicador-editar.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../../mantenimiento/services/producto.service';
-import { ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
-import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
 import { ActividadesService } from '../../services/actividades.service';
-import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/indicador-vista-meta.component';
 import { ActividadI, indicadorMetaRecintosGet } from '../../interfaces/formulacion.interface';
+import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
+import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/indicador-vista-meta.component';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -18,7 +18,9 @@ import { ActividadI, indicadorMetaRecintosGet } from '../../interfaces/formulaci
 })
 export class ProductoFormulacionComponent implements OnInit {
 
-  idProducto: number = 0;
+  unitIndex: number = 0
+  idProducto: number = 0
+  unitSiglas: string = ''
   listOfAct!: ActividadI[]
   productoConsult!: ProductoI
   metaIndicadorRecinto: number = 0
@@ -41,7 +43,7 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   getByIdProducto() {
-    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => { 
+    this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => {
       this.productoConsult = resp.data; console.log(resp.data);
     })
   }
@@ -65,8 +67,31 @@ export class ProductoFormulacionComponent implements OnInit {
     this.router.navigate(['/dashboard/formulacion/indicadores'], { queryParams: { id: idIndicador } });
   }
 
-  changeArrayAct(){
+  changeArrayAct(indicador: IndicadoresGestionGetI): number {
+    let unitRecinto
+
+    this.unitIndex = indicador.indicadoresRecinto.findIndex((metaRecinto: indicadorMetaRecintosGet) => {
+      unitRecinto = metaRecinto.responsable.nombre.split(' ').pop()
+      this.unitSiglas = unitRecinto ? unitRecinto : ''
+      return unitRecinto == this.userLogged.recinto.siglas
+    })
+
+    if (this.unitIndex == -1) {
+      this.unitIndex = 6
+      this.unitSiglas = 'REC'
+    }
     
+    return this.unitIndex
+  }
+
+  nextRecinto() {
+    if (this.unitIndex == 6) this.unitIndex = 0
+    else this.unitIndex += 1
+  }
+
+  backRecinto() {
+    if (this.unitIndex == 0) this.unitIndex = 6
+    else this.unitIndex -= 1
   }
 }
 
