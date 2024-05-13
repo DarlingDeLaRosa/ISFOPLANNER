@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { alertIsSuccess, alertNoValidForm, alertServerDown, errorMessageAlert, infoMessageAlert, loading, warningMessageAlert } from '../alerts/alerts';
 import { FormGroup } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
-import { indicadorMetaRecintosGet } from '../modules/dashboard/modules/formulacion/interfaces/formulacion.interface';
+import { ActividadI, indicadorMetaRecintosGet } from '../modules/dashboard/modules/formulacion/interfaces/formulacion.interface';
+import { UserSystemInformationService } from './user-system-information.service';
+import { UserI } from '../interfaces/Response.interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +12,9 @@ import { indicadorMetaRecintosGet } from '../modules/dashboard/modules/formulaci
 
 export class HelperService {
     
+    constructor(private userSystemService: UserSystemInformationService) {}
+    userLogged: UserI = this.userSystemService.getUserLogged;
+
     //Manejar las respuestas del servidor
     handleResponse(response: any, onSuccess: () => void, formToReset?: FormGroup, onSecondSuccess?: () => void) {
         if (response.ok) {
@@ -129,6 +134,42 @@ export class HelperService {
         let unitRes = recintosResponsablesUnits.some((unidad: indicadorMetaRecintosGet ) => { unit == unidad.responsable.nombre })
         return unitRes
     }  
+
+    // Retorna el objeto del recinto especifico 
+
+    getExactMetaRecinto(metasRecintos: indicadorMetaRecintosGet[]) : { metaRecinto: indicadorMetaRecintosGet | undefined, siglas: string | undefined} {
+        let recintoSiglas  
+        let metaActLogrosEsperado
+
+        metaActLogrosEsperado = metasRecintos.find((logroEsperadoRecinto: indicadorMetaRecintosGet)=>{
+            recintoSiglas = logroEsperadoRecinto.responsable.nombre.split(' ').pop()
+            
+            if (recintoSiglas == undefined) return
+            if (recintoSiglas == this.userLogged.recinto.siglas) return logroEsperadoRecinto
+            if (recintoSiglas.length > 4 && this.userLogged.recinto.siglas == 'REC') return logroEsperadoRecinto
+            
+            return
+        })
+
+        return { metaRecinto: metaActLogrosEsperado, siglas: recintoSiglas}
+    }
+
+    // Retorna el array de arrays de actividades de diferentes recintos 
+
+    getDiferentMetaRecinto(metasRecintos: indicadorMetaRecintosGet[]): {actividades: ActividadI[], sigla: string}[] {
+        let actividadesRecintos: {actividades: ActividadI[], sigla: string}[] = []
+        let sigla: string | undefined
+
+        metasRecintos.filter((metaRec: indicadorMetaRecintosGet)=>{ 
+            sigla = metaRec.responsable.nombre.split(' ').pop()
+            if (sigla == undefined) return
+            if (sigla.length > 4) sigla = 'REC'
+            
+            actividadesRecintos.push( {actividades: metaRec.actividades, sigla}) 
+        })
+
+       return actividadesRecintos
+    }
 
 
     // indicadorMetaRecinto(recinto: string, indicadorRecintos: indicadorRecinto): number {

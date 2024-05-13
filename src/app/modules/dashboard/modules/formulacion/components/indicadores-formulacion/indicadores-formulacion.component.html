@@ -16,12 +16,13 @@
             <span style="display: flex; margin: 10px 0;">
                 <h3>Indicador:</h3> &nbsp;
                 <h3 style="font-weight: 400;">{{indicador.nombre}}</h3>
-
+<!-- 
                 <h3 style="margin-left: 40px;">Linea Base:</h3> &nbsp;
-                <h3 style="font-weight: 400;">{{indicador.lineaBase}}</h3>
+                <h3 style="font-weight: 400;">{{indicador.lineaBase}}</h3> -->
 
                 <h3 style="margin-left: 40px;">Meta:</h3> &nbsp;
-                <h3 style="font-weight: 400;">{{indicador.meta}}</h3>
+                <h3 style="font-weight: 400;" *ngIf="indicador.alcance.id == 2" >{{indicador.meta}}</h3>
+                <h3 style="font-weight: 400;">{{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.meta}}</h3>
             </span>
             <span style="display: flex; ">
                 <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.historial[0].montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</h4> &nbsp;
@@ -67,10 +68,8 @@
                         <ng-template #noCosteo>
                             <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                         </ng-template>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon"
-                                (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon"
-                                (click)="removeActividad(actividad.id)">delete</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon" (click)="removeActividad(actividad.id)">delete</mat-icon></td>
                     </tr>
                 </tbody>
             </table>

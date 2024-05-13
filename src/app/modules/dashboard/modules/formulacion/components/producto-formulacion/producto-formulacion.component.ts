@@ -6,8 +6,7 @@ import { ProductoService } from '../../../mantenimiento/services/producto.servic
 import { IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
-import { ActividadesService } from '../../services/actividades.service';
-import { ActividadI, indicadorMetaRecintosGet } from '../../interfaces/formulacion.interface';
+import { ActividadI} from '../../interfaces/formulacion.interface';
 import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
 import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/indicador-vista-meta.component';
 
@@ -18,7 +17,7 @@ import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/i
 })
 export class ProductoFormulacionComponent implements OnInit {
 
-  unitIndex: number = 0
+  unitIndices: { [key: number]: number } = {};
   idProducto: number = 0
   unitSiglas: string = ''
   listOfAct!: ActividadI[]
@@ -33,7 +32,6 @@ export class ProductoFormulacionComponent implements OnInit {
     private route: ActivatedRoute,
     public helperHandler: HelperService,
     private productoService: ProductoService,
-    private actividadesService: ActividadesService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
@@ -67,31 +65,43 @@ export class ProductoFormulacionComponent implements OnInit {
     this.router.navigate(['/dashboard/formulacion/indicadores'], { queryParams: { id: idIndicador } });
   }
 
-  changeArrayAct(indicador: IndicadoresGestionGetI): number {
-    let unitRecinto
+  getActArrayRecinto(indicador: IndicadoresGestionGetI): ActividadI[] {
+    if (this.userLogged.recinto.siglas != 'REC')this.listOfAct = this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades!
+    else {
+      const indicadorIndex = this.unitIndices[indicador.id];
 
-    this.unitIndex = indicador.indicadoresRecinto.findIndex((metaRecinto: indicadorMetaRecintosGet) => {
-      unitRecinto = metaRecinto.responsable.nombre.split(' ').pop()
-      this.unitSiglas = unitRecinto ? unitRecinto : ''
-      return unitRecinto == this.userLogged.recinto.siglas
-    })
-
-    if (this.unitIndex == -1) {
-      this.unitIndex = 6
-      this.unitSiglas = 'REC'
-    }
+      if (indicadorIndex !== undefined) {
+        let {actividades, sigla} = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[this.unitIndices[indicador.id]]
+        this.listOfAct = actividades; 
+        this.unitSiglas = sigla
+         
+      }else{
+        this.unitIndices[indicador.id] = 0;
+        let {actividades, sigla} = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[0]
+        this.listOfAct = actividades; 
+        this.unitSiglas = sigla
+      }
+    } 
     
-    return this.unitIndex
+    return this.listOfAct
   }
 
-  nextRecinto() {
-    if (this.unitIndex == 6) this.unitIndex = 0
-    else this.unitIndex += 1
+  nextRecinto(indicadorId: number) {
+    if (this.unitIndices[indicadorId] === undefined) {
+      this.unitIndices[indicadorId] = 0; 
+  } else {
+      if (this.unitIndices[indicadorId] === 6) this.unitIndices[indicadorId] = 0;
+      else this.unitIndices[indicadorId] += 1;
+  }
   }
 
-  backRecinto() {
-    if (this.unitIndex == 0) this.unitIndex = 6
-    else this.unitIndex -= 1
+  backRecinto(indicadorId: number) {
+    if (this.unitIndices[indicadorId] === undefined) {
+      this.unitIndices[indicadorId] = 6;
+  } else {
+      if (this.unitIndices[indicadorId] === 0) this.unitIndices[indicadorId] = 6;
+      else this.unitIndices[indicadorId] -= 1;
+  }
   }
 }
 

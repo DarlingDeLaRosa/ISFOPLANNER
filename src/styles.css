@@ -396,6 +396,11 @@ table {
 
 .rowIcon{
     cursor: pointer;
+    color: #aaa;
+}
+
+.rowIcon:hover{
+    color: black;
 }
 
 .formularioActividades {
