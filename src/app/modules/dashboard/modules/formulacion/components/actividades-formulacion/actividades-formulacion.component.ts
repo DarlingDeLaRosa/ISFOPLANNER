@@ -66,13 +66,14 @@ export class ActividadesFormulacionComponent implements OnInit {
       // avance: new FormControl<number>(0),
       id: 0,
       idIndicadorGestion: 0,
+      idIndicadorRecinto: null,
       idPresupuestoInstitucional: 0,
+      prioridad: new FormControl('', Validators.required),
       nombre: new FormControl<string>('', Validators.required),
       idEstado: new FormControl<number>(1, Validators.required),
+      esPrevista: new FormControl<boolean>(true, Validators.required),
       responsableUnidad: new FormControl<number>(0, Validators.required),
       idResponsableCargo: new FormControl<number>(0, Validators.required),
-      esPrevista: new FormControl<boolean>(true, Validators.required),
-      prioridad: new FormControl('', Validators.required),
 
       costeo: this.fb.group({
         montoTotalEstimado: 0,
@@ -113,9 +114,13 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.idIndicadorGestion = parseInt(params['id']);
       this.actividadForm.patchValue({ idIndicadorGestion: this.idIndicadorGestion })
+      
+      if (params['indRec'] != null) this.actividadForm.patchValue({ idIndicadorRecinto: parseInt(params['indRec']) })
 
       if (params['idAct'] !== undefined) {
         this.idActividad = parseInt(params['idAct']);
+        console.log(this.idActividad);
+        
         this.getByIdActividades()
       }
     });
@@ -123,11 +128,12 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   async ngOnInit() {
     this.actividadForm.patchValue({ responsableUnidad: this.userSystemService.getUnitOrg.nombre })
-
+    console.log(this.actividadForm.value);
+    
+    // this.getRegiones();
     // this.getProvinvias();
     // this.getMunicipios();
     // this.getFrecuencia();
-    // this.getRegiones();
     this.getCargos()
     this.getestados();
     this.getInsumos();
@@ -203,9 +209,6 @@ export class ActividadesFormulacionComponent implements OnInit {
             nombreUnidadMedida: insumos.unidadMedida.nombre,
           })
           console.log(insumos.perito);
-          
-          
-
           this.agregarInsumoAlObjeto()
         })
 
@@ -356,8 +359,6 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(this.actividadForm.value);
-
     this.insumosGroup.map((insumo: CosteoDetallesGroupI) => {
       if (insumo.idPerito == 0) { insumo.idPerito = null }
     })

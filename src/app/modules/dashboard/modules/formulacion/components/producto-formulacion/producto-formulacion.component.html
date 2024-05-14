@@ -5,8 +5,7 @@
     </div>
 
     <div style="margin-bottom: 5px;">
-        <button class="backButton" mat-stroked-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon>Listado de
-            productos</button>
+        <button class="backButton" mat-stroked-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon>Listado de productos</button>
     </div>
 
     <h2 style="margin: 10px 0; font-weight: 400;" *ngIf="productoConsult">{{productoConsult.nombre}}</h2>
@@ -17,6 +16,7 @@
 
         <ng-container *ngIf="productoConsult.indicadoresGestion">
             <div class="producto" *ngFor="let indicador of productoConsult.indicadoresGestion">
+
                 <div class="titleProducto">
                     <span style="display: flex; margin: 15px 0;">
                         <h3>Indicador:</h3>&nbsp;
@@ -30,7 +30,7 @@
                         </h4>
                         <mat-icon
                             *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
-                            class="fileIcon" (click)="openModalVistaIndicadoresRecinto(indicador.id)">topic</mat-icon>
+                            class="fileIcon" (click)="openModalVistaIndicadoresRecinto(indicador.id)">visibility</mat-icon>
                         <mat-icon
                             *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
                             class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)">lan</mat-icon>
@@ -45,15 +45,20 @@
                 <div>
                     <table>
                         <thead class="headerTable">
-                            <tr class="headerRow" *ngIf="indicador.actividades.length > 0 && indicador.alcance.id == 2 || getActArrayRecinto(indicador)  && getActArrayRecinto(indicador).length > 0 && indicador.alcance.id != 2; else noData" > <!--  && indicador.alcance.id == 2 -->
+                            <tr class="headerRow"
+                                *ngIf="indicador.actividades.length > 0 && indicador.alcance.id == 2 || getActArrayRecinto(indicador)  && getActArrayRecinto(indicador).length > 0 && indicador.alcance.id != 2; else noData">
+                                <!--  && indicador.alcance.id == 2 -->
                                 <th class="headerCell">Actividad</th>
                                 <th class="headerCell">Responsable</th>
                                 <th class="headerCell" style="width: 15%;">Presupuesto Estimado</th>
                                 <th class="headerCell" style="width: 15%;">Presupuesto Transversal</th>
-                                <th *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'" class="headerCellArrows" style="width: 50px; padding-right: 20px;">
+                                <th *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'"
+                                    class="headerCellArrows" style="width: 50px; padding-right: 20px;">
                                     <span>
-                                        <mat-icon class="rowIcon" (click)="backRecinto(indicador.id)">navigate_before</mat-icon>
-                                        <mat-icon class="rowIcon" (click)="nextRecinto(indicador.id)">navigate_next</mat-icon>
+                                        <mat-icon class="rowIcon"
+                                            (click)="backRecinto(indicador.id)">navigate_before</mat-icon>
+                                        <mat-icon class="rowIcon"
+                                            (click)="nextRecinto(indicador.id)">navigate_next</mat-icon>
                                     </span>
                                     <span style="display: grid; padding-left: 14px; ">
                                         <h6 style="margin: 0;">{{unitSiglas}}</h6>
@@ -61,15 +66,18 @@
                                 </th>
                             </tr>
                             <ng-template #noData>
-                                <tr class="headerRow" >
+                                <tr class="headerRow">
                                     <th class="headerCell">No se encontraron actividades</th>
                                     <th class="headerCell"></th>
                                     <th class="headerCell"></th>
                                     <th class="headerCell"></th>
-                                    <th *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'" class="headerCellArrows" style="width: 50px; padding-right: 20px;">
+                                    <th *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'"
+                                        class="headerCellArrows" style="width: 50px; padding-right: 20px;">
                                         <span>
-                                            <mat-icon class="rowIcon" (click)="backRecinto(indicador.id)">navigate_before</mat-icon>
-                                            <mat-icon class="rowIcon" (click)="nextRecinto(indicador.id)">navigate_next</mat-icon>
+                                            <mat-icon class="rowIcon"
+                                                (click)="backRecinto(indicador.id)">navigate_before</mat-icon>
+                                            <mat-icon class="rowIcon"
+                                                (click)="nextRecinto(indicador.id)">navigate_next</mat-icon>
                                         </span>
                                         <span style="display: grid; padding-left: 14px; ">
                                             <h6 style="margin: 0;">{{unitSiglas}}</h6>
@@ -78,22 +86,38 @@
                                 </tr>
                             </ng-template>
                         </thead>
-                        <tbody *ngIf="indicador.alcance.id == 2 && userLogged.recinto.siglas == 'REC' && indicador.actividades.length > 0">
+                        <tbody
+                            *ngIf="indicador.alcance.id == 2 && userLogged.recinto.siglas == 'REC' && indicador.actividades.length > 0">
                             <tr class="dataRow" *ngFor="let actividad of indicador.actividades">
                                 <td class="dataCell">{{actividad.nombre}}</td>
                                 <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
-                                <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP':'symbol':'1.2-2'}}</td>
-                                <td class="dataCell">{{actividad.costeo.montoTotalTransversal | currency: 'DOP':'symbol':'1.2-2'}}</td>
+                                <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency:
+                                    'DOP':'symbol':'1.2-2'}}</td>
+                                <td class="dataCell">{{actividad.costeo.montoTotalTransversal | currency:
+                                    'DOP':'symbol':'1.2-2'}}</td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="indicador.alcance.id != 2 && getActArrayRecinto(indicador) && getActArrayRecinto(indicador).length > 0">
-                                <tr class="dataRow" *ngFor="let actividad of getActArrayRecinto(indicador)">
+                        <ng-container *ngIf="indicador.alcance.id != 2 && getActArrayRecinto(indicador) && getActArrayRecinto(indicador).length > 0">
+                            <tbody *ngFor="let actividad of getActArrayRecinto(indicador)">
+                                <tr class="dataRow">
                                     <td class="dataCell">{{actividad.nombre}}</td>
                                     <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
-                                    <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency: 'DOP':'symbol':'1.2-2'}}</td>
-                                    <td class="dataCell">{{actividad.costeo.montoTotalTransversal | currency: 'DOP':'symbol':'1.2-2'}}</td>
+                                    <td class="dataCell">{{actividad.costeo.montoTotalEstimado | currency:
+                                        'DOP':'symbol':'1.2-2'}}</td>
+                                    <td class="dataCell">{{actividad.costeo.montoTotalTransversal | currency:
+                                        'DOP':'symbol':'1.2-2'}}</td>
                                 </tr>
-                        </tbody>
+                            </tbody>
+                        </ng-container>
+                        <tfoot *ngIf="indicador.alcance.id != 2 && getActArrayRecinto(indicador) && getActArrayRecinto(indicador).length > 0">
+                            <tr class="dataRow" style="background-color: #49aa427c;">
+                                <td class="footerCell">Total</td>
+                                <td class="footerCell"></td>
+                                <td class="footerCell">{{ montosEstimados.mte | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                                <td class="footerCell">{{ montosEstimados.mtte | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                                <td class="" style="color: grey;">{{getActArrayRecinto(indicador).length}} Items</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

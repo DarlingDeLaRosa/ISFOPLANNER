@@ -17,14 +17,15 @@ import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/i
 })
 export class ProductoFormulacionComponent implements OnInit {
 
-  unitIndices: { [key: number]: number } = {};
   idProducto: number = 0
   unitSiglas: string = ''
   listOfAct!: ActividadI[]
   productoConsult!: ProductoI
   metaIndicadorRecinto: number = 0
+  unitIndices: { [key: number]: number } = {};
   userLogged = this.userSystemService.getUserLogged
   curretUnit: string = this.userSystemService.getUnitOrg.nombre
+  montosEstimados: {mte: number, mtte: number} = {mte: 0, mtte: 0}
 
   constructor(
     private router: Router,
@@ -71,15 +72,16 @@ export class ProductoFormulacionComponent implements OnInit {
       const indicadorIndex = this.unitIndices[indicador.id];
 
       if (indicadorIndex !== undefined) {
-        let {actividades, sigla} = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[this.unitIndices[indicador.id]]
+        let {actividades, sigla, montos} = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[this.unitIndices[indicador.id]]
         this.listOfAct = actividades; 
         this.unitSiglas = sigla
-         
+        this.montosEstimados = montos
       }else{
         this.unitIndices[indicador.id] = 0;
-        let {actividades, sigla} = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[0]
+        let {actividades, sigla, montos} = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[0]
         this.listOfAct = actividades; 
         this.unitSiglas = sigla
+        this.montosEstimados = montos
       }
     } 
     

@@ -183,7 +183,9 @@ export interface indicadorMetaRecintosGet {
   logroEsperadoT3: number,
   logroEsperadoT4: number,
   actividades: ActividadI[]
-  responsable: {id:number, nombre: string}
+  montoTotalActividades: number
+  montoTotalActividadesTransversales: number
+  responsable: { id: number, nombre: string }
 }
 
 

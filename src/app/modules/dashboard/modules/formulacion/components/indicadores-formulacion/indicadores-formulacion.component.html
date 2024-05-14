@@ -16,23 +16,43 @@
             <span style="display: flex; margin: 10px 0;">
                 <h3>Indicador:</h3> &nbsp;
                 <h3 style="font-weight: 400;">{{indicador.nombre}}</h3>
-<!-- 
+                <!-- 
                 <h3 style="margin-left: 40px;">Linea Base:</h3> &nbsp;
                 <h3 style="font-weight: 400;">{{indicador.lineaBase}}</h3> -->
 
                 <h3 style="margin-left: 40px;">Meta:</h3> &nbsp;
-                <h3 style="font-weight: 400;" *ngIf="indicador.alcance.id == 2" >{{indicador.meta}}</h3>
-                <h3 style="font-weight: 400;">{{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.meta}}</h3>
+                <h3 style="font-weight: 400;" *ngIf="indicador.alcance.id == 2; else noRectoria">{{indicador.meta}}</h3>
+                <ng-template #noRectoria>
+                    <h3 style="font-weight: 400;">
+                        {{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.meta}}</h3>
+                </ng-template>
             </span>
-            <span style="display: flex; ">
-                <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{indicador.historial[0].montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</h4> &nbsp;
-                <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span> {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
+
+            <span style="display: flex; " *ngIf="indicador.alcance.id == 2; else noRectoriaMonto">
+                <h4><span style="font-weight: 500;">Presupuesto total estimado:</span>
+                    {{indicador.historial[0].montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</h4> &nbsp;
+                <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span>
+                    {{indicador.historial[0].montoEjecutadoTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
+
+                <h4  style="margin-left: 40px;">REC</h4>
             </span>
+
+            <ng-template #noRectoriaMonto>
+                <span style="display: flex; ">
+                    <h4><span style="font-weight: 500;">Presupuesto total estimado:</span>
+                        {{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.montoTotalActividades | currency: 'DOP ': 'symbol':'1.2-2'}}</h4> &nbsp;
+                    <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span>
+                        {{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.montoTotalActividadesTransversales| currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
+                
+                    <h4  style="margin-left: 40px;">{{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).siglas}}</h4>
+                </span>
+            </ng-template>
         </div>
         <div>
             <table>
                 <thead class="headerTable">
-                    <tr class="headerRow" *ngIf="indicador.actividades.length > 0">
+                    <tr class="headerRow"
+                        *ngIf="indicador.actividades.length > 0 && indicador.alcance.id == 2 || indicador.alcance.id != 2 && this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades?.length! > 0">
                         <th class="headerCell">Actividad</th>
                         <th class="headerCell">Responsable</th>
                         <th class="headerCell">Meses de Impacto</th>
@@ -42,11 +62,12 @@
                         <th class="headerCell"></th>
                         <th class="headerCell"></th>
                     </tr>
-                    <tr class="headerRow" *ngIf="indicador.actividades.length == 0">
+                    <tr class="headerRow"
+                        *ngIf="indicador.actividades.length == 0 && indicador.alcance.id == 2 || indicador.alcance.id != 2 && this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades?.length! == 0">
                         <th class="headerCell">No se encontraron actividades</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="indicador.alcance.id == 2; else noRectoriaAct">
                     <tr class="dataRow" *ngFor="let actividad of indicador.actividades">
                         <td class="dataCell">{{actividad.nombre}}</td>
                         <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
@@ -63,15 +84,45 @@
                             </span>
                         </td>
                         <td class="dataCell">{{actividad.prioridad}}</td>
-                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo"> {{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
-                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo"> {{actividad.costeo.montoTotalTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo">
+                            {{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                        <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo">
+                            {{actividad.costeo.montoTotalTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                         <ng-template #noCosteo>
                             <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                         </ng-template>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon" (click)="removeActividad(actividad.id)">delete</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon"
+                                (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
+                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon"
+                                (click)="removeActividad(actividad.id)">delete</mat-icon></td>
                     </tr>
                 </tbody>
+                <ng-template #noRectoriaAct>
+                    <tbody>
+                        <tr class="dataRow" *ngFor="let actividad of this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades">
+                            <td class="dataCell">{{actividad.nombre}}</td>
+                            <td class="dataCell">{{actividad.responsableUnidad.nombre}}</td>
+                            <td class="dataCell">
+                                <span>
+                                    {{actividad.mesesImpacto[0].nombre}}
+                                    <span *ngIf="actividad.mesesImpacto.length > 1" [matMenuTriggerFor]="menu"
+                                        class="seeMore">...</span>
+                                    <mat-menu #menu="matMenu">
+                                        <ng-container *ngFor="let mes of actividad.mesesImpacto">
+                                            <h5 style="padding: 5px 15px; margin: 0;">{{mes.nombre}}</h5>
+                                        </ng-container>
+                                    </mat-menu>
+                                </span>
+                            </td>
+                            <td class="dataCell">{{actividad.prioridad}}</td>
+                            <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo"> {{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                            <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo"> {{actividad.costeo.montoTotalTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
+                            <ng-template #noCosteo> <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td> </ng-template>
+                            <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
+                            <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon" (click)="removeActividad(actividad.id)">delete</mat-icon></td>
+                        </tr>
+                    </tbody>
+                </ng-template>
             </table>
         </div>
     </div>

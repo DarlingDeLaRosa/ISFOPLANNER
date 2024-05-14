@@ -146,8 +146,10 @@ export class HelperService {
             
             if (recintoSiglas == undefined) return
             if (recintoSiglas == this.userLogged.recinto.siglas) return logroEsperadoRecinto
-            if (recintoSiglas.length > 4 && this.userLogged.recinto.siglas == 'REC') return logroEsperadoRecinto
-            
+            if (recintoSiglas.length > 4 && this.userLogged.recinto.siglas == 'REC'){
+                recintoSiglas = 'REC'
+                return logroEsperadoRecinto
+            }
             return
         })
 
@@ -156,8 +158,8 @@ export class HelperService {
 
     // Retorna el array de arrays de actividades de diferentes recintos 
 
-    getDiferentMetaRecinto(metasRecintos: indicadorMetaRecintosGet[]): {actividades: ActividadI[], sigla: string}[] {
-        let actividadesRecintos: {actividades: ActividadI[], sigla: string}[] = []
+    getDiferentMetaRecinto(metasRecintos: indicadorMetaRecintosGet[]): {actividades: ActividadI[], sigla: string, montos: {mte: number, mtte: number}}[] {
+        let actividadesRecintos: {actividades: ActividadI[], sigla: string, montos: {mte: number, mtte: number}}[] = []
         let sigla: string | undefined
 
         metasRecintos.filter((metaRec: indicadorMetaRecintosGet)=>{ 
@@ -165,12 +167,11 @@ export class HelperService {
             if (sigla == undefined) return
             if (sigla.length > 4) sigla = 'REC'
             
-            actividadesRecintos.push( {actividades: metaRec.actividades, sigla}) 
+            actividadesRecintos.push( {actividades: metaRec.actividades, sigla, montos: {mte: metaRec.montoTotalActividades, mtte: metaRec.montoTotalActividadesTransversales}}) 
         })
 
        return actividadesRecintos
     }
-
 
     // indicadorMetaRecinto(recinto: string, indicadorRecintos: indicadorRecinto): number {
     //     switch (recinto) {

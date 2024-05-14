@@ -1,7 +1,7 @@
 <div class="modal">
 
     <div style="display: flex; justify-content: space-between;">
-        <h2 class="Stitle" style="margin: 0;">Actualizar indicador</h2>
+        <h2 class="Stitle" style="margin: 0;">Logros esperado por trimestres</h2>
         <div *ngIf="!indicador" class="loader"></div>
     </div>
 
@@ -63,16 +63,17 @@
                 <td class="dataCell">{{indicador.logroEsperadoT3}}<span *ngIf="indicador.esPorcentual && indicador.logroEsperadoT3 > 0">%</span></td>
                 <td class="dataCell">{{indicador.logroEsperadoT4}}<span *ngIf="indicador.esPorcentual && indicador.logroEsperadoT4 > 0">%</span></td>
             </tr>
-            <tr class="dataRow" *ngFor="let metaRecintos of indicador.indicadoresRecinto">
-                <ng-container *ngIf="metaRecintos.responsable.nombre.split(' ').pop()?.length! <= 4 && indicador.alcance.id == 1 || indicador.alcance.id != 1 ">
+            <ng-container *ngFor="let metaRecintos of indicador.indicadoresRecinto">
+            <tr class="dataRow" *ngIf="metaRecintos.responsable.nombre.split(' ').pop()?.length! <= 4 && indicador.alcance.id == 1 || indicador.alcance.id != 1">
                     <td class="dataCell">{{metaRecintos.responsable.nombre.split(' ').pop()?.length! <= 4 ? metaRecintos.responsable.nombre.split(' ').pop() : ' REC'}}</td>
                     <td class="dataCell"style="font-weight: 500;">{{metaRecintos.meta}}<span *ngIf="indicador.esPorcentual && metaRecintos.meta > 0">%</span></td>
                     <td class="dataCell">{{metaRecintos.logroEsperadoT1}}<span *ngIf="indicador.esPorcentual && metaRecintos.logroEsperadoT1 > 0">%</span></td>
                     <td class="dataCell">{{metaRecintos.logroEsperadoT2}}<span *ngIf="indicador.esPorcentual && metaRecintos.logroEsperadoT2 > 0">%</span></td>
                     <td class="dataCell">{{metaRecintos.logroEsperadoT3}}<span *ngIf="indicador.esPorcentual && metaRecintos.logroEsperadoT3 > 0">%</span></td>
                     <td class="dataCell">{{metaRecintos.logroEsperadoT4}}<span *ngIf="indicador.esPorcentual && metaRecintos.logroEsperadoT4 > 0">%</span></td>
-                </ng-container>
-            </tr>
+                </tr>
+                <ng-template #noRectoria></ng-template>
+            </ng-container>
         </tbody>
     </table>
 
