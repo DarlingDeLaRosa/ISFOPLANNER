@@ -347,6 +347,10 @@ table {
     border-collapse: collapse !important;
     flex: 1;
 }
+/* 
+tr:nth-child(odd) td {
+    background-color: #2053371e;
+} */
 
 .statusButton {
     border: none;

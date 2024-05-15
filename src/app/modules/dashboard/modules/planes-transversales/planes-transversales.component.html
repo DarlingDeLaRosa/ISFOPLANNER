@@ -5,19 +5,39 @@
     </div>
 
     <div class="titleSeguimiento">
-        <h2>Seguimiento POA Recintos</h2>
+        <h2>Gestor transversal</h2>
 
-        <mat-form-field appearance="fill" style="margin: 0px 10px;">
+        
+    </div>
+    
+    <div class="ejeSectionTotal">
+
+        <mat-form-field appearance="fill">
             <mat-label>Estado</mat-label>
             <mat-select disableRipple>
-                <ng-container>
-                    <mat-option></mat-option>
-                </ng-container>
-                <ng-template #noEdificio>
-                    <mat-option>No hay campos disponibles</mat-option>
-                </ng-template>
+                    <mat-option [value]="1">Pendientes</mat-option>
+                    <mat-option [value]="2">Aceptados</mat-option>
             </mat-select>
         </mat-form-field>
+
+        <span style="display: flex;">
+            <div class="checkPresupuesto">
+                <div class="titlePresupuesto">
+                    <h3>Presupuesto total</h3>
+                </div>
+                <div class="amountPresupuesto">
+                    <h3>{{presupuestosUnidad?.monto ?? 0 | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
+                </div>
+            </div>
+            <div class="checkPresupuesto">
+                <div class="titlePresupuesto">
+                    <h3>Presupuesto disponible</h3>
+                </div>
+                <div class="amountPresupuesto">
+                    <h3>{{presupuestosUnidad?.montoRestante ?? 0 | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
+                </div>
+            </div>
+        </span>
     </div>
 
     <div *ngIf="actividadesPerito">
@@ -25,10 +45,13 @@
             <div class="titleProducto">
                 <span style="display: flex; margin: 10px 0;">
                     <h3>Actividad:</h3> &nbsp;
-                    <h3 style="font-weight: 400;">{{actividad.nombre}}</h3>
+                    <h3 style="font-weight: 400; font-size: 14px;">{{actividad.nombre}}</h3>
     
                     <h3 style="margin-left: 40px;">Prioridad:</h3> &nbsp;
-                    <h3 style="font-weight: 400;">{{actividad.prioridad}}</h3>
+                    <h3 style="font-weight: 400; font-size: 14px;">{{actividad.prioridad}}</h3>
+
+                    <h3 style="margin-left: 40px;">Responsable:</h3> &nbsp;
+                    <h3 style="font-weight: 400; font-size: 14px;">{{actividad.responsableUnidad.nombre}}</h3>
                 </span>
                 <span style="display: flex; ">
                     <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> {{actividad.costeo.montoTotalTransversal | currency: 'DOP ': 'symbol':'1.2-2' }}</h4> &nbsp;
@@ -37,7 +60,7 @@
             <div>
                 <table>
                     <thead class="headerTable">
-                        <tr class="headerRow" *ngIf="actividad.costeo.costeoDetalle.length > 0" > <!---->
+                        <tr class="headerRow" *ngIf="actividad.costeo.costeoDetalle.length > 0" >
                             <th class="headerCell">Codigo</th>
                             <th class="headerCell">Insumo</th>
                             <th class="headerCell">Descripción</th>
@@ -53,7 +76,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="dataRow" *ngFor="let insumos of actividad.costeo.costeoDetalle">
+                        <tr class="dataRow" [ngStyle]="{'background-color': insumos.peritoAceptacion ? 'rgba(0, 128, 0, 0.100)': ''}" *ngFor="let insumos of actividad.costeo.costeoDetalle">
                             <td class="dataCell">{{insumos.insumo.id}}</td>
                             <td class="dataCell">{{insumos.insumo.nombre}}</td>
                             <td class="dataCell">{{insumos.descripcionInsumo}}</td>
@@ -63,10 +86,10 @@
                             <td class="dataCell" *ngIf="insumos.montoTotal != null; else noCosteo"> {{insumos.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <ng-template #noCosteo><td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td></ng-template>
                             <td class="dataCell" style="width: 5%;">
-                                <button mat-stroked-button>
+                                <button mat-stroked-button *ngIf="!insumos.peritoAceptacion" (click)="aceptInsumo(insumos, actividad.indicadorGestion.id)">
                                     <mat-icon class="editIcon">thumb_up</mat-icon> Aceptar
                                 </button>
-                            </td> <!--(click)="removeActividad(actividad.id)"-->
+                            </td>
                             <td class="dataCell" style="width: 5%;"><mat-icon (click)="sendDetailInsumo(insumos.id)" class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
                         </tr>
                     </tbody>
@@ -76,5 +99,4 @@
     </div>
     <charging-box *ngIf="!actividadesPerito"></charging-box>
     <no-data-found *ngIf=" actividadesPerito && actividadesPerito.length == 0"></no-data-found>
-
 </div>

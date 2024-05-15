@@ -1,12 +1,11 @@
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ResponseI } from 'src/app/interfaces/Response.interfaces';
-import { ActividadI } from '../interfaces/formulacion.interface';
-import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
-import { unitActive } from 'src/app/alerts/alerts';
+import { ActividadI, postInsumoAceptacion } from '../interfaces/formulacion.interface';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -89,7 +88,12 @@ export class ActividadesService {
     return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/por-involucrados?unidad=${this.activeUnit.nombre}`, this.header))
   }
 
-  getActividadesPerito(): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/transversales/${this.activeUnit.nombre}`, this.header))
+  getActividadesPerito(estado: boolean | null): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/transversales/${this.activeUnit.nombre}?estado=${estado}`, this.header))
   }
+
+  postAceptacionPerito(insumo: postInsumoAceptacion, idCosteoDetalle:number, idIndicador: number): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/Actividades/transversales/costeo-detalle/${idCosteoDetalle}/indicador-operativo/${idIndicador}`, insumo, this.header))
+  }
+
 }

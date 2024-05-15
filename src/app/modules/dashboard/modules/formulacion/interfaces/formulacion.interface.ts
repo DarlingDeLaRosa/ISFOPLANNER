@@ -20,6 +20,7 @@ export interface ActividadI {
   mesesImpacto: { id: number, nombre: string }[]
   responsableUnidad: { id: number, nombre: string }
   responsableCargo: { id: number, nombre: string }
+  indicadorGestion: {id:number, nombre: string}
   // resultadoEsperadoCuantitativoT2?: number,
   // resultadoEsperadoCuantitativoT3?: number,
   // resultadoEsperadoCuantitativoT4?: number,
@@ -70,6 +71,7 @@ export interface CosteoDetallesI {
   idInsumo: number,
   costoUnitario: number,
   idPerito: number,
+  perito?: {id:number, nombre: string},
   peritoAceptacion?: boolean
   insumo: any
   cantidad: number,
@@ -78,6 +80,18 @@ export interface CosteoDetallesI {
   idUnidadMedida: number
   unidadMedida?: any
   descripcionInsumo: string
+}
+
+export interface postInsumoAceptacion {
+  idInsumo: number,
+  descripcionInsumo: string,
+  idPerito: number,
+  peritoAceptacion: true,
+  costoUnitario: number,
+  cantidad: number,
+  montoTotal: number,
+  fechaRecepcion: string,
+  idUnidadMedida: number
 }
 
 // export interface CosteoDetallesGetI {
