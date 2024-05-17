@@ -112,16 +112,16 @@
                             <h3>Producto:</h3>
                             <h4>{{producto.nombre}}</h4>
                         </span>
-                        <span style="display: flex; ">
+                        <span style="display: flex; " *ngIf="productos">
                             <h4><span style="font-weight: 500;">Presupuesto total estimado: </span>
                                 {{producto.historial[0].montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
                             <mat-icon class="editIcon" style="color:black" (click)="enviarProducto(producto.id)">list</mat-icon>
                         </span>
                     </div>
                     <div>
-                        <table>
+                        <table *ngIf="producto.indicadoresGestion">
                             <thead class="headerTable">
-                                <tr class="headerRow" *ngIf="producto.indicadoresGestion.length > 0">
+                                <tr class="headerRow" *ngIf=" producto.indicadoresGestion.length > 0">
                                     <th class="headerCell">Indicador</th>
                                     <th class="headerCell">Responsable</th>
                                     <th class="headerCell" style="width: 11%;">Tipo indicador</th>

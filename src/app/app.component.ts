@@ -9,9 +9,9 @@ import { UserI } from './interfaces/Response.interfaces';
 })
 export class AppComponent implements OnInit {
   
+  token: string | null
   title = 'isfoPlanner';
   userData: string | null
-  token: string | null
 
   constructor(
     private userSystemService: UserSystemInformationService,
@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
     if(this.userData != null) {
       let userDataParse: UserI = JSON.parse(this.userData)
       this.userSystemService.setUserLogged = userDataParse

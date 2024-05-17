@@ -112,7 +112,7 @@ export class ActividadesFormulacionComponent implements OnInit {
     })
 
     this.route.queryParams.subscribe(params => {
-      this.idIndicadorGestion = parseInt(params['id']);
+      this.idIndicadorGestion = parseInt(params['id'])
       this.actividadForm.patchValue({ idIndicadorGestion: this.idIndicadorGestion })
       
       if (params['indRec'] != null) this.actividadForm.patchValue({ idIndicadorRecinto: parseInt(params['indRec']) })

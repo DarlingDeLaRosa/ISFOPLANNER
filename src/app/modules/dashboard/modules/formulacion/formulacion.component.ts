@@ -20,6 +20,7 @@ import { ResultadoEfectoService } from '../mantenimiento/components/mantenimient
 })
 export class FormulacionComponent implements OnInit {
 
+  filterForm: FormGroup;
   productos!: ProductoI[];
   unitListener!: Subscription
   ejesEstrategicos!: Array<EjesI>
@@ -28,7 +29,6 @@ export class FormulacionComponent implements OnInit {
   selectedEjesEstrategico: EjesI = { estrategias: {}, id: 0, nombre: "", numeroEje: 0, objetivo: "" };
   selectedEstrategia: EstrategiaI = { ejeEstrategico: { id: 0, nombre: '', objetivo: '', numeroEje: 0, }, id: 0, nombre: "", resultadosEfectos: [] };
   selectedResultadoE: ResultadoEfectoI = { estrategia: { id: 0, nombre: '', ejeEstrategico: { id: 0, nombre: '', objetivo: '', numeroEje: 0, }, resultadosEfectos: [] }, id: 0, nombre: "" }
-  filterForm: FormGroup;
   presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } | null = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
 
   constructor(
@@ -90,6 +90,7 @@ export class FormulacionComponent implements OnInit {
   getProducto() {
     const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
     this.apiProducto.getProducto(this.userSystemService.getUnitOrg.nombre, ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => {
+      console.log(res);
       
       this.productos = res.data;
       if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI) => estrategia.id == estrategias)

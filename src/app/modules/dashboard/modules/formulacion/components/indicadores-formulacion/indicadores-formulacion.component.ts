@@ -49,7 +49,7 @@ export class IndicadoresFormulacionComponent implements OnInit {
   backToProducto() { this.router.navigate(['dashboard/formulacion/producto'], { queryParams: { id: this.indicador.producto.id } });}
 
   async removeActividad(id: number){
-    let removeDecision: boolean = await alertRemoveSure("Estas seguro de eliminar la actividad ?")
+    let removeDecision: boolean = await alertRemoveSure("¿Estas seguro de eliminar la actividad ?")
 
     if (removeDecision) {
       loading(true)

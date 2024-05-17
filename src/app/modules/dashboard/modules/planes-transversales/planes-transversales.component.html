@@ -1,41 +1,26 @@
 <div class="routerComponent">
 
-    <div class="title">
-        <h1>Planes transversales</h1>
-    </div>
-
-    <div class="titleSeguimiento">
-        <h2>Gestor transversal</h2>
-
-        
-    </div>
+    <div class="title"><h1>Planes transversales</h1> </div>
+    <div class="titleSeguimiento"> <h2>Gestor transversal</h2></div>
     
     <div class="ejeSectionTotal">
-
         <mat-form-field appearance="fill">
             <mat-label>Estado</mat-label>
-            <mat-select disableRipple>
-                    <mat-option [value]="1">Pendientes</mat-option>
-                    <mat-option [value]="2">Aceptados</mat-option>
-            </mat-select>
+            <mat-select disableRipple [(ngModel)]="estado" (selectionChange)="filterByState()">
+                    <mat-option [value]="false">Pendientes</mat-option>
+                    <mat-option [value]="true">Aceptados</mat-option>
+                    <mat-option [value]="null">Todos</mat-option>
+                </mat-select>
         </mat-form-field>
 
         <span style="display: flex;">
             <div class="checkPresupuesto">
-                <div class="titlePresupuesto">
-                    <h3>Presupuesto total</h3>
-                </div>
-                <div class="amountPresupuesto">
-                    <h3>{{presupuestosUnidad?.monto ?? 0 | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
-                </div>
+                <div class="titlePresupuesto"> <h3>Presupuesto total</h3> </div>
+                <div class="amountPresupuesto"> <h3>{{presupuestosUnidad?.monto ?? 0 | currency: 'DOP ': 'symbol':'1.2-2'}}</h3> </div>
             </div>
             <div class="checkPresupuesto">
-                <div class="titlePresupuesto">
-                    <h3>Presupuesto disponible</h3>
-                </div>
-                <div class="amountPresupuesto">
-                    <h3>{{presupuestosUnidad?.montoRestante ?? 0 | currency: 'DOP ': 'symbol':'1.2-2'}}</h3>
-                </div>
+                <div class="titlePresupuesto"> <h3>Presupuesto disponible</h3> </div>
+                <div class="amountPresupuesto"> <h3>{{presupuestosUnidad?.montoRestante ?? 0 | currency: 'DOP ': 'symbol':'1.2-2'}}</h3> </div>
             </div>
         </span>
     </div>
@@ -90,7 +75,7 @@
                                     <mat-icon class="editIcon">thumb_up</mat-icon> Aceptar
                                 </button>
                             </td>
-                            <td class="dataCell" style="width: 5%;"><mat-icon (click)="sendDetailInsumo(insumos.id)" class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
+                            <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="!insumos.peritoAceptacion" (click)="sendDetailInsumo(insumos.id, actividad.indicadorGestion.id)" class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
                         </tr>
                     </tbody>
                 </table>

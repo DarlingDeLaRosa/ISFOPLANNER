@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActividadesService } from '../formulacion/services/actividades.service';
-import { ActividadI, CosteoDetallesI, postInsumoAceptacion } from '../formulacion/interfaces/formulacion.interface';
-import { Router } from '@angular/router';
 import { format } from 'date-fns';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { HelperService } from 'src/app/services/appHelper.service';
-import { PresupuestoInstitucionalService } from '../mantenimiento/services/presupuestoInstitucional.service';
+import { ActividadesService } from '../formulacion/services/actividades.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PresupuestoInstitucionalService } from '../mantenimiento/services/presupuestoInstitucional.service';
+import { ActividadI, CosteoDetallesI, postInsumoAceptacion } from '../formulacion/interfaces/formulacion.interface';
 
 @Component({
   selector: 'planes-transversales-root',
@@ -14,8 +14,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class PlanesTransversalesComponent implements OnInit {
 
-  actividadesPerito!: ActividadI[]
   estado: boolean | null = null 
+  actividadesPerito!: ActividadI[]
   presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } | null = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
 
   constructor(
@@ -31,10 +31,15 @@ export class PlanesTransversalesComponent implements OnInit {
     this.getPresupuestoUnidad()
   }
 
-  sendDetailInsumo(idInsumo: number) { this.router.navigate(['dashboard/planesTransversales/detallePlanTransversal'], { queryParams: { id: idInsumo } }); }
+  filterByState(){
+    this.getActividadesPerito() 
+  }
+
+  sendDetailInsumo(idInsumo: number, indicadorId: number) { this.router.navigate(['dashboard/planesTransversales/detallePlanTransversal'], { queryParams: { id: idInsumo, idInd: indicadorId } }); }
 
   getActividadesPerito() {
-    this.actividadesService.getActividadesPerito(this.estado).subscribe((res: any) => { this.actividadesPerito = res.data })
+    this.actividadesService.getActividadesPerito(this.estado).subscribe((res: any) => { this.actividadesPerito = res.data; console.log(this.actividadesPerito );
+     })
   }
 
   getPresupuestoUnidad() {
@@ -49,15 +54,15 @@ export class PlanesTransversalesComponent implements OnInit {
     if (insumo.perito?.id == undefined) return 
 
     let acepObject: postInsumoAceptacion = {
-      idInsumo: insumo.insumo.id,
       peritoAceptacion: true,
       cantidad: insumo.cantidad,
-      fechaRecepcion: format(new Date() , 'yyyy-MM-dd'),
       idPerito: insumo.perito.id,
+      idInsumo: insumo.insumo.id,
       montoTotal: insumo.montoTotal,
       costoUnitario: insumo.costoUnitario,
       idUnidadMedida: insumo.unidadMedida.id,
       descripcionInsumo: insumo.descripcionInsumo,
+      fechaRecepcion: format(new Date() , 'yyyy-MM-dd'),
     }
 
     this.actividadesService.postAceptacionPerito(acepObject, insumo.id, indicadorId).subscribe((res: any)=>{

@@ -42,6 +42,7 @@ export class UserSystemInformationService {
     get getSistema(): number { return this.sistema }
     get getURL(): string { return this.URLdesarrollo }
     get getURLgeneralService(): string { return this.URLgeneralServerURL }
+    
     get isUnidadOrgFather(): UnidadDataI {
         let userLevel;
         let exactUnit: string = this.userLogged.unidad.split(" ")[0]
@@ -85,6 +86,7 @@ export class UserSystemInformationService {
     }
 
     set setUserLogged(user: UserI) { this.userLogged = user }
+
     set setUnitOrg(unit: subUnit ) { 
         this.exatUnitOrg = unit
         this.saveDataLocalStorage('unidadOrganizativa', unit)
