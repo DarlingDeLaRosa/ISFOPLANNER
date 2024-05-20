@@ -57,11 +57,11 @@ export class FormulacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllEjes()
-    this.getProducto()
-    this.getAllEstrategia();
-    this.getPresupuestoUnidad();
-    this.getAllResultadoEfecto();
+      this.getAllEjes()
+      this.getProducto()
+      this.getAllEstrategia();
+      this.getPresupuestoUnidad();
+      this.getAllResultadoEfecto();
   }
   
   getPresupuestoUnidad() {

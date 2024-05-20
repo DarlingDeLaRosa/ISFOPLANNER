@@ -3,7 +3,7 @@
   <mat-sidenav-container>
     <mat-sidenav mode="side" [(opened)]="sidenavOpened" style="width: 200px;">
       <div class="logoPlannerContainer">
-        <img routerLink="/almacen/inicio" class="logoPlanner" src="../../../assets/Logo-isfo-planner-1-blanco.png"
+        <img [routerLink]="['formulacion']" class="logoPlanner" src="../../../assets/Logo-isfo-planner-1-blanco.png"
           alt="Planificación Institucional">
       </div>
 
@@ -20,8 +20,8 @@
         <!-- <a class="item-menu" [routerLink]="['monitoreo']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.monitoreo)">
           <mat-icon>traffic</mat-icon>Monitoreo
         </a> -->
-        
-        <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.planes_transversales)">
+          
+        <a class="item-menu" [routerLink]="['planesTransversales']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.planes_transversales) && validPlanTransversal">
           <mat-icon>chat</mat-icon>Planes Transversales
         </a>
         <!--         
@@ -41,7 +41,7 @@
           <mat-icon>settings</mat-icon>Mantenimiento
         </a>
 
-        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.asignacion_de_presupuesto) "> <!--&& unidadOrgData.subUnidad -->
+        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.asignacion_de_presupuesto) && isUnitFather"> <!--&& unidadOrgData.subUnidad -->
           <mat-icon>settings</mat-icon>Asignación de presupuesto
         </a>
 
@@ -65,7 +65,7 @@
                 <button mat-menu-item style="padding: 10px;" (click)="changeUnitOrg({id: unit.id, nombre: unit.nombre})"> {{unit.nombre}} </button>
               </ng-container>
             </mat-menu>
-          </div>
+          </div>  
 
           <div class="logout">
             <span class="userName">
@@ -75,7 +75,7 @@
             <button class="closeAccount" [matMenuTriggerFor]="menu">
               <mat-icon>person</mat-icon>
             </button>
-            <mat-menu class="menuPanel" #menu="matMenu"> <!---->
+            <mat-menu class="menuPanel" #menu="matMenu"> 
               <!-- <div mat-menu-item class="profile">
                   <mat-icon>person</mat-icon>
                   <span>asd</span>
@@ -89,7 +89,7 @@
                 <span>Cambiar contraseña</span>
               </button> -->
 
-              <button mat-menu-item (click)="logOut()"> <!---->
+              <button mat-menu-item (click)="logOut()">
                 <mat-icon>exit_to_app</mat-icon>
                 <span>Cerrar sesion</span>
               </button>

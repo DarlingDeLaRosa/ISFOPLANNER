@@ -22,8 +22,8 @@ export class UnidadOrganizativaService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  public getUnidadesOrganizativas() {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas`, this.header))
+  public getUnidadesOrganizativas(unidadOrganizativa: string = '') {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas?unidadOrganizativa=${unidadOrganizativa}`, this.header))
   }
 
   public getUnidadesOrganizativasPeritos() {

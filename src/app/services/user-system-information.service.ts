@@ -35,7 +35,7 @@ export class UserSystemInformationService {
     private URLdesarrollo = "http://172.25.4.24:3000"
     private URLgeneralServerURL = "http://172.25.4.24"
 
-    constructor() { }
+    constructor() {}
 
     get getUserLogged(): UserI { return this.userLogged }
     get getToken(): string { return this.userToken }
@@ -54,18 +54,21 @@ export class UserSystemInformationService {
             case 2:
                 this.exatUnitOrg = { id: this.userLogged.departamento.idDepartamento, nombre: this.userLogged.departamento.nombre }
                 dataUnidad.subUnidad = this.userLogged.departamento.divisiones
-                dataUnidad.subUnidad.push(this.exatUnitOrg)
+                if (!dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) dataUnidad.subUnidad.push(this.exatUnitOrg)
+                
                 break;
             case 3:
                 this.exatUnitOrg = { id: this.userLogged.direccion.idDireccion, nombre: this.userLogged.direccion.nombre }
                 dataUnidad.subUnidad = this.userLogged.direccion.departamentos
-                dataUnidad.subUnidad.push(this.exatUnitOrg)
+                if (!dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) dataUnidad.subUnidad.push(this.exatUnitOrg)
+
                 break;
 
             case 4:
                 this.exatUnitOrg = { id: this.userLogged.viceRectoria.idViceRectoria, nombre: this.userLogged.viceRectoria.nombre}
                 dataUnidad.subUnidad = this.userLogged.viceRectoria.direcciones
-                dataUnidad.subUnidad.push(this.exatUnitOrg)
+                if (!dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) dataUnidad.subUnidad.push(this.exatUnitOrg)
+
                 break;
 
             default:

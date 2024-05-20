@@ -131,7 +131,7 @@ export function alertNoValidForm() {
   })
 }
 
-export function unitActive(unit: string) {
+export function unitActiveAlert(unit: string) {
   Swal.fire({
     icon: 'success',
     title: `Ahora actualizando el POA \n ${unit}`,

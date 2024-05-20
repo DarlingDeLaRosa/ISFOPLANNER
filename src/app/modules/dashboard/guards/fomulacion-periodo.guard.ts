@@ -4,16 +4,17 @@ import { alertPeriod, alertPeriodDone } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 export const formulacionPeriodoGuard: CanActivateFn = (route, state) => {
-
+  
   const router = inject(Router)
   const sistemInformation = inject(UserSystemInformationService)
+  
+  if (sistemInformation.getPeriod.formulacion == undefined) {
+    alertPeriod("El administrador aun no establece periodo de formulación / Planes transversales",`Para mas información comuniquese con el Departamento de Formulación, Monitoreo y Evaluación de Planes, Programas y Proyectos `)
+    router.navigate(['dashboard/ayuda'])
+  }
 
   const {fechaFin, fechaInicio, prorroga} = sistemInformation.getPeriod.formulacion
   const currentDate = new Date() 
-
-  if (fechaInicio == undefined) {
-    alertPeriod("El administrador aun no establece periodo de formulación",`Para mas información comuniquese con el Departamento de Formulación, Monitoreo y Evaluación de Planes, Programas y Proyectos `)
-  }
 
   if (currentDate > new Date(fechaInicio) && currentDate < new Date(fechaFin)){
     return true

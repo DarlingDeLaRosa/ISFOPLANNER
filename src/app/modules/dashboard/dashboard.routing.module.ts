@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'formulacion',
-        // canActivate: [formulacionPeriodoGuard], 
+        canActivate: [formulacionPeriodoGuard], 
         loadChildren: ()=>
         import('./modules/formulacion/formulacion.routing.module').then((m)=>m.FormulacionRoutingModule)
       },
@@ -26,6 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'planesTransversales',
+        canActivate: [formulacionPeriodoGuard],
         loadChildren: ()=>
         import('./modules/planes-transversales/planes-transversales.routing.module').then((m)=>m.PlanesTransversalesRoutingModule)
       },
