@@ -45,7 +45,7 @@ export class LogInComponent {
           this.userSystemService.setUserToken = res.token
           this.userSystemService.setUserLogged = res.data
 
-          this.router.navigate(['/dashboard/panelDeControl'])
+          this.router.navigate(['/dashboard/formulacion'])
 
         } else errorMessageAlert(res.message)
 

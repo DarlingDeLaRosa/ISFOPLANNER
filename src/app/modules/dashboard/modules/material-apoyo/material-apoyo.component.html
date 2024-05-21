@@ -9,13 +9,13 @@
 
         <mat-form-field  appearance="fill" >
             <mat-label>Nombre Del Documento</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="materialName" (input)="getMaterial()">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
 
-    <div style="margin-bottom: 15px;">
-        <table style="border: 1px solid #ccc;">
+    <div style="margin-bottom: 15px;" >
+        <table style="border: 1px solid #ccc;" *ngIf="materialesApoyo && materialesApoyo.length > 0">
             <thead class="headerTable" >
                 <tr class="headerRow" style="background-color: #95ade93f;">
                     <th class="headerCell" style="width: 15%;">Fecha de creación</th>
@@ -36,4 +36,8 @@
             </tbody>
         </table>
     </div>
+
+    <charging-box *ngIf="!materialesApoyo" ></charging-box>
+    <no-data-found *ngIf="materialesApoyo && materialesApoyo.length == 0"></no-data-found>
+
 </div>

@@ -9,7 +9,7 @@
         
         <mat-form-field  appearance="fill">
             <mat-label>Buscar pregunta</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="questionName" (input)="getPregunta()">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -27,13 +27,8 @@
             </div>
         </div>
     </div>
-    
-    <div class="loaderModuleContainer" *ngIf="!getPreguntas">
-        <h3 style="margin: 0; align-self: flex-end;">Cargando...</h3>
-        <div class="loaderModule"></div>
-    </div>
-    
-    <div class="noData" *ngIf="getPreguntas && getPreguntas.length == 0">
-        <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
-    </div>
+
+    <charging-box *ngIf="!getPreguntas" ></charging-box>
+    <no-data-found *ngIf="getPreguntas && getPreguntas.length == 0"></no-data-found>
+
 </div>

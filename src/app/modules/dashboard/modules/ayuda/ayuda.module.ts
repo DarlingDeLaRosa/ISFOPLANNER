@@ -5,6 +5,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AsnwerViewComponent } from './modals/asnwer-view/asnwer-view.component';
+import { ChargingBoxModule } from '../../components/charging-box/charging-box.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { AsnwerViewComponent } from './modals/asnwer-view/asnwer-view.component'
     AsnwerViewComponent
   ],
   imports: [
+    ChargingBoxModule,
     CommonModule,
     FormsModule,
     RouterModule,

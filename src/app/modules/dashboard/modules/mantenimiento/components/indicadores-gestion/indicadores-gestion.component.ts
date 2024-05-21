@@ -118,12 +118,12 @@ export class IndicadoresGestionComponent implements OnInit {
 
   postIndicadoresGestion() {
     this.apiIndicadoresGestion.postIndicadorGestion(this.indicadoresGestionForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm, ()=> this.getPresupuestoInstitucional()) })
   }
 
   putIndicadoresGestion() {
     this.apiIndicadoresGestion.putIndicadorGestion(this.indicadoresGestionForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm, ()=> this.getPresupuestoInstitucional()) })
   }
 
   async deleteIndicadoresGestion(id: number) {
@@ -132,7 +132,7 @@ export class IndicadoresGestionComponent implements OnInit {
     if (removeDecision) {
       loading(true)
       this.apiIndicadoresGestion.removeIndicadorGestion(id)
-        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm) })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getIndicadoresGestion(), this.indicadoresGestionForm, ()=> this.getPresupuestoInstitucional()) })
     }
   }
 

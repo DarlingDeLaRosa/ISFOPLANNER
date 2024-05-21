@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { dashboardComponent } from './dashboard.component';
 import { formulacionPeriodoGuard } from './guards/fomulacion-periodo.guard';
+import { authGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: dashboardComponent,
+    canActivate: [authGuard],
     children:[
       {
         path: 'panelDeControl',

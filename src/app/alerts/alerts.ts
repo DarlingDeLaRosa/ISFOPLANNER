@@ -112,6 +112,22 @@ export function alertPeriod(title: string, text: string) {
   })
 }
 
+export function alertPeriodPromise(title: string, text: string) {
+  return new Promise((resolve) => {
+    Swal.fire({
+      icon: 'warning',
+      title: title,
+      text: text,
+      showConfirmButton: true,
+      confirmButtonColor: 'red',
+    }).then(() => {
+        resolve(true)
+    });
+  })
+}
+
+
+
 export function alertPeriodDone(title: string, text: string) {
   Swal.fire({
     icon: 'error',

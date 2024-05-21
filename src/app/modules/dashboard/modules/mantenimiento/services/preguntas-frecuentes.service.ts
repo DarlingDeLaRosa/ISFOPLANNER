@@ -24,8 +24,8 @@ export class preguntasFrecuentesService {
     private userSystemService: UserSystemInformationService,
   ){}
 
-  public getPreguntasFrecuentes() {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PreguntasFrecuentes`, this.header))
+  public getPreguntasFrecuentes(questionName: string = '') {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PreguntasFrecuentes?buscar=${questionName}`, this.header))
   }
 
   public postPreguntasFrecuentes(preguntaData: PreguntaI) {

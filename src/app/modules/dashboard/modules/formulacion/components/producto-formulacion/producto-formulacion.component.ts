@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IndicadorEditarComponent } from '../../modals/indicador-editar/indicador-editar.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductoService } from '../../../mantenimiento/services/producto.service';
-import { IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { ActividadI } from '../../interfaces/formulacion.interface';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { ProductoService } from '../../../mantenimiento/services/producto.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
-import { ActividadI} from '../../interfaces/formulacion.interface';
+import { IndicadorEditarComponent } from '../../modals/indicador-editar/indicador-editar.component';
 import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
+import { IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/indicador-vista-meta.component';
 
 @Component({
@@ -22,16 +23,18 @@ export class ProductoFormulacionComponent implements OnInit {
   listOfAct!: ActividadI[]
   productoConsult!: ProductoI
   metaIndicadorRecinto: number = 0
+  modulo = this.userSystemService.modulosSis
   unitIndices: { [key: number]: number } = {};
   userLogged = this.userSystemService.getUserLogged
   curretUnit: string = this.userSystemService.getUnitOrg.nombre
-  montosEstimados: {mte: number, mtte: number} = {mte: 0, mtte: 0}
+  montosEstimados: { mte: number, mtte: number } = { mte: 0, mtte: 0 }
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
     public helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private productoService: ProductoService,
     private userSystemService: UserSystemInformationService,
   ) { }
@@ -67,43 +70,46 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   getActArrayRecinto(indicador: IndicadoresGestionGetI): ActividadI[] {
-    if (this.userLogged.recinto.siglas != 'REC')this.listOfAct = this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades!
+
+    if (this.userLogged.recinto.siglas != 'REC') this.listOfAct = this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades!
     else {
       const indicadorIndex = this.unitIndices[indicador.id];
-
+      if (indicador.indicadoresRecinto.length > 0) {
+      
       if (indicadorIndex !== undefined) {
-        let {actividades, sigla, montos} = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[this.unitIndices[indicador.id]]
-        this.listOfAct = actividades; 
-        this.unitSiglas = sigla
-        this.montosEstimados = montos
-      }else{
-        this.unitIndices[indicador.id] = 0;
-        let {actividades, sigla, montos} = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[0]
-        this.listOfAct = actividades; 
-        this.unitSiglas = sigla
-        this.montosEstimados = montos
-      }
-    } 
-    
+          let { actividades, sigla, montos } = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[this.unitIndices[indicador.id]]
+          this.listOfAct = actividades;
+          this.unitSiglas = sigla
+          this.montosEstimados = montos
+        } else {
+          this.unitIndices[indicador.id] = 0;
+          let { actividades, sigla, montos } = this.helperHandler.getDiferentMetaRecinto(indicador.indicadoresRecinto)[0]
+          this.listOfAct = actividades;
+          this.unitSiglas = sigla
+          this.montosEstimados = montos
+        }
+      } 
+    }
+
     return this.listOfAct
   }
 
   nextRecinto(indicadorId: number) {
     if (this.unitIndices[indicadorId] === undefined) {
-      this.unitIndices[indicadorId] = 0; 
-  } else {
+      this.unitIndices[indicadorId] = 0;
+    } else {
       if (this.unitIndices[indicadorId] === 6) this.unitIndices[indicadorId] = 0;
       else this.unitIndices[indicadorId] += 1;
-  }
+    }
   }
 
   backRecinto(indicadorId: number) {
     if (this.unitIndices[indicadorId] === undefined) {
       this.unitIndices[indicadorId] = 6;
-  } else {
+    } else {
       if (this.unitIndices[indicadorId] === 0) this.unitIndices[indicadorId] = 6;
       else this.unitIndices[indicadorId] -= 1;
-  }
+    }
   }
 }
 

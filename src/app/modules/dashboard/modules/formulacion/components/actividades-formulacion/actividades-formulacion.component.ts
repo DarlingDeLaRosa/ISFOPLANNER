@@ -270,6 +270,8 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   postActividades() {
+    console.log(this.actividadForm.value);
+    
     this.actividadesService.postActividades(this.actividadForm.value)
       .subscribe((res: any) => {
         this.helperHandler.handleResponse(res, () => '', this.actividadForm)

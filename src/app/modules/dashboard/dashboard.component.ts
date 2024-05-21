@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HelperService } from 'src/app/services/appHelper.service';
-import { alertRemoveSure, unitActiveAlert } from 'src/app/alerts/alerts';
+import { alertRemoveSure, successMessageAlert, unitActiveAlert } from 'src/app/alerts/alerts';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { PermissionService } from '../../services/applyPermissions.service';
 import { UnidadDataI, UserI, subUnit } from 'src/app/interfaces/Response.interfaces';
@@ -32,10 +31,7 @@ export class dashboardComponent implements OnInit {
     public autenticationService: AuthenticationService,
     private periodoService: ConfiguracionPeriodoServive,
     public userSystemService: UserSystemInformationService,
-  ) {
-    console.log(this.userLogged);
-    console.log(this.unidadOrgData);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodoConfig()
@@ -48,7 +44,11 @@ export class dashboardComponent implements OnInit {
 
     if (logOutDecision) {
       this.autenticationService.postLogOut().subscribe((res:any) => {
-        console.log(res);
+        if (res.success) {
+          successMessageAlert(res.message)          
+          this.router.navigate(['/login'])
+          localStorage.clear()
+        }
       })
     }
   }

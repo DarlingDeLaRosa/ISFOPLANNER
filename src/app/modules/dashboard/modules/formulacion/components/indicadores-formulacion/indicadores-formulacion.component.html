@@ -7,7 +7,7 @@
     <div style="margin-bottom: 5px;" class="titleActividad">
         <button class="backButton" mat-stroked-button (click)="backToProducto()"><mat-icon>arrow_back</mat-icon>Listado
             de Indicadores</button>
-        <button mat-stroked-button class="borderOrangeButton" (click)="sendToNewAct()"><mat-icon>add</mat-icon>Añadir
+        <button *ngIf="permisosCRUD.permisoCrear(modulo.formulacion)" mat-stroked-button class="borderOrangeButton" (click)="sendToNewAct()"><mat-icon>add</mat-icon>Añadir
             actividad</button>
     </div>
 
@@ -39,7 +39,7 @@
 
             <ng-template #noRectoriaMonto>
                 <span style="display: flex; ">
-                    <h4><span style="font-weight: 500;">Presupuesto total estimado:</span>
+                    <h4><span style="font-weight: 500;">Presupuesto total estimado:</span> 
                         {{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.montoTotalActividades | currency: 'DOP ': 'symbol':'1.2-2'}}</h4> &nbsp;
                     <h4><span style="font-weight: 500; margin-left: 40px;">Presupuesto transversal estimado:</span>
                         {{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.montoTotalActividadesTransversales| currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
@@ -63,7 +63,7 @@
                         <th class="headerCell"></th>
                     </tr>
                     <tr class="headerRow"
-                        *ngIf="indicador.actividades.length == 0 && indicador.alcance.id == 2 || indicador.alcance.id != 2 && this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades?.length! == 0">
+                        *ngIf="indicador.indicadoresRecinto.length == 0 || indicador.actividades.length == 0 && indicador.alcance.id == 2 || indicador.alcance.id != 2 && this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades?.length! == 0">
                         <th class="headerCell">No se encontraron actividades</th>
                     </tr>
                 </thead>
@@ -91,9 +91,9 @@
                         <ng-template #noCosteo>
                             <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                         </ng-template>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon"
+                        <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="permisosCRUD.permisoEditar(modulo.formulacion)" class="editIcon"
                                 (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
-                        <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon"
+                        <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="permisosCRUD.permisoEliminar(modulo.formulacion)" class="removeIcon"
                                 (click)="removeActividad(actividad.id)">delete</mat-icon></td>
                     </tr>
                 </tbody>
@@ -118,8 +118,8 @@
                             <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo"> {{actividad.costeo.montoTotalEstimado | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <td class="dataCell" *ngIf="actividad.costeo != null; else noCosteo"> {{actividad.costeo.montoTotalTransversal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <ng-template #noCosteo> <td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td> </ng-template>
-                            <td class="dataCell" style="width: 5%;"><mat-icon class="editIcon" (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
-                            <td class="dataCell" style="width: 5%;"><mat-icon class="removeIcon" (click)="removeActividad(actividad.id)">delete</mat-icon></td>
+                            <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="permisosCRUD.permisoEditar(modulo.formulacion)" class="editIcon" (click)="sendToEditAct(actividad.id)">edit</mat-icon></td>
+                            <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="permisosCRUD.permisoEliminar(modulo.formulacion)" class="removeIcon" (click)="removeActividad(actividad.id)">delete</mat-icon></td>
                         </tr>
                     </tbody>
                 </ng-template>

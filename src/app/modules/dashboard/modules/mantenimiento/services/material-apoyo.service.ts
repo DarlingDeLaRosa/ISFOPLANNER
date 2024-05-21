@@ -24,8 +24,8 @@ export class MaterialApoyoService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  public getMaterialApoyo() {
-    return  this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/MaterialesDeApoyo`, this.header))
+  public getMaterialApoyo(materialName: string = '') {
+    return  this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/MaterialesDeApoyo?buscar=${materialName}`, this.header))
   }
 
   public postMaterialApoyo(materialData: MaterialApoyoI | string) {

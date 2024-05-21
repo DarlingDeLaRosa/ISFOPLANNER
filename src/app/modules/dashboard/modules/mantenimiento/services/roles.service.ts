@@ -1,7 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
-import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { RolesI } from '../components/mantenimiento-pei/interfaces/RolesPermisos.interface';
 import { HelperService } from 'src/app/services/appHelper.service';

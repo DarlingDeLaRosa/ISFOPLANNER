@@ -6,7 +6,7 @@
     <div class="ejeSectionTotal">
         <mat-form-field appearance="fill">
             <mat-label>Estado</mat-label>
-            <mat-select disableRipple [(ngModel)]="estado" (selectionChange)="filterByState()">
+            <mat-select disableRipple [(ngModel)]="estado" (selectionChange)="getActividadesPerito()">
                     <mat-option [value]="false">Pendientes</mat-option>
                     <mat-option [value]="true">Aceptados</mat-option>
                     <mat-option [value]="null">Todos</mat-option>
@@ -71,11 +71,11 @@
                             <td class="dataCell" *ngIf="insumos.montoTotal != null; else noCosteo"> {{insumos.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <ng-template #noCosteo><td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td></ng-template>
                             <td class="dataCell" style="width: 5%;">
-                                <button mat-stroked-button *ngIf="!insumos.peritoAceptacion" (click)="aceptInsumo(insumos, actividad.indicadorGestion.id)">
+                                <button mat-stroked-button *ngIf="!insumos.peritoAceptacion && permisosCRUD.permisoEditar(modulo.planes_transversales)" (click)="aceptInsumo(insumos, actividad.indicadorGestion.id)">
                                     <mat-icon class="editIcon">thumb_up</mat-icon> Aceptar
                                 </button>
                             </td>
-                            <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="!insumos.peritoAceptacion" (click)="sendDetailInsumo(insumos.id, actividad.indicadorGestion.id)" class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
+                            <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="!insumos.peritoAceptacion && permisosCRUD.permisoEditar(modulo.planes_transversales)" (click)="sendDetailInsumo(insumos.id, actividad.indicadorGestion.id)" class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
                         </tr>
                     </tbody>
                 </table>

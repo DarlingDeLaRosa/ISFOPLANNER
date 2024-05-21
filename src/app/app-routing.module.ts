@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LogInComponent } from './components/log-in/log-in.component';
+import { authGuard, authGuardBackToLogIn } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard',
-    //canActivate: [authGuard],
-    loadChildren: ()=>
-    import('./modules/dashboard/dashboard.routing.module').then((m)=>m.DashboardRoutingModule)
+    loadChildren: () =>
+    import('./modules/dashboard/dashboard.routing.module').then((m) => m.DashboardRoutingModule)
   },
-  { path: '',  component: LogInComponent }, //canActivate: [authGuardBack],
-  // { path: '**', redirectTo: '/'},
-
+  {
+    path: 'login',
+    canActivate: [authGuardBackToLogIn],
+    component: LogInComponent
+  }, 
+  { path: '**', redirectTo: '/login'},
 ];
 
 @NgModule({

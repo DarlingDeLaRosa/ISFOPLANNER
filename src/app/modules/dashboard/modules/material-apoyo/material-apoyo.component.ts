@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MaterialApoyoService } from '../mantenimiento/services/material-apoyo.service';
-import { catchError } from 'rxjs';
-import { alertServerDown } from 'src/app/alerts/alerts';
 
 @Component({
   selector: 'material-apoyo-root',
@@ -10,7 +8,8 @@ import { alertServerDown } from 'src/app/alerts/alerts';
 })
 export class MaterialApoyoComponent implements OnInit{
   
-  materialesApoyo: any[] = []
+  materialName: string = ''
+  materialesApoyo!: any[]
 
   constructor(
     private apiMaterial: MaterialApoyoService,
@@ -21,7 +20,7 @@ export class MaterialApoyoComponent implements OnInit{
   }
 
   getMaterial() {
-    this.apiMaterial.getMaterialApoyo()
+    this.apiMaterial.getMaterialApoyo(this.materialName)
       .subscribe((res: any) => { this.materialesApoyo = res.data })
   }
 }

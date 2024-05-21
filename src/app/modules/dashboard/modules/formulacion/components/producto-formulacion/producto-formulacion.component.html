@@ -32,10 +32,10 @@
                             *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
                             class="fileIcon" (click)="openModalVistaIndicadoresRecinto(indicador.id)">visibility</mat-icon>
                         <mat-icon
-                            *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
+                            *ngIf="permisosCRUD.permisoEditar(modulo.formulacion) && indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
                             class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)">lan</mat-icon>
                         <mat-icon
-                            *ngIf="indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)"
+                            *ngIf="permisosCRUD.permisoEditar(modulo.formulacion) && indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)"
                             class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)">edit</mat-icon>
                         <mat-icon
                             *ngIf="indicador.alcance.id != 1 && userLogged.recinto.siglas == 'REC' && indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)"
@@ -43,11 +43,10 @@
                     </span>
                 </div>
                 <div>
-                    <table>
+                    <table *ngIf="indicador.alcance.id == 2 || indicador.indicadoresRecinto.length > 0">
                         <thead class="headerTable">
                             <tr class="headerRow"
                                 *ngIf="indicador.actividades.length > 0 && indicador.alcance.id == 2 || getActArrayRecinto(indicador)  && getActArrayRecinto(indicador).length > 0 && indicador.alcance.id != 2; else noData">
-                                <!--  && indicador.alcance.id == 2 -->
                                 <th class="headerCell">Actividad</th>
                                 <th class="headerCell">Responsable</th>
                                 <th class="headerCell" style="width: 15%;">Presupuesto Estimado</th>

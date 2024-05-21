@@ -12,7 +12,8 @@ import { preguntasFrecuentesService } from '../mantenimiento/services/preguntas-
 export class AyudaComponent implements OnInit {
   
   getPreguntas!: any[]
-  
+  questionName: string = ''
+
   constructor(
     public dialog: MatDialog,
     private apiPreguntas: preguntasFrecuentesService
@@ -23,7 +24,7 @@ export class AyudaComponent implements OnInit {
   }
   
   getPregunta() {
-    this.apiPreguntas.getPreguntasFrecuentes()
+    this.apiPreguntas.getPreguntasFrecuentes(this.questionName)
       .subscribe((res: any) => { this.getPreguntas = res.data })
   }
 

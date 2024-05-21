@@ -6,6 +6,7 @@ import { ActividadesService } from '../formulacion/services/actividades.service'
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { PresupuestoInstitucionalService } from '../mantenimiento/services/presupuestoInstitucional.service';
 import { ActividadI, CosteoDetallesI, postInsumoAceptacion } from '../formulacion/interfaces/formulacion.interface';
+import { PermissionService } from 'src/app/services/applyPermissions.service';
 
 @Component({
   selector: 'planes-transversales-root',
@@ -16,11 +17,13 @@ export class PlanesTransversalesComponent implements OnInit {
 
   estado: boolean | null = null 
   actividadesPerito!: ActividadI[]
+  modulo = this.userSystemService.modulosSis
   presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } | null = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
 
   constructor(
     private router: Router,
     private helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private actividadesService: ActividadesService,
     private userSystemService: UserSystemInformationService,
     private apiPresupuestoInstitucional: PresupuestoInstitucionalService,
@@ -29,10 +32,6 @@ export class PlanesTransversalesComponent implements OnInit {
   ngOnInit(): void {
     this.getActividadesPerito()
     this.getPresupuestoUnidad()
-  }
-
-  filterByState(){
-    this.getActividadesPerito() 
   }
 
   sendDetailInsumo(idInsumo: number, indicadorId: number) { this.router.navigate(['dashboard/planesTransversales/detallePlanTransversal'], { queryParams: { id: idInsumo, idInd: indicadorId } }); }
