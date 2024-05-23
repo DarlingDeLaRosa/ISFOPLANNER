@@ -90,8 +90,6 @@ export class FormulacionComponent implements OnInit {
   getProducto() {
     const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
     this.apiProducto.getProducto(this.userSystemService.getUnitOrg.nombre, ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => {
-      console.log(res);
-      
       this.productos = res.data;
       if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI) => estrategia.id == estrategias)
       if (ejesEstrategico > 0) [this.selectedEjesEstrategico] = this.ejesEstrategicos.filter((ejeEs: EjesI) => ejeEs.id == ejesEstrategico)

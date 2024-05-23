@@ -32,7 +32,7 @@ export const formulacionPeriodoGuard: CanActivateFn = (route, state) => {
       }
 
       if (prorroga && currentDate <= new Date(prorroga)) {
-        alertPeriod("Periodo de Prórroga", `Finaliza ${prorroga}`);
+        alertPeriod("Periodo de Prórroga", `Finaliza ${prorroga} (DD/MM/AA)`);
         return true;
       } else {
         alertPeriodDone(

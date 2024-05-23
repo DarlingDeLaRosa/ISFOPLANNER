@@ -5,7 +5,7 @@
     <br>
     <div class="fuctionContent">
         <span></span>
-        <span style="display: flex;">
+        <span style="display: flex;" >
             <div class="checkPresupuesto">
                 <div class="titlePresupuesto">
                     <h3>Presupuesto total</h3>
@@ -64,7 +64,7 @@
                         <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!subUnidadesOrg" class="loader"></div> </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr class="dataRow" *ngFor="let subUnidadOrg of subUnidadesOrg">
                         <td class="dataIndiCell">{{subUnidadOrg.nombre}}</td>
                         <td class="dataIndiCell">{{subUnidadOrg.presupuesto[0].montoEjecutado| currency: 'DOP ': 'symbol': '1.2-2'}} </td>
@@ -81,5 +81,4 @@
             <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
         </div>
     </div>
-
 </div>

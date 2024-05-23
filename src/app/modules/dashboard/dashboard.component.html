@@ -33,16 +33,16 @@
           <mat-icon>library_books</mat-icon>Material de Apoyo
         </a>
 
+        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.asignacion_de_presupuesto) && isUnitFather"> <!--&& unidadOrgData.subUnidad -->
+          <mat-icon>settings</mat-icon>Asignación de presupuesto
+        </a>
+
         <a class="item-menu" [routerLink]="['ayuda']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.ayuda)">
           <mat-icon>question_mark</mat-icon>Ayuda
         </a>
         
         <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active" > <!--*ngIf="permisosCRUD.permisoLeer(modulo.mantenimiento) && unidadOrgData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO'"-->
           <mat-icon>settings</mat-icon>Mantenimiento
-        </a>
-
-        <a class="item-menu" [routerLink]="['asignacionPresupuesto']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.asignacion_de_presupuesto) && isUnitFather"> <!--&& unidadOrgData.subUnidad -->
-          <mat-icon>settings</mat-icon>Asignación de presupuesto
         </a>
 
       </div>

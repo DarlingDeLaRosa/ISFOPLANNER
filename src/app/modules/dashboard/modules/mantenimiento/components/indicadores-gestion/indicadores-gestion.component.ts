@@ -79,8 +79,10 @@ export class IndicadoresGestionComponent implements OnInit {
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
       .subscribe((res: any) => { 
-        this.idPresupuesto =  res.data[0].id
-        this.indicadoresGestionForm.patchValue({ idPresupuesto: this.idPresupuesto }) 
+        if ( res.data.length > 0){
+          this.idPresupuesto =  res.data[0].id
+          this.indicadoresGestionForm.patchValue({ idPresupuesto: this.idPresupuesto }) 
+        }
       })
   }
 

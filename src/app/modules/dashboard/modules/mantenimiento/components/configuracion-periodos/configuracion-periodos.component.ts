@@ -49,7 +49,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id })})
+      .subscribe((res: any) => { if(res.data.length > 0) this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id })})
   }
 
   getProceso() {

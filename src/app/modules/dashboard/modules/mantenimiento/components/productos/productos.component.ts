@@ -57,7 +57,7 @@ export class ProductosComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { this.productosForm.patchValue({ idPresupuesto: res.data[0].id }) })
+      .subscribe((res: any) => { if ( res.data.length > 0) this.productosForm.patchValue({ idPresupuesto: res.data[0].id }) })
   }
 
   getIndicadoresEstrategicos() {
@@ -70,18 +70,18 @@ export class ProductosComponent implements OnInit {
   }
 
   getUnidadOrganizativa() {
-    this.apiUnidadOrg.getUnidadesOrganizativas()
+    this.apiUnidadOrg.getUnidadesOrganizativas('',true)
       .subscribe((res: any) => { this.unidadesOrg = res.data; })
   }
 
   postProducto() {
     this.apiProducto.postProducto(this.productosForm.value)
-    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
+    .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm, ()=> this.getPresupuestoInstitucional()) })
   }
 
   putProducto() {
     this.apiProducto.putProducto(this.productosForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
+      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm, ()=> this.getPresupuestoInstitucional()) })
   }
 
   async deleteProducto(id: number) {
@@ -90,7 +90,7 @@ export class ProductosComponent implements OnInit {
     if (removeDecision) {
       loading(true)
       this.apiProducto.removeProducto(id)
-        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm) })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getProducto(), this.productosForm, ()=> this.getPresupuestoInstitucional()) })
     }
   }
 
@@ -108,7 +108,6 @@ export class ProductosComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(this.productosForm.value);
     this.helperHandler.saveChanges(() => this.putProducto(), this.productosForm, () => this.postProducto())
   }
 }

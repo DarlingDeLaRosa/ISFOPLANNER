@@ -36,6 +36,8 @@ export class LogInComponent {
     loading(true)
     this.authService.postLogIn(this.formUserLogIn.value)
       .subscribe((res: any) => {
+        console.log(res);
+        
         loading(false)
         
         if (res.data != undefined) {
@@ -45,7 +47,7 @@ export class LogInComponent {
           this.userSystemService.setUserToken = res.token
           this.userSystemService.setUserLogged = res.data
 
-          this.router.navigate(['/dashboard/formulacion'])
+          this.router.navigate(['/dashboard/ayuda'])
 
         } else errorMessageAlert(res.message)
 

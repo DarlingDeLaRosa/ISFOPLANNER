@@ -674,6 +674,8 @@ tr:nth-child(odd) td {
 .asnwerModal {
     padding: 15px;
     width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 .modal {

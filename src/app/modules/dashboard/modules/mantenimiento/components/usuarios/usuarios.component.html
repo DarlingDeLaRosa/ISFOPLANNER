@@ -107,7 +107,7 @@
             <th class="headerCell">Rol</th>
             <th class="headerCell">Departamento</th>
             <th class="headerCell">División</th>
-            <th class="headerCell">Unidad perteneciente</th>
+            <th class="headerCell">Recinto</th>
             <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!usuarios" class="loader"></div> </th>
           </tr>
@@ -120,7 +120,7 @@
             <td class="dataIndiCell">{{usuario.rol.nombre}}</td>
             <td class="dataIndiCell">{{usuario.persona.departamento.nombre}}</td>
             <td class="dataIndiCell">{{usuario.persona.division.nombre}}</td>
-            <td class="dataIndiCell">{{usuario.unidad}}</td>
+            <td class="dataIndiCell">{{usuario.persona.recinto.siglas}}</td>
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon class="editIcon" (click)="setValueEditUsuarios(usuario)">edit</mat-icon> </td>
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon class="removeIcon" (click)="deleteUsuarios(usuario.idUsuario)">delete</mat-icon></td> </tr>
         </tbody>

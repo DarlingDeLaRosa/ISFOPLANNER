@@ -50,12 +50,15 @@ export class AsignacionPresupuestoComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { this.presupuestosInst = res.data[0]; })
+      .subscribe((res: any) => { if ( res.data.length > 0) this.presupuestosInst = res.data[0]; })
   }
 
   getUnidadOrganizativa() {
-    this.apiUnidadOrg.getUnidadesOrganizativas()
-      .subscribe((res: any) => { this.unidadesOrgPadres = res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.unidadPadre == undefined }) })
+    this.apiUnidadOrg.getUnidadesOrganizativas('', true)
+      .subscribe((res: any) => { 
+        this.unidadesOrgPadres = res.data
+        res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.unidadPadre == undefined }) 
+      })
   }
 
   getUnidadOrganizativaAsignadas() {
@@ -95,10 +98,10 @@ export class AsignacionPresupuestoComponent implements OnInit {
   }
 
   async deletePresupuestoUnidadOrg(unidad?: subUnidadI) {
-    const montoPresupuesto = unidad?.presupuesto[0].monto;
-    const montoFormateado = montoPresupuesto?.toLocaleString('es-ES', { style: 'currency', currency: 'DOP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // const montoPresupuesto = unidad?.presupuesto[0].monto;
+    // const montoFormateado = montoPresupuesto?.toLocaleString('es-ES', { style: 'currency', currency: 'DOP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    let removeDecision: boolean = await alertRemoveSure(`¿Estas seguro de eliminar el presupuesto de ${unidad?.nombre} (${montoFormateado})`)
+    let removeDecision: boolean = await alertRemoveSure(`¿Estas seguro de eliminar el presupuesto de ${unidad?.nombre} `) //(${montoFormateado})
 
     if (removeDecision) {
       loading(true)

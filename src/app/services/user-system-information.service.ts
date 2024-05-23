@@ -34,6 +34,7 @@ export class UserSystemInformationService {
     // private URLremoteDesarrollo = "http://isfoplaner.somee.com"
     private URLdesarrollo = "http://172.25.4.24:3000"
     private URLgeneralServerURL = "http://172.25.4.24"
+    private URLgeneralServer12 = 'http://172.25.0.12:3003'
 
     constructor() {}
 
@@ -41,7 +42,7 @@ export class UserSystemInformationService {
     get getToken(): string { return this.userToken }
     get getSistema(): number { return this.sistema }
     get getURL(): string { return this.URLdesarrollo }
-    get getURLgeneralService(): string { return this.URLgeneralServerURL }
+    get getURLgeneralService(): string { return this.URLgeneralServer12 }
     
     get isUnidadOrgFather(): UnidadDataI {
         let userLevel;
@@ -79,9 +80,9 @@ export class UserSystemInformationService {
 
     get getUnitOrg(): subUnit { 
         let unitData = localStorage.getItem('unidadOrganizativa') 
-
+        
         if ( unitData == null) { return this.exatUnitOrg }
-        else{ this.exatUnitOrg = JSON.parse(unitData) ; return this.exatUnitOrg }
+        else{ this.exatUnitOrg = JSON.parse(unitData); return this.exatUnitOrg }
     }
 
     get getPeriod(): {formulacion: periodoConfig, monitoreo: periodoConfig}{

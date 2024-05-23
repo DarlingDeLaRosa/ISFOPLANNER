@@ -152,7 +152,7 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { this.actividadForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
+      .subscribe((res: any) => { if ( res.data.length > 0) this.actividadForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
   }
 
   async getByIdActividades() {

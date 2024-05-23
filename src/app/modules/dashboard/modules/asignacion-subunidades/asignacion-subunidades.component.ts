@@ -51,24 +51,28 @@ export class AsignacionSubunidadesComponent {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true).subscribe((res: any) => { this.presupuestosInst = res.data[0].id; })
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true).subscribe((res: any) => { 
+      if ( res.data.length > 0) this.presupuestosInst = res.data[0].id; 
+    })
   }
 
   getPresupuestoUnidad() {
-    this.apiPresupuestoInstitucional.getPresupuestoUnidad(this.userSystemService.getUnitOrg.nombre).subscribe((res: any) => { this.presupuestosUnidad = res.data })
+    this.apiPresupuestoInstitucional.getPresupuestoUnidad(this.userSystemService.getUnitOrg.nombre).subscribe((res: any) => { 
+      if(res.data.monto) this.presupuestosUnidad = res.data 
+    })
   }
 
   getUnidadOrganizativa() {
-    this.apiUnidadOrg.getUnidadesOrganizativas()
+    this.apiUnidadOrg.getUnidadesOrganizativas(this.userSystemService.getUnitOrg.nombre)
       .subscribe((res: any) => {
-        let subUnidades = res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.nombre == this.userUnidadData.unidad })
-        this.unidadesOrgPadres = subUnidades[0].subUnidades
+        // let subUnidades = res.data.filter((fatherUnits: subUnidadI) => { return fatherUnits.nombre == this.userUnidadData.unidad })
+        this.unidadesOrgPadres = res.data[0].subUnidades
       })
   }
 
   getUnidadOrganizativaAsignadas() {
     this.apiPresupuestoInstitucional.getSubUnidadesPresupuestoAsignado()
-      .subscribe((res: any) => { this.subUnidadesOrg = res.data })
+      .subscribe((res: any) => { this.subUnidadesOrg = res.data; })
   }
 
   postAsignarPresupuestoUnidadOrg() {
