@@ -42,15 +42,26 @@ export class IndicadoresFormulacionComponent implements OnInit {
   getByIdIndicador() {
     this.indicadorService.getIndicadorByIdGestion(this.idIndicador)
       .subscribe((resp: any) => { 
-        this.indicador = resp.data; console.log(resp);
-        if(this.helperHandler.getExactMetaRecinto(this.indicador.indicadoresRecinto).metaRecinto == undefined && this.indicador.alcance.id != 2) this.invalidIndRecinto()
-        if(this.indicador.alcance.id != 2) this.idIndicadorRecinto =  this.helperHandler.getExactMetaRecinto(this.indicador.indicadoresRecinto).metaRecinto?.id!
+        this.indicador = resp.data; 
+
+        if(this.helperHandler.getExactMetaRecinto(this.indicador.indicadoresRecinto).metaRecinto == undefined && this.indicador.alcance.id != 2){
+          
+          this.invalidIndRecinto()
+        }
+        
+        if(this.indicador.alcance.id != 2){
+          console.log(this.helperHandler.getExactMetaRecinto(this.indicador.indicadoresRecinto).metaRecinto);
+          
+          this.idIndicadorRecinto =  this.helperHandler.getExactMetaRecinto(this.indicador.indicadoresRecinto).metaRecinto?.id!
+        } 
+
       })
   }
   
   sendToNewAct(){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idIndicador, indRec: this.idIndicadorRecinto} }); }
   sendToEditAct(idAct: number){ this.router.navigate(['dashboard/formulacion/actividad'], { queryParams: {id: this.idIndicador, indRec: this.idIndicadorRecinto, idAct: idAct} }); }
   backToProducto() { this.router.navigate(['dashboard/formulacion/producto'], { queryParams: { id: this.indicador.producto.id } });}
+  
   async invalidIndRecinto(){
     await alertPeriodPromise("El administrador aun no establece la meta a su recinto.",`Para mas información comuniquese con el Departamento de Formulación, Monitoreo y Evaluación de Planes, Programas y Proyectos `)
     this.backToProducto()

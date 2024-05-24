@@ -131,7 +131,7 @@ export class HelperService {
 
     //Valida que la unidad este dentro del array de responsables de los diferentes recintos
     validationResRecintos(unit: string, recintosResponsablesUnits: indicadorMetaRecintosGet[]): boolean {
-        let unitRes = recintosResponsablesUnits.some((unidad: indicadorMetaRecintosGet ) => { unit == unidad.responsable.nombre })
+        let unitRes = recintosResponsablesUnits.some((unidad: indicadorMetaRecintosGet ) => { return unit == unidad.responsable.nombre })
         return unitRes
     }  
 

@@ -113,7 +113,7 @@ export class IndicadorEditarComponent implements OnInit {
   }
 
   validationDefined() {
-    const { indicadoresRecinto, logroEsperadoT1, logroEsperadoT2, logroEsperadoT3, logroEsperadoT4, meta, alcance } = this.indicador
+    const { indicadoresRecinto, logroEsperadoT1, logroEsperadoT2, logroEsperadoT3, logroEsperadoT4, meta, alcance, tipoIndicador } = this.indicador
     const suma = this.helperHandler.sumTotal({ lg1: logroEsperadoT1, lg2: logroEsperadoT2, lg3: logroEsperadoT3, lg4: logroEsperadoT4 })
 
     if (indicadoresRecinto.length == 0 && alcance.id !== 2 && this.userLogged.recinto.siglas !== 'REC') {
@@ -121,9 +121,11 @@ export class IndicadorEditarComponent implements OnInit {
       this.dialogRef.close()
     }
 
-    if (!this.helperHandler.validationGoal(meta, suma) && this.userLogged.recinto.siglas !== 'REC') {
-      errorMessageAlert('Los resultados esperados generales deben ser completados por la unidad de Rectoria a cargo del indicador.')
-      this.dialogRef.close()
+    if (this.userLogged.recinto.siglas !== 'REC') {
+      if (!this.helperHandler.validationGoal(meta, suma) && tipoIndicador.id == 2 || logroEsperadoT4 != meta && tipoIndicador.id == 1) {
+        errorMessageAlert('Los resultados esperados generales deben ser completados por la unidad de Rectoria a cargo del indicador.')
+        this.dialogRef.close()
+      }
     }
 
     if (suma > 0) { this.indicadoresGestionForm.reset(this.indicador) }
@@ -143,7 +145,7 @@ export class IndicadorEditarComponent implements OnInit {
   validationTypeInd(sendData: () => void, meta: number, logroT4: number, form: FormGroup) {
     if (this.indicador.tipoIndicador.id == 1) {
       if (this.helperHandler.sameLastGoal(logroT4, meta)) sendData()
-      else { warningMessageAlert(`Los indicadores de flujo deben cumplir con la misma meta en los periodos donde aplica.`) }
+      else { warningMessageAlert(`Los indicadores de flujo deben cumplir con la meta al menos en el ultimo periodo.`) }
     }
     else {
       if (meta == this.helperHandler.sumTotal(form)) sendData()

@@ -1,20 +1,19 @@
+import { format } from 'date-fns';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActividadesService } from '../../services/actividades.service';
-import { alertNoValidForm, alertRemoveSure, loading } from 'src/app/alerts/alerts';
-import { EstadoI, FrecuenciaI, MesesI, CategoriaInsumosI, UnidadesMedidaI, InsumosI, CosteoDetallesI, CosteoI, CosteoDetallesGroupI } from '../../interfaces/formulacion.interface';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResponsableService } from '../../../mantenimiento/components/mantenimiento-pei/services/reponsable.service';
-import { ResponsableI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/responsable.interface';
-import { InvolucradoI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/involucrado.interface';
-import { involucradoService } from '../../../mantenimiento/components/mantenimiento-pei/services/involucrado.service';
 import { HelperService } from 'src/app/services/appHelper.service';
-import { PresupuestoInstitucionalService } from '../../../mantenimiento/services/presupuestoInstitucional.service';
-import { format } from 'date-fns';
-import { UnidadOrganizativaService } from '../../../mantenimiento/services/unidad-organizativa.service';
+import { ActividadesService } from '../../services/actividades.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { alertNoValidForm, alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
-import { forkJoin } from 'rxjs';
+import { UnidadOrganizativaService } from '../../../mantenimiento/services/unidad-organizativa.service';
+import { involucradoService } from '../../../mantenimiento/components/mantenimiento-pei/services/involucrado.service';
+import { ResponsableI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/responsable.interface';
+import { PresupuestoInstitucionalService } from '../../../mantenimiento/services/presupuestoInstitucional.service';
+import { InvolucradoI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/involucrado.interface';
+import { ResponsableService } from '../../../mantenimiento/components/mantenimiento-pei/services/reponsable.service';
+import { EstadoI, MesesI, CategoriaInsumosI, UnidadesMedidaI, InsumosI, CosteoDetallesI, CosteoI, CosteoDetallesGroupI } from '../../interfaces/formulacion.interface';
 
 @Component({
   selector: 'app-actividades-formulacion',
@@ -134,16 +133,16 @@ export class ActividadesFormulacionComponent implements OnInit {
     // this.getProvinvias();
     // this.getMunicipios();
     // this.getFrecuencia();
+    this.getMeses()
     this.getCargos()
+    this.getPeritos();
     this.getestados();
     this.getInsumos();
-    this.getMeses()
     this.getResponsable();
     this.getInvolucrado();
+    this.getUnidadesMedida()
     this.getCategoriaInsumos();
     this.getPresupuestoInstitucional();
-    this.getPeritos();
-    this.getUnidadesMedida()
   }
 
   backToProducto() {
@@ -275,7 +274,11 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.actividadesService.postActividades(this.actividadForm.value)
       .subscribe((res: any) => {
         this.helperHandler.handleResponse(res, () => '', this.actividadForm)
-        if (res.ok) { this.insumosGroup = []; this.sumaTotal() }
+        if (res.ok) { 
+          this.insumosGroup = [];
+          this.sumaTotal() 
+          this.getPresupuestoInstitucional()
+        }
       })
   }
 
