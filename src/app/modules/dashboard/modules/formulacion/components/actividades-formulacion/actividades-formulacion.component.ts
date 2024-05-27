@@ -114,12 +114,10 @@ export class ActividadesFormulacionComponent implements OnInit {
       this.idIndicadorGestion = parseInt(params['id'])
       this.actividadForm.patchValue({ idIndicadorGestion: this.idIndicadorGestion })
       
-      if (params['indRec'] != null) this.actividadForm.patchValue({ idIndicadorRecinto: parseInt(params['indRec']) })
-
+      if (params['indRec'] != null && parseInt(params['indRec']) != 0) this.actividadForm.patchValue({ idIndicadorRecinto: parseInt(params['indRec']) })
+      
       if (params['idAct'] !== undefined) {
         this.idActividad = parseInt(params['idAct']);
-        console.log(this.idActividad);
-        
         this.getByIdActividades()
       }
     });
@@ -268,9 +266,7 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.actividadesService.getCategoriasInsumo().subscribe((resp: any) => { this.categoriaInsumoList = resp.data; })
   }
 
-  postActividades() {
-    console.log(this.actividadForm.value);
-    
+  postActividades() {    
     this.actividadesService.postActividades(this.actividadForm.value)
       .subscribe((res: any) => {
         this.helperHandler.handleResponse(res, () => '', this.actividadForm)
@@ -278,6 +274,7 @@ export class ActividadesFormulacionComponent implements OnInit {
           this.insumosGroup = [];
           this.sumaTotal() 
           this.getPresupuestoInstitucional()
+          this.backToProducto()
         }
       })
   }
@@ -364,11 +361,13 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   saveChanges() {
+    console.log(this.actividadForm.value);
     this.insumosGroup.map((insumo: CosteoDetallesGroupI) => {
       if (insumo.idPerito == 0) { insumo.idPerito = null }
     })
     this.actividadForm.value.costeo.costeoDetalles = this.insumosGroup
     this.actividadForm.value.costeo.montoTotalEstimado = this.showMontoTotal
+
     this.helperHandler.saveChanges(() => this.putActividades(), this.actividadForm, () => this.postActividades())
   }
 }

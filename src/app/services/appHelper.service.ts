@@ -24,6 +24,8 @@ export class HelperService {
             formToReset?.reset();
             if (onSecondSuccess != undefined) onSecondSuccess();
         } else {
+            console.log(response);
+            
             loading(false)
             alertIsSuccess(false);
         }
@@ -108,6 +110,7 @@ export class HelperService {
     }
 
     //Valida que la meta exista al menos una vez
+    
     sameGoal(objetSame: any, valor: number): boolean {
         let found: boolean = false; // Variable para indicar si se encontró al menos una vez el valor de la meta
         for (const key in objetSame) {

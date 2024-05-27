@@ -63,7 +63,7 @@
                         <th class="headerCell"></th>
                     </tr>
                     <tr class="headerRow"
-                        *ngIf="indicador.indicadoresRecinto.length == 0 || indicador.actividades.length == 0 && indicador.alcance.id == 2 || indicador.alcance.id != 2 && this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades?.length! == 0">
+                        *ngIf="indicador.indicadoresRecinto.length == 0 && indicador.alcance.id != 2|| indicador.actividades.length == 0 && indicador.alcance.id == 2 || indicador.alcance.id != 2 && this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades?.length! == 0">
                         <th class="headerCell">No se encontraron actividades</th>
                     </tr>
                 </thead>

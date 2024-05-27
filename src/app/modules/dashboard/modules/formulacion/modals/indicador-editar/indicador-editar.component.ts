@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { errorMessageAlert, loading, warningMessageAlert } from 'src/app/alerts/alerts';
 import { UserI } from 'src/app/interfaces/Response.interfaces';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { indicadorMetaRecintosGet } from '../../interfaces/formulacion.interface';
+import { errorMessageAlert, loading, warningMessageAlert } from 'src/app/alerts/alerts';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { IndicadoresGestionGetI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { IndicadorGestionService } from '../../../mantenimiento/services/indicadores-gestion.service';
-import { indicadorMetaRecintosGet } from '../../interfaces/formulacion.interface';
 
 @Component({
   selector: 'app-indicador-editar',
@@ -26,18 +26,18 @@ export class IndicadorEditarComponent implements OnInit {
   indicadoresGestionRecintosForm: FormGroup;
   userLogged: UserI = this.userSystemService.getUserLogged;
 
-  idMetaRecintos: number = 0
   metaRecintos: number = 0
   metaRectoria: number = 0
+  idMetaRecintos: number = 0
 
   constructor(
 
     public fb: FormBuilder,
     public helperHandler: HelperService,
     private indicadorService: IndicadorGestionService,
+    @Inject(MAT_DIALOG_DATA) public idIndicador: number,
     private userSystemService: UserSystemInformationService,
     private dialogRef: MatDialogRef<IndicadorEditarComponent>,
-    @Inject(MAT_DIALOG_DATA) public idIndicador: number,
 
   ) {
 
@@ -76,18 +76,17 @@ export class IndicadorEditarComponent implements OnInit {
       .subscribe((resp: any) => {
         this.indicador = resp.data;
         const { logroEsperadoT1, logroEsperadoT2, logroEsperadoT3, logroEsperadoT4 } = this.indicador
-        console.log(this.indicador);
 
         this.validationDefined()
 
-        if (this.indicador.alcance.id !== 3) {
+        if (this.indicador.alcance.id !== 3 && this.userLogged.recinto.siglas == 'REC') {
           this.indicadoresGestionRecintosForm.reset({ logroEsperadoT1, logroEsperadoT2, logroEsperadoT3, logroEsperadoT4 })
           this.metaRecintos = this.indicador.meta
         }
         else {
           let logroRecinto = this.indicador.indicadoresRecinto.find((logroEsperadoRecinto: indicadorMetaRecintosGet) => {
             let recintoSiglas = logroEsperadoRecinto.responsable.nombre.split(' ')
-
+            
             if (recintoSiglas[recintoSiglas.length - 1] == this.userLogged.recinto.siglas) {
               this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
               return logroEsperadoRecinto
@@ -96,9 +95,10 @@ export class IndicadorEditarComponent implements OnInit {
               this.indicadoresGestionRecintosForm.reset(logroEsperadoRecinto)
               return logroEsperadoRecinto
             }
-            return
-          })
 
+            return 
+          })
+          
           if (this.userLogged.recinto.siglas == 'REC') {
             if (this.indicador.alcance.id !== 3) this.metaRecintos = this.indicador.meta
             else {
