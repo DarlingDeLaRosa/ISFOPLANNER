@@ -64,8 +64,7 @@ export class RolesComponent implements OnInit {
   }
 
   getRolesPermisos() {
-    this.rolesPermisosService.getRolesPermisos().subscribe((resp: any) => { this.roles = resp.data; console.log(resp);
-     })
+    this.rolesPermisosService.getRolesPermisos().subscribe((resp: any) => { this.roles = resp.data; console.log(resp);})
   }
 
   postRolesPermisos() {
@@ -75,7 +74,8 @@ export class RolesComponent implements OnInit {
 
   putRolesPermisos() {
     this.rolesPermisosService.postRolesPermisos(this.rolesForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getRolesPermisos(), this.rolesForm) })
+      .subscribe((res: any) => { 
+        this.helperHandler.handleResponseGeneralServer(res, () => this.getRolesPermisos(), this.rolesForm,) })
   }
 
   setValueRolesPermisos(rol: GetRolesI) {

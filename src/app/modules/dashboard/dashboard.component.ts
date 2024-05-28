@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { alertRemoveSure, loading, successMessageAlert, unitActiveAlert } from 'src/app/alerts/alerts';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { PermissionService } from '../../services/applyPermissions.service';
 import { UnidadDataI, UserI, subUnit } from 'src/app/interfaces/Response.interfaces';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { alertRemoveSure, loading, successMessageAlert, unitActiveAlert } from 'src/app/alerts/alerts';
 import { UnidadOrganizativaService } from './modules/mantenimiento/services/unidad-organizativa.service';
 import { periodoConfig, subUnidadI } from './modules/mantenimiento/interfaces/mantenimientoPOA.interface';
 import { ConfiguracionPeriodoServive } from './modules/mantenimiento/services/configuracion-periodos.service';
@@ -33,7 +33,6 @@ export class dashboardComponent implements OnInit {
     public userSystemService: UserSystemInformationService,
   ) {
     console.log(this.userLogged);
-    
   }
 
   ngOnInit(): void {

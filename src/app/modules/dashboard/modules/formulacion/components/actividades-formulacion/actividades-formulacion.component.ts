@@ -80,7 +80,7 @@ export class ActividadesFormulacionComponent implements OnInit {
       }),
 
       mesesImpacto: new FormControl('', Validators.required),
-      involucrados: new FormControl('',),
+      involucrados: new FormControl(null,),
 
       // resultadoEsperadoCuantitativoT1: new FormControl<number>(0, Validators.required),
       // resultadoEsperadoCuantitativoT2: new FormControl<number>(0, Validators.required),
@@ -189,6 +189,7 @@ export class ActividadesFormulacionComponent implements OnInit {
 
           if (insumos.perito == null) this.insumoForm.patchValue({ idPerito: 0, nombrePerito: 'NO APLICA' })
           else this.insumoForm.patchValue({ idPerito: insumos.perito.id, nombrePerito: insumos.perito.nombre })
+          console.log(insumos);
           
           this.insumoForm.patchValue({
             id: insumos.id,
@@ -205,7 +206,7 @@ export class ActividadesFormulacionComponent implements OnInit {
             descripcionInsumo: insumos.descripcionInsumo,
             nombreUnidadMedida: insumos.unidadMedida.nombre,
           })
-          console.log(insumos.perito);
+
           this.agregarInsumoAlObjeto()
         })
 

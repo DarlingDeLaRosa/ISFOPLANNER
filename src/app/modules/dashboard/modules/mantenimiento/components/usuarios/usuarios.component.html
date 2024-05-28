@@ -125,12 +125,10 @@
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon class="removeIcon" (click)="deleteUsuarios(usuario.idUsuario)">delete</mat-icon></td> </tr>
         </tbody>
       </table>
-
     </div>
 
     <div class="noData" *ngIf="usuarios && usuarios.length == 0">
       <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>
-
   </div>
 </div>

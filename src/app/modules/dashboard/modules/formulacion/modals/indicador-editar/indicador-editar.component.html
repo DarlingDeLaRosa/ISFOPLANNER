@@ -34,7 +34,7 @@
 
     <span>
       <h3 style="margin: 0;" class="Stitle">Medio de Verficación:</h3>{{indicador.mediosverificaciones[0].nombre}}
-      <span [matMenuTriggerFor]="menu" class="seeMore">...</span>
+      <button [matMenuTriggerFor]="menu" mat-stroked-button *ngIf="indicador.mediosverificaciones.length > 1"> <mat-icon style="margin-left: 5px;">arrow_drop_down</mat-icon> </button>
       <mat-menu #menu="matMenu">
         <ng-container *ngFor="let medioVer of indicador.mediosverificaciones">
           <h5 style="padding: 5px 15px; margin: 0;">{{medioVer.nombre}}</h5>

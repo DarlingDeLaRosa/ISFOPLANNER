@@ -2,8 +2,8 @@
     <h1>{{pregunta_Asnwer.pregunta.includes('?') || pregunta_Asnwer.pregunta.includes('¿') ? pregunta_Asnwer.pregunta : '¿' + pregunta_Asnwer.pregunta + '?'}}</h1>
     <hr>
     <div>
-        <p style="white-space: pre-line;"> 
-            {{pregunta_Asnwer.respuesta}} 
+        <p style="white-space: pre-line; text-align: justify;" [innerHTML]="sanitizedContent"> 
+            <!-- {{pregunta_Asnwer.respuesta}}  -->
         </p>
     </div>
     <hr>

@@ -115,12 +115,9 @@ export class UsuariosComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(JSON.stringify(this.usuariosForm.value));
-
     if (this.usuariosForm.valid) {
       if (this.usuariosForm.value.idUsuario > 0) this.putUsuarios()
       else this.postUsuarios()
     } else alertNoValidForm()
   }
-
 }
