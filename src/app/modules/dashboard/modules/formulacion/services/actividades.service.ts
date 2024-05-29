@@ -60,10 +60,6 @@ export class ActividadesService {
     return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/UnidadesDeMedida`, this.header))
   }
 
-  getInsumos(): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Insumos`, this.header))
-  }
-
   postActividades(actividad: ActividadI): Observable<ResponseI> {
     return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/Actividades`, actividad, this.header))
   }
@@ -96,9 +92,16 @@ export class ActividadesService {
   postAceptacionPerito(insumo: postInsumoAceptacion, idCosteoDetalle:number, idIndicador: number): Observable<ResponseI> {
     return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/Actividades/transversales/costeo-detalle/${idCosteoDetalle}/indicador-operativo/${idIndicador}`, insumo, this.header))
   }
+  
+  getInsumos(): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Insumos`, this.header))
+  }
 
   getInsumoById(idInsumo: number): Observable<ResponseI> {
     return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/costeos/costeo-detalles/${idInsumo}`, this.header))
   }
 
+  removeInsumos(id: number, idIndicador: number, idResp: number): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.delete<ResponseI>(`${this.baseUrl}/costeos/costeo-detalles/${id}?indicador=${idIndicador}&responsable=${idResp}`, this.header))
+  }
 }

@@ -32,7 +32,7 @@ export class UserSystemInformationService {
     }
 
     // private URLremoteDesarrollo = "http://isfoplaner.somee.com"
-    private URLdesarrollo = "http://172.25.4.24:3000"
+    private URLdesarrollo = "http://172.25.0.12:5002/api"
     private URLgeneralServerURL = "http://172.25.4.24"
     private URLgeneralServer12 = 'http://172.25.0.12:3003'
 

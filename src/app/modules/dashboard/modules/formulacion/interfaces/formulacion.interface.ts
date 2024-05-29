@@ -119,13 +119,13 @@ export interface CosteoDetallesGroupI {
   cantidad: number,
   idPerito: any,
   montoTotal: number,
-  peritoAceptacion?: boolean
   nombrePerito: string
   fechaRecepcion: Date
   idUnidadMedida: number
   auxiliar: string
   insumo: any
   nombre: string
+  peritoAceptacion?: boolean
   nombreUnidadMedida: string
   descripcionInsumo: string
 }

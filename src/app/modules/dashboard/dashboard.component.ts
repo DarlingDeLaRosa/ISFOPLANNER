@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { HelperService } from 'src/app/services/appHelper.service';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { PermissionService } from '../../services/applyPermissions.service';
 import { UnidadDataI, UserI, subUnit } from 'src/app/interfaces/Response.interfaces';
@@ -26,6 +27,7 @@ export class dashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public helperHandler: HelperService,
     public permisosCRUD: PermissionService,
     private apiUnidadOrg: UnidadOrganizativaService,
     public autenticationService: AuthenticationService,
@@ -38,12 +40,12 @@ export class dashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getPeriodoConfig()
     this.isUnidadOrgFather()
-    this.getUnidadOrganizativaRecintos()
+    this.validUnidadOrganizativaRecintos()
   }
-
+  
   async logOut(){
     let logOutDecision: boolean = await alertRemoveSure("¿ Estas seguro de cerrar sesión ?")
-
+    
     if (logOutDecision) {
       loading(true)
       this.autenticationService.postLogOut().subscribe((res:any) => {
@@ -63,30 +65,30 @@ export class dashboardComponent implements OnInit {
       else this.isUnitFather = false
     })
   }
-
-  getUnidadOrganizativaRecintos() {
+  
+  validUnidadOrganizativaRecintos() {
     this.apiUnidadOrg.getUnidadesOrganizativasPeritos().subscribe((res: any) => { 
       this.unidadesOrg = res.data 
-      if (this.unidadesOrg.some((subUnidad: subUnidadI)=> subUnidad.nombre == this.userSystemService.getUnitOrg.nombre )) this.validPlanTransversal = true
+      if (this.helperHandler.findUnitOrgRec(this.userSystemService.getUnitOrg.nombre , this.unidadesOrg)) this.validPlanTransversal = true
       else this.validPlanTransversal = false
     })
   }
-
+  
   getPeriodoConfig() {
     this.periodoService.getPeriodoConfig()
-      .subscribe((res: any) => { 
-        this.userSystemService.setConfigPeriodFormulacion = res.data.find((period: periodoConfig) => { return period.tipoProceso.nombre == 'Formulación' })
+    .subscribe((res: any) => { 
+      this.userSystemService.setConfigPeriodFormulacion = res.data.find((period: periodoConfig) => { return period.tipoProceso.nombre == 'Formulación' })
         this.userSystemService.setConfigPeriodMonitoreo = res.data.find((period: periodoConfig) => { return period.tipoProceso.nombre == 'Monitoreo' })
       })
-  }
-
-  changeUnitOrg(unitOrg: subUnit) {
-    this.userSystemService.setUnitOrg = unitOrg
-    this.userSystemService.unitChange.emit()
-    this.router.navigate(['dashboard/ayuda']);
+    }
     
-    unitActiveAlert(unitOrg.nombre)
-    this.getUnidadOrganizativaRecintos()
-    this.isUnidadOrgFather()
+    changeUnitOrg(unitOrg: subUnit) {
+      this.userSystemService.setUnitOrg = unitOrg
+      this.userSystemService.unitChange.emit()
+      this.router.navigate(['dashboard/ayuda']);
+      
+      unitActiveAlert(unitOrg.nombre)
+      this.validUnidadOrganizativaRecintos()
+      this.isUnidadOrgFather()
   }
 }

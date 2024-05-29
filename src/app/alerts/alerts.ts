@@ -69,11 +69,11 @@ export function infoMessageAlert(message: string) {
   })
 }
 
-export function alertRemoveSure(message: string): Promise<boolean> {
+export function alertRemoveSure(message: string, observacion?: string): Promise<boolean> {
   return new Promise((resolve) => {
     Swal.fire({
-      title: '¡Alerta!',
-      text: message,
+      title: message,
+      text: observacion,
       icon: 'warning',
       confirmButtonText: 'Aceptar',
       showCancelButton: true,

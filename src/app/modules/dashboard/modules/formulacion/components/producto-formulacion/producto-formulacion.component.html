@@ -52,7 +52,7 @@
                                 <th class="headerCell" style="width: 15%;">Presupuesto Estimado</th>
                                 <th class="headerCell" style="width: 15%;">Presupuesto Transversal</th>
                                 <th class="headerCellArrows" style="width: 50px; padding-right: 20px;">
-                                    <span *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'">
+                                    <span *ngIf="helperHandler.findUnitOrgRec(exactUnit, unidadesOrg) && indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'">
                                         <span>
                                             <mat-icon class="rowIcon"
                                             (click)="backRecinto(indicador.id)">navigate_before</mat-icon>
@@ -71,8 +71,8 @@
                                     <th class="headerCell"></th>
                                     <th class="headerCell"></th>
                                     <th class="headerCell"></th>
-                                    <th class="headerCellArrows" style="width: 50px; padding-right: 20px;">
-                                        <span *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'">
+                                    <th class="headerCellArrows" style="width: 50px; padding-right: 20px;" >
+                                        <span *ngIf="helperHandler.findUnitOrgRec(exactUnit, unidadesOrg) && indicador.alcance.id !== 2 && userLogged.recinto.siglas == 'REC'">
                                             <span>
                                                 <mat-icon class="rowIcon"
                                                 (click)="backRecinto(indicador.id)">navigate_before</mat-icon>

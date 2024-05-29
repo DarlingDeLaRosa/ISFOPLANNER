@@ -8,8 +8,9 @@ import { ProductoService } from '../../../mantenimiento/services/producto.servic
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { IndicadorEditarComponent } from '../../modals/indicador-editar/indicador-editar.component';
 import { IndicadorEditarRecintosComponent } from '../../modals/indicador-editar-recintos/indicador-editar-recintos.component';
-import { IndicadoresGestionGetI, ProductoI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
+import { IndicadoresGestionGetI, ProductoI, subUnidadI } from '../../../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { IndicadorVistaMetaComponent } from '../../modals/indicador-vista-meta/indicador-vista-meta.component';
+import { UnidadOrganizativaService } from '../../../mantenimiento/services/unidad-organizativa.service';
 
 @Component({
   selector: 'app-producto-formulacion',
@@ -22,10 +23,12 @@ export class ProductoFormulacionComponent implements OnInit {
   unitSiglas: string = ''
   listOfAct!: ActividadI[]
   productoConsult!: ProductoI
+  unidadesOrg: subUnidadI[] = []
   metaIndicadorRecinto: number = 0
   modulo = this.userSystemService.modulosSis
   unitIndices: { [key: number]: number } = {};
   userLogged = this.userSystemService.getUserLogged
+  exactUnit =  this.userSystemService.getUnitOrg.nombre
   curretUnit: string = this.userSystemService.getUnitOrg.nombre
   montosEstimados: { mte: number, mtte: number } = { mte: 0, mtte: 0 }
 
@@ -36,18 +39,23 @@ export class ProductoFormulacionComponent implements OnInit {
     public helperHandler: HelperService,
     public permisosCRUD: PermissionService,
     private productoService: ProductoService,
+    private unidadOrgService: UnidadOrganizativaService,
     private userSystemService: UserSystemInformationService,
   ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => { this.idProducto = params['id']; });
+    this.getUnidadOrganizativaRecintos()
     this.getByIdProducto();
+  }
+
+  getUnidadOrganizativaRecintos() {
+    this.unidadOrgService.getUnidadesOrganizativasRecintos().subscribe((res: any) => { this.unidadesOrg = res.data })
   }
 
   getByIdProducto() {
     this.productoService.getByIdProducto(this.idProducto).subscribe((resp: any) => {
-      this.productoConsult = resp.data; console.log(resp.data);
-    })
+      this.productoConsult = resp.data; })
   }
 
   openModalIndicadoresRecinto(indicador: number) {
@@ -70,7 +78,6 @@ export class ProductoFormulacionComponent implements OnInit {
   }
 
   getActArrayRecinto(indicador: IndicadoresGestionGetI): ActividadI[] {
-
     if (this.userLogged.recinto.siglas != 'REC') this.listOfAct = this.helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.actividades!
     else {
       const indicadorIndex = this.unitIndices[indicador.id];
@@ -88,9 +95,8 @@ export class ProductoFormulacionComponent implements OnInit {
           this.unitSiglas = sigla
           this.montosEstimados = montos
         }
-      } 
+      }
     }
-
     return this.listOfAct
   }
 

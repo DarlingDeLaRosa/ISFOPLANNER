@@ -252,7 +252,7 @@
         <span style="display: flex; justify-content: space-between;">
           <span></span>
           <span>
-            <a class="cleanInsumoButton" mat-stroked-button (click)="insumoForm.reset()"><mat-icon>clear</mat-icon>Limpiar</a> &nbsp;
+            <a class="cleanInsumoButton" mat-stroked-button (click)="clearInsumoForm()"><mat-icon>clear</mat-icon>Limpiar</a> &nbsp;
             <button type="submit" class="downLoadButton" mat-stroked-button ><mat-icon>add</mat-icon>Agregar</button>
           </span>
         </span>
@@ -295,8 +295,8 @@
             <td class="dataCell">{{insumo.montoTotal  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
             <td class="dataCell"><mat-icon *ngIf="insumo.peritoAceptacion != true" class="editIcon" (click)="editInsumo(insumo, i)">edit</mat-icon></td>
             <td class="dataCell">
-              <mat-icon *ngIf="insumo.peritoAceptacion != true; else gestorWorking" class="removeIcon" (click)="removeInsumo(i)">delete</mat-icon>
-              <ng-template #gestorWorking ><mat-icon matTooltip="El Insumo esta siendo procesado por el gestor transversal.">block</mat-icon></ng-template>
+              <mat-icon *ngIf="insumo.peritoAceptacion != true; else gestorWorking" class="removeIcon" (click)="removeInsumo(i, insumo.id)">delete</mat-icon>
+              <ng-template #gestorWorking ><mat-icon  class="removeIcon" matTooltip="El Insumo esta siendo procesado por el gestor transversal.">block</mat-icon></ng-template>
             </td>
           </tr>
         </tbody>

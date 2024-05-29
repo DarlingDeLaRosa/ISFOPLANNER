@@ -95,6 +95,7 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.insumoForm = this.fb.group({
       id: 0,
       montoTotal: new FormControl(''),
+      peritoAceptacion: new FormControl(null),
       nombre: new FormControl('', Validators.required),
       cantidad: new FormControl('', Validators.required),
       auxiliar: new FormControl('', Validators.required),
@@ -113,9 +114,9 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.idIndicadorGestion = parseInt(params['id'])
       this.actividadForm.patchValue({ idIndicadorGestion: this.idIndicadorGestion })
-      
+
       if (params['indRec'] != null && parseInt(params['indRec']) != 0) this.actividadForm.patchValue({ idIndicadorRecinto: parseInt(params['indRec']) })
-      
+
       if (params['idAct'] !== undefined) {
         this.idActividad = parseInt(params['idAct']);
         this.getByIdActividades()
@@ -126,7 +127,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   async ngOnInit() {
     this.actividadForm.patchValue({ responsableUnidad: this.userSystemService.getUnitOrg.nombre })
     console.log(this.actividadForm.value);
-    
+
     // this.getRegiones();
     // this.getProvinvias();
     // this.getMunicipios();
@@ -149,15 +150,14 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
-      .subscribe((res: any) => { if ( res.data.length > 0) this.actividadForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
+      .subscribe((res: any) => { if (res.data.length > 0) this.actividadForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
   }
 
   async getByIdActividades() {
     loading(true)
     this.actividadesService.getByIdActividades(this.idActividad)
       .subscribe((res: any) => {
-        console.log(res);
-        
+
         const { data } = res
 
         this.actividadForm.patchValue({
@@ -189,8 +189,7 @@ export class ActividadesFormulacionComponent implements OnInit {
 
           if (insumos.perito == null) this.insumoForm.patchValue({ idPerito: 0, nombrePerito: 'NO APLICA' })
           else this.insumoForm.patchValue({ idPerito: insumos.perito.id, nombrePerito: insumos.perito.nombre })
-          console.log(insumos);
-          
+
           this.insumoForm.patchValue({
             id: insumos.id,
             montoTotal: insumos.montoTotal,
@@ -203,6 +202,7 @@ export class ActividadesFormulacionComponent implements OnInit {
             costoUnitario: insumos.costoUnitario,
             idUnidadMedida: insumos.unidadMedida.id,
             fechaRecepcion: insumos.fechaRecepcion,
+            peritoAceptacion: insumos.peritoAceptacion,
             descripcionInsumo: insumos.descripcionInsumo,
             nombreUnidadMedida: insumos.unidadMedida.nombre,
           })
@@ -267,13 +267,13 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.actividadesService.getCategoriasInsumo().subscribe((resp: any) => { this.categoriaInsumoList = resp.data; })
   }
 
-  postActividades() {    
+  postActividades() {
     this.actividadesService.postActividades(this.actividadForm.value)
       .subscribe((res: any) => {
         this.helperHandler.handleResponse(res, () => '', this.actividadForm)
-        if (res.ok) { 
+        if (res.ok) {
           this.insumosGroup = [];
-          this.sumaTotal() 
+          this.sumaTotal()
           this.getPresupuestoInstitucional()
           this.backToProducto()
         }
@@ -281,8 +281,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   putActividades() {
-    this.insumosGroup = this.insumosGroup.filter((insumo: CosteoDetallesGroupI) => { return insumo.peritoAceptacion != true })
-    
+    // this.insumosGroup = this.insumosGroup.filter((insumo: CosteoDetallesGroupI) => { return insumo.peritoAceptacion != true })
     this.actividadesService.putActividades(this.actividadForm.value)
       .subscribe((res: any) => {
         this.helperHandler.handleResponse(res, () => '', this.actividadForm)
@@ -292,6 +291,12 @@ export class ActividadesFormulacionComponent implements OnInit {
           this.backToProducto()
         }
       })
+  }
+
+  removeInsumoAct(id: number) {
+    this.actividadesService.removeInsumos(id, this.idIndicadorGestion, this.actividadForm.value.responsableUnidad).subscribe((res: any) => {
+      this.helperHandler.handleResponse(res, () => '')
+    })
   }
 
   onSelectCategoria() {
@@ -323,7 +328,6 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   agregarInsumoAlObjeto() {
-
     if (this.insumoForm.valid) {
       this.insumoForm.value.fechaRecepcion = format(this.insumoForm.value.fechaRecepcion, 'yyyy-MM-dd');
       this.insumosGroup.push(this.insumoForm.value)
@@ -333,16 +337,31 @@ export class ActividadesFormulacionComponent implements OnInit {
     } else alertNoValidForm()
   }
 
+  async clearInsumoForm() {
+    if (this.insumoForm.value.id > 0) {
+      let removeDecision: boolean = await alertRemoveSure('La eliminación del insumo será permanente', "¿Estas seguro de eliminar el insumo?")
+      if (removeDecision) {
+        this.removeInsumoAct(this.insumoForm.value.id)
+        this.insumoForm.reset()
+        this.sumaTotal()
+      }
+    }else{
+      this.insumoForm.reset()
+      this.sumaTotal()
+    }
+  }
+
   editInsumo(insumo: CosteoDetallesI, index: number) {
     this.insumoForm.reset(insumo)
     this.insumosGroup.splice(index, 1)
     this.sumaTotal()
   }
 
-  async removeInsumo(index: number) {
-    let removeDecision: boolean = await alertRemoveSure("¿Estas seguro de eliminar el insumo?")
+  async removeInsumo(index: number, idInsumo: number) {
+    let removeDecision: boolean = await alertRemoveSure('La eliminación del insumo será permanente', "¿Estas seguro de eliminar el insumo?")
 
     if (removeDecision) {
+      this.removeInsumoAct(idInsumo)
       this.insumosGroup.splice(index, 1)
       this.sumaTotal()
     }
@@ -362,7 +381,6 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(this.actividadForm.value);
     this.insumosGroup.map((insumo: CosteoDetallesGroupI) => {
       if (insumo.idPerito == 0) { insumo.idPerito = null }
     })

@@ -15,7 +15,7 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 })
 export class PlanesTransversalesComponent implements OnInit {
 
-  estado: boolean | null = null 
+  estado: boolean | null = null
   actividadesPerito!: ActividadI[]
   modulo = this.userSystemService.modulosSis
   presupuestosUnidad: { monto: number, montoRestante: number, montoEjecutado: number } | null = { monto: 0, montoRestante: 0, montoEjecutado: 0 }
@@ -37,8 +37,7 @@ export class PlanesTransversalesComponent implements OnInit {
   sendDetailInsumo(idInsumo: number, indicadorId: number) { this.router.navigate(['dashboard/planesTransversales/detallePlanTransversal'], { queryParams: { id: idInsumo, idInd: indicadorId } }); }
 
   getActividadesPerito() {
-    this.actividadesService.getActividadesPerito(this.estado).subscribe((res: any) => { this.actividadesPerito = res.data; console.log(this.actividadesPerito );
-     })
+    this.actividadesService.getActividadesPerito(this.estado).subscribe((res: any) => { this.actividadesPerito = res.data; console.log(this.actividadesPerito );})
   }
 
   getPresupuestoUnidad() {
