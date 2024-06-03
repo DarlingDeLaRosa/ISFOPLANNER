@@ -8,6 +8,7 @@ import { ResultadoEfectoI } from '../interfaces/resultadoEfecto';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-resultado-efecto',
@@ -16,6 +17,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class ResultadoEfectoComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   resultadoEfectoForm: FormGroup;
   estrategia: Array<EstrategiaI> = [];
   resultadoefectos!: Array<ResultadoEfectoI>;
@@ -47,8 +50,8 @@ export class ResultadoEfectoComponent implements OnInit {
   }
 
   getAllResultadoEfecto() {
-    this.resultadoEfectoService.getResultadoEfecto()
-      .subscribe((resp: any) => { this.resultadoefectos = resp.data; })
+    this.resultadoEfectoService.getResultadoEfecto(this.page)
+      .subscribe((resp: any) => { this.resultadoefectos = resp.data; this.pagination = resp.pagination; })
   }
 
   setValueResultadoEfecto(resultadoEfecto: ResultadoEfectoI) {
@@ -81,6 +84,19 @@ export class ResultadoEfectoComponent implements OnInit {
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putResultadoEfecto(), this.resultadoEfectoForm, () => this.postResultadoEfecto())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getAllResultadoEfecto()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getAllResultadoEfecto()
+    }
   }
 }
 

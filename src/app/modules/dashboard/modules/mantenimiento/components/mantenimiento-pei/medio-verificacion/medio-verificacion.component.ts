@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-mantenimiento-pei',
@@ -15,6 +16,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class MedioVerificacionComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   indicadoresEstartegicos: Array<IndicadoresEstrategicosI> = [];
   mediosVerificacion!: Array<MedioVerificacionI>;
   medioVerificacionForm: FormGroup;
@@ -38,8 +41,8 @@ export class MedioVerificacionComponent implements OnInit {
   }
 
   getAllMedioVerifiacion() {
-    this.medioVerifService.getMedioVerificacion()
-      .subscribe((resp: any) => { this.mediosVerificacion = resp.data; console.log(this.mediosVerificacion); })
+    this.medioVerifService.getMedioVerificacion(this.page)
+      .subscribe((resp: any) => { this.mediosVerificacion = resp.data; this.pagination = resp.pagination; })
   }
 
   postMedioVerificacion() {
@@ -68,5 +71,18 @@ export class MedioVerificacionComponent implements OnInit {
   
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putMedioVerificacion(), this.medioVerificacionForm, () => this.postMedioVerificacion())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getAllMedioVerifiacion()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getAllMedioVerifiacion()
+    }
   }
 }

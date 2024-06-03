@@ -23,8 +23,8 @@ export class IndicadorGestionService {
     private userSystemService: UserSystemInformationService,
     ){}
 
-  public getIndicadorGestion() {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/IndicadoresGestion`, this.header))
+  public getIndicadorGestion(page:number = 1) {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/IndicadoresGestion?CurrentPage=${page}&PageSize=10`, this.header))
   }
 
   public getIndicadorByIdGestion(id: number) {

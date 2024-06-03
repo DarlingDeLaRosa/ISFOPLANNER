@@ -61,8 +61,8 @@
             </button>
 
             <mat-menu class="menuPanel" #units="matMenu" yPosition="below">
-              <ng-container *ngFor="let unit of unidadOrgData.subUnidad">
-                <button mat-menu-item style="padding: 10px;" (click)="changeUnitOrg({id: unit.id, nombre: unit.nombre})"> {{unit.nombre}} </button>
+              <ng-container *ngFor="let unit of unidadOrgData.subUnidad" >
+                <button mat-menu-item style="padding: 10px 5px;" (click)="changeUnitOrg({id: unit.id, nombre: unit.nombre})"> {{unit.nombre}} </button>
               </ng-container>
             </mat-menu>
           </div>  

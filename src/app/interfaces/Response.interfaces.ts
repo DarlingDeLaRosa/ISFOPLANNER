@@ -112,3 +112,12 @@ export interface subUnit {
     id: number
     nombre: string
 }
+
+export interface PaginationI {
+    currentPage: number
+    hasNext: boolean
+    hasPrevious: boolean
+    pageCount: number
+    pageSize: number
+    totalPages: number
+}

@@ -8,6 +8,7 @@ import { alertRemoveSure, loading } from 'src/app/alerts/alerts';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-estrategias',
@@ -16,6 +17,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class EstrategiasComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   ejes: Array<EjesI> = [];
   estrategiaForm: FormGroup;
   estrategias!: Array<EstrategiaI>;
@@ -47,8 +50,8 @@ export class EstrategiasComponent implements OnInit {
   }
 
   getAllEstrategia() {
-    this.estrategiasService.getEstrategias()
-      .subscribe((resp: any) => { this.estrategias = resp.data; })
+    this.estrategiasService.getEstrategias(this.page)
+      .subscribe((resp: any) => { this.estrategias = resp.data; this.pagination = resp.pagination; })
   }
 
   postEstrategia() {
@@ -81,5 +84,18 @@ export class EstrategiasComponent implements OnInit {
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putEstrategia(), this.estrategiaForm, () => this.postEstrategia())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getAllEstrategia()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getAllEstrategia()
+    }
   }
 }

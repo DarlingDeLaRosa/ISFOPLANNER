@@ -7,6 +7,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 import { PresupuestoInstiGetI } from '../../interfaces/mantenimientoPOA.interface';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-presupuesto-institucional',
@@ -15,6 +16,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class PresupuestoInstitucionalComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   presupuestoInstiForm: FormGroup;
   presupuestosInst!: PresupuestoInstiGetI[]
   modulo = this.userSystemService.modulosSis
@@ -40,8 +43,8 @@ export class PresupuestoInstitucionalComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional()
-      .subscribe((res: any) => { this.presupuestosInst = res.data;})
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(this.page)
+      .subscribe((res: any) => { this.presupuestosInst = res.data; this.pagination = res.pagination;})
   }
 
   putUnidadOrganizativa() {
@@ -69,5 +72,18 @@ export class PresupuestoInstitucionalComponent implements OnInit {
     this.presupuestoInstiForm.value.fechaInicio = format(this.presupuestoInstiForm.value.fechaInicio, 'yyyy-MM-dd');
     
     this.helperHandler.saveChanges(() => this.putUnidadOrganizativa(), this.presupuestoInstiForm, () => this.postUnidadOrganizativa())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getPresupuestoInstitucional()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getPresupuestoInstitucional()
+    }
   }
 }

@@ -18,6 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntidadListViewComponent } from '../../../modals/entidad-list-view/responsible-view.component';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-indicadores-estrategicos',
@@ -26,6 +27,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class IndicadoresEstrategicosComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   IndicadorEstrForm: FormGroup;
   responsables: Array<ResponsableI> = [];
   requerimientos: Array<RequerimientoI> = [];
@@ -90,7 +93,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   getAllIndicadoresEstrategicos() {
-    this.indicadoresEstraService.getIndicadoresEstrategicos().subscribe((resp: any) => { this.indicadoresEstrategicos = resp.data; console.log(this.indicadoresEstrategicos); })
+    this.indicadoresEstraService.getIndicadoresEstrategicos(this.page).subscribe((resp: any) => { this.indicadoresEstrategicos = resp.data;  this.pagination = resp.pagination; })
   }
 
   getAllMedioVerificacion() {
@@ -160,6 +163,19 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     else { this.IndicadorEstrForm.patchValue({meta: metaAnio1 + metaAnio2 + metaAnio3 + metaAnio4 })}
     
     this.helperHandler.saveChangesIndicadores(() => this.putIndicadoresEstrategicos(), this.IndicadorEstrForm, () => this.postIndicadoresEstrategicos(), lineaBase, this.IndicadorEstrForm.value.meta)
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getAllIndicadoresEstrategicos()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getAllIndicadoresEstrategicos()
+    }
   }
 }
 

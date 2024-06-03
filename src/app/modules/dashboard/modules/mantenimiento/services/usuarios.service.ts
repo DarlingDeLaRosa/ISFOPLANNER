@@ -44,6 +44,16 @@ export class UsuarioService {
     return this.helperHandler.handleGeneralServiceRequest(()=>  this.http.get(`${this.baseURL}/GenericService/getallrecintos`, this.header))
   }
 
+   // get todas las divisiones
+   public getAllVicerrectoria() {
+    return this.helperHandler.handleGeneralServiceRequest(()=> this.http.get(`${this.baseURL}/GenericService/getallvicerectorias`, this.header))
+  }
+
+   // get todas las divisiones
+   public getAllDireccion() {
+    return this.helperHandler.handleGeneralServiceRequest(()=> this.http.get(`${this.baseURL}/GenericService/getalldireccion`, this.header))
+  }
+
   // get todos los departamentos
   public getAllDepartamento() {
     return this.helperHandler.handleGeneralServiceRequest(()=> this.http.get(`${this.baseURL}/GenericService/getalldepartamento`, this.header))

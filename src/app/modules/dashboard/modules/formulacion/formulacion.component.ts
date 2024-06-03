@@ -20,6 +20,7 @@ import { ResultadoEfectoService } from '../mantenimiento/components/mantenimient
 })
 export class FormulacionComponent implements OnInit {
 
+  page: number = 1
   filterForm: FormGroup;
   productos!: ProductoI[];
   unitListener!: Subscription
@@ -89,7 +90,7 @@ export class FormulacionComponent implements OnInit {
 
   getProducto() {
     const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
-    this.apiProducto.getProducto(this.userSystemService.getUnitOrg.nombre, ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => {
+    this.apiProducto.getProducto(this.page,this.userSystemService.getUnitOrg.nombre, ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => {
       this.productos = res.data;
       if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI) => estrategia.id == estrategias)
       if (ejesEstrategico > 0) [this.selectedEjesEstrategico] = this.ejesEstrategicos.filter((ejeEs: EjesI) => ejeEs.id == ejesEstrategico)

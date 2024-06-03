@@ -7,6 +7,7 @@ import { PreguntaI } from '../../interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-pregunta-frecuentes',
@@ -15,6 +16,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class PreguntaFrecuentesComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   preguntasFrecuentesForm: FormGroup;
   getPreguntas!: PreguntaI[]
   modulo = this.userSystemService.modulosSis
@@ -40,8 +43,8 @@ export class PreguntaFrecuentesComponent implements OnInit {
   }
 
   getPregunta() {
-    this.apiPreguntas.getPreguntasFrecuentes()
-      .subscribe((res: any) => { this.getPreguntas = res.data; console.log(this.getPreguntas);})
+    this.apiPreguntas.getPreguntasFrecuentes(this.page)
+      .subscribe((res: any) => { this.getPreguntas = res.data; this.pagination = res.pagination;})
   }
 
   postPregunta() {
@@ -70,5 +73,18 @@ export class PreguntaFrecuentesComponent implements OnInit {
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putPregunta(), this.preguntasFrecuentesForm, () => this.postPregunta())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getPregunta()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getPregunta()
+    }
   }
 }

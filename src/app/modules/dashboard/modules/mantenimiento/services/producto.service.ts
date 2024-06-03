@@ -22,8 +22,8 @@ export class ProductoService {
   headers: HttpHeaders = new HttpHeaders({ 'Authorization': this.token })
   header = { headers: this.headers }
 
-  public getProducto(unidad?: string, eje?: number, estrategia?: number, resultadoEfecto?: number,) {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos?unidad=${unidad ?? ''}&eje=${eje ?? ''}&estrategia=${estrategia ?? ''}&resultadoEfecto=${resultadoEfecto ?? ''}`, this.header))
+  public getProducto(page:  number = 1, unidad?: string, eje?: number, estrategia?: number, resultadoEfecto?: number, ) {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos?CurrentPage=${page}&PageSize=10&unidad=${unidad ?? ''}&eje=${eje ?? ''}&estrategia=${estrategia ?? ''}&resultadoEfecto=${resultadoEfecto ?? ''}`, this.header))
   }
 
   public getByIdProducto(id: number) {

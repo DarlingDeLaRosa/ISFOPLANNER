@@ -12,7 +12,7 @@ import { EntidadListViewComponent } from '../../modals/entidad-list-view/respons
 import { IndicadoresEstrategicosI } from '../mantenimiento-pei/interfaces/indicadorEstrategico.interface';
 import { IndicadorEstrategicoService } from '../mantenimiento-pei/services/indicadoresEstrategicos.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
-import { subUnit } from 'src/app/interfaces/Response.interfaces';
+import { PaginationI, subUnit } from 'src/app/interfaces/Response.interfaces';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
 
 @Component({
@@ -22,6 +22,8 @@ import { PresupuestoInstitucionalService } from '../../services/presupuestoInsti
 })
 export class ProductosComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   productosForm: FormGroup
   productos!: ProductoI[];
   unidadesOrg: subUnidadI[] = []
@@ -56,7 +58,7 @@ export class ProductosComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(this.page, true)
       .subscribe((res: any) => { if ( res.data.length > 0) this.productosForm.patchValue({ idPresupuesto: res.data[0].id }) })
   }
 
@@ -66,7 +68,7 @@ export class ProductosComponent implements OnInit {
   }
 
   getProducto() {
-    this.apiProducto.getProducto().subscribe((res: any) => { this.productos = res.data;})
+    this.apiProducto.getProducto(this.page).subscribe((res: any) => { this.productos = res.data;this.pagination = res.pagination;})
   }
 
   getUnidadOrganizativa() {
@@ -109,5 +111,18 @@ export class ProductosComponent implements OnInit {
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putProducto(), this.productosForm, () => this.postProducto())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getProducto()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getProducto()
+    }
   }
 }

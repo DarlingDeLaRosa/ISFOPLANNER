@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MaterialApoyoService } from '../mantenimiento/services/material-apoyo.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'material-apoyo-root',
@@ -8,6 +9,8 @@ import { MaterialApoyoService } from '../mantenimiento/services/material-apoyo.s
 })
 export class MaterialApoyoComponent implements OnInit{
   
+  page: number = 1
+  pagination!: PaginationI
   materialName: string = ''
   materialesApoyo!: any[]
 
@@ -20,7 +23,7 @@ export class MaterialApoyoComponent implements OnInit{
   }
 
   getMaterial() {
-    this.apiMaterial.getMaterialApoyo(this.materialName)
+    this.apiMaterial.getMaterialApoyo(this.page, this.materialName)
       .subscribe((res: any) => { this.materialesApoyo = res.data })
   }
 }

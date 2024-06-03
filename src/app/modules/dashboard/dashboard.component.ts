@@ -41,6 +41,10 @@ export class dashboardComponent implements OnInit {
     this.getPeriodoConfig()
     this.isUnidadOrgFather()
     this.validUnidadOrganizativaRecintos()
+
+    if (this.unidadOrgData.unidad == 'DEPARTAMENTO DE FORMULACION, MONITOREO Y EVALUACION PLANES, PROGRAMAS Y PROYECTOS' || this.unidadOrgData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO') {
+      this.getAllUnits()
+    }
   }
   
   async logOut(){
@@ -63,6 +67,12 @@ export class dashboardComponent implements OnInit {
     this.apiUnidadOrg.getUnidadesOrganizativas(this.userSystemService.getUnitOrg.nombre).subscribe((res: any)=>{
       if (res.data[0].subUnidades.length > 0) this.isUnitFather = true 
       else this.isUnitFather = false
+    })
+  }
+
+  getAllUnits(){
+    this.apiUnidadOrg.getUnidadesOrganizativas('', false, true).subscribe((res: any)=>{
+      this.userSystemService.addUnitsToSubUnits = res.data
     })
   }
   

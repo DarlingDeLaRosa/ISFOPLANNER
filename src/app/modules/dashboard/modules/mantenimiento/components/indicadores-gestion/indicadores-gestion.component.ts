@@ -15,6 +15,7 @@ import { MedioVerificacionI } from '../mantenimiento-pei/interfaces/medio-verifi
 import { EntidadListViewComponent } from '../../modals/entidad-list-view/responsible-view.component';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { PresupuestoInstitucionalService } from '../../services/presupuestoInstitucional.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-indicadores-gestion',
@@ -23,7 +24,9 @@ import { PresupuestoInstitucionalService } from '../../services/presupuestoInsti
 })
 export class IndicadoresGestionComponent implements OnInit {
 
+  page: number = 1
   alcances: any[] = []
+  pagination!: PaginationI
   productos: ProductoI[] = []
   unidadesOrg: subUnidadI[] = []
   frecuencias: FrecuenciaI[] = []
@@ -77,7 +80,7 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(this.page, true)
       .subscribe((res: any) => { 
         if ( res.data.length > 0){
           this.idPresupuesto =  res.data[0].id
@@ -111,7 +114,7 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   getIndicadoresGestion() {
-    this.apiIndicadoresGestion.getIndicadorGestion().subscribe((res: any) => { this.indicadoresGestion = res.data; console.log(res); })
+    this.apiIndicadoresGestion.getIndicadorGestion(this.page).subscribe((res: any) => { this.indicadoresGestion = res.data; this.pagination = res.pagination; })
   }
 
   getMedioVerificacion() {
@@ -168,5 +171,18 @@ export class IndicadoresGestionComponent implements OnInit {
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putIndicadoresGestion(), this.indicadoresGestionForm, () => this.postIndicadoresGestion())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getIndicadoresGestion()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getIndicadoresGestion()
+    }
   }
 }

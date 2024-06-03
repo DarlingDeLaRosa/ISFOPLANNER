@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MaterialApoyoService } from '../../services/material-apoyo.service';
-import { alertIsSuccess, alertNoValidForm, alertRemoveSuccess, alertRemoveSure, errorMessageAlert } from 'src/app/alerts/alerts';
+import { alertRemoveSure } from 'src/app/alerts/alerts';
 import { MaterialApoyoI } from '../../interfaces/mantenimientoPOA.interface';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-material-apoyo',
@@ -14,6 +15,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class MaterialDeApoyoComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   materialApoyoForm: FormGroup;
   materialesApoyo!: MaterialApoyoI[]
   modulo = this.userSystemService.modulosSis
@@ -39,8 +42,8 @@ export class MaterialDeApoyoComponent implements OnInit {
   }
 
   getMaterial() {
-    this.apiMaterial.getMaterialApoyo()
-      .subscribe((res: any) => { this.materialesApoyo = res.data })
+    this.apiMaterial.getMaterialApoyo(this.page)
+      .subscribe((res: any) => { this.materialesApoyo = res.data; this.pagination = res.pagination; })
   }
 
   postMaterial() {
@@ -70,4 +73,16 @@ export class MaterialDeApoyoComponent implements OnInit {
     this.helperHandler.saveChanges(() => this.putMaterial(), this.materialApoyoForm, () => this.postMaterial())
   }
 
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getMaterial()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getMaterial()
+    }
+  }
 }

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-asignacion-presupuesto',
@@ -16,7 +17,9 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
   styleUrls: ['./asignacion-presupuesto.component.css']
 })
 export class AsignacionPresupuestoComponent implements OnInit {
-
+  
+  page: number = 1
+  pagination!: PaginationI
   accion: boolean = false
   unidadesOrg!: UnidadOrgI[]
   unidadesOrgPadres: subUnidadI[] = []
@@ -49,7 +52,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(this.page, true)
       .subscribe((res: any) => { if ( res.data.length > 0) this.presupuestosInst = res.data[0]; })
   }
 
@@ -62,7 +65,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
   }
 
   getUnidadOrganizativaAsignadas() {
-    this.apiPresupuestoInstitucional.getUnidadesPresupuestoAsignado().subscribe((res: any) => { this.unidadesOrg = res.data })
+    this.apiPresupuestoInstitucional.getUnidadesPresupuestoAsignado(this.page).subscribe((res: any) => { this.unidadesOrg = res.data;this.pagination = res.pagination; })
   }
 
   postAsignarPresupuestoUnidadOrg() {
@@ -123,5 +126,18 @@ export class AsignacionPresupuestoComponent implements OnInit {
       else this.postAsignarPresupuestoUnidadOrg()
 
     } else alertNoValidForm()
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getUnidadOrganizativaAsignadas()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getUnidadOrganizativaAsignadas()
+    }
   }
 }

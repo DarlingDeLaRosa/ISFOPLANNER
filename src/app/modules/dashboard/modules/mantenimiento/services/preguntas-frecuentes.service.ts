@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PreguntaI } from '../interfaces/mantenimientoPOA.interface';
-import { alertServerDown, errorMessageAlert } from 'src/app/alerts/alerts';
-import { catchError, throwError } from 'rxjs';
-import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { HelperService } from 'src/app/services/appHelper.service';
+import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +22,8 @@ export class preguntasFrecuentesService {
     private userSystemService: UserSystemInformationService,
   ){}
 
-  public getPreguntasFrecuentes(questionName: string = '') {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PreguntasFrecuentes?buscar=${questionName}`, this.header))
+  public getPreguntasFrecuentes(page: number = 1,questionName: string = '') {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PreguntasFrecuentes?CurrentPage=${page}&PageSize=10&buscar=${questionName}`, this.header))
   }
 
   public postPreguntasFrecuentes(preguntaData: PreguntaI) {

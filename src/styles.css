@@ -323,7 +323,6 @@ mat-checkbox {
 }
 
 .footerCell {
-    height: 6vh;
     font-weight: 500;
     padding-left: 15px;
 }
@@ -332,9 +331,13 @@ mat-checkbox {
     border: none;
 }
 
-.dataRow, .footerRow{
+.dataRow, .footerRow, .paginatorRow{
     height: 6vh;
     border-top: 1px solid #ccc;
+}
+
+.paginatorRow{
+    height: 4vh;
 }
 
 .footerRow{

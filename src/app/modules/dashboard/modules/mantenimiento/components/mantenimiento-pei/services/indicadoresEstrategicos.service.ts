@@ -22,8 +22,8 @@ export class IndicadorEstrategicoService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  getIndicadoresEstrategicos(): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos`, this.header))
+  getIndicadoresEstrategicos(page:  number = 1): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/IndicadoresEstrategicos?CurrentPage=${page}&PageSize=10`, this.header))
   }
 
   postIndicadoresEstrategicos(indicadoresestrategicos: IndicadoresEstrategicosI): Observable<ResponseI> {

@@ -23,8 +23,8 @@ export class SupuestosRiesgosService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  getSupuestosRiesgos(): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/SupuestosRiesgos`, this.header))
+  getSupuestosRiesgos(page: number = 1): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/SupuestosRiesgos?CurrentPage=${page}&PageSize=10`, this.header))
   }
 
   postSupuestosRiesgos(supuestosriesgos: SupuestosRiesgosI): Observable<ResponseI> {

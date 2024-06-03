@@ -1,7 +1,10 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && ejeForm.value.id > 0">Ejes Estrategicos</h2>
+  <h2 class="Stitle"
+    *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && ejeForm.value.id > 0">
+    Ejes Estrategicos</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="ejeForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && ejeForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="ejeForm" (ngSubmit)="saveChanges()"
+      *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && ejeForm.value.id > 0">
       <mat-form-field appearance="fill" style="width: 48%;">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
@@ -24,31 +27,52 @@
 
     <h2 class="Stitle">Listado de ejes</h2>
 
-    <div style="border:1px solid  #ccc ;">
-
-      <table>
-        <thead class="headerTable">
-          <tr class="headerRow" style="background-color: #95ade93f;">
-            <th class="headerCell">Eje</th>
-            <th class="headerCell">Objetivo</th>
-            <th class="headerCell" style="width: 5%;">Numero</th>
-            <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
-            <th class="headerCell" style="width: 5%; padding-right: 15px;"><div *ngIf="!ejes" class="loader"></div></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="dataRow" *ngFor="let item of ejes">
-            <td class="dataIndiCell">{{item.nombre}}</td>
-            <td class="dataIndiCell">{{item.objetivo}}</td>
-            <td class="dataIndiCell">{{item.numeroEje}}</td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon class="editIcon" (click)="setValueEje(item)">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon class="removeIcon" (click)="deleteEjes(item)">delete</mat-icon></td>
-          </tr>
-        </tbody>
-      </table>
-
+    <div>
+      <div style="border:1px solid  #ccc ;">
+        <table>
+          <thead class="headerTable">
+            <tr class="headerRow" style="background-color: #95ade93f;">
+              <th class="headerCell">Eje</th>
+              <th class="headerCell">Objetivo</th>
+              <th class="headerCell" style="width: 5%;">Numero</th>
+              <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
+              <th class="headerCell" style="width: 5%; padding-right: 15px;">
+                <div *ngIf="!ejes" class="loader"></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dataRow" *ngFor="let item of ejes">
+              <td class="dataIndiCell">{{item.nombre}}</td>
+              <td class="dataIndiCell">{{item.objetivo}}</td>
+              <td class="dataIndiCell">{{item.numeroEje}}</td>
+              <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon
+                  class="editIcon" (click)="setValueEje(item)">edit</mat-icon></td>
+              <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon
+                  class="removeIcon" (click)="deleteEjes(item)">delete</mat-icon></td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="ejes && ejes.length > 0">
+            <tr class="paginatorRow">
+              <td class="footerCell"></td>
+              <td class="footerCell"></td>
+              <td class="footerCell"></td>
+              <td class="footerCell">
+                <!-- <span  style="color: grey;"> {{pagination.pageCount}} Items</span> -->
+              </td>
+              <td class="dataIndiCell">
+                <span style="display: flex; align-items: center; " *ngIf="pagination">
+                  <mat-icon class="rowIcon" (click)="previousPage()">navigate_before</mat-icon>
+                  <h5 style="margin: 0;">{{page}} / {{pagination.totalPages}}</h5>
+                  <mat-icon class="rowIcon" (click)="nextPage()">navigate_next</mat-icon>
+                </span>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
-    
+
     <div class="noData" *ngIf="ejes && ejes.length == 0">
       <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>

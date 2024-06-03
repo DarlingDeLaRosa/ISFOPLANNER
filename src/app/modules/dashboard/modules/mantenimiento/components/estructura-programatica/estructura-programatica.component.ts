@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { EstructuraProgramaticaService } from '../../services/estructura-programatica.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class EstructuraProgramaticaComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   estructuraProgramaticaForm: FormGroup;
   estructurasProgramaticas!: any[]
   modulo = this.userSystemService.modulosSis
@@ -37,8 +40,8 @@ export class EstructuraProgramaticaComponent implements OnInit {
   }
 
   getEstructuraPro() {
-    this.apiEstructuraPro.getEstructurasProgramaticas()
-      .subscribe((res: any) => { this.estructurasProgramaticas = res.data })
+    this.apiEstructuraPro.getEstructurasProgramaticas(this.page)
+      .subscribe((res: any) => { this.estructurasProgramaticas = res.data; this.pagination = res.pagination; })
   }
 
   postEstructuraPro() {
@@ -67,5 +70,18 @@ export class EstructuraProgramaticaComponent implements OnInit {
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putEstructuraPro(), this.estructuraProgramaticaForm, () => this.postEstructuraPro())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getEstructuraPro()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getEstructuraPro()
+    }
   }
 }

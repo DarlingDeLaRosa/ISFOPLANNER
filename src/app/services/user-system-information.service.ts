@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, inject } from '@angular/core';
 import { UnidadDataI, UserI, subUnit } from '../interfaces/Response.interfaces';
 import { periodoConfig } from '../modules/dashboard/modules/mantenimiento/interfaces/mantenimientoPOA.interface';
 
@@ -19,6 +19,7 @@ export class UserSystemInformationService {
     };
     private peridoMonitoreo!: periodoConfig
     private peridoFormulacion!: periodoConfig
+    private dataUnidad!: UnidadDataI 
 
     public modulosSis = {
         panel_de_control: 49,
@@ -30,6 +31,7 @@ export class UserSystemInformationService {
         mantenimiento: 55,
         asignacion_de_presupuesto: 56
     }
+
 
     // private URLremoteDesarrollo = "http://isfoplaner.somee.com"
     private URLdesarrollo = "http://172.25.0.12:5002/api"
@@ -49,33 +51,34 @@ export class UserSystemInformationService {
         let exactUnit: string = this.userLogged.unidad.split(" ")[0]
 
         userLevel = exactUnit in this.niveles ? this.niveles[exactUnit] : 0;
-        let dataUnidad: UnidadDataI = { userLevel, unidad: this.userLogged.unidad, subUnidad: []}
+        this.dataUnidad = { userLevel, unidad: this.userLogged.unidad, subUnidad: []}
 
         switch (userLevel) {
             case 2:
                 this.exatUnitOrg = { id: this.userLogged.departamento.idDepartamento, nombre: this.userLogged.departamento.nombre }
-                dataUnidad.subUnidad = this.userLogged.departamento.divisiones
-                if (!dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) dataUnidad.subUnidad.push(this.exatUnitOrg)
+                this.dataUnidad.subUnidad = this.userLogged.departamento.divisiones
+                if (!this.dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) this.dataUnidad.subUnidad.push(this.exatUnitOrg)
                 
                 break;
             case 3:
                 this.exatUnitOrg = { id: this.userLogged.direccion.idDireccion, nombre: this.userLogged.direccion.nombre }
-                dataUnidad.subUnidad = this.userLogged.direccion.departamentos
-                if (!dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) dataUnidad.subUnidad.push(this.exatUnitOrg)
+                this.dataUnidad.subUnidad = this.userLogged.direccion.departamentos
+                if (!this.dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) this.dataUnidad.subUnidad.push(this.exatUnitOrg)
 
                 break;
 
             case 4:
                 this.exatUnitOrg = { id: this.userLogged.viceRectoria.idViceRectoria, nombre: this.userLogged.viceRectoria.nombre}
-                dataUnidad.subUnidad = this.userLogged.viceRectoria.direcciones
-                if (!dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) dataUnidad.subUnidad.push(this.exatUnitOrg)
+                this.dataUnidad.subUnidad = this.userLogged.viceRectoria.direcciones
+                if (!this.dataUnidad.subUnidad.some((subUnit: subUnit) => {return subUnit.nombre == this.exatUnitOrg.nombre })) this.dataUnidad.subUnidad.push(this.exatUnitOrg)
 
                 break;
 
             default:
                 break;
         }
-        return dataUnidad
+
+        return this.dataUnidad
     }
 
     get getUnitOrg(): subUnit { 
@@ -89,6 +92,7 @@ export class UserSystemInformationService {
         return {formulacion: this.peridoFormulacion, monitoreo: this.peridoMonitoreo }
     }
 
+    set addUnitsToSubUnits(subUnits: subUnit[]){ this.dataUnidad.subUnidad.push(...subUnits)}
     set setUserLogged(user: UserI) { this.userLogged = user }
 
     set setUnitOrg(unit: subUnit ) { 

@@ -22,8 +22,8 @@ export class EstrategiasService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  getEstrategias(): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Estrategias`, this.header))
+  getEstrategias(page:  number = 1): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Estrategias?CurrentPage=${page}&PageSize=10`, this.header))
   }
 
   postEstrategias(estrategia: EstrategiaI): Observable<ResponseI> {

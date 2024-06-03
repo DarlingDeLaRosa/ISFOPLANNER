@@ -85,7 +85,7 @@
           <mat-select disableRipple multiple formControlName="involucrados">
             <ng-container *ngIf="involucradoList.length> 0; else noInvol">
               <mat-option [value]="involucrado.id" *ngFor="let involucrado of involucradoList">
-                {{involucrado.nombre}}
+                  {{involucrado.nombre}}
               </mat-option>
             </ng-container>
             <ng-template #noInvol> <mat-option>No hay campos disponibles</mat-option> </ng-template>

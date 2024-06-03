@@ -6,6 +6,7 @@ import { RequerimientosService } from '../services/requerimientos.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 
 @Component({
@@ -15,6 +16,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class RequerimientosComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   requerimientoForm: FormGroup;
   requerimientos!: Array<RequerimientoI>;
   modulo = this.userSystemService.modulosSis
@@ -38,8 +41,8 @@ export class RequerimientosComponent implements OnInit {
   }
 
   getAllRequerimientos() {
-    this.requerimientoService.getRequerimientos()
-      .subscribe((resp: any) => { this.requerimientos = resp.data; })
+    this.requerimientoService.getRequerimientos(this.page)
+      .subscribe((resp: any) => { this.requerimientos = resp.data; this.pagination = resp.pagination;})
   }
 
   postRequerimiento() {
@@ -68,6 +71,19 @@ export class RequerimientosComponent implements OnInit {
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putRequerimiento(), this.requerimientoForm, () => this.postRequerimiento())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getAllRequerimientos()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getAllRequerimientos()
+    }
   }
 }
 

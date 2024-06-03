@@ -14,6 +14,7 @@ import { PresupuestoInstitucionalService } from '../../../mantenimiento/services
 import { InvolucradoI } from '../../../mantenimiento/components/mantenimiento-pei/interfaces/involucrado.interface';
 import { ResponsableService } from '../../../mantenimiento/components/mantenimiento-pei/services/reponsable.service';
 import { EstadoI, MesesI, CategoriaInsumosI, UnidadesMedidaI, InsumosI, CosteoDetallesI, CosteoI, CosteoDetallesGroupI } from '../../interfaces/formulacion.interface';
+import { PaginationI, subUnit } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-actividades-formulacion',
@@ -22,9 +23,12 @@ import { EstadoI, MesesI, CategoriaInsumosI, UnidadesMedidaI, InsumosI, CosteoDe
 })
 export class ActividadesFormulacionComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   idIndicadorGestion: number = 0
   idActividad: number = 0
   presupuestosInst: number = 0
+  exactUnit = this.userSystemService.getUnitOrg
 
   insumoForm: FormGroup;
   actividadForm: FormGroup;
@@ -126,7 +130,6 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   async ngOnInit() {
     this.actividadForm.patchValue({ responsableUnidad: this.userSystemService.getUnitOrg.nombre })
-    console.log(this.actividadForm.value);
 
     // this.getRegiones();
     // this.getProvinvias();
@@ -149,7 +152,7 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(true)
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(this.page,true)
       .subscribe((res: any) => { if (res.data.length > 0) this.actividadForm.patchValue({ idPresupuestoInstitucional: res.data[0].id }) })
   }
 
@@ -248,7 +251,9 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   getInvolucrado() {
-    this.involucradoService.getInvolucrado().subscribe((resp: any) => { this.involucradoList = resp.data; })
+    this.involucradoService.getInvolucrado().subscribe((resp: any) => { 
+      resp.data.map((unit:subUnit)=>{ if (unit != this.exactUnit) { this.involucradoList.push(unit) } })
+    })
   }
 
   getMeses() {

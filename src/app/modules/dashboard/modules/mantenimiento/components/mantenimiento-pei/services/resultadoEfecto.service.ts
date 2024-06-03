@@ -22,8 +22,8 @@ export class ResultadoEfectoService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  getResultadoEfecto(): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/ResultadosEfectos`, this.header))
+  getResultadoEfecto(page:  number = 1): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/ResultadosEfectos?CurrentPage=${page}&PageSize=10`, this.header))
   }
 
   postResultadoEfecto(retultadoEfecto: ResultadoEfectoI): Observable<ResponseI> {

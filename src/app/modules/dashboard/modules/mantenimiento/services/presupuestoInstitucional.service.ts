@@ -22,8 +22,8 @@ export class PresupuestoInstitucionalService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  public getPresupuestoInstitucional(enUso?: boolean ) {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional?enUso=${enUso ?? ''}`, this.header))
+  public getPresupuestoInstitucional(page:number = 1,enUso?: boolean ) {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional?CurrentPage=${page}&PageSize=10&enUso=${enUso ?? ''}`, this.header))
   }
 
   public getPresupuestoUnidad(unit: string) {
@@ -42,8 +42,8 @@ export class PresupuestoInstitucionalService {
     return this.helperHandler.handleRequest(() => this.http.post(`${this.baseURL}/activar-presupuesto/${idPresupuesto}`,'',this.header))
   }
 
-  public getUnidadesPresupuestoAsignado() {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional/presupuestos-asignados`, this.header))
+  public getUnidadesPresupuestoAsignado(page: number = 1) {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/PresupuestoInstitucional/presupuestos-asignados?CurrentPage=${page}&PageSize=10`, this.header))
   }
 
   public getSubUnidadesPresupuestoAsignado() {

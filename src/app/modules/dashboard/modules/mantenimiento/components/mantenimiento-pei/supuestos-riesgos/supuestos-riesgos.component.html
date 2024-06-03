@@ -34,6 +34,21 @@
             <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon (click)="deleteSupuestoRiesgo(supuestoRiesgo.id)" class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
+        <tfoot *ngIf="supuestosRiesgos && supuestosRiesgos.length > 0">
+          <tr class="paginatorRow">
+            <td class="footerCell"></td>
+            <td class="footerCell">
+              <!-- <span  style="color: grey;"> {{pagination.pageCount}} Items</span> -->
+            </td>
+            <td class="dataIndiCell">
+              <span style="display: flex; align-items: center; " *ngIf="pagination">
+                <mat-icon class="rowIcon" (click)="previousPage()">navigate_before</mat-icon>
+                <h5 style="margin: 0;">{{page}} / {{pagination.totalPages}}</h5>
+                <mat-icon class="rowIcon" (click)="nextPage()">navigate_next</mat-icon>
+              </span>
+            </td>
+          </tr>
+        </tfoot>
       </table>
 
     </div>

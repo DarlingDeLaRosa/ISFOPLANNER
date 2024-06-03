@@ -15,14 +15,20 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 export class UsuariosComponent implements OnInit {
 
   usuarios!: any[]
+  vices: any[] = []
   cargos: any[] = []
   recintos: any[] = []
-  divisiones: any[] = []
+  direcciones: any[] = []
+  // divisiones: any[] = []
   roles: GetRolesI[] = []
   unidadesOrg: any[] = []
   usuariosForm: FormGroup;
   departamentos: any[] = []
   modulo = this.userSystemService.modulosSis
+
+  dep: boolean = true
+  vic: boolean = true
+  dir: boolean = true
 
   constructor(
     public fb: FormBuilder,
@@ -32,7 +38,7 @@ export class UsuariosComponent implements OnInit {
     private userSystemService: UserSystemInformationService,
   ) {
     this.usuariosForm = this.fb.group({
-      idUsuario: 0,
+      idUsuario: null,
       idSistema: this.userSystemService.getSistema,
       idRol: new FormControl(0, Validators.required),
       nombre: new FormControl('', Validators.required),
@@ -40,8 +46,10 @@ export class UsuariosComponent implements OnInit {
       usuario: new FormControl('', Validators.required),
       apellidos: new FormControl('', Validators.required),
       idRecinto: new FormControl(0, Validators.required),
-      idDivision: new FormControl(0, Validators.required),
-      idDepartamento: new FormControl(0, Validators.required),
+      // idDivision: new FormControl(0, Validators.required),
+      idViceRectoria: new FormControl(null,),
+      idDireccion: new FormControl(null,),
+      idDepartamento: new FormControl(null,),
     })
   }
 
@@ -49,17 +57,39 @@ export class UsuariosComponent implements OnInit {
     this.getUsuarios()
     this.getAllRoles()
     this.getAllCargos()
-    this.getDivisiones()
+    // this.getDivisiones()
     this.getAllRecintos()
     this.getDepartamentos()
+    this.getDireccion()
+    this.getVicerrectoria()
   }
 
   getDepartamentos() {
     this.apiUsuario.getAllDepartamento().subscribe((res: any) => { this.departamentos = res.data; })
   }
 
-  getDivisiones() {
-    this.apiUsuario.getAllDivisiones().subscribe((res: any) => { this.divisiones = res.data; })
+  hidingUnitOrg() {
+    const { idViceRectoria, idDireccion, idDepartamento } = this.usuariosForm.value
+
+    if (idViceRectoria > 0) { this.dep = false; this.dir = false }
+    else if (idDireccion > 0) { this.vic = false; this.dep = false }
+    else if (idDepartamento > 0) { this.vic = false; this.dir = false }
+    else { this.vic = true; this.dep = true; this.dir = true }
+
+  }
+
+  // getDivisiones() {
+  //   this.apiUsuario.getAllDivisiones().subscribe((res: any) => { this.divisiones = res.data; })
+  // }
+
+  getVicerrectoria() {
+    this.apiUsuario.getAllVicerrectoria().subscribe((res: any) => {
+      this.vices = res.data; console.log(res);
+    })
+  }
+
+  getDireccion() {
+    this.apiUsuario.getAllDireccion().subscribe((res: any) => { this.direcciones = res.data; })
   }
 
   getAllRecintos() {
@@ -75,18 +105,25 @@ export class UsuariosComponent implements OnInit {
   }
 
   getUsuarios() {
-    this.apiUsuario.getUsuario().subscribe((res: any) => { this.usuarios = res.data; console.log(res.data);
-     })
+    this.apiUsuario.getUsuario().subscribe((res: any) => { this.usuarios = res.data; console.log(res.data); })
   }
 
   postUsuarios() {
     this.apiUsuario.postUsuario(this.usuariosForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm) })
+      .subscribe((res: any) => {
+        this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm)
+        this.usuariosForm.patchValue({ idSistema: this.userSystemService.getSistema })
+        this.vic = true; this.dep = true; this.dir = true
+      })
   }
 
   putUsuarios() {
     this.apiUsuario.putUsuario(this.usuariosForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm) })
+      .subscribe((res: any) => {
+        this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm)
+        this.usuariosForm.patchValue({ idSistema: this.userSystemService.getSistema })
+        this.vic = true; this.dep = true; this.dir = true
+      })
   }
 
   async deleteUsuarios(id: number) {
@@ -100,6 +137,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   setValueEditUsuarios(usuario: any) {
+    // this.vic = true; this.dep = true ; this.dir = true 
+
     this.usuariosForm.patchValue({
       idUsuario: usuario.idUsuario,
       usuario: usuario.usuario,
@@ -108,13 +147,19 @@ export class UsuariosComponent implements OnInit {
       idRecinto: usuario.persona.recinto.idRecinto,
       nombre: usuario.persona.nombre,
       idCargo: usuario.persona.idCargo,
-      idDivision: usuario.persona.division.id,
+      // idDivision: usuario.persona.division.id,
       idSistema: this.userSystemService.getSistema,
+      idViceRectoria: usuario.persona.idDireccion,
+      idDireccion: usuario.persona.idViceRectoria,
       idDepartamento: usuario.persona.idDepartamento,
     })
+
+    this.hidingUnitOrg()
   }
 
   saveChanges() {
+    console.log(JSON.stringify(this.usuariosForm.value));
+
     if (this.usuariosForm.valid) {
       if (this.usuariosForm.value.idUsuario > 0) this.putUsuarios()
       else this.postUsuarios()

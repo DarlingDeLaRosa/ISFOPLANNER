@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-resultado-efecto',
@@ -14,6 +15,8 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class SupuestosRiegosComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   supuestosRiesgos!: Array<SupuestosRiesgosI>;
   supuestoRiesgoForm: FormGroup;
   modulo = this.userSystemService.modulosSis
@@ -36,8 +39,8 @@ export class SupuestosRiegosComponent implements OnInit {
   }
 
   getAllSupuestosRiesgos() {
-    this.supuestosRiesgosService.getSupuestosRiesgos()
-      .subscribe((resp: any) => { this.supuestosRiesgos = resp.data;})
+    this.supuestosRiesgosService.getSupuestosRiesgos(this.page)
+      .subscribe((resp: any) => { this.supuestosRiesgos = resp.data; this.pagination = resp.pagination;})
   }
 
   postSupuestoRiesgo() {
@@ -66,5 +69,18 @@ export class SupuestosRiegosComponent implements OnInit {
   
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putSupuestoRiesgo(), this.supuestoRiesgoForm, () => this.postSupuestoRiesgo())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getAllSupuestosRiesgos()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getAllSupuestosRiesgos()
+    }
   }
 }

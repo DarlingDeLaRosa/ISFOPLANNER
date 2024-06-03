@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AsnwerViewComponent } from './modals/asnwer-view/asnwer-view.component';
 import { PreguntaI } from '../mantenimiento/interfaces/mantenimientoPOA.interface';
 import { preguntasFrecuentesService } from '../mantenimiento/services/preguntas-frecuentes.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'ayuda-root',
@@ -11,7 +12,9 @@ import { preguntasFrecuentesService } from '../mantenimiento/services/preguntas-
 })
 export class AyudaComponent implements OnInit {
   
+  page: number = 1
   getPreguntas!: any[]
+  pagination!: PaginationI
   questionName: string = ''
 
   constructor(
@@ -24,7 +27,7 @@ export class AyudaComponent implements OnInit {
   }
   
   getPregunta() {
-    this.apiPreguntas.getPreguntasFrecuentes(this.questionName)
+    this.apiPreguntas.getPreguntasFrecuentes(this.page, this.questionName)
       .subscribe((res: any) => { this.getPreguntas = res.data })
   }
 

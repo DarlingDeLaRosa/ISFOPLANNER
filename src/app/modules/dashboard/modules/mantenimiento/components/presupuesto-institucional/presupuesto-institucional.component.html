@@ -55,6 +55,24 @@
                         <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon (click)="setValueEditPreInst(presupuestoInst)" class="editIcon">edit</mat-icon></td>
                     </tr>
                 </tbody>
+                <tfoot *ngIf="presupuestosInst && presupuestosInst.length > 0">
+                    <tr class="paginatorRow">
+                      <td class="footerCell"></td>
+                      <td class="footerCell"></td>
+                      <td class="footerCell"></td>
+                      <td class="footerCell"></td>
+                      <td class="footerCell">
+                        <!-- <span  style="color: grey;"> {{pagination.pageCount}} Items</span> -->
+                      </td>
+                      <td class="dataIndiCell">
+                        <span style="display: flex; align-items: center; " *ngIf="pagination">
+                          <mat-icon class="rowIcon" (click)="previousPage()">navigate_before</mat-icon>
+                          <h5 style="margin: 0;">{{page}} / {{pagination.totalPages}}</h5>
+                          <mat-icon class="rowIcon" (click)="nextPage()">navigate_next</mat-icon>
+                        </span>
+                      </td>
+                    </tr>
+                  </tfoot>
             </table>
 
         </div>

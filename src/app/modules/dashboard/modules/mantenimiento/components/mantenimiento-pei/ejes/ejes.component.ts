@@ -6,6 +6,7 @@ import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'app-ejes',
@@ -14,15 +15,17 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 })
 export class EjesComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   ejes!: Array<EjesI>;
   ejeForm: FormGroup;
   modulo = this.userSystemService.modulosSis
-  
+
   constructor(
     private fb: FormBuilder,
     private ejesService: EjesService,
-    private helperHandler: HelperService,
-    public permisosCRUD: PermissionService,    
+    public helperHandler: HelperService,
+    public permisosCRUD: PermissionService,
     private userSystemService: UserSystemInformationService,
   ) {
     this.ejeForm = this.fb.group({
@@ -38,8 +41,8 @@ export class EjesComponent implements OnInit {
   }
 
   getAllEjes() {
-    this.ejesService.getEjes()
-      .subscribe((resp: any) => { this.ejes = resp.data; })
+    this.ejesService.getEjes(this.page)
+      .subscribe((resp: any) => { this.ejes = resp.data; this.pagination = resp.pagination; })
   }
 
   postEjes() {
@@ -65,5 +68,18 @@ export class EjesComponent implements OnInit {
 
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putEjes(), this.ejeForm, () => this.postEjes())
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getAllEjes()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getAllEjes()
+    }
   }
 }
