@@ -3,12 +3,12 @@
 
   <form style=" margin-bottom: 15px;" [formGroup]="requerimientoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && requerimientoForm.value.id > 0">
 
-    <mat-form-field appearance="fill" style="width: 60%;">
+    <mat-form-field appearance="fill"  style="width: 60%;">
       <mat-label> Nombre del Requerimiento</mat-label>
       <input matInput formControlName="nombre">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="fill" style="width: 39%;">
+    <mat-form-field appearance="fill"  style="width: 39%;">
       <mat-label>Financiero</mat-label>
       <mat-select disableRipple formControlName="esFinanciero">
         <mat-option [value]="true">Si</mat-option>

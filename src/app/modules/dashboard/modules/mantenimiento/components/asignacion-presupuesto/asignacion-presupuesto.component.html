@@ -25,7 +25,7 @@
     <div>
         <form style=" margin-bottom: 15px;" [formGroup]="asignacionPresupuestoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || accion ">
 
-            <mat-form-field appearance="fill" style="width: 59%;">
+            <mat-form-field appearance="fill"  style="width: 59%;">
                 <mat-label>Unidad Organizativa</mat-label>
                 <mat-select formControlName="idUnidadOrganizativa" disableRipple>
                     <ng-container *ngIf="unidadesOrgPadres.length > 0; else noUnidadPadre">
@@ -39,7 +39,7 @@
                 </mat-select>
             </mat-form-field>&nbsp;
 
-            <mat-form-field appearance="fill" style="width: 40%;">
+            <mat-form-field appearance="fill"  style="width: 40%;">
                 <mat-label>Presupuesto</mat-label>
                 <input type="number" matInput formControlName="monto">
             </mat-form-field>

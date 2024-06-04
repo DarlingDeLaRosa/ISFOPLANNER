@@ -4,7 +4,7 @@
     <div class="titleSeguimiento"> <h2>Gestor transversal</h2></div>
     
     <div class="ejeSectionTotal">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" >
             <mat-label>Estado</mat-label>
             <mat-select disableRipple [(ngModel)]="estado" (selectionChange)="getActividadesPerito()">
                     <mat-option [value]="false">Pendientes</mat-option>
@@ -82,6 +82,16 @@
             </div>
         </div>
     </div>
+    
     <charging-box *ngIf="!actividadesPerito"></charging-box>
     <no-data-found *ngIf=" actividadesPerito && actividadesPerito.length == 0"></no-data-found>
+    
+    <span style="display: flex; justify-content: space-between;" *ngIf="pagination && actividadesPerito.length > 0">
+        <span></span>
+        <div style="display: flex; align-items: center; background-color: #004b8d1a; border-radius: 15px; border: solid 1px #004b8d;" >
+            <mat-icon class="rowBIcon" (click)="previousPage()">navigate_before</mat-icon>
+            <h5 style="margin: 0; font-weight: 600;">{{page}} / {{pagination.totalPages}}</h5>
+            <mat-icon class="rowBIcon" (click)="nextPage()">navigate_next</mat-icon>
+        </div>
+    </span>
 </div>

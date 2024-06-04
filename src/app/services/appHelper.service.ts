@@ -26,8 +26,6 @@ export class HelperService {
             formToReset?.reset();
             if (onSecondSuccess != undefined) onSecondSuccess();
         } else {
-            console.log(response);
-            
             loading(false)
             alertIsSuccess(false);
         }

@@ -36,8 +36,6 @@ export class LogInComponent {
     loading(true)
     this.authService.postLogIn(this.formUserLogIn.value)
       .subscribe((res: any) => {
-        console.log(res);
-        
         loading(false)
         
         if (res.data != undefined) {

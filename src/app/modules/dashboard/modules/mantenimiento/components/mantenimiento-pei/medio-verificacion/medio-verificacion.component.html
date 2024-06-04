@@ -3,7 +3,7 @@
   <div>
     <form style=" margin-bottom: 15px;" [formGroup]="medioVerificacionForm" (ngSubmit)=" saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && medioVerificacionForm.value.id > 0">
 
-      <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-form-field appearance="fill"  style="width: 100%;">
         <mat-label> Nombre del medio de verificación</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>

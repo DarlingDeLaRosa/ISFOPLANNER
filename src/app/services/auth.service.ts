@@ -24,7 +24,6 @@ export class AuthenticationService {
     }
 
     public postLogOut() {
-        console.log(this.token);
         return this.helperHandler.handleGeneralServiceRequest(() => this.http.post(`${this.baseURL}/User/logout`, {token: this.token}))
     }
 }

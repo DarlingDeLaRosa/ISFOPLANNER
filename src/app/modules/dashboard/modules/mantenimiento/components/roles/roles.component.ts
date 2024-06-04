@@ -28,8 +28,6 @@ export class RolesComponent implements OnInit {
     private rolesPermisosService: RolesPermisosService,
     private userSystemService: UserSystemInformationService,
   ) {
-    console.log(userSystemService.getUserLogged);
-
     this.rolesForm = this.fb.group({
       idRol: 0,
       rolName: new FormControl('', Validators.required),
@@ -64,7 +62,7 @@ export class RolesComponent implements OnInit {
   }
 
   getRolesPermisos() {
-    this.rolesPermisosService.getRolesPermisos().subscribe((resp: any) => { this.roles = resp.data; console.log(resp);})
+    this.rolesPermisosService.getRolesPermisos().subscribe((resp: any) => { this.roles = resp.data; })
   }
 
   postRolesPermisos() {
@@ -100,7 +98,6 @@ export class RolesComponent implements OnInit {
         })
       })
     })
-    console.log(this.rolesForm.value);
   }
 
   async deleteRolesPermisos(id: number) {

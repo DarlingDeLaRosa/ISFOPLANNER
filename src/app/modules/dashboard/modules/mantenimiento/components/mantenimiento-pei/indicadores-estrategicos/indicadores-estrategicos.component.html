@@ -3,17 +3,17 @@
   <div>
     <form style=" margin-bottom: 15px;" [formGroup]="IndicadorEstrForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && IndicadorEstrForm.value.id > 0">
 
-      <mat-form-field appearance="fill" style="width: 65.5%;">
+      <mat-form-field appearance="fill"  style="width: 65.5%;">
         <mat-label>Indicador estrategico</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 16%;">
+      <mat-form-field appearance="fill"  style="width: 16%;">
         <mat-label>Linea Base</mat-label>
         <input matInput type="number" formControlName="lineaBase">
       </mat-form-field>&nbsp;
 
-      <!-- <mat-form-field appearance="fill" style="width: 16.5%;">
+      <!-- <mat-form-field appearance="fill"  style="width: 16.5%;">
         <mat-label>Meta general</mat-label>
         <input matInput type="number" formControlName="meta">
       </mat-form-field>&nbsp; -->
@@ -36,7 +36,7 @@
         </mat-radio-group>    
       </div><br>
 
-      <mat-form-field appearance="fill" style="width: 33%;">
+      <mat-form-field appearance="fill"  style="width: 33%;">
         <mat-label>Resultado Efecto</mat-label>
         <mat-select formControlName="idResultadoefecto">
           <ng-container *ngIf="resultadosEfecto.length > 0; else noResEfec">
@@ -49,7 +49,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 32%;">
+      <mat-form-field appearance="fill"  style="width: 32%;">
         <mat-label>Medio verificación</mat-label>
         <mat-select multiple disableRipple formControlName="mediosVerificaciones">
           <ng-container *ngIf="mediosVerificacion.length > 0; else noMedVer">
@@ -62,7 +62,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 33%;">
+      <mat-form-field appearance="fill"  style="width: 33%;">
         <mat-label>Requerimientos</mat-label>
         <mat-select multiple disableRipple formControlName="requerimientos">
           <ng-container *ngIf="requerimientos.length > 0; else noReq">
@@ -75,7 +75,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <!-- <mat-form-field appearance="fill" style="width: 33%;">
+      <!-- <mat-form-field appearance="fill"  style="width: 33%;">
         <mat-label>Involucrados</mat-label>
         <mat-select disableRipple formControlName="involucrados" multiple>
           <ng-container *ngIf="involucrados.length > 0; else noInvol">
@@ -88,7 +88,7 @@
         </mat-select>
       </mat-form-field>&nbsp; -->
 
-      <mat-form-field appearance="fill" style="width: 33%;">
+      <mat-form-field appearance="fill"  style="width: 33%;">
         <mat-label>Responsables</mat-label>
         <mat-select multiple disableRipple formControlName="responsables">
           <ng-container *ngIf="responsables.length > 0; else noRes">
@@ -101,7 +101,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 32%;">
+      <mat-form-field appearance="fill"  style="width: 32%;">
         <mat-label>Supuestos Riesgos</mat-label>
         <mat-select multiple disableRipple formControlName="supuestosRiesgos">
           <ng-container *ngIf="supuestosRiesgos.length > 0; else noSupRies">
@@ -119,48 +119,48 @@
       <div formGroupName="cronograma" class="cronogramaForm">
 
         <span>
-          <mat-form-field appearance="fill" style="width: 50%;">
+          <mat-form-field appearance="fill"  style="width: 50%;">
             <mat-label>Primer Año</mat-label>
             <input matInput type="number" formControlName="anio1">
           </mat-form-field>&nbsp;
 
-          <mat-form-field appearance="fill" style="width: 48%; ">
+          <mat-form-field appearance="fill"  style="width: 48%; ">
             <mat-label>Primera Meta</mat-label>
             <input matInput type="number" formControlName="metaAnio1">
           </mat-form-field>
         </span>
 
         <span>
-          <mat-form-field appearance="fill" style="width: 48%;">
+          <mat-form-field appearance="fill"  style="width: 48%;">
             <mat-label>Segundo Año</mat-label>
             <input matInput type="number" formControlName="anio2">
           </mat-form-field>&nbsp;
 
-          <mat-form-field appearance="fill" style="width: 50%;">
+          <mat-form-field appearance="fill"  style="width: 50%;">
             <mat-label>Segunda Meta</mat-label>
             <input matInput type="number" formControlName="metaAnio2">
           </mat-form-field>&nbsp;
         </span>
 
         <span>
-          <mat-form-field appearance="fill" style="width: 50%;">
+          <mat-form-field appearance="fill"  style="width: 50%;">
             <mat-label>Tercer Año</mat-label>
             <input matInput type="number" formControlName="anio3">
           </mat-form-field>&nbsp;
 
-          <mat-form-field appearance="fill" style="width: 48%;">
+          <mat-form-field appearance="fill"  style="width: 48%;">
             <mat-label>Tercera Meta</mat-label>
             <input matInput type="number" formControlName="metaAnio3">
           </mat-form-field>&nbsp;
         </span>
 
         <span>
-          <mat-form-field appearance="fill" style="width: 48%;">
+          <mat-form-field appearance="fill"  style="width: 48%;">
             <mat-label>Cuarto Año</mat-label>
             <input matInput type="number" formControlName="anio4">
           </mat-form-field>&nbsp;
 
-          <mat-form-field appearance="fill" style="width: 50%;">
+          <mat-form-field appearance="fill"  style="width: 50%;">
             <mat-label>Cuarta Meta</mat-label>
             <input matInput type="number" formControlName="metaAnio4">
           </mat-form-field>&nbsp;

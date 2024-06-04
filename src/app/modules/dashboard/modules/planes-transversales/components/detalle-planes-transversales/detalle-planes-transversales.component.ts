@@ -83,7 +83,6 @@ export class DetallePlanesTransversalesComponent implements OnInit {
 
   postaceptInsumo() {
     loading(true)
-    console.log(this.insumoForm.value);
     
     this.actividadesService.postAceptacionPerito(this.insumoForm.value, this.insumoDetalle.id, this.idIndicador)
     .subscribe((res: any) => {

@@ -2,7 +2,7 @@
   <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && estrategiaForm.value.id > 0">Estrategias</h2>
   <div>
     <form style=" margin-bottom: 15px;" [formGroup]="estrategiaForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && estrategiaForm.value.id > 0">
-      <mat-form-field appearance="fill" style="width: 40%;">
+      <mat-form-field appearance="fill"  style="width: 40%;">
         <mat-label>Eje estrategico</mat-label>
         <mat-select disableRipple formControlName="idEjeEstrategico">
           <ng-container>
@@ -16,7 +16,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 59%;">
+      <mat-form-field appearance="fill"  style="width: 59%;">
         <mat-label>Estrategia</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>

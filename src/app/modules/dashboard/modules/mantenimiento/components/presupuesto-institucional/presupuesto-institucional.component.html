@@ -3,12 +3,12 @@
     <div>
         <form style=" margin-bottom: 15px;" [formGroup]="presupuestoInstiForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && presupuestoInstiForm.value.id > 0">
 
-            <mat-form-field appearance="fill" style="width: 40%;">
+            <mat-form-field appearance="fill"  style="width: 40%;">
                 <mat-label>Presupuesto</mat-label>
                 <input type="number" matInput formControlName="montoTotal">
             </mat-form-field>&nbsp;
 
-            <mat-form-field appearance="fill" style="width: 59%;">
+            <mat-form-field appearance="fill"  style="width: 59%;">
                 <mat-label>Periodo de tiempo</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Fecha Inicial" formControlName="fechaInicio">
@@ -18,7 +18,7 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>&nbsp;
 
-            <mat-form-field appearance="fill" style="width: 100%;" *ngIf="presupuestoInstiForm.value.id > 0 ">
+            <mat-form-field appearance="fill"  style="width: 100%;" *ngIf="presupuestoInstiForm.value.id > 0 ">
                 <mat-label>Justificación</mat-label>
                 <textarea matInput formControlName="justicarModificacion"></textarea>
             </mat-form-field>

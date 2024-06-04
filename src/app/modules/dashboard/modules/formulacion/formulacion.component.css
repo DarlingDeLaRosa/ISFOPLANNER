@@ -6,3 +6,13 @@
     margin: 0;
     margin-left: 5px;
 }
+
+.rowBIcon{
+    font-size: 45px; 
+    width: 45px; 
+    height: 45px;
+}
+
+.rowBIcon:hover{
+    color: #004b8d;
+}

@@ -21,7 +21,7 @@ export class ActividadesInvolucradosComponent implements OnInit{
 
   getActividadesInvolucradas(){
     this.actividadService.getActividadesInvolucradas().subscribe(
-      (res: any) => { this.sharedAct = res.data ; console.log(res.data);}
+      (res: any) => { this.sharedAct = res.data ; }
     )
   }
 }

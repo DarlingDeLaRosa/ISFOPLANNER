@@ -2,33 +2,45 @@
 
     <div class="title">
         <h1>Ayuda</h1>
-    </div>  
-
-    <div class="fuctionContent">
-        <h2>Preguntas Frencuentes</h2>
-        
-        <mat-form-field  appearance="fill">
-            <mat-label>Buscar pregunta</mat-label>
-            <input matInput [(ngModel)]="questionName" (input)="getPregunta()">
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-
     </div>
 
-    <div class="preguntaFrecuentesContainer">
-        <div (click)="openModal(pregunta)" *ngFor="let pregunta of getPreguntas" class="iconoPreguntaContainer" >
-            <div class="iconoContainer">?</div>
-            <div class="preguntaFrecuente">
-                <span class="titlePregunta">
-                    <h2>{{pregunta.pregunta.includes('?') || pregunta.pregunta.includes('¿') ? pregunta.pregunta : '¿' + pregunta.pregunta + '?'}}</h2>
-                    <h3>{{pregunta.actualizadoEn | date : 'dd/MM/yyyy'}}</h3>
-                </span>
-                <h4><span style="font-weight: 500;">Contexto: </span>{{pregunta.contexto}}</h4>
+    <div>
+
+        <div class="fuctionContent">
+            <h2>Preguntas Frencuentes</h2>
+
+            <mat-form-field appearance="fill" >
+                <mat-label>Buscar pregunta</mat-label>
+                <input matInput [(ngModel)]="questionName" (input)="getPregunta()">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="preguntaFrecuentesContainer">
+            <div (click)="openModal(pregunta)" *ngFor="let pregunta of getPreguntas" class="iconoPreguntaContainer">
+                <div class="iconoContainer">?</div>
+                <div class="preguntaFrecuente">
+                    <span class="titlePregunta">
+                        <h2>{{pregunta.pregunta.includes('?') || pregunta.pregunta.includes('¿') ? pregunta.pregunta :
+                            '¿' + pregunta.pregunta + '?'}}</h2>
+                        <h3>{{pregunta.actualizadoEn | date : 'dd/MM/yyyy'}}</h3>
+                    </span>
+                    <h4><span style="font-weight: 500;">Contexto: </span>{{pregunta.contexto}}</h4>
+                </div>
             </div>
         </div>
+
+        <charging-box *ngIf="!getPreguntas"></charging-box>
+        <no-data-found *ngIf="getPreguntas && getPreguntas.length == 0"></no-data-found>
+
     </div>
 
-    <charging-box *ngIf="!getPreguntas" ></charging-box>
-    <no-data-found *ngIf="getPreguntas && getPreguntas.length == 0"></no-data-found>
-
+    <span style="display: flex; justify-content: space-between;" *ngIf="pagination">
+        <span></span>
+        <div style="display: flex; align-items: center; background-color: #004b8d1a; border-radius: 15px; border: solid 1px #004b8d;" >
+            <mat-icon class="rowBIcon" (click)="previousPage()">navigate_before</mat-icon>
+            <h5 style="margin: 0; font-weight: 600;">{{page}} / {{pagination.totalPages}}</h5>
+            <mat-icon class="rowBIcon" (click)="nextPage()">navigate_next</mat-icon>
+        </div>
+    </span>
 </div>

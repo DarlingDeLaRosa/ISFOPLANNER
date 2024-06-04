@@ -12,6 +12,7 @@ import { PresupuestoInstitucionalService } from '../mantenimiento/services/presu
 import { EstrategiaI } from '../mantenimiento/components/mantenimiento-pei/interfaces/estrategias.interface';
 import { EstrategiasService } from '../mantenimiento/components/mantenimiento-pei/services/estrategias.service';
 import { ResultadoEfectoService } from '../mantenimiento/components/mantenimiento-pei/services/resultadoEfecto.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'formulacion-root',
@@ -23,6 +24,7 @@ export class FormulacionComponent implements OnInit {
   page: number = 1
   filterForm: FormGroup;
   productos!: ProductoI[];
+  pagination!: PaginationI
   unitListener!: Subscription
   ejesEstrategicos!: Array<EjesI>
   estrategias!: Array<EstrategiaI>
@@ -92,9 +94,23 @@ export class FormulacionComponent implements OnInit {
     const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
     this.apiProducto.getProducto(this.page,this.userSystemService.getUnitOrg.nombre, ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => {
       this.productos = res.data;
+      this.pagination = res.pagination;
       if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI) => estrategia.id == estrategias)
       if (ejesEstrategico > 0) [this.selectedEjesEstrategico] = this.ejesEstrategicos.filter((ejeEs: EjesI) => ejeEs.id == ejesEstrategico)
       if (ejesEstrategico > 0) [this.selectedResultadoE] = this.resultadosEfecto.filter((ejeEs: ResultadoEfectoI) => ejeEs.id == resultadoEfecto)
     })
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getProducto()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      this.getProducto()
+    }
   }
 }

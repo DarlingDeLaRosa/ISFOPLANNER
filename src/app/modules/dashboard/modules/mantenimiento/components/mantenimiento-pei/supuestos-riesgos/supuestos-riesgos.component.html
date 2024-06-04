@@ -4,7 +4,7 @@
   <div>
     <form style=" margin-bottom: 15px;" [formGroup]="supuestoRiesgoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && supuestoRiesgoForm.value.id > 0">
 
-      <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-form-field appearance="fill"  style="width: 100%;">
         <mat-label> Nombre del riesgo</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>

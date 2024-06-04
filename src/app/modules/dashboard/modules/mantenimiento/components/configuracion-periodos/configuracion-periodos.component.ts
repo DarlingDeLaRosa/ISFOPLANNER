@@ -59,7 +59,7 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   getPeriodoConfig() {
     this.apiPeriodosConfig.getPeriodoConfig()
-      .subscribe((res: any) => { this.periodosConfig = res.data; console.log(res); })
+      .subscribe((res: any) => { this.periodosConfig = res.data; })
   }
 
   postPeriodoConfig() {

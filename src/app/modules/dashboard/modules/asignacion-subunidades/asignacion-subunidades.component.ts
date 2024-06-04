@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HelperService } from 'src/app/services/appHelper.service';
-import { PaginationI, UnidadDataI } from 'src/app/interfaces/Response.interfaces';
+import { UnidadDataI } from 'src/app/interfaces/Response.interfaces';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { alertNoValidForm, alertRemoveSure, loading } from 'src/app/alerts/alerts';
@@ -18,8 +18,6 @@ import { PresupuestoInstitucionalService } from '../mantenimiento/services/presu
 })
 export class AsignacionSubunidadesComponent {
 
-  page: number = 1
-  pagination!: PaginationI
   accion: boolean = false
   presupuestosInst: number = 0
   subUnidadesOrg!: subUnidadI[]
@@ -53,7 +51,7 @@ export class AsignacionSubunidadesComponent {
   }
 
   getPresupuestoInstitucional() {
-    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(this.page, true).subscribe((res: any) => { 
+    this.apiPresupuestoInstitucional.getPresupuestoInstitucional(1, true).subscribe((res: any) => { 
       if ( res.data.length > 0) this.presupuestosInst = res.data[0].id; 
     })
   }

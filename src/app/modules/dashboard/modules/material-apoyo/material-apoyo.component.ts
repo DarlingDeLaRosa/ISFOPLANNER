@@ -24,6 +24,19 @@ export class MaterialApoyoComponent implements OnInit{
 
   getMaterial() {
     this.apiMaterial.getMaterialApoyo(this.page, this.materialName)
-      .subscribe((res: any) => { this.materialesApoyo = res.data })
+      .subscribe((res: any) => { this.materialesApoyo = res.data; this.pagination = res.pagination;})
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getMaterial()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getMaterial()
+    }
   }
 }

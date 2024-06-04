@@ -9,6 +9,7 @@ export class UserSystemInformationService {
     unitChange = new EventEmitter<any>();
     private userLogged!: UserI
     private userToken!: string
+    // private sistema: number = 30
     private sistema: number = 80
     private exatUnitOrg!: subUnit
     private niveles: { [key: string]: number } = {
@@ -20,6 +21,17 @@ export class UserSystemInformationService {
     private peridoMonitoreo!: periodoConfig
     private peridoFormulacion!: periodoConfig
     private dataUnidad!: UnidadDataI 
+
+    // public modulosSis = {
+    //     panel_de_control: 32,
+    //     formulacion: 33,
+    //     monitoreo: 34,
+    //     planes_transversales: 35,
+    //     material_de_apoyo: 36,
+    //     ayuda: 37,
+    //     mantenimiento: 38,
+    //     asignacion_de_presupuesto: 39
+    // }
 
     public modulosSis = {
         panel_de_control: 49,
@@ -35,8 +47,10 @@ export class UserSystemInformationService {
 
     // private URLremoteDesarrollo = "http://isfoplaner.somee.com"
     private URLdesarrollo = "http://172.25.0.12:5002/api"
+    private URLProduccion = "https://isfoplanner.isfodosu.edu.do/api"
     private URLgeneralServerURL = "http://172.25.4.24"
     private URLgeneralServer12 = 'http://172.25.0.12:3003'
+    private URLgeneralServerProduccion = 'https://intranet.isfodosu.edu.do/api'
 
     constructor() {}
 

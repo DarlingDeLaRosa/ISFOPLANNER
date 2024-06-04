@@ -84,7 +84,7 @@ export class UsuariosComponent implements OnInit {
 
   getVicerrectoria() {
     this.apiUsuario.getAllVicerrectoria().subscribe((res: any) => {
-      this.vices = res.data; console.log(res);
+      this.vices = res.data; 
     })
   }
 
@@ -105,7 +105,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   getUsuarios() {
-    this.apiUsuario.getUsuario().subscribe((res: any) => { this.usuarios = res.data; console.log(res.data); })
+    this.apiUsuario.getUsuario().subscribe((res: any) => { this.usuarios = res.data; })
   }
 
   postUsuarios() {
@@ -158,8 +158,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(JSON.stringify(this.usuariosForm.value));
-
     if (this.usuariosForm.valid) {
       if (this.usuariosForm.value.idUsuario > 0) this.putUsuarios()
       else this.postUsuarios()

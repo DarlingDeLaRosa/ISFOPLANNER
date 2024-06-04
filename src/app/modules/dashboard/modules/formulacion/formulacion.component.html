@@ -151,6 +151,15 @@
                 <no-data-found *ngIf="productos && productos.length == 0"></no-data-found>
 
             </div>
+
+            <span style="display: flex; justify-content: space-between;" *ngIf="pagination">
+                <span></span>
+                <div style="display: flex; align-items: center; background-color: #004b8d1a; border-radius: 15px; border: solid 1px #004b8d;" >
+                    <mat-icon class="rowBIcon" (click)="previousPage()">navigate_before</mat-icon>
+                    <h5 style="margin: 0; font-weight: 600;">{{page}} / {{pagination.totalPages}}</h5>
+                    <mat-icon class="rowBIcon" (click)="nextPage()">navigate_next</mat-icon>
+                </div>
+            </span>
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 import { PresupuestoInstitucionalService } from '../mantenimiento/services/presupuestoInstitucional.service';
 import { ActividadI, CosteoDetallesI, postInsumoAceptacion } from '../formulacion/interfaces/formulacion.interface';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { PaginationI } from 'src/app/interfaces/Response.interfaces';
 
 @Component({
   selector: 'planes-transversales-root',
@@ -15,6 +16,8 @@ import { PermissionService } from 'src/app/services/applyPermissions.service';
 })
 export class PlanesTransversalesComponent implements OnInit {
 
+  page: number = 1
+  pagination!: PaginationI
   estado: boolean | null = null
   actividadesPerito!: ActividadI[]
   modulo = this.userSystemService.modulosSis
@@ -37,7 +40,9 @@ export class PlanesTransversalesComponent implements OnInit {
   sendDetailInsumo(idInsumo: number, indicadorId: number) { this.router.navigate(['dashboard/planesTransversales/detallePlanTransversal'], { queryParams: { id: idInsumo, idInd: indicadorId } }); }
 
   getActividadesPerito() {
-    this.actividadesService.getActividadesPerito(this.estado).subscribe((res: any) => { this.actividadesPerito = res.data; console.log(this.actividadesPerito );})
+    this.actividadesService.getActividadesPerito(this.page,this.estado).subscribe((res: any) => { 
+      this.actividadesPerito = res.data; this.pagination = res.pagination;
+    })
   }
 
   getPresupuestoUnidad() {
@@ -66,5 +71,18 @@ export class PlanesTransversalesComponent implements OnInit {
     this.actividadesService.postAceptacionPerito(acepObject, insumo.id, indicadorId).subscribe((res: any)=>{
       this.helperHandler.handleResponse(res, () => this.getActividadesPerito(), undefined ,() => this.getPresupuestoUnidad())
     })
+  }
+
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getActividadesPerito()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getActividadesPerito()
+    }
   }
 }

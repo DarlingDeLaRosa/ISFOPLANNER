@@ -3,12 +3,12 @@
   <div>
     <form style=" margin-bottom: 15px;" [formGroup]="estructuraProgramaticaForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && estructuraProgramaticaForm.value.id > 0">
 
-      <mat-form-field appearance="fill" style="width: 69%;">
+      <mat-form-field appearance="fill"  style="width: 69%;">
         <mat-label>Estructura programatica</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 30%;">
+      <mat-form-field appearance="fill"  style="width: 30%;">
         <mat-label>Codigo</mat-label>
         <input matInput formControlName="codigo">
       </mat-form-field>

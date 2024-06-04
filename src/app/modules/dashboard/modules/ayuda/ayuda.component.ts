@@ -28,11 +28,23 @@ export class AyudaComponent implements OnInit {
   
   getPregunta() {
     this.apiPreguntas.getPreguntasFrecuentes(this.page, this.questionName)
-      .subscribe((res: any) => { this.getPreguntas = res.data })
+      .subscribe((res: any) => { this.getPreguntas = res.data; this.pagination = res.pagination; })
   }
 
   openModal(pregunta: PreguntaI) {
     this.dialog.open(AsnwerViewComponent, {data: pregunta})
   }
 
+  nextPage() {
+    if (this.page < this.pagination.totalPages) {
+      this.page += 1
+      this.getPregunta()
+    }
+  }
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1
+      ;this.getPregunta()
+    }
+  }
 }

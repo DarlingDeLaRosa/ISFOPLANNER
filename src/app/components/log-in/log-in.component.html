@@ -12,13 +12,13 @@
         <mat-card-content>
           <form [formGroup]="formUserLogIn" (ngSubmit)="logIn()">
 
-            <mat-form-field  appearance="fill" class="inputLogIn">
+            <mat-form-field  appearance="fill"  class="inputLogIn">
               <mat-label>Usuario (correo)</mat-label>
               <input matInput required formControlName="username">
               <mat-icon class="iconLogo" matSuffix>alternate_email</mat-icon>
             </mat-form-field>
   
-            <mat-form-field  appearance="fill" class="inputLogIn">
+            <mat-form-field  appearance="fill"  class="inputLogIn">
               <mat-label>Contraseña:</mat-label>
               <input [type]="seePass" matInput required formControlName="password"> 
               <mat-icon (click)="togglePasswordVisibility()" class="iconLogo" matSuffix>visibility</mat-icon>

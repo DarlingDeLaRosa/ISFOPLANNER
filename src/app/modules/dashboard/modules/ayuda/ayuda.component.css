@@ -1,0 +1,15 @@
+.routerComponent{
+    display: grid;
+    grid-template-rows: 8vh 75vh 4.5vh;
+    padding: 15px;
+}
+
+.rowBIcon{
+    font-size: 45px; 
+    width: 45px; 
+    height: 45px;
+}
+
+.rowBIcon:hover{
+    color: #004b8d;
+}

@@ -3,7 +3,7 @@
   <div>
     <form style=" margin-bottom: 15px;" [formGroup]="productosForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && productosForm.value.id > 0">
 
-      <mat-form-field appearance="fill" style="width: 39%;">
+      <mat-form-field appearance="fill"  style="width: 39%;">
         <mat-label>Indicador estrategico</mat-label>
         <mat-select formControlName="idIndicadorEstrategico" disableRipple>
           <ng-container *ngIf="indicadoresEstrategicos.length > 0; else noIndicadoresE">
@@ -18,12 +18,12 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 60%;">
+      <mat-form-field appearance="fill"  style="width: 60%;">
         <mat-label>Nombre del Producto</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>
 
-      <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-form-field appearance="fill"  style="width: 100%;">
         <mat-label>Responsable</mat-label>
         <mat-select formControlName="responsables" disableRipple multiple>
           <ng-container *ngIf="unidadesOrg.length > 0; else noUnidadOrg">

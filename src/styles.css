@@ -401,7 +401,7 @@ tr:nth-child(odd) td {
     color: #35a6b7;
 }
 
-.rowIcon{
+.rowIcon, .rowBIcon{
     cursor: pointer;
     color: #aaa;
 }

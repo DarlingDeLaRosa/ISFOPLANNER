@@ -117,6 +117,7 @@ export class ProductoFormulacionComponent implements OnInit {
       else this.unitIndices[indicadorId] -= 1;
     }
   }
+  
 }
 
 

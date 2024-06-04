@@ -6,22 +6,22 @@
     <form style=" margin-bottom: 15px;" [formGroup]="usuariosForm" (ngSubmit)="saveChanges()"
       *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && usuariosForm.value.idUsuario > 0">
 
-      <mat-form-field appearance="fill" style="width: 33%;">
+      <mat-form-field appearance="fill"  style="width: 33%;">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 33%;">
+      <mat-form-field appearance="fill"  style="width: 33%;">
         <mat-label>Apellidos</mat-label>
         <input matInput formControlName="apellidos">
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 32%;">
+      <mat-form-field appearance="fill"  style="width: 32%;">
         <mat-label>Usuario</mat-label>
         <input matInput formControlName="usuario">
       </mat-form-field><br>
 
-      <mat-form-field appearance="fill" style="width: 49%;">
+      <mat-form-field appearance="fill"  style="width: 49%;">
         <mat-label>Recinto</mat-label>
         <mat-select formControlName="idRecinto" disableRipple>
           <ng-container *ngIf="recintos.length > 0; else noRecintos">
@@ -35,7 +35,7 @@
         </mat-select>
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="fill" style="width: 50%;">
+      <mat-form-field appearance="fill"  style="width: 50%;">
         <mat-label>Cargo</mat-label>
         <mat-select formControlName="idCargo" disableRipple>
           <ng-container *ngIf="cargos.length > 0; else noCargo">
@@ -49,7 +49,7 @@
         </mat-select>
       </mat-form-field><br>
 
-      <mat-form-field appearance="fill" style="width: 49%;">
+      <mat-form-field appearance="fill"  style="width: 49%;">
         <mat-label>Rol</mat-label>
         <mat-select formControlName="idRol" disableRipple>
           <ng-container *ngIf="roles.length > 0; else noRoles">
@@ -64,7 +64,7 @@
       </mat-form-field>&nbsp;
 
       <span *ngIf="vic">
-        <mat-form-field appearance="fill" style="width: 50%;">
+        <mat-form-field appearance="fill"  style="width: 50%;">
           <mat-label>Vicerrectoria</mat-label>
           <mat-select formControlName="idViceRectoria" disableRipple (selectionChange)="hidingUnitOrg()">
             <ng-container *ngIf="departamentos.length > 0; else noVice">
@@ -81,7 +81,7 @@
       </span>
 
       <span *ngIf="dir">
-        <mat-form-field appearance="fill" style="width: 49%;">
+        <mat-form-field appearance="fill"  style="width: 49%;">
           <mat-label>Dirección</mat-label>
           <mat-select formControlName="idDireccion" disableRipple (selectionChange)="hidingUnitOrg()">
             <ng-container *ngIf="departamentos.length > 0; else noDepartamento">
@@ -98,7 +98,7 @@
       </span>
 
       <span *ngIf="dep">
-        <mat-form-field appearance="fill" style="width: 50%;">
+        <mat-form-field appearance="fill"  style="width: 50%;">
           <mat-label>Departamento</mat-label>
           <mat-select formControlName="idDepartamento" disableRipple (selectionChange)="hidingUnitOrg()">
             <ng-container *ngIf="departamentos.length > 0; else noDepartamento">
@@ -114,7 +114,7 @@
         </mat-form-field><br>
       </span>
 
-      <!-- <mat-form-field appearance="fill" style="width: 50%;">
+      <!-- <mat-form-field appearance="fill"  style="width: 50%;">
         <mat-label>Division</mat-label>
         <mat-select formControlName="idDivision" disableRipple>
           <ng-container *ngIf="divisiones.length > 0; else noDivision">
