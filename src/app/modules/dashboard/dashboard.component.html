@@ -52,22 +52,26 @@
       <div class="componentsContent">
         <mat-toolbar class="navbar">
 
-          <div class="btnMenuContainer">
-            <button class="btnMenu" (click)="sidenavOpened = !sidenavOpened"><mat-icon>menu</mat-icon></button>&nbsp;
+          <div class="btnMenuContainer" *ngIf="userSystemService.getUnitOrg.nombre">
+            <button class="btnMenu" (click)="sidenavOpened = !sidenavOpened">
+              <mat-icon>menu</mat-icon>
+            </button>&nbsp;
             <h2 class="departamento">{{userSystemService.getUnitOrg.nombre}}</h2>
-            
-            <button mat-icon-button [matMenuTriggerFor]="units" style="margin: 0 2px;" *ngIf="unidadOrgData.subUnidad.length > 1">
+          
+            <button class="dropdown-toggle" (click)="toggleDropdown($event)" *ngIf="unidadOrgData.subUnidad.length > 1">
               <mat-icon>expand_more</mat-icon>
             </button>
-
-            <mat-menu class="menuPanel" #units="matMenu" yPosition="below">
-              <ng-container *ngFor="let unit of unidadOrgData.subUnidad" >
-                <button mat-menu-item style="padding: 10px 5px;" (click)="changeUnitOrg({id: unit.id, nombre: unit.nombre})"> {{unit.nombre}} </button>
+          
+            <div class="dropdown-menu" [class.show]="dropdownOpen">
+              <ng-container *ngFor="let unit of unidadOrgData.subUnidad">
+                <button class="dropdown-item" (click)="changeUnitOrg({id: unit.id, nombre: unit.nombre})">
+                  {{unit.nombre}}
+                </button>
               </ng-container>
-            </mat-menu>
-          </div>  
+            </div>
+          </div>
 
-          <div class="logout">
+          <div class="logout" *ngIf="userSystemService.getUnitOrg.nombre">
             <span class="userName">
               <h3 class="nombre">{{userLogged.nombre}} {{userLogged.apellidos}}</h3>
               <h3 class="cargo">{{userLogged.cargo.nombre}}</h3>

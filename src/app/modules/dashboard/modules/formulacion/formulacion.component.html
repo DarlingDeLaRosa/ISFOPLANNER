@@ -17,7 +17,7 @@
     </div>
 
     <div class="EjeFiltrosProductoContainer">
-        <div class="filtrosContainer" [formGroup]="filterForm">
+        <div class="filtrosContainer" [formGroup]="filterForm" *ngIf="ejesEstrategicos && ejesEstrategicos.length > 0 || estrategias && estrategias.length > 0 || resultadosEfecto && resultadosEfecto.length > 0">
             <div class="filtrosTitleContainer">
                 <h3>Filtros</h3>
                 <div *ngIf="!ejesEstrategicos && !estrategias && !resultadosEfecto" class="loader"></div>
@@ -25,7 +25,7 @@
             <div class="noData" *ngIf=" ejesEstrategicos && estrategias && resultadosEfecto && ejesEstrategicos.length == 0 && estrategias.length == 0 && resultadosEfecto.length == 0">
                 <img *ngIf="" style="width: 100%;" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
             </div>
-            <div class="filtrosSection" *ngIf="ejesEstrategicos">
+            <div class="filtrosSection" *ngIf="ejesEstrategicos && ejesEstrategicos.length > 0">
                 <h4>Ejes estratégico</h4>
                 <mat-radio-group formControlName="ejesEstrategico">
                     <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id"
@@ -36,7 +36,7 @@
                         color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
-            <div class="filtrosSection" *ngIf="estrategias">
+            <div class="filtrosSection" *ngIf="estrategias && estrategias.length > 0">
                 <h4>Estrategias</h4>
                 <mat-radio-group formControlName="estrategias">
                     <mat-radio-button *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
@@ -46,7 +46,7 @@
                         color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
             </div>
-            <div class="filtrosSection" *ngIf="resultadosEfecto">
+            <div class="filtrosSection" *ngIf="resultadosEfecto && resultadosEfecto.length > 0">
                 <h4>Resultado efecto</h4>
                 <mat-radio-group formControlName="resultadoEfecto">
                     <mat-radio-button *ngFor="let resultadoEfecto of resultadosEfecto" [value]="resultadoEfecto.id"

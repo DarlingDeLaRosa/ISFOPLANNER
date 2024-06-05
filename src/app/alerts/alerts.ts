@@ -91,6 +91,18 @@ export function alertRemoveSure(message: string, observacion?: string): Promise<
   })
 }
 
+export function alertNoUserLevel() {
+  return new Promise((resolve) => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Usuario Invalido.',
+      text: 'La unidad organizativa no tiene permisos para formular o monitorear POA.',
+      showConfirmButton: true,
+      confirmButtonColor: 'red',
+    }).then(() => { resolve(true) })
+  })
+}
+
 export function alertServerDown() {
   Swal.fire({
     icon: 'error',
@@ -100,7 +112,6 @@ export function alertServerDown() {
     confirmButtonColor: 'red',
   })
 }
-
 
 export function alertPeriod(title: string, text: string) {
   Swal.fire({
@@ -121,7 +132,7 @@ export function alertPeriodPromise(title: string, text: string) {
       showConfirmButton: true,
       confirmButtonColor: 'red',
     }).then(() => {
-        resolve(true)
+      resolve(true)
     });
   })
 }

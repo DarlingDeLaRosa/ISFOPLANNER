@@ -10,6 +10,7 @@ export class UserSystemInformationService {
     private userLogged!: UserI
     private userToken!: string
     // private sistema: number = 30
+    //dearrollo
     private sistema: number = 80
     private exatUnitOrg!: subUnit
     private niveles: { [key: string]: number } = {
@@ -33,6 +34,7 @@ export class UserSystemInformationService {
     //     asignacion_de_presupuesto: 39
     // }
 
+    //desarrollo
     public modulosSis = {
         panel_de_control: 49,
         formulacion: 50,
@@ -57,7 +59,11 @@ export class UserSystemInformationService {
     get getUserLogged(): UserI { return this.userLogged }
     get getToken(): string { return this.userToken }
     get getSistema(): number { return this.sistema }
+    // get getURL(): string { return this.URLProduccion }
+    //desarrollo
     get getURL(): string { return this.URLdesarrollo }
+    // get getURLgeneralService(): string { return this.URLgeneralServerProduccion }
+    //desarrollo
     get getURLgeneralService(): string { return this.URLgeneralServer12 }
     
     get isUnidadOrgFather(): UnidadDataI {
@@ -91,7 +97,6 @@ export class UserSystemInformationService {
             default:
                 break;
         }
-
         return this.dataUnidad
     }
 

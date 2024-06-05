@@ -77,13 +77,13 @@
     margin-right: 15px;
 }
 
-.userName .nombre{
+.userName .nombre {
     font-size: 18px;
     font-weight: 600;
     height: 24px;
 }
 
-.userName .cargo{
+.userName .cargo {
     height: 20px;
     font-weight: 400;
     font-size: 14px;
@@ -103,4 +103,82 @@
 
 .active {
     background-color: #49aa42;
+}
+
+
+
+.btnMenuContainer {
+    position: relative;
+}
+
+.dropdown-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    /* Para asegurarse de que aparezca debajo del botón */
+    left: 75%;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    /* Sombra más prominente */
+    z-index: 1;
+    width: 600px;
+    /* Ancho fijo de 700px */
+    max-height: 300px;
+    /* Altura máxima para evitar que se extienda demasiado */
+    overflow-y: auto;
+    /* Agrega un scroll si hay demasiados elementos */
+    flex-direction: column;
+    /* Asegura que los elementos se alineen verticalmente */
+    border-radius: 10px;
+    /* Bordes redondeados */
+}
+
+.dropdown-menu.show {
+    display: flex;
+    /* Utiliza flex para asegurar el layout vertical */
+    flex-direction: column;
+}
+
+.dropdown-item {
+    padding: 15px 20px;
+    cursor: pointer;
+    white-space: normal;
+    /* Permite el ajuste de texto en varias líneas */
+    word-wrap: break-word;
+    /* Rompe las palabras largas */
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background-color: #ddd;
+}
+
+/* Estilizar la barra de desplazamiento */
+.dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
 }

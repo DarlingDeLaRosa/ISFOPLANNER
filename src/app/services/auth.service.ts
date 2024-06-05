@@ -10,7 +10,7 @@ import { HelperService } from './appHelper.service';
 
 export class AuthenticationService {
 
-    private token = this.userSystemService.getDataLocalStorage('token')
+    // private token = this.userSystemService.getDataLocalStorage('token')
     baseURL: string = this.userSystemService.getURLgeneralService
 
     constructor(
@@ -23,7 +23,7 @@ export class AuthenticationService {
         return this.helperHandler.handleGeneralServiceRequest(() => this.http.post(`${this.baseURL}/User/login`, userData))
     }
 
-    public postLogOut() {
-        return this.helperHandler.handleGeneralServiceRequest(() => this.http.post(`${this.baseURL}/User/logout`, {token: this.token}))
+    public postLogOut(token: string) {
+        return this.helperHandler.handleGeneralServiceRequest(() => this.http.post(`${this.baseURL}/User/logout`, {token:token}))
     }
 }
