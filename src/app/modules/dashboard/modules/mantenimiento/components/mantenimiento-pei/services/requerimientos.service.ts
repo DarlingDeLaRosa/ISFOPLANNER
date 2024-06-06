@@ -21,8 +21,8 @@ export class RequerimientosService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  getRequerimientos(page:number = 1): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Requerimientos?CurrentPage=${page}&PageSize=10`, this.header))
+  getRequerimientos(page: number = 1, pageSize: number = 10): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Requerimientos?CurrentPage=${page}&PageSize=${pageSize}`, this.header))
   }
 
   postRequerimientos(requerimiento: RequerimientoI): Observable<ResponseI> {

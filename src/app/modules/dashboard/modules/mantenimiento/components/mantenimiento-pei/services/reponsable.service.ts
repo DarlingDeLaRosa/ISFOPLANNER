@@ -22,7 +22,7 @@ export class ResponsableService {
   ) { }
 
   getResponsable(): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/UnidadesOrganizativas`, this.header))
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/UnidadesOrganizativas?Pagesize=${200}`, this.header))
   }
 
   postResponsable(responsable: ResponsableI): Observable<ResponseI> {

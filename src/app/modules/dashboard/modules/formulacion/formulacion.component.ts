@@ -81,7 +81,7 @@ export class FormulacionComponent implements OnInit {
   }
 
   getAllEjes() {
-    this.ejesService.getEjes()
+    this.ejesService.getEjes(1, 100)
       .subscribe((resp: any) => { this.ejesEstrategicos = resp.data; })
   }
 
@@ -92,7 +92,7 @@ export class FormulacionComponent implements OnInit {
 
   getProducto() {
     const { ejesEstrategico, estrategias, resultadoEfecto } = this.filterForm.value
-    this.apiProducto.getProducto(this.page,this.userSystemService.getUnitOrg.nombre, ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => {
+    this.apiProducto.getProducto(this.page, 10, this.userSystemService.getUnitOrg.nombre, ejesEstrategico, estrategias, resultadoEfecto).subscribe((res: any) => {
       this.productos = res.data;
       this.pagination = res.pagination;
       if (ejesEstrategico > 0) [this.selectedEstrategia] = this.estrategias.filter((estrategia: EstrategiaI) => estrategia.id == estrategias)

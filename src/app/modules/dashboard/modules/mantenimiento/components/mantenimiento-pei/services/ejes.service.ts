@@ -22,8 +22,8 @@ export class EjesService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  getEjes(page:  number = 1): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/EjesEstrategicos?CurrentPage=${page}&PageSize=10`, this.header))
+  getEjes(page:  number = 1, pageSize: number = 10): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/EjesEstrategicos?CurrentPage=${page}&PageSize=${pageSize}`, this.header))
   }
   postEjes(eje: EjesI): Observable<ResponseI> {
     return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/EjesEstrategicos`, eje, this.header))

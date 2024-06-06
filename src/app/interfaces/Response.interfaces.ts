@@ -118,6 +118,6 @@ export interface PaginationI {
     hasNext: boolean
     hasPrevious: boolean
     pageCount: number
-    pageSize: number
+    PageSize: number
     totalPages: number
 }

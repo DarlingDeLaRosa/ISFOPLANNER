@@ -22,8 +22,8 @@ export class MedioVerificacionService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  getMedioVerificacion(page: number = 1): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/MediosVerificacione?CurrentPage=${page}&PageSize=10`, this.header))
+  getMedioVerificacion(page: number = 1, pageSize: number = 10): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/MediosVerificacione?CurrentPage=${page}&PageSize=${pageSize}`, this.header))
   }
 
   postMedioVerificacion(medioVerificacion: MedioVerificacionI): Observable<ResponseI> {

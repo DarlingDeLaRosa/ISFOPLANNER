@@ -41,7 +41,7 @@ export class RequerimientosComponent implements OnInit {
   }
 
   getAllRequerimientos() {
-    this.requerimientoService.getRequerimientos(this.page)
+    this.requerimientoService.getRequerimientos(this.page, 10)
       .subscribe((resp: any) => { this.requerimientos = resp.data; this.pagination = resp.pagination;})
   }
 

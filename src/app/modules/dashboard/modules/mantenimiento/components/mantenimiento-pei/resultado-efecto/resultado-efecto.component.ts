@@ -45,7 +45,7 @@ export class ResultadoEfectoComponent implements OnInit {
   }
 
   getAllEstrategia() {
-    this.estrategiasService.getEstrategias()
+    this.estrategiasService.getEstrategias(1, 100)
       .subscribe((resp: any) => { this.estrategia = resp.data; })
   }
 

@@ -5,7 +5,9 @@
 
     <div class="fuctionContent">
         <span>
-            <button mat-stroked-button [routerLink]="['/dashboard/formulacion/actividades-involucradas']"><mat-icon>groups</mat-icon>Actividades Compartidas</button>
+            <button mat-stroked-button
+                [routerLink]="['/dashboard/formulacion/actividades-involucradas']"><mat-icon>groups</mat-icon>Actividades
+                Compartidas</button>
         </span>
         <span>
             <button class="downLoadButton" mat-stroked-button><mat-icon>arrow_downward</mat-icon>Planificación
@@ -17,21 +19,27 @@
     </div>
 
     <div class="EjeFiltrosProductoContainer">
-        <div class="filtrosContainer" [formGroup]="filterForm" *ngIf="ejesEstrategicos && ejesEstrategicos.length > 0 || estrategias && estrategias.length > 0 || resultadosEfecto && resultadosEfecto.length > 0">
+        <div class="filtrosContainer" [formGroup]="filterForm">
             <div class="filtrosTitleContainer">
                 <h3>Filtros</h3>
                 <div *ngIf="!ejesEstrategicos && !estrategias && !resultadosEfecto" class="loader"></div>
             </div>
-            <div class="noData" *ngIf=" ejesEstrategicos && estrategias && resultadosEfecto && ejesEstrategicos.length == 0 && estrategias.length == 0 && resultadosEfecto.length == 0">
-                <img *ngIf="" style="width: 100%;" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
+            <div class="noData"
+                *ngIf=" ejesEstrategicos && estrategias && resultadosEfecto && ejesEstrategicos.length == 0 && estrategias.length == 0 && resultadosEfecto.length == 0">
+                <img *ngIf="" style="width: 100%;" src="../../../../../assets/NO_DATA_ILUSTRACION.png"
+                    alt="No hay Datos">
             </div>
             <div class="filtrosSection" *ngIf="ejesEstrategicos && ejesEstrategicos.length > 0">
                 <h4>Ejes estratégico</h4>
                 <mat-radio-group formControlName="ejesEstrategico">
-                    <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id"
-                        color="primary">
-                        {{ejeEstrategico.nombre}}
-                    </mat-radio-button><br>
+                    <div >
+                        <mat-radio-button *ngFor="let ejeEstrategico of ejesEstrategicos" [value]="ejeEstrategico.id"
+                            color="primary">
+                            <div style="padding: 10px 0;">
+                                {{ejeEstrategico.nombre}}
+                            </div>
+                        </mat-radio-button>
+                    </div>
                     <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null"
                         color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
@@ -40,7 +48,9 @@
                 <h4>Estrategias</h4>
                 <mat-radio-group formControlName="estrategias">
                     <mat-radio-button *ngFor="let estrategia of estrategias" [value]="estrategia.id" color="primary">
-                        {{estrategia.nombre}}
+                        <div style="padding: 10px 0;">
+                            {{estrategia.nombre}}
+                        </div>
                     </mat-radio-button><br>
                     <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null"
                         color="primary">Todos</mat-radio-button><br>
@@ -49,13 +59,19 @@
             <div class="filtrosSection" *ngIf="resultadosEfecto && resultadosEfecto.length > 0">
                 <h4>Resultado efecto</h4>
                 <mat-radio-group formControlName="resultadoEfecto">
-                    <mat-radio-button *ngFor="let resultadoEfecto of resultadosEfecto" [value]="resultadoEfecto.id"
-                        color="primary">
-                        {{resultadoEfecto.nombre}}
+                    <mat-radio-button style="margin-top: 15px;" *ngFor="let resultadoEfecto of resultadosEfecto"
+                        [value]="resultadoEfecto.id" color="primary">
+                        <div style="padding: 10px 0;">
+                            {{resultadoEfecto.nombre}}
+                        </div>
                     </mat-radio-button><br>
                     <mat-radio-button *ngIf="resultadosEfecto.length > 1" [value]="null"
                         color="primary">Todos</mat-radio-button><br>
                 </mat-radio-group>
+            </div>
+            <div style="display: grid; place-items: center;"
+                *ngIf="ejesEstrategicos && ejesEstrategicos.length == 0 && estrategias && estrategias.length == 0 && resultadosEfecto && resultadosEfecto.length == 0">
+                <img style="width: 100%;" src="../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos">
             </div>
         </div>
         <div class="ejeProductoContainer">
@@ -115,7 +131,8 @@
                         <span style="display: flex; " *ngIf="productos">
                             <h4><span style="font-weight: 500;">Presupuesto total estimado: </span>
                                 {{producto.historial[0].montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
-                            <mat-icon class="editIcon" style="color:black" (click)="enviarProducto(producto.id)">list</mat-icon>
+                            <mat-icon class="editIcon" style="color:black"
+                                (click)="enviarProducto(producto.id)">list</mat-icon>
                         </span>
                     </div>
                     <div>
@@ -138,23 +155,27 @@
                                     <td class="dataCell">{{indicador.nombre}}</td>
                                     <td class="dataCell">{{indicador.responsables.nombre}}</td>
                                     <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
-                                    <td class="dataCell">{{indicador.historial[0].montoEjecutado | currency: 'DOP ':'symbol':'1.2-2'}}</td>
-                                    <td class="dataCell">{{indicador.lineaBase }}<span *ngIf="indicador.esPorcentual">%</span></td>
-                                    <td class="dataCell">{{indicador.meta}}<span *ngIf="indicador.esPorcentual">%</span></td>
+                                    <td class="dataCell">{{indicador.historial[0].montoEjecutado | currency: 'DOP
+                                        ':'symbol':'1.2-2'}}</td>
+                                    <td class="dataCell">{{indicador.lineaBase }}<span
+                                            *ngIf="indicador.esPorcentual">%</span></td>
+                                    <td class="dataCell">{{indicador.meta}}<span *ngIf="indicador.esPorcentual">%</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <charging-box *ngIf="!productos" ></charging-box>
+                <charging-box *ngIf="!productos"></charging-box>
                 <no-data-found *ngIf="productos && productos.length == 0"></no-data-found>
 
             </div>
 
             <span style="display: flex; justify-content: space-between;" *ngIf="pagination">
                 <span></span>
-                <div style="display: flex; align-items: center; background-color: #004b8d1a; border-radius: 15px; border: solid 1px #004b8d;" >
+                <div
+                    style="display: flex; align-items: center; background-color: #004b8d1a; border-radius: 15px; border: solid 1px #004b8d;">
                     <mat-icon class="rowBIcon" (click)="previousPage()">navigate_before</mat-icon>
                     <h5 style="margin: 0; font-weight: 600;">{{page}} / {{pagination.totalPages}}</h5>
                     <mat-icon class="rowBIcon" (click)="nextPage()">navigate_next</mat-icon>

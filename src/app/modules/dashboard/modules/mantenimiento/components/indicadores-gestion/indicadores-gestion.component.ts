@@ -90,7 +90,7 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   getProductos() {
-    this.apiProducto.getProducto().subscribe((res: any) => { this.productos = res.data;})
+    this.apiProducto.getProducto(1,100).subscribe((res: any) => { this.productos = res.data;})
   }
 
   getUnidadOrganizativa() {
@@ -102,7 +102,7 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   getEstructuraPro() {
-    this.apiEstruturaPro.getEstructurasProgramaticas().subscribe((res: any) => { this.estructurasPro = res.data })
+    this.apiEstruturaPro.getEstructurasProgramaticas(1,100).subscribe((res: any) => { this.estructurasPro = res.data })
   }
 
   getFrecuencia() {
@@ -118,7 +118,7 @@ export class IndicadoresGestionComponent implements OnInit {
   }
 
   getMedioVerificacion() {
-    this.medioVerifService.getMedioVerificacion().subscribe((res: any) => { this.mediosVerificacion = res.data;})
+    this.medioVerifService.getMedioVerificacion(1,100).subscribe((res: any) => { this.mediosVerificacion = res.data;})
   }
 
   postIndicadoresGestion() {

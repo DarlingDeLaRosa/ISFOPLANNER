@@ -45,7 +45,7 @@ export class EstrategiasComponent implements OnInit {
   }
 
   getAllEjes() {
-    this.ejesService.getEjes()
+    this.ejesService.getEjes(1, 100)
       .subscribe((resp: any) => { this.ejes = resp.data; })
   }
 

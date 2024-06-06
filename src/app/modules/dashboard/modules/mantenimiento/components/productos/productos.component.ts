@@ -63,7 +63,7 @@ export class ProductosComponent implements OnInit {
   }
 
   getIndicadoresEstrategicos() {
-    this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos()
+    this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos(1,100)
       .subscribe((res: any) => { this.indicadoresEstrategicos = res.data })
   }
 

@@ -58,7 +58,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       requerimientos: new FormControl('', Validators.required),
       lineaBase: new FormControl<number>(0, Validators.required),
       supuestosRiesgos: new FormControl('', Validators.required),
-      mediosVerificaciones: new FormControl('', Validators.required),
+      mediosVerificaciones: new FormControl(''),
       idTipoIndicador: new FormControl('', Validators.required),
       esPorcentual: new FormControl('', Validators.required),
       idResultadoefecto: new FormControl<number>(0, Validators.required),
@@ -89,7 +89,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   getAllResultadoEfecto() {
-    this.resultadoEfectoService.getResultadoEfecto().subscribe((resp: any) => { this.resultadosEfecto = resp.data; })
+    this.resultadoEfectoService.getResultadoEfecto(1, 100).subscribe((resp: any) => { this.resultadosEfecto = resp.data; })
   }
 
   getAllIndicadoresEstrategicos() {
@@ -97,11 +97,11 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   getAllMedioVerificacion() {
-    this.medioVerificacionService.getMedioVerificacion().subscribe((resp: any) => { this.mediosVerificacion = resp.data; })
+    this.medioVerificacionService.getMedioVerificacion(1,100).subscribe((resp: any) => { this.mediosVerificacion = resp.data; })
   }
 
   getAllRequerimientos() {
-    this.requerimientosService.getRequerimientos().subscribe((resp: any) => { this.requerimientos = resp.data; })
+    this.requerimientosService.getRequerimientos(1,100).subscribe((resp: any) => { this.requerimientos = resp.data; })
   }
 
   getAllResponsables() {
@@ -109,7 +109,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   getAllSupuestoRiesgos() {
-    this.supuestoRiesgoService.getSupuestosRiesgos().subscribe((resp: any) => { this.supuestosRiesgos = resp.data; })
+    this.supuestoRiesgoService.getSupuestosRiesgos(1,100).subscribe((resp: any) => { this.supuestosRiesgos = resp.data; })
   }
 
   setValueIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {
