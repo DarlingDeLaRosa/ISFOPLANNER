@@ -30,16 +30,20 @@
                         </h4>
                         <mat-icon
                             *ngIf="indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
-                            class="fileIcon" (click)="openModalVistaIndicadoresRecinto(indicador.id)">visibility</mat-icon>
+                            class="fileIcon" (click)="openModalVistaIndicadoresRecinto(indicador.id)"
+                            matTooltip="Listado de Logros por trimestres" >visibility</mat-icon>
                         <mat-icon
                             *ngIf="permisosCRUD.permisoEditar(modulo.formulacion) && indicador.alcance.id !== 2 && userLogged.recinto.siglas === 'REC' && indicador.responsables.nombre == curretUnit"
-                            class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)">lan</mat-icon>
+                            class="nodesIcon" (click)="openModalResultadoEsperado(indicador.id)"
+                            matTooltip="Distribuir metas a los recintos" >lan</mat-icon>
                         <mat-icon
                             *ngIf="permisosCRUD.permisoEditar(modulo.formulacion) && indicador.responsables.nombre == curretUnit || indicador.alcance.id !== 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto)"
-                            class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)">edit</mat-icon>
+                            class="editIcon" (click)="openModalIndicadoresRecinto(indicador.id)"
+                            matTooltip="Distribuir meta por trimestre">edit</mat-icon>
                         <mat-icon
                             *ngIf="indicador.alcance.id != 1 && userLogged.recinto.siglas == 'REC' && indicador.responsables.nombre == curretUnit || indicador.alcance.id != 2 && helperHandler.validationResRecintos(curretUnit, indicador.indicadoresRecinto) && userLogged.recinto.siglas != 'REC'"
-                            class="listIcon" (click)="sendToIndicador(indicador.id)">list</mat-icon>
+                            class="listIcon" (click)="sendToIndicador(indicador.id)"
+                            matTooltip="Listado de actividades">list</mat-icon>
                     </span>
                 </div>
                 <div>

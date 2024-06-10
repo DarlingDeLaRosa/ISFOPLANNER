@@ -17,10 +17,11 @@ import { periodoConfig } from '../../interfaces/mantenimientoPOA.interface';
 
 export class ConfiguracionPeriodosComponent implements OnInit {
 
+  tipoProcesos: any[] = []
   periodosConfigForm: FormGroup;
   periodosConfig!: periodoConfig[]
-  tipoProcesos: any[] = []
   modulo = this.userSystemService.modulosSis
+  prosupuestoInsti: number = 0
 
   constructor(
     public fb: FormBuilder,
@@ -49,7 +50,12 @@ export class ConfiguracionPeriodosComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(1, true)
-      .subscribe((res: any) => { if(res.data.length > 0) this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id })})
+      .subscribe((res: any) => { 
+        if(res.data.length > 0) {
+        this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: res.data[0].id })
+        this.prosupuestoInsti = res.data[0].id
+      }
+    })
   }
 
   getProceso() {
@@ -87,6 +93,11 @@ export class ConfiguracionPeriodosComponent implements OnInit {
   setValueEditEstructuraPro(estructuraPro: any) {
     this.periodosConfigForm.reset(estructuraPro)
     this.periodosConfigForm.patchValue({ idTipoProceso: estructuraPro.tipoProceso.id })
+  }
+
+  clearForm(){
+    this.periodosConfigForm.reset()
+    this.periodosConfigForm.patchValue({ idPresupuestoInstitucional: this.prosupuestoInsti })
   }
 
   saveChanges() {

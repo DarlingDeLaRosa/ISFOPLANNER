@@ -109,9 +109,14 @@ export class RolesComponent implements OnInit {
         .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getRolesPermisos(), this.rolesForm) })
     }
   }
-
+  
   openModal(rol: GetRolesI) {
     this.dialog.open(RolesViewComponent, { data: rol })
+  }
+
+  clearForm(){
+    this.rolesForm.reset()
+    this.rolesForm.patchValue({ idSistema: this.userSystemService.getSistema })
   }
 
   saveChanges() {

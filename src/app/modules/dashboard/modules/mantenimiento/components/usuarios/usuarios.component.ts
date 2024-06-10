@@ -97,7 +97,10 @@ export class UsuariosComponent implements OnInit {
   }
 
   getAllRoles() {
-    this.apiUsuario.getAllRoles().subscribe((res: any) => { this.roles = res.data; })
+    this.apiUsuario.getAllRoles().subscribe((res: any) => { 
+      console.log(res);
+      
+      this.roles = res.data; })
   }
 
   getAllCargos() {
@@ -105,14 +108,16 @@ export class UsuariosComponent implements OnInit {
   }
 
   getUsuarios() {
-    this.apiUsuario.getUsuario().subscribe((res: any) => { this.usuarios = res.data; })
+    this.apiUsuario.getUsuario().subscribe((res: any) => { 
+      console.log(res);
+      
+      this.usuarios = res.data; })
   }
 
   postUsuarios() {
     this.apiUsuario.postUsuario(this.usuariosForm.value)
       .subscribe((res: any) => {
-        this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm)
-        this.usuariosForm.patchValue({ idSistema: this.userSystemService.getSistema })
+        this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm, ()=> this.resetIdSistema())
         this.vic = true; this.dep = true; this.dir = true
       })
   }
@@ -120,10 +125,13 @@ export class UsuariosComponent implements OnInit {
   putUsuarios() {
     this.apiUsuario.putUsuario(this.usuariosForm.value)
       .subscribe((res: any) => {
-        this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm)
-        this.usuariosForm.patchValue({ idSistema: this.userSystemService.getSistema })
+        this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm, ()=> this.resetIdSistema())
         this.vic = true; this.dep = true; this.dir = true
       })
+  }
+
+  resetIdSistema(){
+    this.usuariosForm.patchValue({ idSistema: this.userSystemService.getSistema })
   }
 
   async deleteUsuarios(id: number) {
@@ -132,13 +140,11 @@ export class UsuariosComponent implements OnInit {
     if (removeDecision) {
       loading(true)
       this.apiUsuario.removeUsuario(id)
-        .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm) })
+        .subscribe((res: any) => { this.helperHandler.handleResponseGeneralServer(res, () => this.getUsuarios(), this.usuariosForm, ()=> this.resetIdSistema()) })
     }
   }
 
   setValueEditUsuarios(usuario: any) {
-    // this.vic = true; this.dep = true ; this.dir = true 
-
     this.usuariosForm.patchValue({
       idUsuario: usuario.idUsuario,
       usuario: usuario.usuario,
@@ -155,6 +161,12 @@ export class UsuariosComponent implements OnInit {
     })
 
     this.hidingUnitOrg()
+  }
+
+  clearForm(){
+    this.usuariosForm.reset(); 
+    this.hidingUnitOrg()
+    this.usuariosForm.patchValue({idSistema: this.userSystemService.getSistema})
   }
 
   saveChanges() {

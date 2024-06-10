@@ -97,11 +97,11 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   getAllMedioVerificacion() {
-    this.medioVerificacionService.getMedioVerificacion(1,100).subscribe((resp: any) => { this.mediosVerificacion = resp.data; })
+    this.medioVerificacionService.getMedioVerificacion(1,200).subscribe((resp: any) => { this.mediosVerificacion = resp.data; })
   }
 
   getAllRequerimientos() {
-    this.requerimientosService.getRequerimientos(1,100).subscribe((resp: any) => { this.requerimientos = resp.data; })
+    this.requerimientosService.getRequerimientos(1,200).subscribe((resp: any) => { this.requerimientos = resp.data; })
   }
 
   getAllResponsables() {
@@ -109,7 +109,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   getAllSupuestoRiesgos() {
-    this.supuestoRiesgoService.getSupuestosRiesgos(1,100).subscribe((resp: any) => { this.supuestosRiesgos = resp.data; })
+    this.supuestoRiesgoService.getSupuestosRiesgos(1,200).subscribe((resp: any) => { this.supuestosRiesgos = resp.data; })
   }
 
   setValueIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {

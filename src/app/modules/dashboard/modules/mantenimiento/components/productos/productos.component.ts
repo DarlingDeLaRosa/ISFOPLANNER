@@ -24,6 +24,7 @@ export class ProductosComponent implements OnInit {
 
   page: number = 1
   pagination!: PaginationI
+  prosupuestoInsti: number = 0
   productosForm: FormGroup
   productos!: ProductoI[];
   unidadesOrg: subUnidadI[] = []
@@ -59,7 +60,12 @@ export class ProductosComponent implements OnInit {
 
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(this.page, true)
-      .subscribe((res: any) => { if ( res.data.length > 0) this.productosForm.patchValue({ idPresupuesto: res.data[0].id }) })
+      .subscribe((res: any) => { 
+        if ( res.data.length > 0){
+          this.productosForm.patchValue({ idPresupuesto: res.data[0].id }) 
+          this.prosupuestoInsti = res.data[0].id
+        }
+      })
   }
 
   getIndicadoresEstrategicos() {
@@ -107,6 +113,11 @@ export class ProductosComponent implements OnInit {
       idIndicadorEstrategico: producto.indicadorEstrategico.id,
       responsables: producto.responsables.map((responsable: ResponsableI)=>{ return responsable.id}),
     })
+  }
+
+  clearForm(){
+    this.productosForm.reset()
+    this.productosForm.patchValue({ idPresupuesto: this.prosupuestoInsti })
   }
 
   saveChanges() {

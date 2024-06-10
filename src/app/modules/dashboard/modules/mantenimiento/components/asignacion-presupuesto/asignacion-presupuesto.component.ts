@@ -85,6 +85,7 @@ export class AsignacionPresupuestoComponent implements OnInit {
     this.accion = false
     this.asignacionPresupuestoForm.reset();
     this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.enable()
+    this.asignacionPresupuestoForm.value.idPresupuestoInstitucional = this.presupuestosInst.id
   }
 
   openModal(subUnidades: UnidadOrgI) {

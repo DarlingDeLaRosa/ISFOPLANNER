@@ -132,7 +132,9 @@
                             <h4><span style="font-weight: 500;">Presupuesto total estimado: </span>
                                 {{producto.historial[0].montoEjecutado | currency: 'DOP ': 'symbol':'1.2-2'}}</h4>
                             <mat-icon class="editIcon" style="color:black"
-                                (click)="enviarProducto(producto.id)">list</mat-icon>
+                                (click)="enviarProducto(producto.id)"
+                                matTooltip="Listado de Indicadores"
+                                >list </mat-icon>
                         </span>
                     </div>
                     <div>
@@ -155,10 +157,8 @@
                                     <td class="dataCell">{{indicador.nombre}}</td>
                                     <td class="dataCell">{{indicador.responsables.nombre}}</td>
                                     <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
-                                    <td class="dataCell">{{indicador.historial[0].montoEjecutado | currency: 'DOP
-                                        ':'symbol':'1.2-2'}}</td>
-                                    <td class="dataCell">{{indicador.lineaBase }}<span
-                                            *ngIf="indicador.esPorcentual">%</span></td>
+                                    <td class="dataCell">{{indicador.historial[0].montoEjecutado | currency: 'DOP':'symbol':'1.2-2'}}</td>
+                                    <td class="dataCell">{{indicador.lineaBase }}<span *ngIf="indicador.esPorcentual">%</span></td>
                                     <td class="dataCell">{{indicador.meta}}<span *ngIf="indicador.esPorcentual">%</span>
                                     </td>
                                 </tr>

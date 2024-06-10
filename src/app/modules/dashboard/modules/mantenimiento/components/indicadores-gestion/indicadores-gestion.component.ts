@@ -169,6 +169,11 @@ export class IndicadoresGestionComponent implements OnInit {
 
   openDetailModalView(elementoList: any[], nombre: string, entidad: string) { this.dialog.open(EntidadListViewComponent, { data: {elementoList, entidad, nombre} })}
 
+  clearForm(){
+    this.indicadoresGestionForm.reset()
+    this.indicadoresGestionForm.patchValue({ idPresupuesto: this.idPresupuesto })
+  }
+
   saveChanges() {
     this.helperHandler.saveChanges(() => this.putIndicadoresGestion(), this.indicadoresGestionForm, () => this.postIndicadoresGestion())
   }

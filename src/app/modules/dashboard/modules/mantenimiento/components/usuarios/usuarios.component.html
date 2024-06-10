@@ -129,7 +129,7 @@
       </mat-form-field> -->
 
       <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-      <button (click)="usuariosForm.reset(); this.hidingUnitOrg()" *ngIf="usuariosForm.value.idUsuario" class="cleanButton">Limpiar
+      <button (click)="clearForm()" *ngIf="usuariosForm.value.idUsuario" class="cleanButton">Limpiar
         edición</button>
 
     </form>

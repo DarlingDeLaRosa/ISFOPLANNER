@@ -40,7 +40,7 @@
       <br>
 
       <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-      <button (click)="rolesForm.reset()" *ngIf="rolesForm.value.idRol" class="cleanButton">Limpiar edición</button>
+      <button (click)="clearForm()" *ngIf="rolesForm.value.idRol" class="cleanButton">Limpiar edición</button>
 
     </form>
 

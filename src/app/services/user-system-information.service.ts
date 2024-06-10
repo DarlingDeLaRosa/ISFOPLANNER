@@ -9,9 +9,9 @@ export class UserSystemInformationService {
     unitChange = new EventEmitter<any>();
     private userLogged!: UserI
     private userToken!: string
-    private sistema: number = 30
+    // private sistema: number = 30
     //dearrollo
-    // private sistema: number = 80
+    private sistema: number = 80
     private exatUnitOrg!: subUnit
     private niveles: { [key: string]: number } = {
         "VICERRECTORIA": 4,
@@ -23,28 +23,28 @@ export class UserSystemInformationService {
     private peridoFormulacion!: periodoConfig
     private dataUnidad!: UnidadDataI 
 
-    public modulosSis = {
-        panel_de_control: 32,
-        formulacion: 33,
-        monitoreo: 34,
-        planes_transversales: 35,
-        material_de_apoyo: 36,
-        ayuda: 37,
-        mantenimiento: 38,
-        asignacion_de_presupuesto: 39
-    }
+    // public modulosSis = {
+    //     panel_de_control: 32,
+    //     formulacion: 33,
+    //     monitoreo: 34,
+    //     planes_transversales: 35,
+    //     material_de_apoyo: 36,
+    //     ayuda: 37,
+    //     mantenimiento: 38,
+    //     asignacion_de_presupuesto: 39
+    // }
 
     //desarrollo
-    // public modulosSis = {
-    //     panel_de_control: 49,
-    //     formulacion: 50,
-    //     monitoreo: 51,
-    //     planes_transversales: 52,
-    //     material_de_apoyo: 53,
-    //     ayuda: 54,
-    //     mantenimiento: 55,
-    //     asignacion_de_presupuesto: 56
-    // }
+    public modulosSis = {
+        panel_de_control: 49,
+        formulacion: 50,
+        monitoreo: 51,
+        planes_transversales: 52,
+        material_de_apoyo: 53,
+        ayuda: 54,
+        mantenimiento: 55,
+        asignacion_de_presupuesto: 56
+    }
 
 
     // private URLremoteDesarrollo = "http://isfoplaner.somee.com"
@@ -59,12 +59,12 @@ export class UserSystemInformationService {
     get getUserLogged(): UserI { return this.userLogged }
     get getToken(): string { return this.userToken }
     get getSistema(): number { return this.sistema }
-    get getURL(): string { return this.URLProduccion }
+    // get getURL(): string { return this.URLProduccion }
     //desarrollo
-    // get getURL(): string { return this.URLdesarrollo }
-    get getURLgeneralService(): string { return this.URLgeneralServerProduccion }
+    get getURL(): string { return this.URLdesarrollo }
+    // get getURLgeneralService(): string { return this.URLgeneralServerProduccion }
     //desarrollo
-    // get getURLgeneralService(): string { return this.URLgeneralServer12 }
+    get getURLgeneralService(): string { return this.URLgeneralServer12 }
     
     get isUnidadOrgFather(): UnidadDataI {
         let userLevel;

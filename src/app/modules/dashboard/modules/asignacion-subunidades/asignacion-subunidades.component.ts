@@ -94,6 +94,7 @@ export class AsignacionSubunidadesComponent {
     this.accion = false
     this.asignacionPresupuestoForm.reset();
     this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.enable()
+    this.asignacionPresupuestoForm.value.idPresupuestoInstitucional = this.presupuestosInst
   }
 
   openModal(subUnidades: subUnidadI) {
@@ -105,6 +106,7 @@ export class AsignacionSubunidadesComponent {
     this.asignacionPresupuestoForm.patchValue({
       idUnidadOrganizativa: unidadOrg.id,
       monto: unidadOrg.presupuesto[0].monto
+      
     })
     this.asignacionPresupuestoForm.get('idUnidadOrganizativa')?.disable()
   }

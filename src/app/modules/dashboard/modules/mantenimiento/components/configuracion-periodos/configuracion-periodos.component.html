@@ -37,7 +37,7 @@
             </mat-form-field>
 
             <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-            <button (click)="periodosConfigForm.reset()" *ngIf="periodosConfigForm.value.id" class="cleanButton">Limpiar edición</button>
+            <button (click)="clearForm()" *ngIf="periodosConfigForm.value.id" class="cleanButton">Limpiar edición</button>
 
         </form>
 
