@@ -84,13 +84,19 @@ export class ActividadesService {
     return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/por-involucrados?unidad=${this.activeUnit.nombre}`, this.header))
   }
 
-  getActividadesPerito(page: number = 1,estado: boolean | null, pageSize: number = 10): Observable<ResponseI> {
-    let status = estado !== null ? estado : ''
-    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/transversales/${this.activeUnit.nombre}?CurrentPage=${page}&PageSize=${pageSize}&estado=${status}`, this.header))
+  getActividadesPerito(page: number = 1, estado: boolean | null | string, pageSize: number = 10): Observable<ResponseI> {
+    let pendiente: boolean = false
+    if (estado == 'pendiente') { estado = null; pendiente = true }
+    
+    return this.helperHandler.handleRequest(() => this.http.get<ResponseI>(`${this.baseUrl}/Actividades/transversales/${this.activeUnit.nombre}?CurrentPage=${page}&PageSize=${pageSize}&estado=${estado ?? ''}&pendientes=${pendiente}`, this.header))
   }
 
-  postAceptacionPerito(insumo: postInsumoAceptacion, idCosteoDetalle:number, idIndicador: number): Observable<ResponseI> {
-    return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/Actividades/transversales/costeo-detalle/${idCosteoDetalle}/indicador-operativo/${idIndicador}`, insumo, this.header))
+  postAceptacionPerito(insumo: postInsumoAceptacion, idIndicador: number): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/Actividades/transversales/costeo-detalle/indicador-operativo/${idIndicador}`, insumo, this.header))
+  }
+  
+  postRechazoPerito(insumo: {id: number, montoTotal: number}): Observable<ResponseI> {
+    return this.helperHandler.handleRequest(() => this.http.post<ResponseI>(`${this.baseUrl}/Actividades/transversales/rechazar-costeo-detalle`, insumo, this.header))
   }
   
   getInsumos(): Observable<ResponseI> {

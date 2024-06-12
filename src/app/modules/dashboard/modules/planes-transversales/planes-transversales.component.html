@@ -7,7 +7,8 @@
         <mat-form-field appearance="fill" >
             <mat-label>Estado</mat-label>
             <mat-select disableRipple [(ngModel)]="estado" (selectionChange)="getActividadesPerito()">
-                    <mat-option [value]="false">Pendientes</mat-option>
+                    <mat-option value="pendiente">Pendientes</mat-option>
+                    <mat-option [value]="false">Rechazados</mat-option>
                     <mat-option [value]="true">Aceptados</mat-option>
                     <mat-option [value]="null">Todos</mat-option>
                 </mat-select>
@@ -55,13 +56,14 @@
                             <th class="headerCell">Presupuesto</th>
                             <th class="headerCell"></th>
                             <th class="headerCell"></th>
+                            <th class="headerCell"></th>
                         </tr>
                         <tr class="headerRow" *ngIf="actividad.costeo.costeoDetalle.length == 0">
                             <th class="headerCell">No se encontraron Insumos</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="dataRow" [ngStyle]="{'background-color': insumos.peritoAceptacion ? 'rgba(0, 128, 0, 0.100)': ''}" *ngFor="let insumos of actividad.costeo.costeoDetalle">
+                        <tr class="dataRow" [ngStyle]="{'background-color': insumos.peritoAceptacion ? 'rgba(0, 128, 0, 0.100)' : insumos.peritoAceptacion != null ? 'rgba(247, 90, 90)' : ''}" *ngFor="let insumos of actividad.costeo.costeoDetalle">
                             <td class="dataCell">{{insumos.insumo.id}}</td>
                             <td class="dataCell">{{insumos.insumo.nombre}}</td>
                             <td class="dataCell">{{insumos.descripcionInsumo}}</td>
@@ -71,11 +73,16 @@
                             <td class="dataCell" *ngIf="insumos.montoTotal != null; else noCosteo"> {{insumos.montoTotal | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
                             <ng-template #noCosteo><td class="dataCell">{{0 | currency: 'DOP ': 'symbol':'1.2-2'}}</td></ng-template>
                             <td class="dataCell" style="width: 5%;">
-                                <button mat-stroked-button *ngIf="!insumos.peritoAceptacion && permisosCRUD.permisoEditar(modulo.planes_transversales)" (click)="aceptInsumo(insumos, actividad.indicadorGestion.id)">
-                                    <mat-icon class="editIcon">thumb_up</mat-icon> Aceptar
+                                <button mat-stroked-button *ngIf="!insumos.peritoAceptacion && insumos.peritoAceptacion == null && permisosCRUD.permisoEditar(modulo.planes_transversales)" (click)="aceptInsumo(insumos, actividad.indicadorGestion.id)">
+                                    <mat-icon class="editIcon">thumb_up</mat-icon>Aceptar
                                 </button>
                             </td>
-                            <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="!insumos.peritoAceptacion && permisosCRUD.permisoEditar(modulo.planes_transversales)" (click)="sendDetailInsumo(insumos.id, actividad.indicadorGestion.id)" class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
+                            <td class="dataCell" style="width: 5%;">
+                                <button mat-stroked-button *ngIf="!insumos.peritoAceptacion && insumos.peritoAceptacion == null && permisosCRUD.permisoEditar(modulo.planes_transversales)" (click)="rejectInsumo(insumos)">
+                                    <mat-icon class="removeIcon">thumb_down</mat-icon>Rechazar
+                                </button>
+                            </td>
+                            <td class="dataCell" style="width: 5%;"><mat-icon *ngIf="!insumos.peritoAceptacion && insumos.peritoAceptacion == null && permisosCRUD.permisoEditar(modulo.planes_transversales)" (click)="sendDetailInsumo(insumos.id, actividad.indicadorGestion.id)" class="editIcon">edit</mat-icon></td> <!--(click)="sendToEditAct(actividad.id)"-->
                         </tr>
                     </tbody>
                 </table>

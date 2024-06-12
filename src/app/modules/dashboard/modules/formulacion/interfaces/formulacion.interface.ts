@@ -83,10 +83,11 @@ export interface CosteoDetallesI {
 }
 
 export interface postInsumoAceptacion {
+  id: number
   idInsumo: number,
   descripcionInsumo: string,
   idPerito: number,
-  peritoAceptacion: true,
+  peritoAceptacion: boolean,
   costoUnitario: number,
   cantidad: number,
   montoTotal: number,

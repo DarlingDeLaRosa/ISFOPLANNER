@@ -99,7 +99,7 @@ export class ActividadesFormulacionComponent implements OnInit {
     this.insumoForm = this.fb.group({
       id: 0,
       montoTotal: new FormControl(''),
-      peritoAceptacion: new FormControl(null),
+      peritoAceptacion: new FormControl(false),
       nombre: new FormControl('', Validators.required),
       cantidad: new FormControl('', Validators.required),
       auxiliar: new FormControl('', Validators.required),
@@ -334,6 +334,8 @@ export class ActividadesFormulacionComponent implements OnInit {
 
   agregarInsumoAlObjeto() {
     if (this.insumoForm.valid) {
+      console.log(this.insumoForm.value);
+      
       this.insumoForm.value.fechaRecepcion = format(this.insumoForm.value.fechaRecepcion, 'yyyy-MM-dd');
       this.insumosGroup.push(this.insumoForm.value)
       this.insumoForm.reset()
@@ -386,6 +388,9 @@ export class ActividadesFormulacionComponent implements OnInit {
   }
 
   saveChanges() {
+
+    console.log(this.actividadForm.value);
+    
     this.insumosGroup.map((insumo: CosteoDetallesGroupI) => {
       if (insumo.idPerito == 0) { insumo.idPerito = null }
     })

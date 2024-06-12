@@ -293,10 +293,11 @@
             <td class="dataCell">{{insumo.cantidad}}</td>
             <td class="dataCell">{{insumo.costoUnitario  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
             <td class="dataCell">{{insumo.montoTotal  | currency: 'DOP ': 'symbol':'1.2-2'}}</td>
-            <td class="dataCell"><mat-icon *ngIf="insumo.peritoAceptacion != true" class="editIcon" (click)="editInsumo(insumo, i)">edit</mat-icon></td>
+            <td class="dataCell"><mat-icon *ngIf="insumo.peritoAceptacion == null " class="editIcon" (click)="editInsumo(insumo, i)">edit</mat-icon></td>
             <td class="dataCell">
-              <mat-icon *ngIf="insumo.peritoAceptacion != true; else gestorWorking" class="removeIcon" (click)="removeInsumo(i, insumo.id)">delete</mat-icon>
-              <ng-template #gestorWorking ><mat-icon  class="removeIcon" matTooltip="El Insumo esta siendo procesado por el gestor transversal.">block</mat-icon></ng-template>
+              <mat-icon *ngIf="insumo.peritoAceptacion == null" class="removeIcon" (click)="removeInsumo(i, insumo.id)">delete</mat-icon>
+              <mat-icon  *ngIf="insumo.peritoAceptacion == true" class="editIcon" matTooltip="El Insumo ha sido aceptado por el gestor transversal.">check_circle</mat-icon>
+              <mat-icon  *ngIf="insumo.peritoAceptacion == false" class="removeIcon" matTooltip="El Insumo ha sido rechazado por el gestor transversal.">block</mat-icon>
             </td>
           </tr>
         </tbody>

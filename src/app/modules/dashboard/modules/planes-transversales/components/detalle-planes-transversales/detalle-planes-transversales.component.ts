@@ -28,6 +28,7 @@ export class DetallePlanesTransversalesComponent implements OnInit {
   ) {
 
     this.insumoForm = this.fb.group({
+      id: new FormControl('', Validators.required),
       cantidad: new FormControl('', Validators.required),
       idPerito: new FormControl('', Validators.required),
       idInsumo: new FormControl('', Validators.required),
@@ -59,8 +60,9 @@ export class DetallePlanesTransversalesComponent implements OnInit {
     this.actividadesService.getInsumoById(this.idInsumo).subscribe((res: any) => {
       this.insumoDetalle = res.data
       const { data } = res
-
+      
       this.insumoForm.patchValue({
+        id: data.id,
         peritoAceptacion: true,
         cantidad: data.cantidad,
         idPerito: data.perito.id,
@@ -71,6 +73,9 @@ export class DetallePlanesTransversalesComponent implements OnInit {
         idUnidadMedida: data.unidadMedida.id,
         descripcionInsumo: data.descripcionInsumo,
       })
+
+      console.log(this.insumoForm.value);
+
     })
   }
 
@@ -84,7 +89,7 @@ export class DetallePlanesTransversalesComponent implements OnInit {
   postaceptInsumo() {
     loading(true)
     
-    this.actividadesService.postAceptacionPerito(this.insumoForm.value, this.insumoDetalle.id, this.idIndicador)
+    this.actividadesService.postAceptacionPerito(this.insumoForm.value, this.idIndicador)
     .subscribe((res: any) => {
       this.helperHandler.handleResponse(res, () => '')
       if (res.ok) { this.router.navigate(['dashboard/planesTransversales']) }

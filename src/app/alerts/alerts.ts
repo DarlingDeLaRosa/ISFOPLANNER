@@ -21,7 +21,6 @@ export function alertIsSuccess(respuesta: boolean) {
   }
 }
 
-
 export function alertRemoveSuccess() {
   Swal.fire({
     icon: 'success',
@@ -136,8 +135,6 @@ export function alertPeriodPromise(title: string, text: string) {
     });
   })
 }
-
-
 
 export function alertPeriodDone(title: string, text: string) {
   Swal.fire({
