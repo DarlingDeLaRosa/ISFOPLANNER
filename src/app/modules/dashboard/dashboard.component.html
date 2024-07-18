@@ -41,7 +41,13 @@
           <mat-icon>question_mark</mat-icon>Ayuda
         </a>
         
-        <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active" *ngIf="permisosCRUD.permisoLeer(modulo.mantenimiento) && userSystemService.getUnitOrg.nombre == 'DEPARTAMENTO DE TECNOLOGIAS DE LA INFORMACION Y COMUNICACION' "> <!---->
+        <a class="item-menu" [routerLink]="['mantenimiento/mantenimientoPoa']" routerLinkActive="active" 
+        *ngIf="
+          permisosCRUD.permisoLeer(modulo.mantenimiento) && 
+          userSystemService.getUnitOrg.nombre == 'DEPARTAMENTO DE TECNOLOGIAS DE LA INFORMACION Y COMUNICACION' || 
+          userSystemService.getUnitOrg.nombre == 'DEPARTAMENTO DE FORMULACION, MONITOREO Y EVALUACION PLANES, PROGRAMAS Y PROYECTOS' ||
+          userSystemService.getUnitOrg.nombre == 'DIRECCION DE PLANIFICACION Y DESARROLLO' " 
+          > <!---->
           <mat-icon>settings</mat-icon>Mantenimiento
         </a>
 
