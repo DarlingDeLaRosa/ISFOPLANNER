@@ -21,7 +21,7 @@
                 <h3 style="font-weight: 400;">{{indicador.lineaBase}}</h3> -->
 
                 <h3 style="margin-left: 40px;">Meta:</h3> &nbsp;
-                <h3 style="font-weight: 400;" *ngIf="indicador.alcance.id == 2; else noRectoria">{{indicador.meta}}</h3>
+                <h3 style="font-weight: 400; margin-right: 40px;" *ngIf="indicador.alcance.id == 2; else noRectoria">{{indicador.meta}}</h3>
                 <ng-template #noRectoria>
                     <h3 style="font-weight: 400;">
                         {{helperHandler.getExactMetaRecinto(indicador.indicadoresRecinto).metaRecinto?.meta}}</h3>

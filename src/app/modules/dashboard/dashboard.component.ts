@@ -41,7 +41,7 @@ export class dashboardComponent implements OnInit, OnDestroy {
     this.isUnidadOrgFather()
     this.validUnidadOrganizativaRecintos()
 
-    if (this.unidadOrgData.unidad == 'DEPARTAMENTO DE TECNOLOGIAS DE LA INFORMACION Y COMUNICACION' || this.unidadOrgData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO') {
+    if (this.unidadOrgData.unidad == 'DEPARTAMENTO DE FORMULACION, MONITOREO Y EVALUACION PLANES, PROGRAMAS Y PROYECTOS' || this.unidadOrgData.unidad == 'DIRECCION DE PLANIFICACION Y DESARROLLO') {
       this.getAllUnits()
     }
   }

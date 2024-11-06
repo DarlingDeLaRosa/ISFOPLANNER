@@ -73,9 +73,6 @@ export class DetallePlanesTransversalesComponent implements OnInit {
         idUnidadMedida: data.unidadMedida.id,
         descripcionInsumo: data.descripcionInsumo,
       })
-
-      console.log(this.insumoForm.value);
-
     })
   }
 

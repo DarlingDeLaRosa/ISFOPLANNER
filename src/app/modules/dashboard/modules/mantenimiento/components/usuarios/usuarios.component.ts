@@ -6,6 +6,7 @@ import { UserSystemInformationService } from 'src/app/services/user-system-infor
 import { HelperService } from 'src/app/services/appHelper.service';
 import { GetRolesI } from '../mantenimiento-pei/interfaces/RolesPermisos.interface';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
+import { RolesPermisosService } from '../../services/roles.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -35,6 +36,7 @@ export class UsuariosComponent implements OnInit {
     private apiUsuario: UsuarioService,
     private helperHandler: HelperService,
     public permisosCRUD: PermissionService,
+    private rolesPermisosService: RolesPermisosService,
     private userSystemService: UserSystemInformationService,
   ) {
     this.usuariosForm = this.fb.group({
@@ -97,9 +99,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   getAllRoles() {
-    this.apiUsuario.getAllRoles().subscribe((res: any) => { 
-      console.log(res);
-      
+    this.rolesPermisosService.getRolesPermisos().subscribe((res: any) => { 
       this.roles = res.data; })
   }
 
@@ -109,8 +109,6 @@ export class UsuariosComponent implements OnInit {
 
   getUsuarios() {
     this.apiUsuario.getUsuario().subscribe((res: any) => { 
-      console.log(res);
-      
       this.usuarios = res.data; })
   }
 

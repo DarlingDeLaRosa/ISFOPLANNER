@@ -15,7 +15,11 @@ export const authGuard: CanActivateFn = (route, state) => {
 
 export const authGuardBackToLogIn: CanActivateFn = (route, state) => {
   const auth = inject(UserSystemInformationService)
+  const router = inject(Router)
   
-  if(auth.getDataLocalStorage("token") != undefined) return false
+  if(auth.getDataLocalStorage("token") != undefined) {
+    router.navigate(['/dashboard/ayuda'])
+    return false
+  }
   else return true
 };
