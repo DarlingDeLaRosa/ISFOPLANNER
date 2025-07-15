@@ -162,7 +162,7 @@ body {
 .EjeFiltrosProductoContainer {
     display: grid;
     margin-top: 10px;
-    grid-template-columns: 16% 84%;
+    grid-template-columns: 13% 87%;
     grid-template-rows: 1fr;
     /* height: 70vh; */
 }

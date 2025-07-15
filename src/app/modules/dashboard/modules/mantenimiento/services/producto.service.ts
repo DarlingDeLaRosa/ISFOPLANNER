@@ -26,6 +26,10 @@ export class ProductoService {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos?CurrentPage=${page}&PageSize=${pageSize}&unidad=${unidad ?? ''}&eje=${eje ?? ''}&estrategia=${estrategia ?? ''}&resultadoEfecto=${resultadoEfecto ?? ''}`, this.header))
   }
 
+  public getProductoFilter(page:  number = 1,  pageSize: number = 10, term: string = '') {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos?Term=${term}&CurrentPage=${page}&PageSize=${pageSize}`, this.header))
+  }
+
   public getByIdProducto(id: number) {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/Productos/${id}`, this.header))
   }

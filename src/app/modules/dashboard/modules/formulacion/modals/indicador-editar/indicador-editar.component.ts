@@ -59,8 +59,12 @@ export class IndicadorEditarComponent implements OnInit {
       if (this.indicador.tipoIndicador.id == 1) {
         if (helperHandler.sameLastGoal(this.indicadoresGestionForm.value.logroEsperadoT4, this.indicador.meta)) this.indTypeValidation = true
         else this.indTypeValidation = false
-      } else {
+      } 
+      if (this.indicador.tipoIndicador.id == 2) {
         if (this.indicador.meta == helperHandler.sumTotal(this.indicadoresGestionForm.value)) this.indTypeValidation = true
+        else this.indTypeValidation = false
+      } else {
+        if (helperHandler.calculateAverage(this.indicadoresGestionForm.value)) this.indTypeValidation = true
         else this.indTypeValidation = false
       }
     })
@@ -98,7 +102,6 @@ export class IndicadorEditarComponent implements OnInit {
 
             return 
           })
-          
           if (this.userLogged.recinto.siglas == 'REC') {
             if (this.indicador.alcance.id !== 3) this.metaRecintos = this.indicador.meta
             else {
@@ -142,28 +145,34 @@ export class IndicadorEditarComponent implements OnInit {
   }
 
   emptyFuction() { }
-  validationTypeInd(sendData: () => void, meta: number, logroT4: number, form: FormGroup) {
+
+  validationTypeInd(sendData: () => void, meta: number, logroT4: any, form: FormGroup) {
     if (this.indicador.tipoIndicador.id == 1) {
-      if (this.helperHandler.sameLastGoal(logroT4, meta)) sendData()
-      else { warningMessageAlert(`Los indicadores de flujo deben cumplir con la meta al menos en el ultimo periodo.`) }
+      
+      if (this.helperHandler.sameGoal(logroT4, meta)) sendData()
+      else { warningMessageAlert(`Los indicadores de flujo deben cumplir con la meta al menos en un trimestre.`) }
     }
-    else {
+    if (this.indicador.tipoIndicador.id == 2) {
       if (meta == this.helperHandler.sumTotal(form)) sendData()
       else { warningMessageAlert(`La suma de los resultados esperados debe ser igual a la meta (<b>${meta}</b>).`) }
+    
+    }else {
+      if (meta == this.helperHandler.calculateAverage(form)) sendData()
+      else { warningMessageAlert(`La promedio de los resultados esperados debe ser igual a la meta (<b>${meta}</b>).`) }
     }
   }
 
   saveChanges() {
     if (this.userLogged.recinto.siglas === 'REC') {
-      if (this.indicador.alcance.id !== 3) this.validationTypeInd(() => this.putResultadoEsperadoIndicador(this.indicadoresGestionRecintosForm.value), this.metaRecintos, this.indicadoresGestionRecintosForm.value.logroEsperadoT4, this.indicadoresGestionRecintosForm.value);
+      if (this.indicador.alcance.id !== 3) this.validationTypeInd(() => this.putResultadoEsperadoIndicador(this.indicadoresGestionRecintosForm.value), this.metaRecintos, this.indicadoresGestionRecintosForm.value, this.indicadoresGestionRecintosForm.value);
       else {
         this.validationTypeInd(() => {
           loading(true)
           this.indicadorService.putResultadoEsperadoIndicador(this.indicador.id, this.indicadoresGestionForm.value).subscribe()
         },
           this.metaRectoria, this.indicadoresGestionForm.value.logroEsperadoT4, this.indicadoresGestionForm.value);
-        this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value, this.idMetaRecintos), this.metaRecintos, this.indicadoresGestionRecintosForm.value.logroEsperadoT4, this.indicadoresGestionRecintosForm.value);
+        this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value, this.idMetaRecintos), this.metaRecintos, this.indicadoresGestionRecintosForm.value, this.indicadoresGestionRecintosForm.value);
       }
-    } else this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value, this.idMetaRecintos), this.metaRecintos, this.indicadoresGestionRecintosForm.value.logroEsperadoT4, this.indicadoresGestionRecintosForm.value);
+    } else this.validationTypeInd(() => this.putResultadoEsperadoIndicadorRecintos(this.indicadoresGestionRecintosForm.value, this.idMetaRecintos), this.metaRecintos, this.indicadoresGestionRecintosForm.value, this.indicadoresGestionRecintosForm.value);
   }
 }

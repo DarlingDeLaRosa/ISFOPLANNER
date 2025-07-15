@@ -58,6 +58,10 @@ export class ProductosComponent implements OnInit {
     this.getPresupuestoInstitucional()
   }
 
+  displayName(name: any): string {
+    return name ? `${name.nombre}` : '';
+  }
+
   getPresupuestoInstitucional() {
     this.apiPresupuestoInstitucional.getPresupuestoInstitucional(this.page, true)
       .subscribe((res: any) => { 
@@ -69,7 +73,7 @@ export class ProductosComponent implements OnInit {
   }
 
   getIndicadoresEstrategicos() {
-    this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos(1,100)
+    this.apiIndicadoresEstrategicos.getIndicadoresEstrategicos(1,10, this.productosForm.value.idIndicadorEstrategico)
       .subscribe((res: any) => { this.indicadoresEstrategicos = res.data })
   }
 
@@ -110,7 +114,7 @@ export class ProductosComponent implements OnInit {
     this.productosForm.patchValue({
       id: producto.id,
       nombre: producto.nombre,
-      idIndicadorEstrategico: producto.indicadorEstrategico.id,
+      idIndicadorEstrategico: producto.indicadorEstrategico,
       responsables: producto.responsables.map((responsable: ResponsableI)=>{ return responsable.id}),
     })
   }
@@ -121,6 +125,8 @@ export class ProductosComponent implements OnInit {
   }
 
   saveChanges() {
+    let product = this.productosForm.value
+    this.productosForm.patchValue({ idIndicadorEstrategico: product.idIndicadorEstrategico.id })
     this.helperHandler.saveChanges(() => this.putProducto(), this.productosForm, () => this.postProducto())
   }
 

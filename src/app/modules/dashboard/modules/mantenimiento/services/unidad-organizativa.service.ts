@@ -26,12 +26,16 @@ export class UnidadOrganizativaService {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas?unidadOrganizativa=${unidadOrganizativa}&unidadPadre=${unidadPadre}&unidadResponsable=${unidadResp}`, this.header))
   }
 
+  public getUnidadesOrganizativasFilter(page:number = 1, pageSize: number = 10, term: string = '') {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas?Term=${term}&CurrentPage=${page}&PageSize=${pageSize}&unidadPadre=${false}&unidadResponsable=${false}`, this.header))
+  }
+
   public getUnidadesOrganizativasPeritos() {
     return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas/peritos`, this.header))
   }
 
-  public getUnidadesOrganizativasRecintos() {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas/recintos`, this.header))
+  public getUnidadesOrganizativasRecintos(page:number = 1, pageSize: number = 10, term: string = '') {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/UnidadesOrganizativas/recintos?Term=${term}&CurrentPage=${page}&PageSize=${pageSize}`, this.header))
   }
 
   public getUnidadesOrganizativasRecintosById(id: number) {

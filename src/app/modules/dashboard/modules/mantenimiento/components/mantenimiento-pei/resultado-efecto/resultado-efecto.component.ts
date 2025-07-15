@@ -9,6 +9,8 @@ import { HelperService } from 'src/app/services/appHelper.service';
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { PaginationI } from 'src/app/interfaces/Response.interfaces';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+
 
 @Component({
   selector: 'app-resultado-efecto',
@@ -31,11 +33,12 @@ export class ResultadoEfectoComponent implements OnInit {
     private estrategiasService: EstrategiasService,
     private resultadoEfectoService: ResultadoEfectoService,
     private userSystemService: UserSystemInformationService,
+    // private announcer: LiveAnnouncer
   ) {
     this.resultadoEfectoForm = this.fb.group({
       id: 0,
       nombre: new FormControl('', Validators.required),
-      idEstrategia: new FormControl<number>(0, Validators.required),
+      idEstrategia: new FormControl('', Validators.required),
     })
   }
 
@@ -43,9 +46,13 @@ export class ResultadoEfectoComponent implements OnInit {
     this.getAllEstrategia();
     this.getAllResultadoEfecto();
   }
+  
+  displayName(name: any): string {
+    return name ? `${name.nombre}` : '';
+  }
 
   getAllEstrategia() {
-    this.estrategiasService.getEstrategias(1, 100)
+    this.estrategiasService.getEstrategias(1, 10, this.resultadoEfectoForm.value.idEstrategia)
       .subscribe((resp: any) => { this.estrategia = resp.data; })
   }
 
@@ -58,7 +65,7 @@ export class ResultadoEfectoComponent implements OnInit {
     this.resultadoEfectoForm.setValue({
       id: resultadoEfecto.id!,
       nombre: resultadoEfecto.nombre,
-      idEstrategia: resultadoEfecto.estrategia.id
+      idEstrategia: resultadoEfecto.estrategia
     });
   }
 
@@ -83,6 +90,10 @@ export class ResultadoEfectoComponent implements OnInit {
   }
 
   saveChanges() {
+    let resultEfect = this.resultadoEfectoForm.value
+    this.resultadoEfectoForm.patchValue({
+      idEstrategia: resultEfect.idEstrategia.id
+    })
     this.helperHandler.saveChanges(() => this.putResultadoEfecto(), this.resultadoEfectoForm, () => this.postResultadoEfecto())
   }
 

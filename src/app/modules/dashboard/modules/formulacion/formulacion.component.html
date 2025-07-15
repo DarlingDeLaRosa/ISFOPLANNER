@@ -157,8 +157,8 @@
                             </thead>
                             <tbody>
                                 <tr class="dataRow" *ngFor="let indicador of producto.indicadoresGestion">
-                                    <td class="dataCell">{{indicador.nombre}}</td>
-                                    <td class="dataCell">{{indicador.responsables.nombre}}</td>
+                                    <td class="dataCell" [matTooltip]="indicador.nombre">{{indicador.nombre}}</td>
+                                    <td class="dataCell" [matTooltip]="indicador.responsables.nombre">{{indicador.responsables.nombre}}</td>
                                     <td class="dataCell">{{indicador.tipoIndicador.nombre}}</td>
                                     <td class="dataCell">{{indicador.historial[0].montoEjecutado | currency: 'DOP':'symbol':'1.2-2'}}</td>
                                     <td class="dataCell">{{indicador.lineaBase }}<span *ngIf="indicador.esPorcentual">%</span></td>

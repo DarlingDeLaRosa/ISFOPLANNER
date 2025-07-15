@@ -1,28 +1,55 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && resultadoEfectoForm.value.id > 0">Resultado Efecto</h2>
+  <h2 class="Stitle"
+    *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && resultadoEfectoForm.value.id > 0">
+    Resultado Efecto</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="resultadoEfectoForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && resultadoEfectoForm.value.id > 0">
-      <mat-form-field appearance="fill"  style="width: 40%;">
-        <mat-label>Estrategia</mat-label>
-        <mat-select disableRipple formControlName="idEstrategia">
-          <ng-container>
-            <mat-option [value]="estrat.id" *ngFor="let estrat of estrategia">
-              {{estrat.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noEdificio>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+    <form style=" margin-bottom: 15px;" [formGroup]="resultadoEfectoForm" (ngSubmit)="saveChanges()"
+      *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && resultadoEfectoForm.value.id > 0">
+      
+      <div style="display: flex; gap: 5px;">
 
-      <mat-form-field appearance="fill"  style="width: 59%;">
-        <mat-label>Resultado Efecto</mat-label>
-        <input matInput formControlName="nombre">
-      </mat-form-field>
+        <mat-form-field appearance="fill" style="flex: 1.5">
+          <mat-label>Estrategia</mat-label>
+          <input matInput [matAutocomplete]="indEst" appearance="fill" formControlName="idEstrategia"
+            (input)="getAllEstrategia()">
+
+          <mat-autocomplete #indEst="matAutocomplete" [displayWith]="displayName">
+            <ng-container *ngIf="estrategia && estrategia.length; else noEstrategy">
+              <mat-option [value]="estrat" *ngFor="let estrat of estrategia">
+                {{estrat.nombre}}
+              </mat-option>
+            </ng-container>
+            <ng-template #noEstrategy>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-autocomplete>
+
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Estrategia</mat-label>
+          <mat-select disableRipple formControlName="idEstrategia">
+            <ng-container>
+              <mat-option [value]="estrat.id" *ngFor="let estrat of estrategia">
+                {{estrat.nombre}}</mat-option>
+            </ng-container>
+            <ng-template #noEdificio>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field>&nbsp; -->
+
+        <mat-form-field appearance="fill" style="flex: 2;">
+          <mat-label>Resultado Efecto</mat-label>
+          <input matInput formControlName="nombre">
+        </mat-form-field>
+
+      </div>
 
       <button type="submit" class="greenButton">Guardar cambios</button> &nbsp;
-      <button (click)="resultadoEfectoForm.reset()" *ngIf="resultadoEfectoForm.value.id" class="cleanButton">Limpiar
-        edición</button>
+      <button type="button" (click)="resultadoEfectoForm.reset()" *ngIf="resultadoEfectoForm.value.id"
+        class="cleanButton">Limpiar edición</button>
 
     </form>
 
@@ -37,21 +64,26 @@
             <th class="headerCell">Estrategia</th>
             <th class="headerCell">Resultado efecto</th>
             <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
-            <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!resultadoefectos" class="loader"></div> </th>
+            <th class="headerCell" style="width: 5%; padding-right: 15px;">
+              <div *ngIf="!resultadoefectos" class="loader"></div>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let resultadoefecto of resultadoefectos">
             <!-- <td class="dataIndiCell">{{resultadoefecto.estrategia.ejeEstrategico.numeroEje}}</td> -->
-            <td class="dataIndiCell">{{resultadoefecto.estrategia.nombre}}</td>
-            <td class="dataIndiCell">{{resultadoefecto.nombre}}</td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon class="editIcon" (click)="setValueResultadoEfecto(resultadoefecto)">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon class="removeIcon" (click)="deleteResultadoEfecto(resultadoefecto.id)">delete</mat-icon></td>
+            <td class="dataIndiCell" [matTooltip]="resultadoefecto.estrategia.nombre">
+              {{resultadoefecto.estrategia.nombre}}</td>
+            <td class="dataIndiCell" [matTooltip]="resultadoefecto.nombre">{{resultadoefecto.nombre}}</td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon class="editIcon"
+                (click)="setValueResultadoEfecto(resultadoefecto)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon
+                class="removeIcon" (click)="deleteResultadoEfecto(resultadoefecto.id)">delete</mat-icon></td>
           </tr>
 
         </tbody>
         <tfoot *ngIf="resultadoefectos && resultadoefectos.length > 0">
-          <tr class="paginatorRow" >
+          <tr class="paginatorRow">
             <td class="footerCell"></td>
             <td class="footerCell"></td>
             <td class="footerCell"></td>
@@ -60,7 +92,7 @@
                 <mat-icon class="rowIcon" (click)="previousPage()">navigate_before</mat-icon>
                 <h5 style="margin: 0;">{{page}} / {{pagination.totalPages}}</h5>
                 <mat-icon class="rowIcon" (click)="nextPage()">navigate_next</mat-icon>
-            </span>
+              </span>
             </td>
           </tr>
         </tfoot>

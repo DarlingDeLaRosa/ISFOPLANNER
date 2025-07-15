@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                     <tr class="dataRow" *ngFor="let elemento of propiedad.elementoList">
-                        <td class="dataIndiCell">{{elemento.nombre}}</td>
+                        <td class="dataIndiCell" [matTooltip]="elemento.nombre">{{elemento.nombre}}</td>
                     </tr>
                 </tbody>
             </table>

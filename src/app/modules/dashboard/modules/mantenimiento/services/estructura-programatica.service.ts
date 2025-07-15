@@ -24,8 +24,8 @@ export class EstructuraProgramaticaService {
     private userSystemService: UserSystemInformationService,
   ) { }
 
-  public getEstructurasProgramaticas(page:number = 1, pageSize:number = 10) {
-    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/EstructurasProgramaticas?CurrentPage=${page}&PageSize=${pageSize}`, this.header))
+  public getEstructurasProgramaticas(page:number = 1, pageSize: number = 10, term: string = '') {
+    return this.helperHandler.handleRequest(() => this.http.get(`${this.baseURL}/EstructurasProgramaticas?Term=${term}&CurrentPage=${page}&PageSize=${pageSize}`, this.header))
   }
 
   public postEstructurasProgramaticas(estructuraProData: EstructuraProgramaticaI) {

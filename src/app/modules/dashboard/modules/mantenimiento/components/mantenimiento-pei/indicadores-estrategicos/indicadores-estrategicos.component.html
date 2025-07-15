@@ -1,17 +1,22 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && IndicadorEstrForm.value.id > 0">Indicadores Estrategicos</h2>
+  <h2 class="Stitle"
+    *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && indicadorEstrForm.value.id > 0">
+    Indicadores Estrategicos</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="IndicadorEstrForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && IndicadorEstrForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="indicadorEstrForm" (ngSubmit)="saveChanges()"
+      *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && indicadorEstrForm.value.id > 0">
 
-      <mat-form-field appearance="fill"  style="width: 65.5%;">
-        <mat-label>Indicador estrategico</mat-label>
-        <input matInput formControlName="nombre">
-      </mat-form-field>&nbsp;
+      <div style="display: flex; gap: 5px;">
+        <mat-form-field appearance="fill" style="flex: 2.5;">
+          <mat-label>Indicador estrategico</mat-label>
+          <input matInput formControlName="nombre">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill"  style="width: 16%;">
-        <mat-label>Linea Base</mat-label>
-        <input matInput type="number" formControlName="lineaBase">
-      </mat-form-field>&nbsp;
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Linea Base</mat-label>
+          <input matInput type="number" formControlName="lineaBase">
+        </mat-form-field>
+      </div>
 
       <!-- <mat-form-field appearance="fill"  style="width: 16.5%;">
         <mat-label>Meta general</mat-label>
@@ -21,11 +26,9 @@
       <div class="tipoIndicador">
         <h4>¿Indique el tipo de indicador?</h4>
         <mat-radio-group formControlName="idTipoIndicador">
-          <mat-radio-button [value]="1" color="primary">Indicador de flujo</mat-radio-button>
-          <!--matTooltip="Todos Los productos seran calculados con un 18% de ITBIS." [disabled]="disableItbis" -->
-          <mat-radio-button [value]="2" color="primary">Indicador Acumulativo</mat-radio-button>
-          <!--matTooltip="Los productos tomaran el porcentaje de ITBIS especificado al momento de la creación." [disabled]="disableItbis"-->
-        </mat-radio-group>    
+          <mat-radio-button [value]="1" matTooltip="La meta anual del indicador debe alcanzarse en al menos uno de los trimestres." color="primary">Indicador de flujo</mat-radio-button>
+          <mat-radio-button [value]="2" matTooltip="La suma de los objetivos de los cuatro trimestres debe ser igual a la meta anual." color="primary">Indicador Acumulativo</mat-radio-button>
+        </mat-radio-group>
       </div><br>
 
       <div class="tipoIndicador">
@@ -33,47 +36,126 @@
         <mat-radio-group formControlName="esPorcentual">
           <mat-radio-button [value]="false" color="primary">Valor unitario</mat-radio-button>
           <mat-radio-button [value]="true" color="primary">Porcentajes</mat-radio-button>
-        </mat-radio-group>    
+        </mat-radio-group>
       </div><br>
 
-      <mat-form-field appearance="fill"  style="width: 33%;">
-        <mat-label>Resultado Efecto</mat-label>
-        <mat-select formControlName="idResultadoefecto">
-          <ng-container *ngIf="resultadosEfecto.length > 0; else noResEfec">
-            <mat-option [value]="resultadoefecto.id" *ngFor="let resultadoefecto of resultadosEfecto">
-              {{resultadoefecto.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noResEfec>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+      <div style="display: flex; gap: 5px;">
 
-      <mat-form-field appearance="fill"  style="width: 32%;">
-        <mat-label>Medio verificación</mat-label>
-        <mat-select multiple disableRipple formControlName="mediosVerificaciones">
-          <ng-container *ngIf="mediosVerificacion.length > 0; else noMedVer">
-            <mat-option [value]="medioVerificacion.id" *ngFor="let medioVerificacion of mediosVerificacion">
-              {{medioVerificacion.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noMedVer>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+        <mat-form-field style="flex: 1;" appearance="fill">
+          <mat-label>Supuestos y Riesgos</mat-label>
 
-      <mat-form-field appearance="fill"  style="width: 33%;">
-        <mat-label>Requerimientos</mat-label>
-        <mat-select multiple disableRipple formControlName="requerimientos">
-          <ng-container *ngIf="requerimientos.length > 0; else noReq">
-            <mat-option [value]="requerimiento.id" *ngFor="let requerimiento of requerimientos">
-              {{requerimiento.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noReq>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+          <mat-chip-grid #chipGrids aria-label="Supuestos y riesgos seleccionados">
+
+            <mat-chip-row *ngFor="let supuesto of supuestosSeleccionados" (removed)="removeSp(supuesto)">
+              {{ supuesto.nombre }}
+              <button matChipRemove [attr.aria-label]="'Eliminar ' + supuesto.nombre">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+
+          </mat-chip-grid>
+
+          <input placeholder="Agregar supuesto..." [formControl]="supuestoCtrl" [matChipInputFor]="chipGrids"
+            [matAutocomplete]="autoS" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addSp($event)" />
+
+          <mat-autocomplete #autoS="matAutocomplete" (optionSelected)="selectedSp($event)">
+            <mat-option *ngFor="let supuestos of filteredSupuestos | async" [value]="supuestos">
+              {{ supuestos.nombre }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Supuestos y Riesgos</mat-label>
+          <mat-select multiple disableRipple formControlName="supuestosRiesgos">
+            <ng-container *ngIf="supuestosRiesgos.length > 0; else noSupRies">
+              <mat-option [value]="supuestosRiesgo.id" *ngFor="let supuestosRiesgo of supuestosRiesgos">
+                {{supuestosRiesgo.nombre}}</mat-option>
+              </ng-container>
+              <ng-template #noSupRies>
+                <mat-option>No hay campos disponibles</mat-option>
+              </ng-template>
+            </mat-select>
+          </mat-form-field> -->
+
+        <mat-form-field style="flex: 1;" appearance="fill">
+          <mat-label>Medios de Verificación</mat-label>
+
+          <mat-chip-grid #chipGrid aria-label="Medios seleccionados">
+
+            <mat-chip-row *ngFor="let medio of mediosSeleccionados" (removed)="remove(medio)">
+              {{ medio.nombre }}
+              <button matChipRemove [attr.aria-label]="'Eliminar ' + medio.nombre">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+
+          </mat-chip-grid>
+
+          <input placeholder="Agregar medio..." [formControl]="medioCtrl" [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)" />
+
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let medio of filteredMedios | async" [value]="medio">
+              {{ medio.nombre }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Medio verificación</mat-label>
+          <mat-select multiple disableRipple formControlName="mediosVerificaciones">
+            <ng-container *ngIf="mediosVerificacion.length > 0; else noMedVer">
+              <mat-option [value]="medioVerificacion.id" *ngFor="let medioVerificacion of mediosVerificacion">
+                {{medioVerificacion.nombre}}</mat-option>
+            </ng-container>
+            <ng-template #noMedVer>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field> -->
+
+        <mat-form-field style="flex: 1;" appearance="fill">
+          <mat-label>Requerimientos</mat-label>
+
+          <mat-chip-grid #chipGridr aria-label="Requerimientos seleccionados">
+
+            <mat-chip-row *ngFor="let requerimiento of requerimientosSeleccionados" (removed)="removeRq(requerimiento)">
+              {{ requerimiento.nombre }}
+              <button matChipRemove [attr.aria-label]="'Eliminar ' + requerimiento.nombre">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+
+          </mat-chip-grid>
+
+          <input placeholder="Agregar requerimiento..." [formControl]="requerimientoCtrl" [matChipInputFor]="chipGridr"
+            [matAutocomplete]="autoR" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)" />
+
+          <mat-autocomplete #autoR="matAutocomplete" (optionSelected)="selectedRq($event)">
+            <mat-option *ngFor="let requerimiento of filteredRequerimientos | async" [value]="requerimiento">
+              {{ requerimiento.nombre }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Requerimientos</mat-label>
+          <mat-select multiple disableRipple formControlName="requerimientos">
+            <ng-container *ngIf="requerimientos.length > 0; else noReq">
+              <mat-option [value]="requerimiento.id" *ngFor="let requerimiento of requerimientos">
+                {{requerimiento.nombre}}</mat-option>
+            </ng-container>
+            <ng-template #noReq>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field>
+      -->
+      </div>
 
       <!-- <mat-form-field appearance="fill"  style="width: 33%;">
         <mat-label>Involucrados</mat-label>
@@ -88,91 +170,112 @@
         </mat-select>
       </mat-form-field>&nbsp; -->
 
-      <mat-form-field appearance="fill"  style="width: 33%;">
-        <mat-label>Responsables</mat-label>
-        <mat-select multiple disableRipple formControlName="responsables">
-          <ng-container *ngIf="responsables.length > 0; else noRes">
-            <mat-option [value]="responsable.id" *ngFor="let responsable of responsables">
-              {{responsable.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noRes>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+      <div style="display: flex; gap: 5px;">
 
-      <mat-form-field appearance="fill"  style="width: 32%;">
-        <mat-label>Supuestos Riesgos</mat-label>
-        <mat-select multiple disableRipple formControlName="supuestosRiesgos">
-          <ng-container *ngIf="supuestosRiesgos.length > 0; else noSupRies">
-            <mat-option [value]="supuestosRiesgo.id" *ngFor="let supuestosRiesgo of supuestosRiesgos">
-              {{supuestosRiesgo.nombre}}</mat-option>
-          </ng-container>
-          <ng-template #noSupRies>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Responsables</mat-label>
+          <mat-select multiple disableRipple formControlName="responsables">
+            <ng-container *ngIf="responsables.length > 0; else noRes">
+              <mat-option [value]="responsable.id" *ngFor="let responsable of responsables">
+                {{responsable.nombre}}</mat-option>
+            </ng-container>
+            <ng-template #noRes>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field>
 
-      <h2 class="Stitle">Cronograma</h2>
+        <mat-form-field appearance="fill" style="flex: 1">
+          <mat-label>Resultado Efecto</mat-label>
+          <input matInput [matAutocomplete]="resEfec" appearance="fill" formControlName="idResultadoefecto"
+            (input)="getAllResultadoEfecto()">
 
-      <div formGroupName="cronograma" class="cronogramaForm">
+          <mat-autocomplete #resEfec="matAutocomplete" [displayWith]="displayName">
+            <ng-container *ngIf="resultadosEfecto && resultadosEfecto.length; else noresEfec">
+              <mat-option [value]="resultadoefecto" *ngFor="let resultadoefecto of resultadosEfecto">
+                {{resultadoefecto.nombre}}
+              </mat-option>
+            </ng-container>
+            <ng-template #noresEfec>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-autocomplete>
 
-        <span>
-          <mat-form-field appearance="fill"  style="width: 50%;">
-            <mat-label>Primer Año</mat-label>
-            <input matInput type="number" formControlName="anio1">
-          </mat-form-field>&nbsp;
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        </mat-form-field>
 
-          <mat-form-field appearance="fill"  style="width: 48%; ">
-            <mat-label>Primera Meta</mat-label>
-            <input matInput type="number" formControlName="metaAnio1">
-          </mat-form-field>
-        </span>
+        <!-- <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Resultado Efecto</mat-label>
+          <mat-select formControlName="idResultadoefecto">
+            <ng-container *ngIf="resultadosEfecto.length > 0; else noResEfec">
+              <mat-option [value]="resultadoefecto.id" *ngFor="let resultadoefecto of resultadosEfecto">
+                {{resultadoefecto.nombre}}</mat-option>
+            </ng-container>
+            <ng-template #noResEfec>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+          </mat-form-field> -->
 
-        <span>
-          <mat-form-field appearance="fill"  style="width: 48%;">
-            <mat-label>Segundo Año</mat-label>
-            <input matInput type="number" formControlName="anio2">
-          </mat-form-field>&nbsp;
-
-          <mat-form-field appearance="fill"  style="width: 50%;">
-            <mat-label>Segunda Meta</mat-label>
-            <input matInput type="number" formControlName="metaAnio2">
-          </mat-form-field>&nbsp;
-        </span>
-
-        <span>
-          <mat-form-field appearance="fill"  style="width: 50%;">
-            <mat-label>Tercer Año</mat-label>
-            <input matInput type="number" formControlName="anio3">
-          </mat-form-field>&nbsp;
-
-          <mat-form-field appearance="fill"  style="width: 48%;">
-            <mat-label>Tercera Meta</mat-label>
-            <input matInput type="number" formControlName="metaAnio3">
-          </mat-form-field>&nbsp;
-        </span>
-
-        <span>
-          <mat-form-field appearance="fill"  style="width: 48%;">
-            <mat-label>Cuarto Año</mat-label>
-            <input matInput type="number" formControlName="anio4">
-          </mat-form-field>&nbsp;
-
-          <mat-form-field appearance="fill"  style="width: 50%;">
-            <mat-label>Cuarta Meta</mat-label>
-            <input matInput type="number" formControlName="metaAnio4">
-          </mat-form-field>&nbsp;
-        </span>
-
+        <span style="flex: 1;"></span>
       </div>
 
-      <br>
+    <h2 class="Stitle">Cronograma</h2>
 
-      <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-      <button (click)="IndicadorEstrForm.reset()" *ngIf="IndicadorEstrForm.value.id" class="cleanButton">Limpiar
-        edición</button>
+    <div formGroupName="cronograma">
+
+      <div style="display: flex; gap: 5px;">
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Primer Año</mat-label>
+          <input matInput type="number" formControlName="anio1">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1; ">
+          <mat-label>Primera Meta</mat-label>
+          <input matInput type="number" formControlName="metaAnio1">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Segundo Año</mat-label>
+          <input matInput type="number" formControlName="anio2">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Segunda Meta</mat-label>
+          <input matInput type="number" formControlName="metaAnio2">
+        </mat-form-field>
+
+      </div><br>
+
+      <div style="display: flex; gap: 5px;">
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Tercer Año</mat-label>
+          <input matInput type="number" formControlName="anio3">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Tercera Meta</mat-label>
+          <input matInput type="number" formControlName="metaAnio3">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Cuarto Año</mat-label>
+          <input matInput type="number" formControlName="anio4">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Cuarta Meta</mat-label>
+          <input matInput type="number" formControlName="metaAnio4">
+        </mat-form-field>
+
+      </div>
+    </div>
+    <br>
+
+    <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
+    <button (click)="clearForm()" *ngIf="indicadorEstrForm.value.id" class="cleanButton">Limpiar edición</button>
 
     </form>
 
@@ -185,13 +288,13 @@
           <tr class="headerRow" style="background-color: #95ade93f;">
             <th class="headerCell">Indicador</th>
             <th class="headerCell">Resultado efecto</th>
-            <th class="headerCell">Linea Base</th>
-            <th class="headerCell">Meta</th>
-            <th class="headerCell">Requerimientos</th>
+            <th class="headerCell" style="width: 7%;">Linea Base</th>
+            <th class="headerCell" style="width: 7%;">Meta</th>
+            <th class="headerCell" style="width: 7%;">Requerimientos</th>
             <!-- <th class="headerCell">Involucrados</th> -->
-            <th class="headerCell">Responsables</th>
-            <th class="headerCell">Supuestos Riesgos</th>
-            <th class="headerCell">Medio de verificación</th>
+            <th class="headerCell" style="width: 7%;">Responsables</th>
+            <th class="headerCell" style="width: 7%;">Supuestos Riesgos</th>
+            <th class="headerCell" style="width: 7%;">Medio de verificación</th>
             <th class="headerCell" style="width: 5%;"></th>
             <th class="headerCell" style="width: 5%; padding-right: 15px;">
               <div *ngIf="!indicadoresEstrategicos" class="loader"></div>
@@ -200,8 +303,9 @@
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let indicador of indicadoresEstrategicos">
-            <td class="dataIndiCell">{{indicador.nombre}}</td>
-            <td class="dataIndiCell">{{indicador.resultadoEfecto.nombre}}</td>
+            <td class="dataIndiCell" [matTooltip]="indicador.nombre">{{indicador.nombre}}</td>
+            <td class="dataIndiCell" [matTooltip]="indicador.resultadoEfecto.nombre">
+              {{indicador.resultadoEfecto.nombre}}</td>
             <td class="dataIndiCell">{{indicador.lineaBase}}<span *ngIf="indicador.esPorcentual">%</span></td>
             <td class="dataIndiCell">{{indicador.meta}}<span *ngIf="indicador.esPorcentual">%</span></td>
             <td class="dataIndiCell"><mat-icon
@@ -219,12 +323,14 @@
             <td class="dataIndiCell"><mat-icon
                 (click)="openModal(indicador.mediosverificaciones, 'Resultado Efectos', indicador.nombre)"
                 class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon class="editIcon" (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon class="removeIcon" (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon class="editIcon"
+                (click)="setValueIndicadoresEstrategicos(indicador)">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon
+                class="removeIcon" (click)="deleteIndicadoresEstrategicos(indicador)">delete</mat-icon></td>
           </tr>
         </tbody>
         <tfoot *ngIf="indicadoresEstrategicos && indicadoresEstrategicos.length > 0">
-          <tr class="paginatorRow" >
+          <tr class="paginatorRow">
             <td class="footerCell"></td>
             <td class="footerCell"></td>
             <td class="footerCell"></td>
@@ -239,14 +345,14 @@
                 <mat-icon class="rowIcon" (click)="previousPage()">navigate_before</mat-icon>
                 <h5 style="margin: 0;">{{page}} / {{pagination.totalPages}}</h5>
                 <mat-icon class="rowIcon" (click)="nextPage()">navigate_next</mat-icon>
-            </span>
+              </span>
             </td>
           </tr>
         </tfoot>
       </table>
 
     </div>
-    
+
     <div class="noData" *ngIf="indicadoresEstrategicos && indicadoresEstrategicos.length == 0">
       <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>

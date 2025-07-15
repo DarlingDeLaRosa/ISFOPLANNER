@@ -1,48 +1,92 @@
 <div style="padding: 15px;">
-  <h2 class="Stitle" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && indicadoresGestionForm.value.id > 0">Indicadores de Gestion</h2>
+  <h2 class="Stitle"
+    *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && indicadoresGestionForm.value.id > 0">
+    Indicadores de Gestion</h2>
   <div>
-    <form style=" margin-bottom: 15px;" [formGroup]="indicadoresGestionForm" (ngSubmit)="saveChanges()" *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && indicadoresGestionForm.value.id > 0">
+    <form style=" margin-bottom: 15px;" [formGroup]="indicadoresGestionForm" (ngSubmit)="saveChanges()"
+      *ngIf="permisosCRUD.permisoCrear(modulo.mantenimiento) || permisosCRUD.permisoEditar(modulo.mantenimiento) && indicadoresGestionForm.value.id > 0">
 
-      <mat-form-field appearance="fill"  style="width:49%;">
-        <mat-label>Producto</mat-label>
-        <mat-select formControlName="idProducto" disableRipple>
-          <ng-container *ngIf="productos.length > 0; else noProductos">
+      <div style="display: flex; gap: 5px;">
+        <!-- <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Producto</mat-label>
+          <mat-select formControlName="idProducto" disableRipple>
+            <ng-container *ngIf="productos.length > 0; else noProductos">
 
-            <mat-option [value]="producto.id" *ngFor="let producto of productos">
-              {{producto.nombre}}
-            </mat-option>
+              <mat-option [value]="producto.id" *ngFor="let producto of productos">
+                {{producto.nombre}}
+              </mat-option>
 
-          </ng-container>
-          <ng-template #noProductos>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+            </ng-container>
+            <ng-template #noProductos>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field> -->
 
-      <mat-form-field appearance="fill"  style="width:50%;">
-        <mat-label>Estructura programatica</mat-label>
-        <mat-select formControlName="idEstructuraProgramatica" disableRipple>
-          <ng-container *ngIf="productos.length > 0; else noEstructuraPro">
+        <mat-form-field appearance="fill" style="flex: 1">
+          <mat-label>Producto</mat-label>
+          <input matInput [matAutocomplete]="product" appearance="fill" formControlName="idProducto"
+            (input)="getProductos()">
 
-            <mat-option [value]="estructuraPro.id" *ngFor="let estructuraPro of estructurasPro">
-              {{estructuraPro.nombre}}
-            </mat-option>
+          <mat-autocomplete #product="matAutocomplete" [displayWith]="displayName">
+            <ng-container *ngIf="productos && productos.length; else noProduct">
+              <mat-option [value]="producto" *ngFor="let producto of productos">
+                {{producto.nombre}}
+              </mat-option>
+            </ng-container>
+            <ng-template #noProduct>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-autocomplete>
 
-          </ng-container>
-          <ng-template #noEstructuraPro>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field><br>
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Estructura programatica</mat-label>
+          <mat-select formControlName="idEstructuraProgramatica" disableRipple>
+            <ng-container *ngIf="estructurasPro && estructurasPro.length > 0; else noEstructuraPro">
+
+              <mat-option [value]="estructuraPro.id" *ngFor="let estructuraPro of estructurasPro">
+                {{estructuraPro.nombre}}
+              </mat-option>
+
+            </ng-container>
+            <ng-template #noEstructuraPro>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field> -->
+
+        <mat-form-field appearance="fill" style="flex: 1">
+          <mat-label>Estructura programatica</mat-label>
+          <input matInput [matAutocomplete]="structure" appearance="fill" formControlName="idEstructuraProgramatica"
+            (input)="getEstructuraPro()">
+
+          <mat-autocomplete #structure="matAutocomplete" [displayWith]="displayName">
+            <ng-container *ngIf="estructurasPro && estructurasPro.length; else noStructure">
+              <mat-option [value]="estructuraPro" *ngFor="let estructuraPro of estructurasPro">
+                {{estructuraPro.nombre}}
+              </mat-option>
+            </ng-container>
+            <ng-template #noStructure>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-autocomplete>
+
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        </mat-form-field>
+      </div>
 
       <div class="tipoIndicador">
         <h4>¿Cual es el tipo del indicador?</h4>
-        <mat-radio-group formControlName="idTipoIndicador">
-          <mat-radio-button [value]="1" color="primary">Indicador de flujo</mat-radio-button>
-          <!--matTooltip="Todos Los productos seran calculados con un 18% de ITBIS." [disabled]="disableItbis" -->
-          <mat-radio-button [value]="2" color="primary">Indicador Acumulativo</mat-radio-button>
+        <mat-radio-group formControlName="idTipoIndicador" style="width: 530px;">
+          <mat-radio-button [value]="1" matTooltip="La meta anual del indicador debe alcanzarse en al menos uno de los trimestres." color="primary">Indicador de flujo</mat-radio-button>
+          <!-- [disabled]="disableItbis" -->
+          <mat-radio-button [value]="2" matTooltip="La suma de los objetivos de los cuatro trimestres debe ser igual a la meta anual." color="primary">Indicador Acumulativo</mat-radio-button>
           <!--matTooltip="Los productos tomaran el porcentaje de ITBIS especificado al momento de la creación." [disabled]="disableItbis"-->
-        </mat-radio-group>    
+          <mat-radio-button [value]="3" matTooltip="El promedio de los objetivos trimestrales debe coincidir con la meta anual." color="primary">Indicador por taza</mat-radio-button>
+        </mat-radio-group>
       </div><br>
 
       <div class="tipoIndicador">
@@ -50,15 +94,44 @@
         <mat-radio-group formControlName="esPorcentual">
           <mat-radio-button [value]="false" color="primary">Valor unitario</mat-radio-button>
           <mat-radio-button [value]="true" color="primary">Porcentajes</mat-radio-button>
-        </mat-radio-group>    
+        </mat-radio-group>
       </div><br>
 
-      <mat-form-field appearance="fill"  style="width: 42%;">
-        <mat-label>Nombre indicador operativo</mat-label>
-        <input matInput formControlName="nombre">
-      </mat-form-field>&nbsp;
+      <div style="display: flex; gap: 5px;">
 
-      <mat-form-field appearance="fill"  style="width: 35%;">
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Nombre indicador operativo</mat-label>
+          <textarea matInput formControlName="nombre"></textarea>
+        </mat-form-field>
+
+        <mat-form-field style="flex: 2;" appearance="fill">
+          <mat-label>Medios de Verificación</mat-label>
+
+          <mat-chip-grid #chipGrid aria-label="Medios seleccionados">
+
+            <mat-chip-row *ngFor="let medio of mediosSeleccionados" (removed)="remove(medio)">
+              {{ medio.nombre }}
+              <button matChipRemove [attr.aria-label]="'Eliminar ' + medio.nombre">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+
+          </mat-chip-grid>
+
+          <input placeholder="Agregar medio..." [formControl]="medioCtrl" [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)" />
+
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let medio of filteredMedios | async" [value]="medio">
+              {{ medio.nombre }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+      </div>
+
+      <!-- <mat-form-field appearance="fill"  style="width: 35%;">
         <mat-label>Medio de verificacion</mat-label>
         <mat-select multiple formControlName="mediosVerificaciones" disableRipple>
           <ng-container *ngIf="mediosVerificacion.length > 0; else noMedioVer">
@@ -72,51 +145,73 @@
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
         </mat-select>
-      </mat-form-field>&nbsp;
+      </mat-form-field>&nbsp; -->
 
-      <mat-form-field appearance="fill"  style="width: 11.2%;">
-        <mat-label>Linea Base</mat-label>
-        <input type="number" formControlName="lineaBase" matInput>
-      </mat-form-field>&nbsp;
+      <div style="display: flex; gap: 5px;">
 
-      <mat-form-field appearance="fill"  style="width: 9.2%;">
-        <mat-label>Meta</mat-label>
-        <input type="number" formControlName="meta" matInput>
-      </mat-form-field><br>
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Linea Base</mat-label>
+          <input type="number" formControlName="lineaBase" matInput>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill"  style="width: 19.2%;">
-        <mat-label>Alcance</mat-label>
-        <mat-select formControlName="idAlcance" disableRipple (selectionChange)="setPossiblesResp($event.value)">
-          <ng-container *ngIf="alcances.length > 0; else noAlcance">
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Meta</mat-label>
+          <input type="number" formControlName="meta" matInput>
+        </mat-form-field>
 
-            <mat-option [value]="alcance.id" *ngFor="let alcance of alcances">
-              {{alcance.nombre}}
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Alcance</mat-label>
+          <mat-select formControlName="idAlcance" disableRipple (selectionChange)="setPossiblesResp($event.value)">
+            <ng-container *ngIf="alcances.length > 0; else noAlcance">
+
+              <mat-option [value]="alcance.id" *ngFor="let alcance of alcances">
+                {{alcance.nombre}}
+              </mat-option>
+
+            </ng-container>
+            <ng-template #noAlcance>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Frencuencia</mat-label>
+          <mat-select formControlName="idFrecuencia" disableRipple>
+            <ng-container *ngIf="frecuencias.length > 0; else noFrecuencia">
+
+              <mat-option [value]="frecuencia.id" *ngFor="let frecuencia of frecuencias">
+                {{frecuencia.nombre}}
+              </mat-option>
+
+            </ng-container>
+            <ng-template #noFrecuencia>
+              <mat-option>No hay campos disponibles</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- <mat-form-field appearance="fill" style="width: 50%;">
+        <mat-label>Responsable</mat-label>
+        <input matInput [matAutocomplete]="responsable" appearance="fill" formControlName="idResponsable"
+        >
+
+        <mat-autocomplete #responsable="matAutocomplete" [displayWith]="displayName">
+          <ng-container *ngIf="unidadesOrg && unidadesOrg.length; else noStructure">
+            <mat-option [value]="unidadOrg" *ngFor="let unidadOrg of unidadesOrg">
+              {{unidadOrg.nombre}}
             </mat-option>
-
           </ng-container>
-          <ng-template #noAlcance>
+          <ng-template #noStructure>
             <mat-option>No hay campos disponibles</mat-option>
           </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
+        </mat-autocomplete>
 
-      <mat-form-field appearance="fill"  style="width: 19.2%;">
-        <mat-label>Frencuencia</mat-label>
-        <mat-select formControlName="idFrecuencia" disableRipple>
-          <ng-container *ngIf="frecuencias.length > 0; else noFrecuencia">
+        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+      </mat-form-field><br> -->
 
-            <mat-option [value]="frecuencia.id" *ngFor="let frecuencia of frecuencias">
-              {{frecuencia.nombre}}
-            </mat-option>
-
-          </ng-container>
-          <ng-template #noFrecuencia>
-            <mat-option>No hay campos disponibles</mat-option>
-          </ng-template>
-        </mat-select>
-      </mat-form-field>&nbsp;
-
-      <mat-form-field appearance="fill"  style="width: 60%;">
+      <mat-form-field appearance="fill" style="width: 50%;">
         <mat-label>Responsable</mat-label>
         <mat-select formControlName="idResponsable" disableRipple>
           <ng-container *ngIf="unidadesOrg.length > 0; else noResP">
@@ -133,9 +228,10 @@
       </mat-form-field><br>
 
       <button type="submit" class="greenButton">Guardar cambios</button>&nbsp;
-      <button (click)="clearForm()" *ngIf="indicadoresGestionForm.value.id"
-        class="cleanButton">Limpiar edición</button>
+      <button type="button" (click)="clearForm()" *ngIf="indicadoresGestionForm.value.id" class="cleanButton">Limpiar
+        edición</button>
 
+      <!-- <button type="button" (click)="muestra()" class="cleanButton">muestra</button> -->
     </form>
 
     <h2 class="Stitle">Listado de Indicadores de Gestion</h2>
@@ -150,28 +246,35 @@
             <th class="headerCell">Frecuencia</th>
             <th class="headerCell">Linea Base</th>
             <th class="headerCell">Meta</th>
-            <th class="headerCell">Responsables</th>
-            <th class="headerCell">Medio de verificación</th>
+            <th class="headerCell">Responsable </th>
+            <th class="headerCell" style="width: 5%;">Medio de verificación</th>
             <th class="headerCell" style="width: 5%;" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"></th>
-            <th class="headerCell" style="width: 5%; padding-right: 15px;"> <div *ngIf="!indicadoresGestion" class="loader"></div> </th>
+            <th class="headerCell" style="width: 5%; padding-right: 15px;">
+              <div *ngIf="!indicadoresGestion" class="loader"></div>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr class="dataRow" *ngFor="let indicadorG of indicadoresGestion">
-            <td class="dataIndiCell">{{indicadorG.nombre}}</td>
-            <td class="dataIndiCell">{{indicadorG.producto.nombre}}</td>
+            <td class="dataIndiCell" [matTooltip]="indicadorG.nombre">{{indicadorG.nombre}}</td>
+            <td class="dataIndiCell" [matTooltip]="indicadorG.producto.nombre">{{indicadorG.producto.nombre}}</td>
             <td class="dataIndiCell">{{indicadorG.alcance.nombre}}</td>
             <td class="dataIndiCell">{{indicadorG.frecuencia.nombre}}</td>
             <td class="dataIndiCell">{{indicadorG.lineaBase}}<span *ngIf="indicadorG.esPorcentual">%</span></td>
             <td class="dataIndiCell">{{indicadorG.meta}}<span *ngIf="indicadorG.esPorcentual">%</span></td>
-            <td class="dataIndiCell">{{indicadorG.responsables.nombre}}</td>
-            <td class="dataIndiCell"><mat-icon (click)="openDetailModalView(indicadorG.mediosverificaciones , 'Medios de verificación', indicadorG.nombre)" class="detailsIcon">list</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)" ><mat-icon (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>
-            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)" ><mat-icon (click)="deleteIndicadoresGestion(indicadorG.id)" class="removeIcon">delete</mat-icon></td>
+            <td class="dataIndiCell" [matTooltip]="indicadorG.responsables.nombre">{{indicadorG.responsables.nombre}}
+            </td>
+            <td class="dataIndiCell"><mat-icon
+                (click)="openDetailModalView(indicadorG.mediosverificaciones , 'Medios de verificación', indicadorG.nombre)"
+                class="detailsIcon">list</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon
+                (click)="setValueEditIndicadoresGestion(indicadorG)" class="editIcon">edit</mat-icon></td>
+            <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEliminar(modulo.mantenimiento)"><mat-icon
+                (click)="deleteIndicadoresGestion(indicadorG.id)" class="removeIcon">delete</mat-icon></td>
           </tr>
         </tbody>
-        <tfoot  *ngIf="indicadoresGestion && indicadoresGestion.length > 0">
-          <tr class="paginatorRow" >
+        <tfoot *ngIf="indicadoresGestion && indicadoresGestion.length > 0">
+          <tr class="paginatorRow">
             <td class="footerCell"></td>
             <td class="footerCell"></td>
             <td class="footerCell"></td>
@@ -186,13 +289,13 @@
                 <mat-icon class="rowIcon" (click)="previousPage()">navigate_before</mat-icon>
                 <h5 style="margin: 0;">{{page}} / {{pagination.totalPages}}</h5>
                 <mat-icon class="rowIcon" (click)="nextPage()">navigate_next</mat-icon>
-            </span>
+              </span>
             </td>
           </tr>
         </tfoot>
       </table>
     </div>
-    
+
     <div class="noData" *ngIf="indicadoresGestion && indicadoresGestion.length == 0">
       <img class="imgNoData" src="../../../../../assets/NO_DATA_ILUSTRACION.png" alt="No hay Datos.">
     </div>

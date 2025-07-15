@@ -43,8 +43,8 @@
           </thead>
           <tbody>
             <tr class="dataRow" *ngFor="let item of ejes">
-              <td class="dataIndiCell">{{item.nombre}}</td>
-              <td class="dataIndiCell">{{item.objetivo}}</td>
+              <td class="dataIndiCell" [matTooltip]="item.nombre">{{item.nombre}}</td>
+              <td class="dataIndiCell" [matTooltip]="item.objetivo">{{item.objetivo}}</td>
               <td class="dataIndiCell">{{item.numeroEje}}</td>
               <td class="dataIndiCell" *ngIf="permisosCRUD.permisoEditar(modulo.mantenimiento)"><mat-icon
                   class="editIcon" (click)="setValueEje(item)">edit</mat-icon></td>

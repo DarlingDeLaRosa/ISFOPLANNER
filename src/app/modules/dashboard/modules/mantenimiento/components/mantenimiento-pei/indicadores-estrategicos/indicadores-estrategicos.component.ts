@@ -19,6 +19,10 @@ import { EntidadListViewComponent } from '../../../modals/entidad-list-view/resp
 import { PermissionService } from 'src/app/services/applyPermissions.service';
 import { UserSystemInformationService } from 'src/app/services/user-system-information.service';
 import { PaginationI } from 'src/app/interfaces/Response.interfaces';
+import { Observable, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-indicadores-estrategicos',
@@ -29,7 +33,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
 
   page: number = 1
   pagination!: PaginationI
-  IndicadorEstrForm: FormGroup;
+  indicadorEstrForm: FormGroup;
   responsables: Array<ResponsableI> = [];
   requerimientos: Array<RequerimientoI> = [];
   resultadosEfecto: Array<ResultadoEfectoI> = [];
@@ -38,6 +42,10 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   indicadoresEstrategicos!: Array<IndicadoresEstrategicosI>;
   modulo = this.userSystemService.modulosSis
   
+  medioCtrl = new FormControl<MedioVerificacionI | string>('');
+  supuestoCtrl = new FormControl<SupuestosRiesgosI | string>('');
+  requerimientoCtrl = new FormControl<RequerimientoI | string>('');
+
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -51,7 +59,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     private medioVerificacionService: MedioVerificacionService,
     private indicadoresEstraService: IndicadorEstrategicoService,
   ) {
-    this.IndicadorEstrForm = this.fb.group({
+    this.indicadorEstrForm = this.fb.group({
       id: 0,
       nombre: new FormControl('', Validators.required),
       meta: new FormControl<number>(0, Validators.required),
@@ -61,7 +69,7 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       mediosVerificaciones: new FormControl(''),
       idTipoIndicador: new FormControl('', Validators.required),
       esPorcentual: new FormControl('', Validators.required),
-      idResultadoefecto: new FormControl<number>(0, Validators.required),
+      idResultadoefecto: new FormControl('', Validators.required),
       responsables: new FormControl('', Validators.required),
 
       cronograma: this.fb.group({
@@ -76,6 +84,30 @@ export class IndicadoresEstrategicosComponent implements OnInit {
         metaAnio4: new FormControl('', Validators.required),
       }),
     })
+
+    this.filteredMedios = this.medioCtrl.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value?.nombre ?? ''),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(nombre => this._filtrarMedios(nombre))
+    );
+
+    this.filteredSupuestos = this.supuestoCtrl.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value?.nombre ?? ''),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(nombre => this._filtrarSupuestos(nombre))
+    );
+
+    this.filteredRequerimientos = this.requerimientoCtrl.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value?.nombre ?? ''),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(nombre => this._filtrarRequerimientos(nombre))
+    );
   }
 
   ngOnInit(): void {
@@ -88,8 +120,12 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     this.getAllIndicadoresEstrategicos()
   }
 
+  displayName(name: any): string {
+    return name ? `${name.nombre}` : '';
+  }
+
   getAllResultadoEfecto() {
-    this.resultadoEfectoService.getResultadoEfecto(1, 100).subscribe((resp: any) => { this.resultadosEfecto = resp.data; })
+    this.resultadoEfectoService.getResultadoEfecto(1, 10, this.indicadorEstrForm.value.idResultadoefecto ).subscribe((resp: any) => { this.resultadosEfecto = resp.data; })
   }
 
   getAllIndicadoresEstrategicos() {
@@ -112,9 +148,33 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     this.supuestoRiesgoService.getSupuestosRiesgos(1,200).subscribe((resp: any) => { this.supuestosRiesgos = resp.data; })
   }
 
-  setValueIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {
+  async setValueIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {
     
-    this.IndicadorEstrForm.patchValue({
+    this.medioVerificacionService.getMedioVerificacion(1, 500).subscribe((res: any) => {
+      const allMedios: MedioVerificacionI[] = res.data;
+      this.mediosSeleccionados = allMedios.filter(m =>
+        indicadorEstrategico.mediosverificaciones.some((mv: MedioVerificacionI) => mv.id === m.id)
+      );
+      this._actualizarMediosVerificacionIds();
+    });
+    
+    this.medioVerificacionService.getMedioVerificacion(1, 500).subscribe((res: any) => {
+      const allSupuestos: SupuestosRiesgosI[] = res.data;
+      this.supuestosSeleccionados = allSupuestos.filter(m =>
+        indicadorEstrategico.supuestosRiesgos.some((mv: SupuestosRiesgosI) => mv.id === m.id)
+      );
+      this._actualizarSupuestosIds();
+    });
+
+    this.requerimientosService.getRequerimientos(1, 500).subscribe((res: any) => {
+      const allreq: RequerimientoI[] = res.data;
+      this.requerimientosSeleccionados = allreq.filter(m =>
+        indicadorEstrategico.requerimientos.some((mv:RequerimientoI) => mv.id === m.id)
+      );
+      this._actualizarRequerimientosIds();
+    });
+
+    this.indicadorEstrForm.patchValue({
       id: indicadorEstrategico.id,
       nombre: indicadorEstrategico.nombre,
       lineaBase: indicadorEstrategico.lineaBase,
@@ -123,22 +183,28 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       requerimientos: indicadorEstrategico.requerimientos.map((requerimiento: RequerimientoI)=>{ return requerimiento.id}),
       supuestosRiesgos: indicadorEstrategico.supuestosRiesgos.map((supuestosRiesgo: SupuestosRiesgosI)=>{ return supuestosRiesgo.id}),
       mediosVerificaciones: indicadorEstrategico.mediosverificaciones.map((mediosverificacione: MedioVerificacionI)=>{ return mediosverificacione.id}),
-      idResultadoefecto: indicadorEstrategico.resultadoEfecto.id,
+      idResultadoefecto: indicadorEstrategico.resultadoEfecto,
       idTipoIndicador: indicadorEstrategico.tipoIndicador.id,
       responsables: indicadorEstrategico.responsables.map((responsable: ResponsableI)=>{ return responsable.id}),
     });
 
-    this.IndicadorEstrForm.get('cronograma')?.reset(indicadorEstrategico.cronograma)
+    this.indicadorEstrForm.get('cronograma')?.reset(indicadorEstrategico.cronograma)
   }
 
   postIndicadoresEstrategicos() {
-    this.indicadoresEstraService.postIndicadoresEstrategicos(this.IndicadorEstrForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
+    this.indicadoresEstraService.postIndicadoresEstrategicos(this.indicadorEstrForm.value)
+      .subscribe((res: any) => { 
+        this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.indicadorEstrForm) 
+        this.clearForm()
+      })
   }
 
   putIndicadoresEstrategicos() {
-    this.indicadoresEstraService.putIndicadoresEstrategicos(this.IndicadorEstrForm.value)
-      .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
+    this.indicadoresEstraService.putIndicadoresEstrategicos(this.indicadorEstrForm.value)
+      .subscribe((res: any) => { 
+        this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.indicadorEstrForm) 
+        this.clearForm()
+      })
   }
 
   async deleteIndicadoresEstrategicos(indicadorEstrategico: IndicadoresEstrategicosI) {
@@ -147,8 +213,27 @@ export class IndicadoresEstrategicosComponent implements OnInit {
     if (remove) {
       loading(true)
       this.indicadoresEstraService.deleteIndicadoresEstrategicos(indicadorEstrategico.id!)
-        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.IndicadorEstrForm) })
+        .subscribe((res: any) => { this.helperHandler.handleResponse(res, () => this.getAllIndicadoresEstrategicos(), this.indicadorEstrForm) })
     }
+  }
+
+  clearForm() {
+    this.indicadorEstrForm.reset()
+
+    this.mediosSeleccionados = [];
+    this.medioCtrl.setValue('');
+    this.medioCtrl.markAsPristine();
+    this.medioCtrl.markAsUntouched();
+
+    this.requerimientosSeleccionados = [];
+    this.requerimientoCtrl.setValue('');
+    this.requerimientoCtrl.markAsPristine();
+    this.requerimientoCtrl.markAsUntouched();
+
+    this.supuestosSeleccionados = [];
+    this.supuestoCtrl.setValue('');
+    this.supuestoCtrl.markAsPristine();
+    this.supuestoCtrl.markAsUntouched();
   }
 
   openModal(elementoList: any[], nombre: string, entidad: string) {
@@ -156,13 +241,17 @@ export class IndicadoresEstrategicosComponent implements OnInit {
   }
 
   saveChanges() {
-    const {idTipoIndicador, lineaBase } = this.IndicadorEstrForm.value
-    const {metaAnio1, metaAnio2, metaAnio3, metaAnio4} = this.IndicadorEstrForm.value.cronograma
-
-    if (idTipoIndicador == 1 && idTipoIndicador != '') { this.IndicadorEstrForm.patchValue({meta: Math.max(metaAnio1, metaAnio2, metaAnio3, metaAnio4)})}
-    else { this.IndicadorEstrForm.patchValue({meta: metaAnio1 + metaAnio2 + metaAnio3 + metaAnio4 })}
+    let resEfect = this.indicadorEstrForm.value
+    this.indicadorEstrForm.patchValue({
+      idResultadoefecto: resEfect.idResultadoefecto.id
+    })
+    const { idTipoIndicador, lineaBase } = this.indicadorEstrForm.value
+    const {metaAnio1, metaAnio2, metaAnio3, metaAnio4} = this.indicadorEstrForm.value.cronograma
     
-    this.helperHandler.saveChangesIndicadores(() => this.putIndicadoresEstrategicos(), this.IndicadorEstrForm, () => this.postIndicadoresEstrategicos(), lineaBase, this.IndicadorEstrForm.value.meta)
+    if (idTipoIndicador == 1 && idTipoIndicador != '') { this.indicadorEstrForm.patchValue({meta: Math.max(metaAnio1, metaAnio2, metaAnio3, metaAnio4)})}
+    else { this.indicadorEstrForm.patchValue({meta: metaAnio1 + metaAnio2 + metaAnio3 + metaAnio4 })}
+    
+    this.helperHandler.saveChangesIndicadores(() => this.putIndicadoresEstrategicos(), this.indicadorEstrForm, () => this.postIndicadoresEstrategicos(), lineaBase, this.indicadorEstrForm.value.meta)
   }
 
   nextPage() {
@@ -176,6 +265,143 @@ export class IndicadoresEstrategicosComponent implements OnInit {
       this.page -= 1
       ;this.getAllIndicadoresEstrategicos()
     }
+  }
+  // Filter de Multiselects 
+
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  mediosSeleccionados: MedioVerificacionI[] = [];
+  supuestosSeleccionados: SupuestosRiesgosI[] = [];
+  requerimientosSeleccionados: RequerimientoI[] = [];
+  
+  filteredMedios!: Observable<MedioVerificacionI[]>;
+  filteredSupuestos!: Observable<SupuestosRiesgosI[]>;
+  filteredRequerimientos!: Observable<RequerimientoI[]>;
+
+  private _filtrarMedios(valor: string): Observable<MedioVerificacionI[]> {
+    const filtro = valor.toLowerCase();
+    return this.medioVerificacionService.getMedioVerificacion(1, 10, filtro).pipe(
+      map((res: any) => {
+        const data: MedioVerificacionI[] = res.data || [];
+        return data.filter((medio: MedioVerificacionI) =>
+          !this.mediosSeleccionados.some(m => m.id === medio.id)
+        );
+      })
+    );
+  }
+
+  private _filtrarSupuestos(valor: string): Observable<SupuestosRiesgosI[]> {
+    const filtro = valor.toLowerCase();
+    return this.supuestoRiesgoService.getSupuestosRiesgos(1, 10, filtro).pipe(
+      map((res: any) => {
+        const data: SupuestosRiesgosI[] = res.data || [];
+        return data.filter((supuesto: SupuestosRiesgosI) =>
+          !this.supuestosSeleccionados.some(m => m.id === supuesto.id)
+        );
+      })
+    );
+  }
+
+  private _filtrarRequerimientos(valor: string): Observable<RequerimientoI[]> {
+    const filtro = valor.toLowerCase();
+    return this.requerimientosService.getRequerimientos(1, 10, filtro).pipe(
+      map((res: any) => {
+        const data: RequerimientoI[] = res.data || [];
+        return data.filter((requerimiento: RequerimientoI) =>
+          !this.requerimientosSeleccionados.some(m => m.id === requerimiento.id)
+        );
+      })
+    );
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    if (input) input.value = '';
+    this.medioCtrl.setValue('');
+  }
+
+  addSp(event: MatChipInputEvent): void {
+    const input = event.input;
+    if (input) input.value = '';
+    this.supuestoCtrl.setValue('');
+  }
+
+  addRq(event: MatChipInputEvent): void {
+    const input = event.input;
+    if (input) input.value = '';
+    this.requerimientoCtrl.setValue('');
+  }
+
+  remove(medio: MedioVerificacionI): void {
+    const index = this.mediosSeleccionados.findIndex(m => m.id === medio.id);
+    if (index >= 0) {
+      this.mediosSeleccionados.splice(index, 1);
+      this._actualizarMediosVerificacionIds();
+    }
+  }
+
+  removeSp(supuesto: SupuestosRiesgosI): void {
+    const index = this.supuestosSeleccionados.findIndex(m => m.id === supuesto.id);
+    if (index >= 0) {
+      this.supuestosSeleccionados.splice(index, 1);
+      this._actualizarMediosVerificacionIds();
+    }
+  }
+
+  removeRq(req: RequerimientoI): void {
+    const index = this.requerimientosSeleccionados.findIndex(m => m.id === req.id);
+    if (index >= 0) {
+      this.requerimientosSeleccionados.splice(index, 1);
+      this._actualizarMediosVerificacionIds();
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    const medio = event.option.value as MedioVerificacionI;
+    if (!this.mediosSeleccionados.some(m => m.id === medio.id)) {
+      this.mediosSeleccionados.push(medio);
+      this._actualizarMediosVerificacionIds();
+    }
+    this.medioCtrl.setValue('');
+  }
+
+  selectedSp(event: MatAutocompleteSelectedEvent): void {
+    const supuesto = event.option.value as SupuestosRiesgosI;
+    if (!this.supuestosSeleccionados.some(m => m.id === supuesto.id)) {
+      this.supuestosSeleccionados.push(supuesto);
+      this._actualizarSupuestosIds();
+    }
+    this.supuestoCtrl.setValue('');
+  }
+
+  selectedRq(event: MatAutocompleteSelectedEvent): void {
+    const req = event.option.value as RequerimientoI;
+    if (!this.requerimientosSeleccionados.some(m => m.id === req.id)) {
+      this.requerimientosSeleccionados.push(req);
+      this._actualizarRequerimientosIds();
+    }
+    this.requerimientoCtrl.setValue('');
+  }
+
+  private _actualizarMediosVerificacionIds(): void {
+    const ids = this.mediosSeleccionados.map(m => m.id);
+    this.indicadorEstrForm.get('mediosVerificaciones')?.setValue(ids);
+    this.indicadorEstrForm.get('mediosVerificaciones')?.markAsDirty();
+    this.indicadorEstrForm.get('mediosVerificaciones')?.markAsTouched();
+  }
+
+  private _actualizarSupuestosIds(): void {
+    const ids = this.supuestosSeleccionados.map(m => m.id);
+    this.indicadorEstrForm.get('supuestosRiesgos')?.setValue(ids);
+    this.indicadorEstrForm.get('supuestosRiesgos')?.markAsDirty();
+    this.indicadorEstrForm.get('supuestosRiesgos')?.markAsTouched();
+  }
+
+  private _actualizarRequerimientosIds(): void {
+    const ids = this.requerimientosSeleccionados.map(m => m.id);
+    this.indicadorEstrForm.get('requerimientos')?.setValue(ids);
+    this.indicadorEstrForm.get('requerimientos')?.markAsDirty();
+    this.indicadorEstrForm.get('requerimientos')?.markAsTouched();
   }
 }
 

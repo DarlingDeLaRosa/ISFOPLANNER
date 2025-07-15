@@ -16,6 +16,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 const materialComponents: any = [
   MatIconModule,
@@ -23,6 +25,7 @@ const materialComponents: any = [
   MatMenuModule,
   MatInputModule,
   MatRadioModule,
+  MatChipsModule,
   MatOptionModule,
   MatSelectModule,
   MatButtonModule,
@@ -36,6 +39,7 @@ const materialComponents: any = [
   MatNativeDateModule,
   MatDatepickerModule,
   MatSlideToggleModule,
+  MatAutocompleteModule
 ]
 
 @NgModule({

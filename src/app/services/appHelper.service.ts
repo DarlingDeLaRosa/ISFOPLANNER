@@ -103,6 +103,15 @@ export class HelperService {
     // Validaciones para indicadores 
 
     //valida la suma total del objeto que se le envie
+    calculateAverage(objetoSuma: any): number {
+        let suma = 0;
+        Object.keys(objetoSuma).forEach(key => {
+            if (!key.includes('id') && !isNaN(objetoSuma[key])) { suma += parseFloat(objetoSuma[key]); }
+        });
+        return suma / 4;
+    }
+
+    //valida la suma total del objeto que se le envie
     sumTotal(objetoSuma: any): number {
         let suma = 0;
         Object.keys(objetoSuma).forEach(key => {
